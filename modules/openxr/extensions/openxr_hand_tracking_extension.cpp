@@ -225,7 +225,6 @@ void OpenXRHandTrackingExtension::on_process() {
 				// not successful? then we do nothing.
 				print_line("OpenXR: Failed to get tracking for hand", i, "[", OpenXRAPI::get_singleton()->get_error_string(result), "]");
 				godot_tracker->set_has_tracking_data(false);
-				godot_tracker->invalidate_pose("default");
 				continue;
 			}
 
@@ -236,6 +235,8 @@ void OpenXRHandTrackingExtension::on_process() {
 			}
 
 			if (hand_trackers[i].locations.isActive) {
+				godot_tracker->set_has_tracking_data(true);
+
 				// SKELETON_RIG_HUMANOID bone adjustment. This rotation performs:
 				// OpenXR Z+ -> Godot Humanoid Y-  (Back along the bone)
 				// OpenXR Y+ -> Godot Humanoid Z- (Out the back of the hand)
@@ -292,8 +293,7 @@ void OpenXRHandTrackingExtension::on_process() {
 						}
 
 						godot_tracker->set_hand_tracking_source(source);
-						if (location.locationFlags & XR_SPACE_LOCATION_POSITION_VALID_BIT) {
-							godot_tracker->set_has_tracking_data(true);
+						if (location.locationFlags & XR_SPACE_LOCATION_POSITION_TRACKED_BIT) {
 							godot_tracker->set_pose("default", transform, linear_velocity, angular_velocity);
 						} else {
 							godot_tracker->set_has_tracking_data(false);

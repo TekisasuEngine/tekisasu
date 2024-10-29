@@ -428,10 +428,10 @@ Error ResourceImporterWAV::import(const String &p_source_file, const String &p_s
 		loop_end = p_options["edit/loop_end"];
 		// Wrap around to max frames, so `-1` can be used to select the end, etc.
 		if (loop_begin < 0) {
-			loop_begin = CLAMP(loop_begin + frames, 0, frames - 1);
+			loop_begin = CLAMP(loop_begin + frames + 1, 0, frames);
 		}
 		if (loop_end < 0) {
-			loop_end = CLAMP(loop_end + frames, 0, frames - 1);
+			loop_end = CLAMP(loop_end + frames + 1, 0, frames);
 		}
 	}
 
@@ -517,19 +517,16 @@ Error ResourceImporterWAV::import(const String &p_source_file, const String &p_s
 	Vector<uint8_t> dst_data;
 	if (compression == 2) {
 		dst_format = AudioStreamWAV::FORMAT_QOA;
-		qoa_desc desc = {};
+		qoa_desc desc = { 0, 0, 0, { { { 0 }, { 0 } } } };
 		uint32_t qoa_len = 0;
 
 		desc.samplerate = rate;
 		desc.samples = frames;
 		desc.channels = format_channels;
 
-		void *encoded = qoa_encode((short *)pcm_data.ptr(), &desc, &qoa_len);
-		if (encoded) {
-			dst_data.resize(qoa_len);
-			memcpy(dst_data.ptrw(), encoded, qoa_len);
-			QOA_FREE(encoded);
-		}
+		void *encoded = qoa_encode((short *)pcm_data.ptrw(), &desc, &qoa_len);
+		dst_data.resize(qoa_len);
+		memcpy(dst_data.ptrw(), encoded, qoa_len);
 	} else {
 		dst_data = pcm_data;
 	}

@@ -1,22 +1,16 @@
 #!/bin/bash -e
 
-VERSION=0.14.10
-# Uncomment and set a git hash to use specific commit instead of tag.
-#GIT_COMMIT=
+VERSION=0.14.2
 
-pushd "$(dirname "$0")"
+cd thirdparty/thorvg/ || true
 rm -rf AUTHORS LICENSE inc/ src/ *.zip *.tar.gz tmp/
 
 mkdir tmp/ && pushd tmp/
 
 # Release
-if [ ! -z "$GIT_COMMIT" ]; then
-    echo "Updating ThorVG to commit:" $GIT_COMMIT
-    curl -L -O https://github.com/thorvg/thorvg/archive/$GIT_COMMIT.tar.gz
-else
-    echo "Updating ThorVG to tagged release:" $VERSION
-    curl -L -O https://github.com/thorvg/thorvg/archive/v$VERSION.tar.gz
-fi
+curl -L -O https://github.com/thorvg/thorvg/archive/v$VERSION.tar.gz
+# Current Github main branch tip
+#curl -L -O https://github.com/thorvg/thorvg/archive/refs/heads/main.tar.gz
 
 tar --strip-components=1 -xvf *.tar.gz
 rm *.tar.gz
@@ -76,4 +70,4 @@ cp -rv src/loaders/jpg ../src/loaders/
 
 popd
 rm -rf tmp
-popd
+

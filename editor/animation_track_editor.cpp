@@ -266,11 +266,6 @@ bool AnimationTrackKeyEdit::_set(const StringName &p_name, const Variant &p_valu
 				undo_redo->add_undo_method(animation.ptr(), "bezier_track_set_key_value", track, key, prev);
 				undo_redo->add_do_method(this, "_update_obj", animation);
 				undo_redo->add_undo_method(this, "_update_obj", animation);
-				AnimationPlayerEditor *ape = AnimationPlayerEditor::get_singleton();
-				if (ape) {
-					undo_redo->add_do_method(ape, "_animation_update_key_frame");
-					undo_redo->add_undo_method(ape, "_animation_update_key_frame");
-				}
 				undo_redo->commit_action();
 
 				setting = false;
@@ -287,11 +282,6 @@ bool AnimationTrackKeyEdit::_set(const StringName &p_name, const Variant &p_valu
 				undo_redo->add_undo_method(animation.ptr(), "bezier_track_set_key_in_handle", track, key, prev);
 				undo_redo->add_do_method(this, "_update_obj", animation);
 				undo_redo->add_undo_method(this, "_update_obj", animation);
-				AnimationPlayerEditor *ape = AnimationPlayerEditor::get_singleton();
-				if (ape) {
-					undo_redo->add_do_method(ape, "_animation_update_key_frame");
-					undo_redo->add_undo_method(ape, "_animation_update_key_frame");
-				}
 				undo_redo->commit_action();
 
 				setting = false;
@@ -308,11 +298,6 @@ bool AnimationTrackKeyEdit::_set(const StringName &p_name, const Variant &p_valu
 				undo_redo->add_undo_method(animation.ptr(), "bezier_track_set_key_out_handle", track, key, prev);
 				undo_redo->add_do_method(this, "_update_obj", animation);
 				undo_redo->add_undo_method(this, "_update_obj", animation);
-				AnimationPlayerEditor *ape = AnimationPlayerEditor::get_singleton();
-				if (ape) {
-					undo_redo->add_do_method(ape, "_animation_update_key_frame");
-					undo_redo->add_undo_method(ape, "_animation_update_key_frame");
-				}
 				undo_redo->commit_action();
 
 				setting = false;
@@ -333,11 +318,6 @@ bool AnimationTrackKeyEdit::_set(const StringName &p_name, const Variant &p_valu
 				undo_redo->add_undo_method(animation.ptr(), "bezier_track_set_key_in_handle", track, key, prev_in_handle);
 				undo_redo->add_undo_method(animation.ptr(), "bezier_track_set_key_out_handle", track, key, prev_out_handle);
 				undo_redo->add_undo_method(this, "_update_obj", animation);
-				AnimationPlayerEditor *ape = AnimationPlayerEditor::get_singleton();
-				if (ape) {
-					undo_redo->add_do_method(ape, "_animation_update_key_frame");
-					undo_redo->add_undo_method(ape, "_animation_update_key_frame");
-				}
 				undo_redo->commit_action();
 
 				setting = false;
@@ -7052,10 +7032,7 @@ void AnimationTrackEditor::_update_snap_unit() {
 	if (timeline->is_using_fps()) {
 		snap_unit = 1.0 / step->get_value();
 	} else {
-		double integer;
-		double fraction = Math::modf(step->get_value(), &integer);
-		fraction = 1.0 / Math::round(1.0 / fraction);
-		snap_unit = integer + fraction;
+		snap_unit = 1.0 / Math::round(1.0 / step->get_value()); // Follow the snap behavior of the timeline editor.
 	}
 }
 

@@ -45,17 +45,14 @@
 #ifdef DEBUG_ENABLED
 
 struct _ObjectDebugLock {
-	ObjectID obj_id;
+	Object *obj;
 
 	_ObjectDebugLock(Object *p_obj) {
-		obj_id = p_obj->get_instance_id();
-		p_obj->_lock_index.ref();
+		obj = p_obj;
+		obj->_lock_index.ref();
 	}
 	~_ObjectDebugLock() {
-		Object *obj_ptr = ObjectDB::get_instance(obj_id);
-		if (likely(obj_ptr)) {
-			obj_ptr->_lock_index.unref();
-		}
+		obj->_lock_index.unref();
 	}
 };
 
@@ -2100,11 +2097,7 @@ Object::~Object() {
 	// Disconnect signals that connect to this object.
 	while (connections.size()) {
 		Connection c = connections.front()->get();
-		Object *obj = c.callable.get_object();
-		bool disconnected = false;
-		if (likely(obj)) {
-			disconnected = c.signal.get_object()->_disconnect(c.signal.get_name(), c.callable, true);
-		}
+		bool disconnected = c.signal.get_object()->_disconnect(c.signal.get_name(), c.callable, true);
 		if (unlikely(!disconnected)) {
 			// If the disconnect has failed, abandon the connection to avoid getting trapped in an infinite loop here.
 			connections.pop_front();

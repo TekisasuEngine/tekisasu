@@ -67,7 +67,7 @@ class StringName {
 		_Data() {}
 	};
 
-	static inline _Data *_table[STRING_TABLE_LEN];
+	static _Data *_table[STRING_TABLE_LEN];
 
 	_Data *_data = nullptr;
 
@@ -75,10 +75,10 @@ class StringName {
 	friend void register_core_types();
 	friend void unregister_core_types();
 	friend class Main;
-	static inline Mutex mutex;
+	static Mutex mutex;
 	static void setup();
 	static void cleanup();
-	static inline bool configured = false;
+	static bool configured;
 #ifdef DEBUG_ENABLED
 	struct DebugSortReferences {
 		bool operator()(const _Data *p_left, const _Data *p_right) const {
@@ -86,7 +86,7 @@ class StringName {
 		}
 	};
 
-	static inline bool debug_stringname = false;
+	static bool debug_stringname;
 #endif
 
 	StringName(_Data *p_data) { _data = p_data; }

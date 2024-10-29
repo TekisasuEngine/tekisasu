@@ -242,7 +242,7 @@ void AudioStreamPlayer2D::seek(float p_seconds) {
 
 void AudioStreamPlayer2D::stop() {
 	setplay.set(-1);
-	internal->stop_basic();
+	internal->stop();
 }
 
 bool AudioStreamPlayer2D::is_playing() const {
@@ -430,7 +430,7 @@ void AudioStreamPlayer2D::_bind_methods() {
 }
 
 AudioStreamPlayer2D::AudioStreamPlayer2D() {
-	internal = memnew(AudioStreamPlayerInternal(this, callable_mp(this, &AudioStreamPlayer2D::play), callable_mp(this, &AudioStreamPlayer2D::stop), true));
+	internal = memnew(AudioStreamPlayerInternal(this, callable_mp(this, &AudioStreamPlayer2D::play), true));
 	cached_global_panning_strength = GLOBAL_GET("audio/general/2d_panning_strength");
 	set_hide_clip_children(true);
 }
