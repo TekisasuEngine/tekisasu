@@ -210,7 +210,7 @@ opts.Add(BoolVariable("debug_symbols", "Build with debugging symbols", False))
 opts.Add(BoolVariable("separate_debug_symbols", "Extract debugging symbols to a separate file", False))
 opts.Add(BoolVariable("debug_paths_relative", "Make file paths in debug symbols relative (if supported)", False))
 opts.Add(EnumVariable("lto", "Link-time optimization (production builds)", "none", ("none", "auto", "thin", "full")))
-opts.Add(BoolVariable("production", "Set defaults to build Godot for use in production", False))
+opts.Add(BoolVariable("production", "Set defaults to build Tekisasu Engine for use in production", False))
 opts.Add(BoolVariable("threads", "Enable threading support", True))
 
 # Components
@@ -241,7 +241,7 @@ opts.Add(BoolVariable("werror", "Treat compiler warnings as errors", False))
 opts.Add("extra_suffix", "Custom extra suffix added to the base filename of all generated binary files", "")
 opts.Add("object_prefix", "Custom prefix added to the base filename of all generated object files", "")
 opts.Add(BoolVariable("vsproj", "Generate a Visual Studio solution", False))
-opts.Add("vsproj_name", "Name of the Visual Studio solution", "godot")
+opts.Add("vsproj_name", "Name of the Visual Studio solution", "Tekisasu-Engine")
 opts.Add("import_env_vars", "A comma-separated list of environment variables to copy from the outer environment.", "")
 opts.Add(BoolVariable("disable_3d", "Disable 3D nodes for a smaller executable", False))
 opts.Add(BoolVariable("disable_advanced_gui", "Disable advanced GUI nodes and behaviors", False))
@@ -340,24 +340,24 @@ if env["platform"] == "":
 
 if env["platform"] == "osx":
     # Deprecated alias kept for compatibility.
-    print_warning('Platform "osx" has been renamed to "macos" in Godot 4. Building for platform "macos".')
+    print_warning('Platform "osx" has been renamed to "macos" in Tekisasu Engine 4. Building for platform "macos".')
     env["platform"] = "macos"
 
 if env["platform"] == "iphone":
     # Deprecated alias kept for compatibility.
-    print_warning('Platform "iphone" has been renamed to "ios" in Godot 4. Building for platform "ios".')
+    print_warning('Platform "iphone" has been renamed to "ios" in Tekisasu Engine 4. Building for platform "ios".')
     env["platform"] = "ios"
 
 if env["platform"] in ["linux", "bsd", "x11"]:
     if env["platform"] == "x11":
         # Deprecated alias kept for compatibility.
-        print_warning('Platform "x11" has been renamed to "linuxbsd" in Godot 4. Building for platform "linuxbsd".')
+        print_warning('Platform "x11" has been renamed to "linuxbsd" in Tekisasu Engine 4. Building for platform "linuxbsd".')
     # Alias for convenience.
     env["platform"] = "linuxbsd"
 
 if env["platform"] == "javascript":
     # Deprecated alias kept for compatibility.
-    print_warning('Platform "javascript" has been renamed to "web" in Godot 4. Building for platform "web".')
+    print_warning('Platform "javascript" has been renamed to "web" in Tekisasu Engine 4. Building for platform "web".')
     env["platform"] = "web"
 
 if env["platform"] not in platform_list:
@@ -637,9 +637,9 @@ if methods.using_gcc(env):
     elif cc_version_major < 9:
         print_error(
             "Detected GCC version older than 9, which does not fully support "
-            "C++17, or has bugs when compiling Godot. Supported versions are 9 "
-            "and later. Use a newer GCC version, or Clang 6 or later by passing "
-            '"use_llvm=yes" to the SCons command line.'
+            "C++17, or has bugs when compiling Tekisasu Engine. Supported versions "
+            "are 9 and later. Use a newer GCC version, or Clang 6 or later by "
+            'passing "use_llvm=yes" to the SCons command line.'
         )
         Exit(255)
     elif cc_version_metadata1 == "win32":
@@ -774,7 +774,7 @@ else:
     # We apply it to CCFLAGS (both C and C++ code) in case it impacts C features.
     env.Prepend(CCFLAGS=["/std:c++17"])
 
-# Disable exception handling. Godot doesn't use exceptions anywhere, and this
+# Disable exception handling. Tekisasu Engine doesn't use exceptions anywhere, and this
 # saves around 20% of binary size and very significant build time (GH-80513).
 if env["disable_exceptions"]:
     if env.msvc:
