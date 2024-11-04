@@ -2,10 +2,11 @@
 /*  editor_theme_manager.cpp                                              */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -370,10 +371,14 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_base_spacing = 6;
 				preset_extra_spacing = 2;
 				preset_dialogs_buttons_min_size = Size2(112, 36);
-			} else { // Default
+			} else if (config.spacing_preset == "Legacy") { // Godot/Blazium/Redot
 				preset_base_spacing = 4;
 				preset_extra_spacing = 0;
 				preset_dialogs_buttons_min_size = Size2(105, 34);
+			} else { // Default
+				preset_base_spacing = 2;
+				preset_extra_spacing = 4;
+				preset_dialogs_buttons_min_size = Size2(90, 24);
 			}
 
 			config.base_spacing = preset_base_spacing;
