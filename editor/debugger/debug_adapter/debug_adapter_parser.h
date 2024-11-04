@@ -84,7 +84,7 @@ public:
 	Dictionary req_next(const Dictionary &p_params) const;
 	Dictionary req_stepIn(const Dictionary &p_params) const;
 	Dictionary req_evaluate(const Dictionary &p_params) const;
-	Dictionary req_godot_put_msg(const Dictionary &p_params) const;
+	Dictionary req_tekisasu_put_msg(const Dictionary &p_params) const;
 
 	// Internal requests
 	Dictionary _launch_process(const Dictionary &p_params) const;
