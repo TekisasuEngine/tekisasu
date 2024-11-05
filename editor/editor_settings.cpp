@@ -417,7 +417,7 @@ void EditorSettings::_load_defaults(Ref<ConfigFile> p_extra_config) {
 	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/editor/project_manager_screen", -2, ed_screen_hints)
 
 	{
-		EngineUpdateLabel::UpdateMode default_update_mode = EngineUpdateLabel::UpdateMode::NEWEST_UNSTABLE;
+		EngineUpdateLabel::UpdateMode default_update_mode = EngineUpdateLabel::UpdateMode::NEWEST_STABLE;
 		if (String(VERSION_STATUS) == String("stable")) {
 			default_update_mode = EngineUpdateLabel::UpdateMode::NEWEST_STABLE;
 		}
@@ -841,7 +841,7 @@ void EditorSettings::_load_defaults(Ref<ConfigFile> p_extra_config) {
 	/* Network */
 
 	// General
-	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "network/connection/network_mode", 0, "Offline,Online");
+	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "network/connection/network_mode", 1, "Offline,Online");
 
 	// HTTP Proxy
 	_initial_set("network/http_proxy/host", "");
