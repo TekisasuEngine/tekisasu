@@ -25,7 +25,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-_complete_tekisasu_options() {
+_complete_godot_options() {
   # Since Bash doesn't support option descriptions in autocompletion,
   # only display long options to be more descriptive.
   # shellcheck disable=SC2207
@@ -100,12 +100,12 @@ _complete_tekisasu_options() {
 " -- "$1"))
 }
 
-_complete_tekisasu_bash() {
+_complete_godot_bash() {
   local cur="${COMP_WORDS[$COMP_CWORD]}" prev
 
   # Complete options or the positional argument.
   if [[ $cur == -* ]]; then
-    _complete_tekisasu_options "$cur"
+    _complete_godot_options "$cur"
   else
     local IFS=$'\n\t'
     # shellcheck disable=SC2207
@@ -148,4 +148,4 @@ _complete_tekisasu_bash() {
   fi
 }
 
-complete -o filenames -F _complete_tekisasu_bash tekisasu
+complete -o filenames -F _complete_godot_bash godot

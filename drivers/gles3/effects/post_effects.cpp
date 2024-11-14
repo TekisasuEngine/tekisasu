@@ -2,13 +2,10 @@
 /*  post_effects.cpp                                                      */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                            TEKISASU ENGINE                             */
-/*                       https://dev.tekisasu.com                         */
+/*                             GODOT ENGINE                               */
+/*                        https://godotengine.org                         */
 /**************************************************************************/
-/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
-/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
-/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
-/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */

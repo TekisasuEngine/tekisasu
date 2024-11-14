@@ -194,21 +194,21 @@ def run_msbuild(tools: ToolsLocation, sln: str, chdir_to: str, msbuild_args: Opt
     return subprocess.call(args, env=msbuild_env, cwd=chdir_to)
 
 
-def build_tekisasu_api(msbuild_tool, module_dir, output_dir, push_nupkgs_local, precision):
+def build_godot_api(msbuild_tool, module_dir, output_dir, push_nupkgs_local, precision):
     target_filenames = [
-        "TekisasuSharp.dll",
-        "TekisasuSharp.pdb",
-        "TekisasuSharp.xml",
-        "TekisasuSharpEditor.dll",
-        "TekisasuSharpEditor.pdb",
-        "TekisasuSharpEditor.xml",
-        "TekisasuPlugins.dll",
-        "TekisasuPlugins.pdb",
-        "TekisasuPlugins.runtimeconfig.json",
+        "GodotSharp.dll",
+        "GodotSharp.pdb",
+        "GodotSharp.xml",
+        "GodotSharpEditor.dll",
+        "GodotSharpEditor.pdb",
+        "GodotSharpEditor.xml",
+        "GodotPlugins.dll",
+        "GodotPlugins.pdb",
+        "GodotPlugins.runtimeconfig.json",
     ]
 
     for build_config in ["Debug", "Release"]:
-        editor_api_dir = os.path.join(output_dir, "TekisasuSharp", "Api", build_config)
+        editor_api_dir = os.path.join(output_dir, "GodotSharp", "Api", build_config)
 
         targets = [os.path.join(editor_api_dir, filename) for filename in target_filenames]
 
@@ -216,18 +216,18 @@ def build_tekisasu_api(msbuild_tool, module_dir, output_dir, push_nupkgs_local, 
         if push_nupkgs_local:
             args += ["/p:ClearNuGetLocalCache=true", "/p:PushNuGetToLocalSource=" + push_nupkgs_local]
         if precision == "double":
-            args += ["/p:TekisasuFloat64=true"]
+            args += ["/p:GodotFloat64=true"]
 
-        sln = os.path.join(module_dir, "glue/TekisasuSharp/TekisasuSharp.sln")
+        sln = os.path.join(module_dir, "glue/GodotSharp/GodotSharp.sln")
         exit_code = run_msbuild(msbuild_tool, sln=sln, chdir_to=module_dir, msbuild_args=args)
         if exit_code != 0:
             return exit_code
 
         # Copy targets
 
-        core_src_dir = os.path.abspath(os.path.join(sln, os.pardir, "TekisasuSharp", "bin", build_config))
-        editor_src_dir = os.path.abspath(os.path.join(sln, os.pardir, "TekisasuSharpEditor", "bin", build_config))
-        plugins_src_dir = os.path.abspath(os.path.join(sln, os.pardir, "TekisasuPlugins", "bin", build_config, "net6.0"))
+        core_src_dir = os.path.abspath(os.path.join(sln, os.pardir, "GodotSharp", "bin", build_config))
+        editor_src_dir = os.path.abspath(os.path.join(sln, os.pardir, "GodotSharpEditor", "bin", build_config))
+        plugins_src_dir = os.path.abspath(os.path.join(sln, os.pardir, "GodotPlugins", "bin", build_config, "net6.0"))
 
         if not os.path.isdir(editor_api_dir):
             assert not os.path.isfile(editor_api_dir)
@@ -287,21 +287,21 @@ def generate_sdk_package_versions():
 
     version_defines = (
         [
-            f"TEKISASU{version.major}",
-            f"TEKISASU{version.major}_{version.minor}",
-            f"TEKISASU{version.major}_{version.minor}_{version.patch}",
+            f"GODOT{version.major}",
+            f"GODOT{version.major}_{version.minor}",
+            f"GODOT{version.major}_{version.minor}_{version.patch}",
         ]
-        + [f"TEKISASU{v}_OR_GREATER" for v in range(4, version.major + 1)]
-        + [f"TEKISASU{version.major}_{v}_OR_GREATER" for v in range(0, version.minor + 1)]
-        + [f"TEKISASU{version.major}_{version.minor}_{v}_OR_GREATER" for v in range(0, version.patch + 1)]
+        + [f"GODOT{v}_OR_GREATER" for v in range(4, version.major + 1)]
+        + [f"GODOT{version.major}_{v}_OR_GREATER" for v in range(0, version.minor + 1)]
+        + [f"GODOT{version.major}_{version.minor}_{v}_OR_GREATER" for v in range(0, version.patch + 1)]
     )
 
     props = """<Project>
   <PropertyGroup>
-    <PackageVersion_TekisasuSharp>{0}</PackageVersion_TekisasuSharp>
-    <PackageVersion_Tekisasu_NET_Sdk>{0}</PackageVersion_Tekisasu_NET_Sdk>
-    <PackageVersion_Tekisasu_SourceGenerators>{0}</PackageVersion_Tekisasu_SourceGenerators>
-    <TekisasuVersionConstants>{1}</TekisasuVersionConstants>
+    <PackageVersion_GodotSharp>{0}</PackageVersion_GodotSharp>
+    <PackageVersion_Godot_NET_Sdk>{0}</PackageVersion_Godot_NET_Sdk>
+    <PackageVersion_Godot_SourceGenerators>{0}</PackageVersion_Godot_SourceGenerators>
+    <GodotVersionConstants>{1}</GodotVersionConstants>
   </PropertyGroup>
 </Project>
 """.format(version_str, ";".join(version_defines))
@@ -312,13 +312,13 @@ def generate_sdk_package_versions():
 
     # Also write the versioned docs URL to a constant for the Source Generators.
 
-    constants = """namespace Tekisasu.SourceGenerators
+    constants = """namespace Godot.SourceGenerators
 {{
 // TODO: This is currently disabled because of https://github.com/dotnet/roslyn/issues/52904
 #pragma warning disable IDE0040 // Add accessibility modifiers.
     partial class Common
     {{
-        public const string VersionDocsUrl = "https://dev.tekisasu.com/docs/engine/{docs_branch}";
+        public const string VersionDocsUrl = "https://docs.godotengine.org/en/{docs_branch}";
     }}
 }}
 """.format(**version_info)
@@ -326,8 +326,8 @@ def generate_sdk_package_versions():
     generators_dir = os.path.join(
         dirname(script_path),
         "editor",
-        "Tekisasu.NET.Sdk",
-        "Tekisasu.SourceGenerators",
+        "Godot.NET.Sdk",
+        "Godot.SourceGenerators",
         "Generated",
     )
     os.makedirs(generators_dir, exist_ok=True)
@@ -336,35 +336,35 @@ def generate_sdk_package_versions():
         f.write(constants)
 
 
-def build_all(msbuild_tool, module_dir, output_dir, tekisasu_platform, dev_debug, push_nupkgs_local, precision):
+def build_all(msbuild_tool, module_dir, output_dir, godot_platform, dev_debug, push_nupkgs_local, precision):
     # Generate SdkPackageVersions.props and VersionDocsUrl constant
     generate_sdk_package_versions()
 
-    # Tekisasu API
-    exit_code = build_tekisasu_api(msbuild_tool, module_dir, output_dir, push_nupkgs_local, precision)
+    # Godot API
+    exit_code = build_godot_api(msbuild_tool, module_dir, output_dir, push_nupkgs_local, precision)
     if exit_code != 0:
         return exit_code
 
-    # TekisasuTools
-    sln = os.path.join(module_dir, "editor/TekisasuTools/TekisasuTools.sln")
+    # GodotTools
+    sln = os.path.join(module_dir, "editor/GodotTools/GodotTools.sln")
     args = ["/restore", "/t:Build", "/p:Configuration=" + ("Debug" if dev_debug else "Release")] + (
-        ["/p:TekisasuPlatform=" + tekisasu_platform] if tekisasu_platform else []
+        ["/p:GodotPlatform=" + godot_platform] if godot_platform else []
     )
     if push_nupkgs_local:
         args += ["/p:ClearNuGetLocalCache=true", "/p:PushNuGetToLocalSource=" + push_nupkgs_local]
     if precision == "double":
-        args += ["/p:TekisasuFloat64=true"]
+        args += ["/p:GodotFloat64=true"]
     exit_code = run_msbuild(msbuild_tool, sln=sln, chdir_to=module_dir, msbuild_args=args)
     if exit_code != 0:
         return exit_code
 
-    # Tekisasu.NET.Sdk
+    # Godot.NET.Sdk
     args = ["/restore", "/t:Build", "/p:Configuration=Release"]
     if push_nupkgs_local:
         args += ["/p:ClearNuGetLocalCache=true", "/p:PushNuGetToLocalSource=" + push_nupkgs_local]
     if precision == "double":
-        args += ["/p:TekisasuFloat64=true"]
-    sln = os.path.join(module_dir, "editor/Tekisasu.NET.Sdk/Tekisasu.NET.Sdk.sln")
+        args += ["/p:GodotFloat64=true"]
+    sln = os.path.join(module_dir, "editor/Godot.NET.Sdk/Godot.NET.Sdk.sln")
     exit_code = run_msbuild(msbuild_tool, sln=sln, chdir_to=module_dir, msbuild_args=args)
     if exit_code != 0:
         return exit_code
@@ -376,15 +376,15 @@ def main():
     import argparse
     import sys
 
-    parser = argparse.ArgumentParser(description="Builds all Tekisasu .NET solutions")
-    parser.add_argument("--tekisasu-output-dir", type=str, required=True)
+    parser = argparse.ArgumentParser(description="Builds all Godot .NET solutions")
+    parser.add_argument("--godot-output-dir", type=str, required=True)
     parser.add_argument(
         "--dev-debug",
         action="store_true",
         default=False,
-        help="Build TekisasuTools and Tekisasu.NET.Sdk with 'Configuration=Debug'",
+        help="Build GodotTools and Godot.NET.Sdk with 'Configuration=Debug'",
     )
-    parser.add_argument("--tekisasu-platform", type=str, default="")
+    parser.add_argument("--godot-platform", type=str, default="")
     parser.add_argument("--mono-prefix", type=str, default="")
     parser.add_argument("--push-nupkgs-local", type=str, default="")
     parser.add_argument(
@@ -396,7 +396,7 @@ def main():
     this_script_dir = os.path.dirname(os.path.realpath(__file__))
     module_dir = os.path.abspath(os.path.join(this_script_dir, os.pardir))
 
-    output_dir = os.path.abspath(args.tekisasu_output_dir)
+    output_dir = os.path.abspath(args.godot_output_dir)
 
     push_nupkgs_local = os.path.abspath(args.push_nupkgs_local) if args.push_nupkgs_local else None
 
@@ -410,7 +410,7 @@ def main():
         msbuild_tool,
         module_dir,
         output_dir,
-        args.tekisasu_platform,
+        args.godot_platform,
         args.dev_debug,
         push_nupkgs_local,
         args.precision,

@@ -25,14 +25,14 @@ for file in sys.argv[1:]:
             if sline == "":  # Skip empty lines at the top.
                 continue
 
-            if sline.startswith("/**********"):  # Tekisasu header starts this way.
+            if sline.startswith("/**********"):  # Godot header starts this way.
                 header_start = idx
             else:
-                HEADER_CHECK_OFFSET = 0  # There is no Tekisasu header.
+                HEADER_CHECK_OFFSET = 0  # There is no Godot header.
                 break
         else:
-            if not sline.startswith("*") and not sline.startswith("/*"):  # Not in the Tekisasu header anymore.
-                HEADER_CHECK_OFFSET = idx + 1  # The include should be two lines below the Tekisasu header.
+            if not sline.startswith("*") and not sline.startswith("/*"):  # Not in the Godot header anymore.
+                HEADER_CHECK_OFFSET = idx + 1  # The include should be two lines below the Godot header.
                 break
 
     if HEADER_CHECK_OFFSET < 0:
@@ -61,7 +61,7 @@ for file in sys.argv[1:]:
     elif "renderer_rd" in file and "rd" not in split[-1]:
         suffix = "_RD"
     elif split[-1] == "ustring.h":
-        suffix = "_TEKISASU"
+        suffix = "_GODOT"
 
     name = (f"{prefix}{Path(file).stem}{suffix}{Path(file).suffix}".upper()
             .replace(".", "_").replace("-", "_").replace(" ", "_"))  # fmt: skip
