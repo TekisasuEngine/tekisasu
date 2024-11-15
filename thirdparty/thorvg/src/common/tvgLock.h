@@ -25,7 +25,9 @@
 
 #ifdef THORVG_THREAD_SUPPORT
 
-#define _DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR
+// Tekisasu - Revert _DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR workaround #2611
+// https://github.com/thorvg/thorvg/pull/2611
+// #define _DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR
 
 #include <mutex>
 #include "tvgTaskScheduler.h"
