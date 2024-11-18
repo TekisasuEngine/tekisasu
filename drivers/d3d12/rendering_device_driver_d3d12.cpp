@@ -4904,7 +4904,7 @@ void RenderingDeviceDriverD3D12::command_bind_push_constants(CommandBufferID p_c
 // ----- CACHE -----
 
 bool RenderingDeviceDriverD3D12::pipeline_cache_create(const Vector<uint8_t> &p_data) {
-	WARN_PRINT("PSO caching is not implemented yet in the Direct3D 12 driver.");
+	//WARN_PRINT("PSO caching is not implemented yet in Tekisasu Engine's Direct3D 12 driver.");
 	return false;
 }
 
