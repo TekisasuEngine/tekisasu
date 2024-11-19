@@ -240,6 +240,10 @@ Files extracted from upstream source:
   * Upstream: https://github.com/JetBrains/JetBrainsMono
   * Version: 2.304 (cd5227bd1f61dff3bbd6c814ceaf7ffd95e947d9, 2023)
   * License: OFL-1.1
+- `Inter*.woff2`:
+  * Upstream: https://github.com/rsms/inter
+  * Version: 4.0 (2ce9119398be143fa289c3e180824db1b7ed803e, 2023)
+  * License: OFL-1.1
 - `NotoNaskhArabicUI*.woff2`:
   * Upstream: https://github.com/notofonts/arabic
   * Version: 2.014 (133ccaebf922ca080a7eef22998611ac3c242df9, 2022)
