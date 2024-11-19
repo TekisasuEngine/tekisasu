@@ -8,4 +8,4 @@ module_config = ""
 year = 2024
 website = "https://dev.tekisasu.com"
 docs = "4.3"
-tag = "111824.1"
+tag = "111924.1"
