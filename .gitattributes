@@ -24,3 +24,5 @@ misc/msvs/*.template eol=crlf
 *.png binary
 *.ttf binary
 *.tza binary
+*.woff binary
+*.woff2 binary
