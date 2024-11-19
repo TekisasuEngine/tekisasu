@@ -212,7 +212,7 @@ void editor_register_fonts(const Ref<Theme> &p_theme) {
 	// Enable Inter OpenType features.
 	Dictionary ot_features;
 	ot_features["ss01"] = true; // Alternate digits (flat-top 3, open 4, 6 and 9)
-	ot_features["ss02"] = true; // Disambiguation (Upper-case I with serif, lower-case L with tail, slashed zero)
+	ot_features["ss02"] = false; // Disambiguation (Upper-case I with serif, lower-case L with tail, slashed zero)
 	default_font->set_opentype_feature_overrides(ot_features);
 	default_font_msdf->set_opentype_feature_overrides(ot_features);
 	default_font_bold->set_opentype_feature_overrides(ot_features);
