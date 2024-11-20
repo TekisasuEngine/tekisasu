@@ -262,6 +262,9 @@ void main() {
 
 	color_interp = color;
 
+	// Tekisasu - new placement
+	vertex = (canvas_transform * vec4(vertex, 0.0, 1.0)).xy;
+
 	if (use_pixel_snap) {
 		vertex = floor(vertex + 0.5);
 		// precision issue on some hardware creates artifacts within texture
@@ -269,7 +272,9 @@ void main() {
 		uv += 1e-5;
 	}
 
-	vertex = (canvas_transform * vec4(vertex, 0.0, 1.0)).xy;
+	// Tekisasu - original placement
+	// pulled from Blazium: https://github.com/blazium-engine/blazium/commit/dce5acf98c2bd53decd9ca59ef01303174b70e8a#diff-dd67c802cd81deb68b8f5b1552465c697a4a72b94b764331cbb06ba5c5975e42R265
+	//vertex = (canvas_transform * vec4(vertex, 0.0, 1.0)).xy;
 
 	vertex_interp = vertex;
 	uv_interp = uv;
