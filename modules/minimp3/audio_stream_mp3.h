@@ -99,7 +99,7 @@ class AudioStreamMP3 : public AudioStream {
 
 	friend class AudioStreamPlaybackMP3;
 
-	LocalVector<uint8_t> data;
+	PackedByteArray data;
 	uint32_t data_len = 0;
 
 	float sample_rate = 1.0;
