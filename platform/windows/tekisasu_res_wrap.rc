@@ -20,6 +20,7 @@ BEGIN
             VALUE "LegalCopyright",         "(c) 2021-present Tekisasu. (c) 2024-present Blazium Engine contributors, 2007-present Juan Linietsky, Ariel Manzur and Godot Engine contributors, (c) 2024-present Redot Engine contributors."
             VALUE "Info",                   "https://dev.tekisasu.com"
             VALUE "ProductVersion",         VERSION_FULL_BUILD
+            VALUE "TekisasuRelease",        TEKISASU_RELEASE
         END
     END
     BLOCK "VarFileInfo"

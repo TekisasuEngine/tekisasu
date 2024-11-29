@@ -79,6 +79,11 @@
 // Example: "Godot v3.1.4.stable.official.mono"
 #define VERSION_FULL_NAME VERSION_NAME " v" VERSION_FULL_BUILD
 
+// Tekisasu release is used simultaneously across the entire Tekisasu Toolchain build
+// which includes this project and Tekisasu Graphics.  New builds will be made for every
+// release of Tekisasu Toolchain
+//#define TEKISASU_RELEASE TEKISASU_RELEASE
+
 // Git commit hash, generated at build time in `core/version_hash.gen.cpp`.
 extern const char *const VERSION_HASH;
 
