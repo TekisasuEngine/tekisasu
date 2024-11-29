@@ -130,7 +130,7 @@ void ProjectManager::_notification(int p_what) {
 
 Ref<Texture2D> ProjectManager::_file_dialog_get_icon(const String &p_path) {
 	if (p_path.get_extension().to_lower() == "godot") {
-		return singleton->icon_type_cache["GodotMonochrome"];
+		return singleton->icon_type_cache["TekisasuMonochrome"];
 	}
 
 	return singleton->icon_type_cache["Object"];
@@ -138,7 +138,7 @@ Ref<Texture2D> ProjectManager::_file_dialog_get_icon(const String &p_path) {
 
 Ref<Texture2D> ProjectManager::_file_dialog_get_thumbnail(const String &p_path) {
 	if (p_path.get_extension().to_lower() == "godot") {
-		return singleton->icon_type_cache["GodotFile"];
+		return singleton->icon_type_cache["TekisasuFile"];
 	}
 
 	return Ref<Texture2D>();
@@ -555,7 +555,7 @@ void ProjectManager::_open_selected_projects_ask() {
 
 	// Check if the config_version property was empty or 0.
 	if (config_version == 0) {
-		ask_update_settings->set_text(vformat(TTR("The selected project \"%s\" does not specify its supported Tekisasu version in its configuration file (\"project.godot\").\n\nProject path: %s\n\nIf you proceed with opening it, it will be converted to Godot's current configuration file format.\n\nWarning: You won't be able to open the project with previous versions of the engine anymore."), project.project_name, project.path));
+		ask_update_settings->set_text(vformat(TTR("The selected project \"%s\" does not specify its supported Tekisasu version in its configuration file (\"project.godot\").\n\nProject path: %s\n\nIf you proceed with opening it, it will be converted to Tekisasu Engine's current configuration file format.\n\nWarning: You won't be able to open the project with previous versions of the engine anymore."), project.project_name, project.path));
 		ask_update_settings->popup_centered(popup_min_size);
 		return;
 	}
@@ -578,7 +578,7 @@ void ProjectManager::_open_selected_projects_ask() {
 		_show_error(vformat(TTR("Can't open project \"%s\" at the following path:\n\n%s\n\nThe project settings were created by a newer engine version, whose settings are not compatible with this version."), project.project_name, project.path), popup_min_size);
 		return;
 	}
-	// Check if the project is using features not supported by this build of Godot.
+	// Check if the project is using features not supported by this build of Tekisasu Engine.
 	if (!unsupported_features.is_empty()) {
 		String warning_message = "";
 		for (int i = 0; i < unsupported_features.size(); i++) {
