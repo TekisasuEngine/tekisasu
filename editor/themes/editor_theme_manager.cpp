@@ -295,6 +295,10 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_accent_color = Color(0.40, 0.53, 0.91);
 				preset_base_color = Color(0.17, 0.17, 0.20);
 				preset_contrast = 0.4;
+			} else if (config.preset == "Tekisasu Light") {
+				preset_accent_color = Color(0.49, 0.61, 0.93);
+				preset_base_color = Color(0.35, 0.37, 0.44);
+				preset_contrast = 0.4;
 			} else if (config.preset == "Godot 2") {
 				preset_accent_color = Color(0.53, 0.67, 0.89);
 				preset_base_color = Color(0.24, 0.23, 0.27);

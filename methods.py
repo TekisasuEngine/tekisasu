@@ -195,7 +195,7 @@ def add_module_version_string(self, s):
 
 
 def get_version_info(module_version_string="", silent=False):
-    build_name = "custom_build"
+    build_name = "tx"
     if os.getenv("BUILD_NAME") is not None:
         build_name = str(os.getenv("BUILD_NAME"))
         if not silent:
@@ -214,6 +214,7 @@ def get_version_info(module_version_string="", silent=False):
         "module_config": str(version.module_config) + module_version_string,
         "website": str(version.website),
         "docs_branch": str(version.docs),
+        "tekisasu_release": str(version.tekisasu_release)
     }
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,

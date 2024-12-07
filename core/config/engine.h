@@ -171,6 +171,7 @@ public:
 	TypedArray<Dictionary> get_copyright_info() const;
 	Dictionary get_license_info() const;
 	String get_license_text() const;
+	String get_teksec() const;
 
 	void set_write_movie_path(const String &p_path);
 	String get_write_movie_path() const;

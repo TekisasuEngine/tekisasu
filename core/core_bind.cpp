@@ -1719,6 +1719,10 @@ String Engine::get_license_text() const {
 	return ::Engine::get_singleton()->get_license_text();
 }
 
+String Engine::get_teksec() const {
+	return ::Engine::get_singleton()->get_teksec();
+}
+
 String Engine::get_architecture_name() const {
 	return ::Engine::get_singleton()->get_architecture_name();
 }
@@ -1836,6 +1840,7 @@ void Engine::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_copyright_info"), &Engine::get_copyright_info);
 	ClassDB::bind_method(D_METHOD("get_license_info"), &Engine::get_license_info);
 	ClassDB::bind_method(D_METHOD("get_license_text"), &Engine::get_license_text);
+	ClassDB::bind_method(D_METHOD("get_teksec"), &Engine::get_teksec);
 
 	ClassDB::bind_method(D_METHOD("get_architecture_name"), &Engine::get_architecture_name);
 

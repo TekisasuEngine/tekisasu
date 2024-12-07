@@ -1142,6 +1142,9 @@
 		<member name="text_editor/help/show_help_index" type="bool" setter="" getter="">
 			If [code]true[/code], displays a table of contents at the left of the editor help (at the location where the members overview would appear when editing a script).
 		</member>
+		<member name="text_editor/script_list/highlight_scene_scripts" type="bool" setter="" getter="">
+			If [code]true[/code], the scripts that are used by the current scene are highlighted in the Script Editor's script list.
+		</member>
 		<member name="text_editor/script_list/show_members_overview" type="bool" setter="" getter="">
 			If [code]true[/code], displays an overview of the current script's member variables and functions at the left of the script editor. See also [member text_editor/script_list/sort_members_outline_alphabetically].
 		</member>
