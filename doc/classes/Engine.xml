@@ -9,6 +9,12 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="get_teksec" qualifiers="const">
+			<return type="String" />
+			<description>
+				Returns Tekisasu security key string for an engine build used in save file encryption.
+			</description>
+		</method>
 		<method name="get_architecture_name" qualifiers="const">
 			<return type="String" />
 			<description>
