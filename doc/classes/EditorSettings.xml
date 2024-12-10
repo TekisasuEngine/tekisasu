@@ -664,10 +664,10 @@
 		</member>
 		<member name="interface/editor/font_hinting" type="int" setter="" getter="">
 			The font hinting mode to use for the editor fonts. FreeType supports the following font hinting modes:
-			- [b]None:[/b] Don't use font hinting when rasterizing the font. This results in a smooth font, but it can look blurry.
+			- [b]None:[/b] Don't use font hinting when rasterizing the font.
 			- [b]Light:[/b] Use hinting on the X axis only. This is a compromise between font sharpness and smoothness.
 			- [b]Normal:[/b] Use hinting on both X and Y axes. This results in a sharp font, but it doesn't look very smooth.
-			If set to [b]Auto[/b], the font hinting mode will be set to match the current operating system in use. This means the [b]Light[/b] hinting mode will be used on Windows and Linux, and the [b]None[/b] hinting mode will be used on macOS.
+			If set to [b]Auto[/b], font hinting will be set to "None".
 		</member>
 		<member name="interface/editor/font_subpixel_positioning" type="int" setter="" getter="">
 			The subpixel positioning mode to use when rendering editor font glyphs. This affects both the main and code fonts. [b]Disabled[/b] is the fastest to render and uses the least memory. [b]Auto[/b] only uses subpixel positioning for small font sizes (where the benefit is the most noticeable). [b]One Half of a Pixel[/b] and [b]One Quarter of a Pixel[/b] force the same subpixel positioning mode for all editor fonts, regardless of their size (with [b]One Quarter of a Pixel[/b] being the highest-quality option).
