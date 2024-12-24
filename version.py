@@ -8,4 +8,4 @@ module_config = ""
 year = 2024
 website = "https://dev.tekisasu.com"
 docs = "4.3"
-tekisasu_release = "2412.18.1"
+tekisasu_release = "2412.24.1"
