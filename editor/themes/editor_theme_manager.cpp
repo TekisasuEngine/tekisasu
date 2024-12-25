@@ -381,7 +381,7 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_dialogs_buttons_min_size = Size2(105, 34);
 			} else { // Default
 				preset_base_spacing = 1;
-				preset_extra_spacing = 1;
+				preset_extra_spacing = 2;
 				preset_dialogs_buttons_min_size = Size2(90, 24);
 			}
 
