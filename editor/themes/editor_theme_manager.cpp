@@ -287,47 +287,29 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			bool preset_draw_extra_borders = false;
 
 			// Please use alphabetical order if you're adding a new theme here.
-			if (config.preset == "Breeze Dark") {
-				preset_accent_color = Color(0.26, 0.76, 1.00);
-				preset_base_color = Color(0.24, 0.26, 0.28);
-				preset_contrast = config.default_contrast;
-			} else if (config.preset == "Tekisasu Dark") {
+			if (config.preset == "Tekisasu Dark") {
 				preset_accent_color = Color(0.40, 0.53, 0.91);
 				preset_base_color = Color(0.17, 0.17, 0.20);
 				preset_contrast = 0.4;
+			} else if (config.preset == "Tekisasu Gray") {
+				preset_accent_color = Color(0.40, 0.53, 0.91);
+				preset_base_color = Color(0.27, 0.28, 0.37);
+				preset_contrast = 0.36;
 			} else if (config.preset == "Tekisasu Indigo") {
 				preset_accent_color = Color(0.40, 0.52, 0.91);
 				preset_base_color = Color(0.21, 0.23, 0.36);
 				preset_contrast = 0.4;
+			} else if (config.preset == "Tekisasu Auwey") {
+				preset_accent_color = Color(0.49, 0.61, 0.93);
+				preset_base_color = Color(0.07, 0.07, 0.10);
+				preset_contrast = -0.98;
 			} else if (config.preset == "Tekisasu Light") {
 				preset_accent_color = Color(0.49, 0.61, 0.93);
 				preset_base_color = Color(0.35, 0.37, 0.44);
 				preset_contrast = 0.4;
-			} else if (config.preset == "Breeze Dark") {
-				preset_accent_color = Color(0.26, 0.76, 1.00);
-				preset_base_color = Color(0.24, 0.26, 0.28);
-				preset_contrast = config.default_contrast;
-			} else if (config.preset == "Godot 2") {
-				preset_accent_color = Color(0.53, 0.67, 0.89);
-				preset_base_color = Color(0.24, 0.23, 0.27);
-				preset_contrast = config.default_contrast;
-			} else if (config.preset == "Gray") {
-				preset_accent_color = Color(0.44, 0.73, 0.98);
-				preset_base_color = Color(0.24, 0.24, 0.24);
-				preset_contrast = config.default_contrast;
-			} else if (config.preset == "Solarized") {
-				preset_accent_color = Color(0.15, 0.55, 0.82);
-				preset_base_color = Color(0.04, 0.23, 0.27);
-				preset_contrast = config.default_contrast;
-			} else if (config.preset == "Black (OLED)") {
-				preset_accent_color = Color(0.45, 0.75, 1.0);
-				preset_base_color = Color(0, 0, 0);
-				// The contrast rate value is irrelevant on a fully black theme.
-				preset_contrast = 0.0;
-				preset_draw_extra_borders = true;
 			} else { // Default
-				preset_accent_color = Color(0.40, 0.52, 0.91);
-				preset_base_color = Color(0.21, 0.23, 0.36);
+				preset_accent_color = Color(0.40, 0.53, 0.91);
+				preset_base_color = Color(0.17, 0.17, 0.20);
 				preset_contrast = 0.4;
 			}
 
@@ -380,7 +362,7 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_extra_spacing = 0;
 				preset_dialogs_buttons_min_size = Size2(105, 34);
 			} else { // Default
-				preset_base_spacing = 1;
+				preset_base_spacing = 2;
 				preset_extra_spacing = 2;
 				preset_dialogs_buttons_min_size = Size2(90, 24);
 			}
