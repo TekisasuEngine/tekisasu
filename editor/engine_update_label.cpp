@@ -188,9 +188,7 @@ void EngineUpdateLabel::_set_status(UpdateStatus p_status) {
 		case UpdateStatus::OFFLINE: {
 			set_disabled(false);
 			if (int(EDITOR_GET("network/connection/network_mode")) == EditorSettings::NETWORK_OFFLINE) {
-				_set_message(TTR("Offline mode, update checks disabled."), theme_cache.disabled_color);
-			} else {
-				_set_message(TTR("Update checks disabled."), theme_cache.disabled_color);
+				_set_message(TTR(""), theme_cache.disabled_color);
 			}
 			set_tooltip_text("");
 			break;
