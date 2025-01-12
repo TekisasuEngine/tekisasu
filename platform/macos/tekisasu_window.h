@@ -1,11 +1,14 @@
 /**************************************************************************/
-/*  godot_main_macos.mm                                                   */
+/*  tekisasu_window.h                                                     */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -28,67 +31,22 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "os_macos.h"
+#ifndef TEKISASU_WINDOW_H
+#define TEKISASU_WINDOW_H
 
-#include "main/main.h"
+#include "servers/display_server.h"
 
-#include <string.h>
-#include <unistd.h>
+#import <AppKit/AppKit.h>
+#import <Foundation/Foundation.h>
 
-#if defined(SANITIZERS_ENABLED)
-#include <sys/resource.h>
-#endif
-
-int main(int argc, char **argv) {
-#if defined(VULKAN_ENABLED)
-	setenv("MVK_CONFIG_FULL_IMAGE_VIEW_SWIZZLE", "1", 1); // MoltenVK - enable full component swizzling support.
-	setenv("MVK_CONFIG_SWAPCHAIN_MIN_MAG_FILTER_USE_NEAREST", "0", 1); // MoltenVK - use linear surface scaling. TODO: remove when full DPI scaling is implemented.
-#endif
-
-#if defined(SANITIZERS_ENABLED)
-	// Note: Set stack size to be at least 30 MB (vs 8 MB default) to avoid overflow, address sanitizer can increase stack usage up to 3 times.
-	struct rlimit stack_lim = { 0x1E00000, 0x1E00000 };
-	setrlimit(RLIMIT_STACK, &stack_lim);
-#endif
-
-	int first_arg = 1;
-	const char *dbg_arg = "-NSDocumentRevisionsDebugMode";
-	for (int i = 0; i < argc; i++) {
-		if (strcmp(dbg_arg, argv[i]) == 0) {
-			first_arg = i + 2;
-		}
-	}
-
-	OS_MacOS os;
-	Error err;
-
-	// We must override main when testing is enabled.
-	TEST_MAIN_OVERRIDE
-
-	@autoreleasepool {
-		err = Main::setup(argv[0], argc - first_arg, &argv[first_arg]);
-	}
-
-	if (err != OK) {
-		if (err == ERR_HELP) { // Returned by --help and --version, so success.
-			return EXIT_SUCCESS;
-		}
-		return EXIT_FAILURE;
-	}
-
-	int ret;
-	@autoreleasepool {
-		ret = Main::start();
-	}
-	if (ret == EXIT_SUCCESS) {
-		os.run();
-	} else {
-		os.set_exit_code(EXIT_FAILURE);
-	}
-
-	@autoreleasepool {
-		Main::cleanup();
-	}
-
-	return os.get_exit_code();
+@interface TekisasuWindow : NSWindow {
+	DisplayServer::WindowID window_id;
+	NSTimeInterval anim_duration;
 }
+
+- (void)setWindowID:(DisplayServer::WindowID)wid;
+- (void)setAnimDuration:(NSTimeInterval)duration;
+
+@end
+
+#endif // TEKISASU_WINDOW_H

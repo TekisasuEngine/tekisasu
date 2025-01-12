@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_open_save_delegate.h                                            */
+/*  tekisasu_status_item.h                                                */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,39 +31,23 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_OPEN_SAVE_DELEGATE_H
-#define GODOT_OPEN_SAVE_DELEGATE_H
+#ifndef TEKISASU_STATUS_ITEM_H
+#define TEKISASU_STATUS_ITEM_H
+
+#include "core/input/input_enums.h"
+#include "core/variant/callable.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-#include "core/templates/hash_map.h"
-#include "core/variant/typed_array.h"
-#include "core/variant/variant.h"
-
-@interface GodotOpenSaveDelegate : NSObject <NSOpenSavePanelDelegate> {
-	NSSavePanel *dialog;
-	NSMutableArray *allowed_types;
-
-	HashMap<int, String> ctr_ids;
-	Dictionary options;
-	int cur_index;
-	int ctr_id;
-
-	String root;
+@interface TekisasuStatusItemDelegate : NSObject {
+	Callable cb;
 }
 
-- (void)makeAccessoryView:(NSSavePanel *)p_panel filters:(const Vector<String> &)p_filters options:(const TypedArray<Dictionary> &)p_options;
-- (void)setFileTypes:(NSMutableArray *)p_allowed_types;
-- (void)popupOptionAction:(id)p_sender;
-- (void)popupCheckAction:(id)p_sender;
-- (void)popupFileAction:(id)p_sender;
-- (int)getIndex;
-- (Dictionary)getSelection;
-- (int)setDefaultInt:(const String &)p_name value:(int)p_value;
-- (int)setDefaultBool:(const String &)p_name value:(bool)p_value;
-- (void)setRootPath:(const String &)p_root_path;
+- (IBAction)click:(id)sender;
+
+- (void)setCallback:(const Callable &)callback;
 
 @end
 
-#endif // GODOT_OPEN_SAVE_DELEGATE_H
+#endif // TEKISASU_STATUS_ITEM_H

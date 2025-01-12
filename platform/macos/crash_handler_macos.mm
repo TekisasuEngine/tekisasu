@@ -2,10 +2,13 @@
 /*  crash_handler_macos.mm                                                */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -102,9 +105,9 @@ static void handle_crash(int sig) {
 
 	// Print the engine version just before, so that people are reminded to include the version in backtrace reports.
 	if (String(VERSION_HASH).is_empty()) {
-		print_error(vformat("Engine version: %s", VERSION_FULL_NAME));
+		print_error(vformat("Engine version: %s", VERSION_FULL_NAME, TEKISASU_RELEASE));
 	} else {
-		print_error(vformat("Engine version: %s (%s)", VERSION_FULL_NAME, VERSION_HASH));
+		print_error(vformat("Engine version: %s (%s)", VERSION_FULL_NAME, TEKISASU_RELEASE, VERSION_HASH));
 	}
 	print_error(vformat("Dumping the backtrace. %s", msg));
 	char **strings = backtrace_symbols(bt_buffer, size);

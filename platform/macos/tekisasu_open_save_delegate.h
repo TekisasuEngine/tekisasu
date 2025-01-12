@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_menu_item.h                                                     */
+/*  tekisasu_open_save_delegate.h                                            */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,36 +31,39 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_MENU_ITEM_H
-#define GODOT_MENU_ITEM_H
-
-#include "servers/display_server.h"
+#ifndef TEKISASU_OPEN_SAVE_DELEGATE_H
+#define TEKISASU_OPEN_SAVE_DELEGATE_H
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-#define MENU_TAG_START 0x00004447
-#define MENU_TAG_END 0xFFFF4447
+#include "core/templates/hash_map.h"
+#include "core/variant/typed_array.h"
+#include "core/variant/variant.h"
 
-enum GlobalMenuCheckType {
-	CHECKABLE_TYPE_NONE,
-	CHECKABLE_TYPE_CHECK_BOX,
-	CHECKABLE_TYPE_RADIO_BUTTON,
-};
+@interface TekisasuOpenSaveDelegate : NSObject <NSOpenSavePanelDelegate> {
+	NSSavePanel *dialog;
+	NSMutableArray *allowed_types;
 
-@interface GodotMenuItem : NSObject {
-@public
-	Callable callback;
-	Callable key_callback;
-	Callable hover_callback;
-	Variant meta;
-	GlobalMenuCheckType checkable_type;
-	bool checked;
-	int max_states;
-	int state;
-	Ref<Image> img;
+	HashMap<int, String> ctr_ids;
+	Dictionary options;
+	int cur_index;
+	int ctr_id;
+
+	String root;
 }
+
+- (void)makeAccessoryView:(NSSavePanel *)p_panel filters:(const Vector<String> &)p_filters options:(const TypedArray<Dictionary> &)p_options;
+- (void)setFileTypes:(NSMutableArray *)p_allowed_types;
+- (void)popupOptionAction:(id)p_sender;
+- (void)popupCheckAction:(id)p_sender;
+- (void)popupFileAction:(id)p_sender;
+- (int)getIndex;
+- (Dictionary)getSelection;
+- (int)setDefaultInt:(const String &)p_name value:(int)p_value;
+- (int)setDefaultBool:(const String &)p_name value:(bool)p_value;
+- (void)setRootPath:(const String &)p_root_path;
 
 @end
 
-#endif // GODOT_MENU_ITEM_H
+#endif // TEKISASU_OPEN_SAVE_DELEGATE_H

@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_application_delegate.h                                          */
+/*  tekisasu_button_view.h                                                   */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,19 +31,30 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_APPLICATION_DELEGATE_H
-#define GODOT_APPLICATION_DELEGATE_H
+#ifndef TEKISASU_BUTTON_VIEW_H
+#define TEKISASU_BUTTON_VIEW_H
 
-#include "core/os/os.h"
+#include "servers/display_server.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-@interface GodotApplicationDelegate : NSObject <NSUserInterfaceItemSearching, NSApplicationDelegate>
-- (void)forceUnbundledWindowActivationHackStep1;
-- (void)forceUnbundledWindowActivationHackStep2;
-- (void)forceUnbundledWindowActivationHackStep3;
-- (void)handleAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
+@interface TekisasuButtonView : NSView {
+	NSTrackingArea *tracking_area;
+	NSPoint offset;
+	CGFloat spacing;
+	bool mouse_in_group;
+	bool rtl;
+	NSButton *close_button;
+	NSButton *miniaturize_button;
+	NSButton *zoom_button;
+}
+
+- (void)initButtons:(CGFloat)button_spacing offset:(NSPoint)button_offset rtl:(bool)is_rtl;
+- (void)displayButtons;
+- (void)setOffset:(NSPoint)button_offset;
+- (NSPoint)getOffset;
+
 @end
 
-#endif // GODOT_APPLICATION_DELEGATE_H
+#endif // TEKISASU_BUTTON_VIEW_H

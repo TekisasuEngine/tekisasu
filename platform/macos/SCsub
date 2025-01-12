@@ -65,9 +65,9 @@ def generate_bundle(target, source, env):
             subprocess.run(sign_command)
     else:
         # Template bundle.
-        app_prefix = "godot." + env["platform"]
-        rel_prefix = "godot." + env["platform"] + "." + "template_release"
-        dbg_prefix = "godot." + env["platform"] + "." + "template_debug"
+        app_prefix = "tekisasu." + env["platform"]
+        rel_prefix = "tekisasu." + env["platform"] + "." + "template_release"
+        dbg_prefix = "tekisasu." + env["platform"] + "." + "template_debug"
         if env.dev_build:
             app_prefix += ".dev"
             rel_prefix += ".dev"
@@ -102,21 +102,21 @@ def generate_bundle(target, source, env):
 
 files = [
     "os_macos.mm",
-    "godot_application.mm",
-    "godot_application_delegate.mm",
+    "tekisasu_application.mm",
+    "tekisasu_application_delegate.mm",
     "crash_handler_macos.mm",
     "macos_terminal_logger.mm",
     "display_server_macos.mm",
-    "godot_button_view.mm",
-    "godot_content_view.mm",
-    "godot_status_item.mm",
-    "godot_window_delegate.mm",
-    "godot_window.mm",
+    "tekisasu_button_view.mm",
+    "tekisasu_content_view.mm",
+    "tekisasu_status_item.mm",
+    "tekisasu_window_delegate.mm",
+    "tekisasu_window.mm",
     "key_mapping_macos.mm",
-    "godot_main_macos.mm",
-    "godot_menu_delegate.mm",
-    "godot_menu_item.mm",
-    "godot_open_save_delegate.mm",
+    "tekisasu_main_macos.mm",
+    "tekisasu_menu_delegate.mm",
+    "tekisasu_menu_item.mm",
+    "tekisasu_open_save_delegate.mm",
     "native_menu_macos.mm",
     "dir_access_macos.mm",
     "tts_macos.mm",

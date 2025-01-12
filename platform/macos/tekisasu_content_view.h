@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_status_item.h                                                   */
+/*  tekisasu_content_view.h                                                  */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,23 +31,57 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_STATUS_ITEM_H
-#define GODOT_STATUS_ITEM_H
+#ifndef TEKISASU_CONTENT_VIEW_H
+#define TEKISASU_CONTENT_VIEW_H
 
-#include "core/input/input_enums.h"
-#include "core/variant/callable.h"
+#include "servers/display_server.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-@interface GodotStatusItemDelegate : NSObject {
-	Callable cb;
+#if defined(GLES3_ENABLED)
+#import <AppKit/NSOpenGLView.h>
+#define RootView NSOpenGLView
+#else
+#define RootView NSView
+#endif
+
+#import <QuartzCore/CAMetalLayer.h>
+
+@interface TekisasuContentLayerDelegate : NSObject <CALayerDelegate> {
+	DisplayServer::WindowID window_id;
+	bool need_redraw;
 }
 
-- (IBAction)click:(id)sender;
-
-- (void)setCallback:(const Callable &)callback;
+- (void)setWindowID:(DisplayServer::WindowID)wid;
+- (void)setNeedRedraw:(bool)redraw;
 
 @end
 
-#endif // GODOT_STATUS_ITEM_H
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations" // OpenGL is deprecated in macOS 10.14
+
+@interface TekisasuContentView : RootView <NSTextInputClient> {
+	DisplayServer::WindowID window_id;
+	NSTrackingArea *tracking_area;
+	NSMutableAttributedString *marked_text;
+	bool ime_input_event_in_progress;
+	bool mouse_down_control;
+	bool ignore_momentum_scroll;
+	bool last_pen_inverted;
+	bool ime_suppress_next_keyup;
+	id layer_delegate;
+}
+
+- (void)processScrollEvent:(NSEvent *)event button:(MouseButton)button factor:(double)factor;
+- (void)processPanEvent:(NSEvent *)event dx:(double)dx dy:(double)dy;
+- (void)processMouseEvent:(NSEvent *)event index:(MouseButton)index pressed:(bool)pressed outofstream:(bool)outofstream;
+- (void)setWindowID:(DisplayServer::WindowID)wid;
+- (void)updateLayerDelegate;
+- (void)cancelComposition;
+
+@end
+
+#pragma clang diagnostic pop
+
+#endif // TEKISASU_CONTENT_VIEW_H

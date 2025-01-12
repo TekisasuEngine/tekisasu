@@ -2,10 +2,13 @@
 /*  display_server_macos.mm                                               */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -30,14 +33,14 @@
 
 #include "display_server_macos.h"
 
-#include "godot_button_view.h"
-#include "godot_content_view.h"
-#include "godot_menu_delegate.h"
-#include "godot_menu_item.h"
-#include "godot_open_save_delegate.h"
-#include "godot_status_item.h"
-#include "godot_window.h"
-#include "godot_window_delegate.h"
+#include "tekisasu_button_view.h"
+#include "tekisasu_content_view.h"
+#include "tekisasu_menu_delegate.h"
+#include "tekisasu_menu_item.h"
+#include "tekisasu_open_save_delegate.h"
+#include "tekisasu_status_item.h"
+#include "tekisasu_window.h"
+#include "tekisasu_window_delegate.h"
 #include "key_mapping_macos.h"
 #include "os_macos.h"
 #include "tts_macos.h"
@@ -71,7 +74,7 @@ DisplayServerMacOS::WindowID DisplayServerMacOS::_create_window(WindowMode p_mod
 	{
 		WindowData wd;
 
-		wd.window_delegate = [[GodotWindowDelegate alloc] init];
+		wd.window_delegate = [[TekisasuWindowDelegate alloc] init];
 		ERR_FAIL_NULL_V_MSG(wd.window_delegate, INVALID_WINDOW_ID, "Can't create a window delegate");
 		[wd.window_delegate setWindowID:window_id_counter];
 
@@ -86,13 +89,13 @@ DisplayServerMacOS::WindowID DisplayServerMacOS::_create_window(WindowMode p_mod
 			wpos = wpos.clamp(srect.position, srect.position + srect.size - p_rect.size / 3);
 		}
 		// macOS native y-coordinate relative to _get_screens_origin() is negative,
-		// Godot passes a positive value.
+		// Tekisasu Engine passes a positive value.
 		wpos.y *= -1;
 		wpos += _get_screens_origin();
 		wpos /= scale;
 
 		// initWithContentRect uses bottom-left corner of the window’s frame as origin.
-		wd.window_object = [[GodotWindow alloc]
+		wd.window_object = [[TekisasuWindow alloc]
 				initWithContentRect:NSMakeRect(100, 100, MAX(1, p_rect.size.width / scale), MAX(1, p_rect.size.height / scale))
 						  styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable
 							backing:NSBackingStoreBuffered
@@ -101,7 +104,7 @@ DisplayServerMacOS::WindowID DisplayServerMacOS::_create_window(WindowMode p_mod
 		[wd.window_object setWindowID:window_id_counter];
 		[wd.window_object setReleasedWhenClosed:NO];
 
-		wd.window_view = [[GodotContentView alloc] init];
+		wd.window_view = [[TekisasuContentView alloc] init];
 		ERR_FAIL_NULL_V_MSG(wd.window_view, INVALID_WINDOW_ID, "Can't create a window view");
 		[wd.window_view setWindowID:window_id_counter];
 		[wd.window_view setWantsLayer:TRUE];
@@ -298,7 +301,7 @@ Point2i DisplayServerMacOS::_get_screens_origin() const {
 	// Returns the native top-left screen coordinate of the smallest rectangle
 	// that encompasses all screens. Needed in get_screen_position(),
 	// window_get_position, and window_set_position()
-	// to convert between macOS native screen coordinates and the ones expected by Godot.
+	// to convert between macOS native screen coordinates and the ones expected by Tekisasu Engine.
 
 	if (displays_arrangement_dirty) {
 		const_cast<DisplayServerMacOS *>(this)->_update_displays_arrangement();
@@ -567,7 +570,7 @@ void DisplayServerMacOS::menu_callback(id p_sender) {
 		return;
 	}
 
-	GodotMenuItem *value = [p_sender representedObject];
+	TekisasuMenuItem *value = [p_sender representedObject];
 	if (value) {
 		if (value->callback.is_valid()) {
 			MenuCall mc;
@@ -957,7 +960,7 @@ Error DisplayServerMacOS::_file_dialog_with_options_show(const String &p_title, 
 	NSString *url = [NSString stringWithUTF8String:p_current_directory.utf8().get_data()];
 	WindowID prev_focus = last_focused_window;
 
-	GodotOpenSaveDelegate *panel_delegate = [[GodotOpenSaveDelegate alloc] init];
+	TekisasuOpenSaveDelegate *panel_delegate = [[TekisasuOpenSaveDelegate alloc] init];
 	if (p_root.length() > 0) {
 		[panel_delegate setRootPath:p_root];
 	}
@@ -1512,7 +1515,7 @@ Point2i DisplayServerMacOS::screen_get_position(int p_screen) const {
 	p_screen = _get_screen_index(p_screen);
 	Point2i position = _get_native_screen_position(p_screen) - _get_screens_origin();
 	// macOS native y-coordinate relative to _get_screens_origin() is negative,
-	// Godot expects a positive value.
+	// Tekisasu Engine expects a positive value.
 	position.y *= -1;
 	return position;
 }
@@ -1597,7 +1600,7 @@ Rect2i DisplayServerMacOS::screen_get_usable_rect(int p_screen) const {
 Color DisplayServerMacOS::screen_get_pixel(const Point2i &p_position) const {
 	Point2i position = p_position;
 	// macOS native y-coordinate relative to _get_screens_origin() is negative,
-	// Godot passes a positive value.
+	// Tekisasu Engine passes a positive value.
 	position.y *= -1;
 	position += _get_screens_origin();
 	position /= screen_get_max_scale();
@@ -1698,8 +1701,8 @@ void DisplayServerMacOS::screen_set_keep_on(bool p_enable) {
 
 	if (p_enable) {
 		String app_name_string = GLOBAL_GET("application/config/name");
-		NSString *name = [NSString stringWithUTF8String:(app_name_string.is_empty() ? "Godot Engine" : app_name_string.utf8().get_data())];
-		NSString *reason = @"Godot Engine running with display/window/energy_saving/keep_screen_on = true";
+		NSString *name = [NSString stringWithUTF8String:(app_name_string.is_empty() ? "Tekisasu Engine" : app_name_string.utf8().get_data())];
+		NSString *reason = @"Tekisasu Engine running with display/window/energy_saving/keep_screen_on = true";
 		IOPMAssertionCreateWithDescription(kIOPMAssertPreventUserIdleDisplaySleep, (__bridge CFStringRef)name, (__bridge CFStringRef)reason, (__bridge CFStringRef)reason, nullptr, 0, nullptr, &screen_keep_on_assertion);
 	}
 }
@@ -1971,7 +1974,7 @@ Point2i DisplayServerMacOS::window_get_position(WindowID p_window) const {
 	pos *= scale;
 	pos -= _get_screens_origin();
 	// macOS native y-coordinate relative to _get_screens_origin() is negative,
-	// Godot expects a positive value.
+	// Tekisasu Engine expects a positive value.
 	pos.y *= -1;
 	return pos;
 }
@@ -1992,7 +1995,7 @@ Point2i DisplayServerMacOS::window_get_position_with_decorations(WindowID p_wind
 	pos *= scale;
 	pos -= _get_screens_origin();
 	// macOS native y-coordinate relative to _get_screens_origin() is negative,
-	// Godot expects a positive value.
+	// Tekisasu Engine expects a positive value.
 	pos.y *= -1;
 	return pos;
 }
@@ -2009,7 +2012,7 @@ void DisplayServerMacOS::window_set_position(const Point2i &p_position, WindowID
 
 	Point2i position = p_position;
 	// macOS native y-coordinate relative to _get_screens_origin() is negative,
-	// Godot passes a positive value.
+	// Tekisasu Engine passes a positive value.
 	position.y *= -1;
 	position += _get_screens_origin();
 	position /= screen_get_max_scale();
@@ -2374,7 +2377,7 @@ void DisplayServerMacOS::window_set_custom_window_buttons(WindowData &p_wd, bool
 		[[p_wd.window_object standardWindowButton:NSWindowMiniaturizeButton] setHidden:YES];
 		[[p_wd.window_object standardWindowButton:NSWindowCloseButton] setHidden:YES];
 
-		p_wd.window_button_view = [[GodotButtonView alloc] initWithFrame:NSZeroRect];
+		p_wd.window_button_view = [[TekisasuButtonView alloc] initWithFrame:NSZeroRect];
 		[p_wd.window_button_view initButtons:window_buttons_spacing offset:NSMakePoint(p_wd.wb_offset.x, p_wd.wb_offset.y) rtl:is_rtl];
 		[p_wd.window_view addSubview:p_wd.window_button_view];
 	} else {
@@ -3169,7 +3172,7 @@ DisplayServer::IndicatorID DisplayServerMacOS::create_status_indicator(const Ref
 
 	NSStatusItem *item = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
 	idat.item = item;
-	idat.delegate = [[GodotStatusItemDelegate alloc] init];
+	idat.delegate = [[TekisasuStatusItemDelegate alloc] init];
 	[idat.delegate setCallback:p_callback];
 
 	item.button.image = nsimg;
@@ -3247,7 +3250,7 @@ Rect2 DisplayServerMacOS::status_indicator_get_rect(IndicatorID p_id) const {
 	rect.position *= scale;
 	rect.position -= _get_screens_origin();
 	// macOS native y-coordinate relative to _get_screens_origin() is negative,
-	// Godot expects a positive value.
+	// Tekisasu Engine expects a positive value.
 	rect.position.y *= -1;
 	return rect;
 }
@@ -3379,7 +3382,7 @@ void DisplayServerMacOS::popup_open(WindowID p_window) {
 
 		if (was_empty && popup_list.is_empty()) {
 			// Inform OS that popup was opened, to close other native popups.
-			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:@"org.godotengine.godot.popup_window"];
+			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:@"org.tekisasuengine.tekisasu.popup_window"];
 		}
 		time_since_popup = OS::get_singleton()->get_ticks_msec();
 		popup_list.push_back(p_window);
@@ -3404,7 +3407,7 @@ void DisplayServerMacOS::popup_close(WindowID p_window) {
 	}
 	if (!was_empty && popup_list.is_empty()) {
 		// Inform OS that all popups are closed.
-		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.endMenuTrackingNotification" object:@"org.godotengine.godot.popup_window"];
+		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.endMenuTrackingNotification" object:@"org.tekisasuengine.tekisasu.popup_window"];
 	}
 }
 
@@ -3422,7 +3425,7 @@ bool DisplayServerMacOS::mouse_process_popups(bool p_close) {
 		}
 		if (!was_empty) {
 			// Inform OS that all popups are closed.
-			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.endMenuTrackingNotification" object:@"org.godotengine.godot.popup_window"];
+			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.endMenuTrackingNotification" object:@"org.tekisasuengine.tekisasu.popup_window"];
 		}
 	} else {
 		uint64_t delta = OS::get_singleton()->get_ticks_msec() - time_since_popup;
@@ -3454,7 +3457,7 @@ bool DisplayServerMacOS::mouse_process_popups(bool p_close) {
 		}
 		if (!was_empty && popup_list.is_empty()) {
 			// Inform OS that all popups are closed.
-			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.endMenuTrackingNotification" object:@"org.godotengine.godot.popup_window"];
+			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.apple.HIToolbox.endMenuTrackingNotification" object:@"org.tekisasuengine.tekisasu.popup_window"];
 		}
 	}
 	return closed;
@@ -3504,7 +3507,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 		nsappname = [[NSProcessInfo processInfo] processName];
 	}
 
-	menu_delegate = [[GodotMenuDelegate alloc] init];
+	menu_delegate = [[TekisasuMenuDelegate alloc] init];
 
 	// Setup Dock menu.
 	NSMenu *dock_menu = [[NSMenu alloc] initWithTitle:@"_dock"];

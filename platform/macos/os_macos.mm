@@ -2,10 +2,13 @@
 /*  os_macos.mm                                                           */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -32,8 +35,8 @@
 
 #include "dir_access_macos.h"
 #include "display_server_macos.h"
-#include "godot_application.h"
-#include "godot_application_delegate.h"
+#include "tekisasu_application.h"
+#include "tekisasu_application_delegate.h"
 #include "macos_terminal_logger.h"
 
 #include "core/crypto/crypto_core.h"
@@ -827,7 +830,7 @@ OS_MacOS::OS_MacOS() {
 	DisplayServerMacOS::register_macos_driver();
 
 	// Implicitly create shared NSApplication instance.
-	[GodotApplication sharedApplication];
+	[TekisasuApplication sharedApplication];
 
 	// In case we are unbundled, make us a proper UI application.
 	[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
@@ -840,7 +843,7 @@ OS_MacOS::OS_MacOS() {
 	[NSApp setMainMenu:main_menu];
 	[NSApp finishLaunching];
 
-	id delegate = [[GodotApplicationDelegate alloc] init];
+	id delegate = [[TekisasuApplicationDelegate alloc] init];
 	ERR_FAIL_NULL(delegate);
 	[NSApp setDelegate:delegate];
 	[NSApp registerUserInterfaceItemSearchHandler:delegate];

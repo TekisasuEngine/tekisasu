@@ -1,11 +1,14 @@
 /**************************************************************************/
-/*  godot_application_delegate.mm                                         */
+/*  tekisasu_application_delegate.mm                                      */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -28,13 +31,13 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "godot_application_delegate.h"
+#include "tekisasu_application_delegate.h"
 
 #include "display_server_macos.h"
 #include "native_menu_macos.h"
 #include "os_macos.h"
 
-@implementation GodotApplicationDelegate
+@implementation TekisasuApplicationDelegate
 
 - (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
 	return YES;

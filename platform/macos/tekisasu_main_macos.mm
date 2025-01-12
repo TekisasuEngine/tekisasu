@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  gl_manager_macos_angle.mm                                             */
+/*  tekisasu_main_macos.mm                                                */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,43 +31,67 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "gl_manager_macos_angle.h"
+#include "os_macos.h"
 
-#if defined(MACOS_ENABLED) && defined(GLES3_ENABLED)
+#include "main/main.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-#include <EGL/eglext_angle.h>
+#if defined(SANITIZERS_ENABLED)
+#include <sys/resource.h>
+#endif
 
-const char *GLManagerANGLE_MacOS::_get_platform_extension_name() const {
-	return "EGL_ANGLE_platform_angle";
+int main(int argc, char **argv) {
+#if defined(VULKAN_ENABLED)
+	setenv("MVK_CONFIG_FULL_IMAGE_VIEW_SWIZZLE", "1", 1); // MoltenVK - enable full component swizzling support.
+	setenv("MVK_CONFIG_SWAPCHAIN_MIN_MAG_FILTER_USE_NEAREST", "0", 1); // MoltenVK - use linear surface scaling. TODO: remove when full DPI scaling is implemented.
+#endif
+
+#if defined(SANITIZERS_ENABLED)
+	// Note: Set stack size to be at least 30 MB (vs 8 MB default) to avoid overflow, address sanitizer can increase stack usage up to 3 times.
+	struct rlimit stack_lim = { 0x1E00000, 0x1E00000 };
+	setrlimit(RLIMIT_STACK, &stack_lim);
+#endif
+
+	int first_arg = 1;
+	const char *dbg_arg = "-NSDocumentRevisionsDebugMode";
+	for (int i = 0; i < argc; i++) {
+		if (strcmp(dbg_arg, argv[i]) == 0) {
+			first_arg = i + 2;
+		}
+	}
+
+	OS_MacOS os;
+	Error err;
+
+	// We must override main when testing is enabled.
+	TEST_MAIN_OVERRIDE
+
+	@autoreleasepool {
+		err = Main::setup(argv[0], argc - first_arg, &argv[first_arg]);
+	}
+
+	if (err != OK) {
+		if (err == ERR_HELP) { // Returned by --help and --version, so success.
+			return EXIT_SUCCESS;
+		}
+		return EXIT_FAILURE;
+	}
+
+	int ret;
+	@autoreleasepool {
+		ret = Main::start();
+	}
+	if (ret == EXIT_SUCCESS) {
+		os.run();
+	} else {
+		os.set_exit_code(EXIT_FAILURE);
+	}
+
+	@autoreleasepool {
+		Main::cleanup();
+	}
+
+	return os.get_exit_code();
 }
-
-EGLenum GLManagerANGLE_MacOS::_get_platform_extension_enum() const {
-	return EGL_PLATFORM_ANGLE_ANGLE;
-}
-
-Vector<EGLAttrib> GLManagerANGLE_MacOS::_get_platform_display_attributes() const {
-	Vector<EGLAttrib> ret;
-	ret.push_back(EGL_PLATFORM_ANGLE_TYPE_ANGLE);
-	ret.push_back(EGL_PLATFORM_ANGLE_TYPE_OPENGL_ANGLE);
-	ret.push_back(EGL_NONE);
-
-	return ret;
-}
-
-EGLenum GLManagerANGLE_MacOS::_get_platform_api_enum() const {
-	return EGL_OPENGL_ES_API;
-}
-
-Vector<EGLint> GLManagerANGLE_MacOS::_get_platform_context_attribs() const {
-	Vector<EGLint> ret;
-	ret.push_back(EGL_CONTEXT_CLIENT_VERSION);
-	ret.push_back(3);
-	ret.push_back(EGL_NONE);
-
-	return ret;
-}
-
-#endif // MACOS_ENABLED && GLES3_ENABLED

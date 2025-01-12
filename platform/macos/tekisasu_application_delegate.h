@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_window.h                                                        */
+/*  tekisasu_application_delegate.h                                          */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,22 +31,19 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_WINDOW_H
-#define GODOT_WINDOW_H
+#ifndef TEKISASU_APPLICATION_DELEGATE_H
+#define TEKISASU_APPLICATION_DELEGATE_H
 
-#include "servers/display_server.h"
+#include "core/os/os.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-@interface GodotWindow : NSWindow {
-	DisplayServer::WindowID window_id;
-	NSTimeInterval anim_duration;
-}
-
-- (void)setWindowID:(DisplayServer::WindowID)wid;
-- (void)setAnimDuration:(NSTimeInterval)duration;
-
+@interface TekisasuApplicationDelegate : NSObject <NSUserInterfaceItemSearching, NSApplicationDelegate>
+- (void)forceUnbundledWindowActivationHackStep1;
+- (void)forceUnbundledWindowActivationHackStep2;
+- (void)forceUnbundledWindowActivationHackStep3;
+- (void)handleAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 @end
 
-#endif // GODOT_WINDOW_H
+#endif // TEKISASU_APPLICATION_DELEGATE_H

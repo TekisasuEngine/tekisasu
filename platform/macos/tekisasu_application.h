@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_menu_delegate.h                                                 */
+/*  tekisasu_application.h                                                */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,17 +31,16 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_MENU_DELEGATE_H
-#define GODOT_MENU_DELEGATE_H
+#ifndef TEKISASU_APPLICATION_H
+#define TEKISASU_APPLICATION_H
+
+#include "core/os/os.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
+#import <IOKit/hidsystem/ev_keymap.h>
 
-@interface GodotMenuDelegate : NSObject <NSMenuDelegate> {
-}
-
-- (void)doNothing:(id)sender;
-
+@interface TekisasuApplication : NSApplication
 @end
 
-#endif // GODOT_MENU_DELEGATE_H
+#endif // TEKISASU_APPLICATION_H

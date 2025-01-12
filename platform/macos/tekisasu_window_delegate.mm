@@ -1,11 +1,14 @@
 /**************************************************************************/
-/*  godot_window_delegate.mm                                              */
+/*  tekisasu_window_delegate.mm                                           */
 /**************************************************************************/
 /*                         This file is part of:                          */
-/*                             GODOT ENGINE                               */
-/*                        https://godotengine.org                         */
+/*                            TEKISASU ENGINE                             */
+/*                       https://dev.tekisasu.com                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
+/* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
+/* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
+/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -28,13 +31,13 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "godot_window_delegate.h"
+#include "tekisasu_window_delegate.h"
 
 #include "display_server_macos.h"
-#include "godot_button_view.h"
-#include "godot_window.h"
+#include "tekisasu_button_view.h"
+#include "tekisasu_window.h"
 
-@implementation GodotWindowDelegate
+@implementation TekisasuWindowDelegate
 
 - (void)setWindowID:(DisplayServer::WindowID)wid {
 	window_id = wid;
@@ -305,7 +308,7 @@
 	DisplayServerMacOS::WindowData &wd = ds->get_window(window_id);
 
 	if (wd.window_button_view) {
-		[(GodotButtonView *)wd.window_button_view displayButtons];
+		[(TekisasuButtonView *)wd.window_button_view displayButtons];
 	}
 
 	if (ds->mouse_get_mode() == DisplayServer::MOUSE_MODE_CAPTURED) {
@@ -334,7 +337,7 @@
 	DisplayServerMacOS::WindowData &wd = ds->get_window(window_id);
 
 	if (wd.window_button_view) {
-		[(GodotButtonView *)wd.window_button_view displayButtons];
+		[(TekisasuButtonView *)wd.window_button_view displayButtons];
 	}
 
 	wd.focused = false;

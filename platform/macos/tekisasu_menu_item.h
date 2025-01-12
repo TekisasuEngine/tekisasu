@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_button_view.h                                                   */
+/*  tekisasu_menu_item.h                                                     */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,30 +31,36 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_BUTTON_VIEW_H
-#define GODOT_BUTTON_VIEW_H
+#ifndef TEKISASU_MENU_ITEM_H
+#define TEKISASU_MENU_ITEM_H
 
 #include "servers/display_server.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-@interface GodotButtonView : NSView {
-	NSTrackingArea *tracking_area;
-	NSPoint offset;
-	CGFloat spacing;
-	bool mouse_in_group;
-	bool rtl;
-	NSButton *close_button;
-	NSButton *miniaturize_button;
-	NSButton *zoom_button;
-}
+#define MENU_TAG_START 0x00004447
+#define MENU_TAG_END 0xFFFF4447
 
-- (void)initButtons:(CGFloat)button_spacing offset:(NSPoint)button_offset rtl:(bool)is_rtl;
-- (void)displayButtons;
-- (void)setOffset:(NSPoint)button_offset;
-- (NSPoint)getOffset;
+enum GlobalMenuCheckType {
+	CHECKABLE_TYPE_NONE,
+	CHECKABLE_TYPE_CHECK_BOX,
+	CHECKABLE_TYPE_RADIO_BUTTON,
+};
+
+@interface TekisasuMenuItem : NSObject {
+@public
+	Callable callback;
+	Callable key_callback;
+	Callable hover_callback;
+	Variant meta;
+	GlobalMenuCheckType checkable_type;
+	bool checked;
+	int max_states;
+	int state;
+	Ref<Image> img;
+}
 
 @end
 
-#endif // GODOT_BUTTON_VIEW_H
+#endif // TEKISASU_MENU_ITEM_H

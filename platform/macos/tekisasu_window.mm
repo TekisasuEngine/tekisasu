@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_application.h                                                   */
+/*  tekisasu_window.mm                                                    */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,16 +31,55 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_APPLICATION_H
-#define GODOT_APPLICATION_H
+#include "tekisasu_window.h"
 
-#include "core/os/os.h"
+#include "display_server_macos.h"
 
-#import <AppKit/AppKit.h>
-#import <Foundation/Foundation.h>
-#import <IOKit/hidsystem/ev_keymap.h>
+@implementation TekisasuWindow
 
-@interface GodotApplication : NSApplication
+- (id)init {
+	self = [super init];
+	window_id = DisplayServer::INVALID_WINDOW_ID;
+	anim_duration = -1.0f;
+	return self;
+}
+
+- (void)setAnimDuration:(NSTimeInterval)duration {
+	anim_duration = duration;
+}
+
+- (NSTimeInterval)animationResizeTime:(NSRect)newFrame {
+	if (anim_duration > 0) {
+		return anim_duration;
+	} else {
+		return [super animationResizeTime:newFrame];
+	}
+}
+
+- (void)setWindowID:(DisplayServerMacOS::WindowID)wid {
+	window_id = wid;
+}
+
+- (BOOL)canBecomeKeyWindow {
+	// Required for NSWindowStyleMaskBorderless windows.
+	DisplayServerMacOS *ds = (DisplayServerMacOS *)DisplayServer::get_singleton();
+	if (!ds || !ds->has_window(window_id)) {
+		return YES;
+	}
+
+	DisplayServerMacOS::WindowData &wd = ds->get_window(window_id);
+	return !wd.no_focus;
+}
+
+- (BOOL)canBecomeMainWindow {
+	// Required for NSWindowStyleMaskBorderless windows.
+	DisplayServerMacOS *ds = (DisplayServerMacOS *)DisplayServer::get_singleton();
+	if (!ds || !ds->has_window(window_id)) {
+		return YES;
+	}
+
+	DisplayServerMacOS::WindowData &wd = ds->get_window(window_id);
+	return !wd.no_focus && !wd.is_popup;
+}
+
 @end
-
-#endif // GODOT_APPLICATION_H

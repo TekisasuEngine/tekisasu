@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_window_delegate.h                                               */
+/*  tekisasu_window_delegate.h                                            */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,15 +31,15 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_WINDOW_DELEGATE_H
-#define GODOT_WINDOW_DELEGATE_H
+#ifndef TEKISASU_WINDOW_DELEGATE_H
+#define TEKISASU_WINDOW_DELEGATE_H
 
 #include "servers/display_server.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 
-@interface GodotWindowDelegate : NSObject <NSWindowDelegate> {
+@interface TekisasuWindowDelegate : NSObject <NSWindowDelegate> {
 	DisplayServer::WindowID window_id;
 }
 
@@ -47,4 +47,4 @@
 
 @end
 
-#endif // GODOT_WINDOW_DELEGATE_H
+#endif // TEKISASU_WINDOW_DELEGATE_H
