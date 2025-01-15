@@ -5,13 +5,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>Tekisasu</string>
+	<string>Tekisasu-Engine</string>
 	<key>CFBundleName</key>
-	<string>Tekisasu</string>
+	<string>Tekisasu Engine</string>
 	<key>CFBundleIconFile</key>
 	<string>Tekisasu.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.tekisasuengine.tekisasu</string>
+	<string>org.tekisasu.tekisasuengine</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$short_version</string>
 	<key>CFBundleSignature</key>
-	<string>tekisasu</string>
+	<string>godot</string>
 	<key>CFBundleVersion</key>
 	<string>$version</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -66,11 +66,11 @@
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.tekisasu</string>
+				<string>public.godot</string>
 			</array>
 			<key>NSExportableTypes</key>
 			<array>
-				<string>public.tekisasu</string>
+				<string>public.godot</string>
 			</array>
 		</dict>
 	</array>
@@ -173,7 +173,7 @@
 		</dict>
 		<dict>
 			<key>UTTypeIdentifier</key>
-			<string>public.tekisasu</string>
+			<string>public.godot</string>
 			<key>UTTypeReferenceURL</key>
 			<string></string>
 			<key>UTTypeDescription</key>
@@ -188,7 +188,7 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>tekisasu</string>
+					<string>godot</string>
 				</array>
 				<key>public.mime-type</key>
 				<string>application/x-tekisasu-project</string>
