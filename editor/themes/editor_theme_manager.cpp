@@ -1079,6 +1079,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		style_tab_selected->set_bg_color(p_config.base_color);
 		// Add a highlight line at the top of the selected tab.
 		style_tab_selected->set_border_width(SIDE_TOP, Math::round(3 * EDSCALE));
+
 		// Make the highlight line prominent, but not too prominent as to not be distracting.
 		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
 		style_tab_selected->set_border_color(tab_highlight);
@@ -1383,6 +1384,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		} else {
 			//p_theme->set_stylebox("scroll", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, -5, 1, -5, 1));
 			p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 15));
+			#ifdef MACOS_ENABLED
+			p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 25));
+			#endif
 		}
 		p_theme->set_stylebox("scroll_focus", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, 1, 1, 1, 1));
 		p_theme->set_stylebox("grabber", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollGrabber"), EditorStringName(EditorIcons)), 6, 6, 6, 6, 1, 1, 1, 1));
@@ -1403,6 +1407,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		} else {
 			//p_theme->set_stylebox("scroll", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, 1, -5, 1, -5));
 			p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 15, 1, 1, true));
+			#ifdef MACOS_ENABLED
+			p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 25, 1, 1, true));
+			#endif
 		}
 		p_theme->set_stylebox("scroll_focus", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, 1, 1, 1, 1));
 		p_theme->set_stylebox("grabber", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollGrabber"), EditorStringName(EditorIcons)), 6, 6, 6, 6, 1, 1, 1, 1));
