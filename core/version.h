@@ -79,6 +79,8 @@
 // Example: "Godot v3.1.4.stable.official.mono"
 #define VERSION_FULL_NAME VERSION_NAME " v" VERSION_FULL_BUILD
 
+#define VERSION_TEKISASU_DISTRIBUTION VERSION_FULL_BUILD "." TEKISASU_RELEASE
+
 // Tekisasu release is used simultaneously across the entire Tekisasu Toolchain build
 // which includes this project and Tekisasu Graphics.  New builds will be made for every
 // release of Tekisasu Toolchain
