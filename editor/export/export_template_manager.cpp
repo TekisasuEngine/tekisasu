@@ -72,7 +72,7 @@ void ExportTemplateManager::_update_template_status() {
 	da->list_dir_end();
 
 	// Update the state of the current version.
-	String current_version = VERSION_FULL_CONFIG;
+	String current_version = VERSION_TEKISASU_DISTRIBUTION;
 	current_value->set_text(current_version);
 
 	if (templates.has(current_version)) {
@@ -238,7 +238,7 @@ void ExportTemplateManager::_refresh_mirrors() {
 	}
 	is_refreshing_mirrors = true;
 
-	String current_version = VERSION_FULL_CONFIG;
+	String current_version = VERSION_TEKISASU_DISTRIBUTION;
 	const String mirrors_metadata_url = "https://dev.tekisasu.com/mirrorlist/" + current_version + ".json";
 	request_mirrors->request(mirrors_metadata_url);
 }
@@ -551,9 +551,9 @@ bool ExportTemplateManager::_install_file_selected(const String &p_file, bool p_
 }
 
 void ExportTemplateManager::_uninstall_template(const String &p_version) {
-	uninstall_confirm->set_text(vformat(TTR("Remove templates for the version '%s'?"), p_version));
+	uninstall_confirm->set_text(vformat(TTR("Remove templates for the version '%s'?"), p_version + String(".tx.") + TEKISASU_RELEASE));
 	uninstall_confirm->popup_centered();
-	uninstall_version = p_version;
+	uninstall_version = p_version + String(".tx.") + TEKISASU_RELEASE;
 }
 
 void ExportTemplateManager::_uninstall_template_confirmed() {
@@ -637,7 +637,7 @@ void ExportTemplateManager::_installed_table_button_cbk(Object *p_item, int p_co
 
 void ExportTemplateManager::_open_template_folder(const String &p_version) {
 	const String &templates_dir = EditorPaths::get_singleton()->get_export_templates_dir();
-	OS::get_singleton()->shell_show_in_file_manager(templates_dir.path_join(p_version), true);
+	OS::get_singleton()->shell_show_in_file_manager(templates_dir.path_join(p_version + String(".tx.") + TEKISASU_RELEASE), true);
 }
 
 void ExportTemplateManager::popup_manager() {
