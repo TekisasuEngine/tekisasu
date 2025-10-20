@@ -5185,6 +5185,7 @@ void EditorNode::_save_editor_layout() {
 	editor_dock_manager->save_docks_to_config(config, "docks");
 	_save_open_scenes_to_config(config);
 	_save_central_editor_layout_to_config(config);
+	_save_window_settings_to_config(config, "EditorWindow");
 	editor_data.get_plugin_window_layout(config);
 
 	config->save(EditorPaths::get_singleton()->get_project_settings_dir().path_join("editor_layout.cfg"));
