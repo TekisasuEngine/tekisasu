@@ -5,7 +5,7 @@
 #endif
 
 TEKISASU_ICON ICON platform/windows/tekisasu.ico
-1 RT_MANIFEST "tekisasu.manifest"
+1 RT_MANIFEST "platform/windows/tekisasu.manifest"
 
 1 VERSIONINFO
 FILEVERSION     VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,0
