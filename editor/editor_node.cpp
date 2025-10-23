@@ -523,6 +523,8 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		distraction_free->set_icon(theme->get_icon(SNAME("DistractionFree"), EditorStringName(EditorIcons)));
 		distraction_free->add_theme_style_override(SceneStringName(pressed), theme->get_stylebox(CoreStringName(normal), "FlatMenuButton"));
 
+		title_bar_logo->set_icon(theme->get_icon(SNAME("TitleBarLogo"), EditorStringName(EditorIcons)));
+
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_SEARCH), theme->get_icon(SNAME("HelpSearch"), EditorStringName(EditorIcons)));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_COPY_SYSTEM_INFO), theme->get_icon(SNAME("ActionCopy"), EditorStringName(EditorIcons)));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_ABOUT), theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)));
@@ -3144,6 +3146,9 @@ void EditorNode::_menu_option_confirm(int p_option, bool p_confirmed) {
 		case HELP_FORUM: {
 			OS::get_singleton()->shell_open("https://forum.godotengine.org/");
 		} break;
+		case HELP_DEVSITE: {
+			OS::get_singleton()->shell_open("https://dev.tekisasu.com/");
+		} break;
 		case HELP_REPORT_A_BUG: {
 			OS::get_singleton()->shell_open("https://github.com/godotengine/godot/issues");
 		} break;
@@ -4955,7 +4960,7 @@ String EditorNode::_get_system_info() const {
 	}
 	const String distribution_version = OS::get_singleton()->get_version();
 
-	String godot_version = "Tekisasu v" + String(VERSION_FULL_CONFIG);
+	String godot_version = "Tekisasu v" + String(VERSION_FULL_CONFIG + String(".tx.") + TEKISASU_RELEASE);
 	if (String(VERSION_BUILD) != "official") {
 		String hash = String(VERSION_HASH);
 		hash = hash.is_empty() ? String("unknown") : vformat("(%s)", hash.left(9));
@@ -7089,6 +7094,26 @@ EditorNode::EditorNode() {
 		title_bar->add_child(left_menu_spacer);
 	}
 
+	// Tekisasu - newtitlebarmenu
+	title_bar_logo = memnew(MenuButton);
+	title_bar_logo->set_flat(true);
+	title_bar->add_child(title_bar_logo);
+	title_bar_logo->set_tooltip_text(TTR("Tekisasu Engine"));
+	title_bar_logo->get_popup()->add_item(TTR("About"), HELP_ABOUT);
+	title_bar_logo->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
+	title_bar_logo->get_popup()->add_separator();
+	title_bar_logo->get_popup()->add_item(TTR("Search Help"), HELP_SEARCH);
+	title_bar_logo->get_popup()->add_item(TTR("Online Documentation"), HELP_DOCS);
+	title_bar_logo->get_popup()->add_item(TTR("Dev.tekisasu.com"), HELP_DEVSITE);
+	title_bar_logo->get_popup()->add_item(TTR("Export"), FILE_EXPORT_PROJECT);	
+	title_bar_logo->get_popup()->add_item(TTR("Manage Runtimes"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
+	title_bar_logo->get_popup()->add_separator();
+	title_bar_logo->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
+	title_bar_logo->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
+
+	
+	title_bar_logo->get_popup()->connect("id_pressed", callable_mp(this, &EditorNode::_menu_option));
+	
 	main_menu = memnew(MenuBar);
 	title_bar->add_child(main_menu);
 	main_menu->set_theme_type_variation("MainMenuBar");

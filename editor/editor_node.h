@@ -242,6 +242,7 @@ private:
 		HELP_COMMAND_PALETTE,
 		HELP_DOCS,
 		HELP_FORUM,
+		HELP_DEVSITE,
 		HELP_REPORT_A_BUG,
 		HELP_COPY_SYSTEM_INFO,
 		HELP_SUGGEST_A_FEATURE,
@@ -306,6 +307,10 @@ private:
 	Control *gui_base = nullptr;
 	VBoxContainer *main_vbox = nullptr;
 	OptionButton *renderer = nullptr;
+	
+	// Tekisasu 
+	MenuButton *title_bar_logo = nullptr;
+
 
 	ConfirmationDialog *video_restart_dialog = nullptr;
 
