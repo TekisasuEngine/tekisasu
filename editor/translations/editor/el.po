@@ -5760,8 +5760,8 @@ msgid "It would be a good idea to name your project."
 msgstr "Είναι καλή ιδέα να ονομάσετε το έργο σας."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
-msgstr "Άκυρο αρχείο έργου «.zip»: Δεν περιέχει αρχείο «project.godot»."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+msgstr "Άκυρο αρχείο έργου «.zip»: Δεν περιέχει αρχείο «project.tekisasu»."
 
 msgid "The path specified doesn't exist."
 msgstr "Η ορισμένη διαδρομή δεν υπάρχει."
@@ -5769,8 +5769,8 @@ msgstr "Η ορισμένη διαδρομή δεν υπάρχει."
 msgid "New Game Project"
 msgstr "Νέο έργο παιχνιδιού"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "Δεν ήταν δυνατή η δημιουργία του project.godot στη διαδρομή έργου."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "Δεν ήταν δυνατή η δημιουργία του project.tekisasu στη διαδρομή έργου."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Σφάλμα ανοίγματος αρχείου πακέτου, δεν είναι σε μορφή ZIP."
@@ -5823,8 +5823,8 @@ msgstr "Αλλαγή Νεκρής Ζώνης Ενέργειας"
 msgid "Erase Input Action"
 msgstr "Διαγραφή ενέργειας εισόδου"
 
-msgid "Project Settings (project.godot)"
-msgstr "Ρυθμίσεις έργου (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Ρυθμίσεις έργου (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Χάρτης εισόδου"

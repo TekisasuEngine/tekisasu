@@ -4582,9 +4582,9 @@ msgid "It would be a good idea to name your project."
 msgstr "Няма да е лошо да дадете име на проекта си."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
 msgstr ""
-"Неправилен проектен файл „.zip“. В него не се съдържа файл „project.godot“."
+"Неправилен проектен файл „.zip“. В него не се съдържа файл „project.tekisasu“."
 
 msgid "The path specified doesn't exist."
 msgstr "Посоченият път не съществува."
@@ -4622,8 +4622,8 @@ msgstr "Изтриване на елемента"
 msgid "(All)"
 msgstr "(Всички)"
 
-msgid "Project Settings (project.godot)"
-msgstr "Настройки на проекта (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Настройки на проекта (project.tekisasu)"
 
 msgid "Plugins"
 msgstr "Приставки"

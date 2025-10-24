@@ -1323,9 +1323,9 @@ const char *RenamesMap3To4::csharp_signals_renames[][2] = {
 };
 
 const char *RenamesMap3To4::project_settings_renames[][2] = {
-	// Project setting paths in scripts include the category, but in project.godot,
+	// Project setting paths in scripts include the category, but in project.tekisasu,
 	// the category is the section delimiter, so we need to support the paths without it.
-	// The project.godot remaps are defined in the project_godot_renames, keep them in sync!
+	// The project.tekisasu remaps are defined in the project_tekisasu_renames, keep them in sync!
 	{ "audio/channel_disable_threshold_db", "audio/buses/channel_disable_threshold_db" },
 	{ "audio/channel_disable_time", "audio/buses/channel_disable_time" },
 	{ "audio/default_bus_layout", "audio/buses/default_bus_layout" },
@@ -1370,7 +1370,7 @@ const char *RenamesMap3To4::project_settings_renames[][2] = {
 	{ nullptr, nullptr },
 };
 
-const char *RenamesMap3To4::project_godot_renames[][2] = {
+const char *RenamesMap3To4::project_tekisasu_renames[][2] = {
 	// Should be kept in sync with project_settings_renames.
 	{ "channel_disable_threshold_db", "buses/channel_disable_threshold_db" },
 	{ "channel_disable_time", "buses/channel_disable_time" },

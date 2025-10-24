@@ -3745,9 +3745,9 @@ msgid "It would be a good idea to name your project."
 msgstr "Nomi vian projekton estus konsilinde."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
 msgstr ""
-"Nevalida projekta \".zip\" dosiero; ĝi ne enhavas dosieron \"project.godot\"."
+"Nevalida projekta \".zip\" dosiero; ĝi ne enhavas dosieron \"project.tekisasu\"."
 
 msgid "The path specified doesn't exist."
 msgstr "La provizinta dosierindiko ne ekzistas."
@@ -3755,8 +3755,8 @@ msgstr "La provizinta dosierindiko ne ekzistas."
 msgid "New Game Project"
 msgstr "Nova luda projekto"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "Ne eblas krei project.godot en projekta dosierindiko."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "Ne eblas krei project.tekisasu en projekta dosierindiko."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Eraro dum malfermi la pakaĵan dosieron, ne de ZIP formato."
@@ -3809,8 +3809,8 @@ msgstr "Ŝanĝi mortzonon de faro"
 msgid "Erase Input Action"
 msgstr "Forigi enigan faron"
 
-msgid "Project Settings (project.godot)"
-msgstr "Projektaj agordoj (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Projektaj agordoj (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Eniga mapo"

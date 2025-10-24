@@ -6371,9 +6371,9 @@ msgid "It would be a good idea to name your project."
 msgstr "Det vore en bra idé att namnge ditt projekt."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
 msgstr ""
-"Ogiltig \".zip\" projektfil; den innehåller inte en \"project.godot\" fil."
+"Ogiltig \".zip\" projektfil; den innehåller inte en \"project.tekisasu\" fil."
 
 msgid "The path specified doesn't exist."
 msgstr "Den satta sökvägen finns inte."
@@ -6436,8 +6436,8 @@ msgstr ""
 "\n"
 "Är du säker på att du vill fortsätta?"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "Kunde inte skapa project.godot i projektets sökväg."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "Kunde inte skapa project.tekisasu i projektets sökväg."
 
 msgid "Couldn't create icon.svg in project path."
 msgstr "Kunde inte skapa icon.svg i projektets sökväg."

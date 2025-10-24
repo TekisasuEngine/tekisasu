@@ -3313,8 +3313,8 @@ msgstr "Projekta instalācijas ceļš:"
 msgid "Restart Now"
 msgstr "Restartēt tagad"
 
-msgid "Project Settings (project.godot)"
-msgstr "Projekta iestatījumi (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Projekta iestatījumi (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Ievade"

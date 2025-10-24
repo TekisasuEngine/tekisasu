@@ -8195,8 +8195,8 @@ msgid "It would be a good idea to name your project."
 msgstr "Het zou een goed idee zijn om uw project een naam te geven."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
-msgstr "Ongeldig '.zip' projectbestand, bevat geen 'project.godot' bestand."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+msgstr "Ongeldig '.zip' projectbestand, bevat geen 'project.tekisasu' bestand."
 
 msgid "The path specified doesn't exist."
 msgstr "Dit pad bestaat niet."
@@ -8204,8 +8204,8 @@ msgstr "Dit pad bestaat niet."
 msgid "New Game Project"
 msgstr "Nieuw spelproject"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "Kan project.godot niet in projectpad maken."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "Kan project.tekisasu niet in projectpad maken."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Fout bij het openen van het pakketbestand, geen zip-formaat."
@@ -8264,8 +8264,8 @@ msgstr "Wijzig Action Deadzone"
 msgid "Erase Input Action"
 msgstr "Verwijder Input Actie"
 
-msgid "Project Settings (project.godot)"
-msgstr "Projectinstellingen (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Projectinstellingen (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Invoertoewijzing"
