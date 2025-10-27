@@ -7110,7 +7110,9 @@ EditorNode::EditorNode() {
 	// Tekisasu - newtitlebarmenu
 	title_bar_logo = memnew(MenuButton);
 	title_bar_logo->set_flat(true);
+	title_bar_logo->set_theme_type_variation("MainMenuBar");
 	title_bar->add_child(title_bar_logo);
+	//title_bar_logo->set_switch_on_hover(true);
 	title_bar_logo->set_tooltip_text(TTR("Tekisasu Engine"));
 	title_bar_logo->get_popup()->add_item(TTR("About"), HELP_ABOUT);
 	title_bar_logo->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
