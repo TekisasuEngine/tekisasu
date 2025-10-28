@@ -309,7 +309,7 @@ private:
 	OptionButton *renderer = nullptr;
 	
 	// Tekisasu 
-	MenuButton *title_bar_logo = nullptr;
+	MenuButton *editor_logo_quick_menu = nullptr;
 
 
 	ConfirmationDialog *video_restart_dialog = nullptr;

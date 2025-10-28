@@ -523,7 +523,9 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		distraction_free->set_icon(theme->get_icon(SNAME("DistractionFree"), EditorStringName(EditorIcons)));
 		distraction_free->add_theme_style_override(SceneStringName(pressed), theme->get_stylebox(CoreStringName(normal), "FlatMenuButton"));
 
-		title_bar_logo->set_icon(theme->get_icon(SNAME("TitleBarLogo"), EditorStringName(EditorIcons)));
+		if (EDITOR_GET("interface/editor/use_editor_logo_quick_menu")) {
+			editor_logo_quick_menu->set_icon(theme->get_icon(SNAME("TitleBarLogo"), EditorStringName(EditorIcons)));
+		}
 
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_SEARCH), theme->get_icon(SNAME("HelpSearch"), EditorStringName(EditorIcons)));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_COPY_SYSTEM_INFO), theme->get_icon(SNAME("ActionCopy"), EditorStringName(EditorIcons)));
@@ -7107,28 +7109,26 @@ EditorNode::EditorNode() {
 		title_bar->add_child(left_menu_spacer);
 	}
 
-	// Tekisasu - newtitlebarmenu
-	title_bar_logo = memnew(MenuButton);
-	title_bar_logo->set_flat(true);
-	title_bar_logo->set_theme_type_variation("FlatMenuButton");
-	title_bar->add_child(title_bar_logo);
-	//title_bar_logo->set_switch_on_hover(true);
-	title_bar_logo->set_tooltip_text(TTR("Tekisasu Engine"));
-	title_bar_logo->get_popup()->add_item(TTR("About"), HELP_ABOUT);
-	title_bar_logo->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
-	title_bar_logo->get_popup()->add_separator();
-	title_bar_logo->get_popup()->add_item(TTR("Search Help"), HELP_SEARCH);
-	title_bar_logo->get_popup()->add_item(TTR("Online Documentation"), HELP_DOCS);
-	title_bar_logo->get_popup()->add_item(TTR("Dev.tekisasu.com"), HELP_DEVSITE);
-	title_bar_logo->get_popup()->add_item(TTR("Export"), FILE_EXPORT_PROJECT);	
-	title_bar_logo->get_popup()->add_item(TTR("Manage Runtimes"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
-	title_bar_logo->get_popup()->add_separator();
-	title_bar_logo->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
-	title_bar_logo->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
+	if (EDITOR_GET("interface/editor/use_editor_logo_quick_menu")) {
+		editor_logo_quick_menu = memnew(MenuButton);
+		editor_logo_quick_menu->set_flat(true);
+		editor_logo_quick_menu->set_theme_type_variation("FlatMenuButton");
+		title_bar->add_child(editor_logo_quick_menu);
+		editor_logo_quick_menu->set_tooltip_text(TTR("Tekisasu Engine"));
+		editor_logo_quick_menu->get_popup()->add_item(TTR("About"), HELP_ABOUT);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
+		editor_logo_quick_menu->get_popup()->add_separator();
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Search Help"), HELP_SEARCH);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Online Documentation"), HELP_DOCS);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Dev.tekisasu.com"), HELP_DEVSITE);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Export"), FILE_EXPORT_PROJECT);	
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Manage Runtimes"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
+		editor_logo_quick_menu->get_popup()->add_separator();
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
+		editor_logo_quick_menu->get_popup()->connect("id_pressed", callable_mp(this, &EditorNode::_menu_option));
+	}
 
-	
-	title_bar_logo->get_popup()->connect("id_pressed", callable_mp(this, &EditorNode::_menu_option));
-	
 	main_menu = memnew(MenuBar);
 	title_bar->add_child(main_menu);
 	main_menu->set_theme_type_variation("MainMenuBar");
