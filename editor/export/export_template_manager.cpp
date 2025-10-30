@@ -551,9 +551,9 @@ bool ExportTemplateManager::_install_file_selected(const String &p_file, bool p_
 }
 
 void ExportTemplateManager::_uninstall_template(const String &p_version) {
-	uninstall_confirm->set_text(vformat(TTR("Remove templates for the version '%s'?"), p_version + String(".tx.") + TEKISASU_RELEASE));
+	uninstall_confirm->set_text(vformat(TTR("Remove templates for the version '%s'?"), p_version));
 	uninstall_confirm->popup_centered();
-	uninstall_version = p_version + String(".tx.") + TEKISASU_RELEASE;
+	uninstall_version = p_version;
 }
 
 void ExportTemplateManager::_uninstall_template_confirmed() {
@@ -637,7 +637,7 @@ void ExportTemplateManager::_installed_table_button_cbk(Object *p_item, int p_co
 
 void ExportTemplateManager::_open_template_folder(const String &p_version) {
 	const String &templates_dir = EditorPaths::get_singleton()->get_export_templates_dir();
-	OS::get_singleton()->shell_show_in_file_manager(templates_dir.path_join(p_version + String(".tx.") + TEKISASU_RELEASE), true);
+	OS::get_singleton()->shell_show_in_file_manager(templates_dir.path_join(p_version), true);
 }
 
 void ExportTemplateManager::popup_manager() {
