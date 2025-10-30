@@ -656,9 +656,6 @@
 			Expanding main editor window content to the title, if supported by [DisplayServer]. See [constant DisplayServer.WINDOW_FLAG_EXTEND_TO_TITLE].
 			Specific to the macOS platform.
 		</member>
-		<member name="interface/editor/use_editor_logo_quick_menu" type="bool" setter="" getter="">
-			A quick menu button that provides easy access to commonly used editor actions when this option is enabled.
-		</member>
 		<member name="interface/editor/font_antialiasing" type="int" setter="" getter="">
 			FreeType's font anti-aliasing mode used to render the editor fonts. Most fonts are not designed to look good with anti-aliasing disabled, so it's recommended to leave this enabled unless you're using a pixel art font.
 		</member>
@@ -726,6 +723,10 @@
 			This is equivalent to [member ProjectSettings.display/window/subwindows/embed_subwindows] in the running project, except the setting's value is inverted.
 			[b]Note:[/b] To query whether the editor can use multiple windows in an editor plugin, use [method EditorInterface.is_multi_window_enabled] instead of querying the value of this editor setting.
 		</member>
+		<member name="interface/editor/thick_scrollbars" type="bool" setter="" getter="">
+			If [code]true[/code], editor will utilize thicker scrollbars.
+			[b]Note:[/b] This setting will be ignored if [member interface/touchscreen/increase_scrollbar_touch_area] is [code]true[/code].
+		</member>
 		<member name="interface/editor/ui_layout_direction" type="int" setter="" getter="">
 			Editor UI default layout direction.
 		</member>
@@ -736,6 +737,9 @@
 		<member name="interface/editor/update_continuously" type="bool" setter="" getter="">
 			If [code]true[/code], redraws the editor every frame even if nothing has changed on screen. When this setting is enabled, the update spinner displays in red (see [member interface/editor/show_update_spinner]).
 			[b]Warning:[/b] This greatly increases CPU and GPU utilization, leading to increased power usage. This should only be enabled for troubleshooting purposes.
+		</member>
+		<member name="interface/editor/use_editor_logo_quick_menu" type="bool" setter="" getter="">
+			A quick menu button that provides easy access to commonly used editor actions when this option is enabled.
 		</member>
 		<member name="interface/editor/use_embedded_menu" type="bool" setter="" getter="">
 			If [code]true[/code], editor main menu is using embedded [MenuBar] instead of system global menu.
