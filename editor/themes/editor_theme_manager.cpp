@@ -1383,12 +1383,17 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		if (p_config.increase_scrollbar_touch_area) {
 			p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 50));
 		} else {
-			if (EDITOR_GET("interface/editor/thick_scrollbars")) {
+			if ((int)EDITOR_GET("interface/editor/scrollbar_type") == 1) { // Default
 				p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 15));
 #ifdef MACOS_ENABLED
 				p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 25));
 #endif
-			} else {
+			} else if ((int)EDITOR_GET("interface/editor/scrollbar_type") == 2) { // Large
+				p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 20));
+#ifdef MACOS_ENABLED
+				p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 30));
+#endif
+			} else { // Legacy
 				p_theme->set_stylebox("scroll", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, -5, 1, -5, 1));
 			}
 		}
@@ -1409,12 +1414,17 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		if (p_config.increase_scrollbar_touch_area) {
 			p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 50, 1, 1, true));
 		} else {
-			if (EDITOR_GET("interface/editor/thick_scrollbars")) {
+			if ((int)EDITOR_GET("interface/editor/scrollbar_type") == 1) { // Default
 				p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 15, 1, 1, true));
 #ifdef MACOS_ENABLED
 				p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 25, 1, 1, true));
 #endif
-			} else {
+			} else if ((int)EDITOR_GET("interface/editor/scrollbar_type") == 2) { // Large
+				p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 20, 1, 1, true));
+#ifdef MACOS_ENABLED
+				p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 30, 1, 1, true));
+#endif
+			} else { // Legacy
 				p_theme->set_stylebox("scroll", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, 1, -5, 1, -5));
 			}
 		}
@@ -2666,7 +2676,7 @@ bool EditorThemeManager::is_generated_theme_outdated() {
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/font") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/main_font") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/code_font") ||
-				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/thick_scrollbars") ||
+				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/scrollbar_type") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("editors/visual_editors") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("text_editor/theme") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("text_editor/help/help") ||

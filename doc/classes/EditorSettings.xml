@@ -704,6 +704,13 @@
 		<member name="interface/editor/save_on_focus_loss" type="bool" setter="" getter="">
 			If [code]true[/code], scenes and scripts are saved when the editor loses focus. Depending on the work flow, this behavior can be less intrusive than [member text_editor/behavior/files/autosave_interval_secs] or remembering to save manually.
 		</member>
+		<member name="interface/editor/scrollbar_type" type="int" setter="" getter="">
+			Chooses the scrollbar type to use within the editor interface.
+			- [b]Legacy:[/b] This type of scrollbar was used in Godot 4.5 and earlier versions.  It was removed in Tekisasu Engine initially, but returns here as an option. 
+			- [b]Default:[/b] This is the normal scrollbar that more resembles traditional desktop applications in size and appearance.
+			- [b]Large:[/b] This is a thicker version of the normal scrollbar.
+			[b]Note:[/b] This setting will be ignored if [member interface/touchscreen/increase_scrollbar_touch_area] is [code]true[/code].
+		</member>
 		<member name="interface/editor/separate_distraction_mode" type="bool" setter="" getter="">
 			If [code]true[/code], the editor's Script tab will have a separate distraction mode setting from the 2D/3D/AssetLib tabs. If [code]false[/code], the distraction-free mode toggle is shared between all tabs.
 		</member>
@@ -722,10 +729,6 @@
 			If [code]true[/code], embed modal windows such as docks inside the main editor window. When single-window mode is enabled, tooltips will also be embedded inside the main editor window, which means they can't be displayed outside of the editor window. Single-window mode can be faster as it does not need to create a separate window for every popup and tooltip, which can be a slow operation depending on the operating system and rendering method in use.
 			This is equivalent to [member ProjectSettings.display/window/subwindows/embed_subwindows] in the running project, except the setting's value is inverted.
 			[b]Note:[/b] To query whether the editor can use multiple windows in an editor plugin, use [method EditorInterface.is_multi_window_enabled] instead of querying the value of this editor setting.
-		</member>
-		<member name="interface/editor/thick_scrollbars" type="bool" setter="" getter="">
-			If [code]true[/code], editor will utilize thicker scrollbars.
-			[b]Note:[/b] This setting will be ignored if [member interface/touchscreen/increase_scrollbar_touch_area] is [code]true[/code].
 		</member>
 		<member name="interface/editor/ui_layout_direction" type="int" setter="" getter="">
 			Editor UI default layout direction.
