@@ -418,6 +418,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.dark_color_1 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast).clamp();
 		p_config.dark_color_2 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 1.5).clamp();
 		p_config.dark_color_3 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 2).clamp();
+		p_config.dark_color_4 = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.675);
 
 		p_config.contrast_color_1 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast, p_config.default_contrast));
 		p_config.contrast_color_2 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast * 1.5, p_config.default_contrast * 1.5));
@@ -1966,8 +1967,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			// When pressed, add a small bottom border to the buttons to better show their active state,
 			// similar to active tabs.
 			Ref<StyleBoxFlat> editor_log_button_pressed = style_flat_button_pressed->duplicate();
-			editor_log_button_pressed->set_border_width(SIDE_BOTTOM, 2 * EDSCALE);
-			editor_log_button_pressed->set_border_color(p_config.accent_color);
+			editor_log_button_pressed->set_border_width_all(1 * EDSCALE);
+			editor_log_button_pressed->set_border_color(p_config.accent_color * Color(1, 1, 1, 0.4));
 			if (!p_config.dark_theme) {
 				editor_log_button_pressed->set_bg_color(flat_pressed_color.lightened(0.5));
 			}
