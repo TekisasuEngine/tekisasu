@@ -7126,9 +7126,9 @@ EditorNode::EditorNode() {
 		editor_logo_quick_menu->get_popup()->add_separator();
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Search Help"), HELP_SEARCH);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Online Documentation"), HELP_DOCS);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Dev.tekisasu.com"), HELP_DEVSITE);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Export"), FILE_EXPORT_PROJECT);	
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Manage Runtimes"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Tekisasu Developer Resources"), HELP_DEVSITE);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Export Project"), FILE_EXPORT_PROJECT);	
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Manage Export Templates"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
 		editor_logo_quick_menu->get_popup()->add_separator();
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
