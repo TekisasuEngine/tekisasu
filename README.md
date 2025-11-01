@@ -6,6 +6,10 @@
   </a>
 </p>
 
+<p align="center">
+  <img src="screenshot.jpg" alt="Tekisasu Engine screenshot">
+</p>
+
 ## Tekisasu Engine
 
 Tekisasu Engine (TEK4) is forked from upstream [Godot Engine](https://godotengine.org).
