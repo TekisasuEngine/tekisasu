@@ -54,7 +54,7 @@ echo "PROCEED? (y/n):"
 read value
 
 if [[ "$value" == "y" ]]; then
-    for file in $(grep -l -r $OLD_STRING . | grep -v "x86_64.obj" | grep -v "x86_64.lib" | grep -v pycache | grep -v "x86_64.exe"); do 
+    for file in $(grep -F -l -r --exclude-dir=".git" $OLD_STRING . | grep -v "x86_64.obj" | grep -v "x86_64.lib" | grep -v pycache | grep -v "x86_64.exe"); do 
         sed -i -e "s/$OLD_STRING/$NEW_STRING/g" "$file"
         echo "processed: $file"
     done
