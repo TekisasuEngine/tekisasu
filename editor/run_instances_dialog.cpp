@@ -253,7 +253,7 @@ void RunInstancesDialog::apply_custom_features(int p_instance_idx) {
 			stripped_features.push_back(f);
 		}
 	}
-	OS::get_singleton()->set_environment("GODOT_EDITOR_CUSTOM_FEATURES", String(",").join(stripped_features));
+	OS::get_singleton()->set_environment("TEKISASU_EDITOR_CUSTOM_FEATURES", String(",").join(stripped_features));
 }
 
 RunInstancesDialog::RunInstancesDialog() {

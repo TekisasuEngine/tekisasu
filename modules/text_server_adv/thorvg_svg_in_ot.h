@@ -43,7 +43,7 @@
 
 using namespace godot;
 
-#elif defined(GODOT_MODULE)
+#elif defined(TEKISASU_MODULE)
 // Headers for building as built-in module.
 
 #include "core/os/mutex.h"

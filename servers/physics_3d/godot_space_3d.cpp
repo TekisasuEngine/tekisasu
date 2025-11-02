@@ -213,7 +213,7 @@ int GodotPhysicsDirectSpaceState3D::intersect_shape(const ShapeParameters &p_par
 		return 0;
 	}
 
-	GodotShape3D *shape = GodotPhysicsServer3D::godot_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
+	GodotShape3D *shape = GodotPhysicsServer3D::tekisasu_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
 	ERR_FAIL_NULL_V(shape, 0);
 
 	AABB aabb = p_parameters.transform.xform(shape->get_aabb());
@@ -264,7 +264,7 @@ int GodotPhysicsDirectSpaceState3D::intersect_shape(const ShapeParameters &p_par
 }
 
 bool GodotPhysicsDirectSpaceState3D::cast_motion(const ShapeParameters &p_parameters, real_t &p_closest_safe, real_t &p_closest_unsafe, ShapeRestInfo *r_info) {
-	GodotShape3D *shape = GodotPhysicsServer3D::godot_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
+	GodotShape3D *shape = GodotPhysicsServer3D::tekisasu_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
 	ERR_FAIL_NULL_V(shape, false);
 
 	AABB aabb = p_parameters.transform.xform(shape->get_aabb());
@@ -387,7 +387,7 @@ bool GodotPhysicsDirectSpaceState3D::collide_shape(const ShapeParameters &p_para
 		return false;
 	}
 
-	GodotShape3D *shape = GodotPhysicsServer3D::godot_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
+	GodotShape3D *shape = GodotPhysicsServer3D::tekisasu_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
 	ERR_FAIL_NULL_V(shape, 0);
 
 	AABB aabb = p_parameters.transform.xform(shape->get_aabb());
@@ -513,7 +513,7 @@ static void _rest_cbk_result(const Vector3 &p_point_A, int p_index_A, const Vect
 }
 
 bool GodotPhysicsDirectSpaceState3D::rest_info(const ShapeParameters &p_parameters, ShapeRestInfo *r_info) {
-	GodotShape3D *shape = GodotPhysicsServer3D::godot_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
+	GodotShape3D *shape = GodotPhysicsServer3D::tekisasu_singleton->shape_owner.get_or_null(p_parameters.shape_rid);
 	ERR_FAIL_NULL_V(shape, 0);
 
 	real_t margin = MAX(p_parameters.margin, TEST_MOTION_MARGIN_MIN_VALUE);
@@ -573,9 +573,9 @@ bool GodotPhysicsDirectSpaceState3D::rest_info(const ShapeParameters &p_paramete
 }
 
 Vector3 GodotPhysicsDirectSpaceState3D::get_closest_point_to_object_volume(RID p_object, const Vector3 p_point) const {
-	GodotCollisionObject3D *obj = GodotPhysicsServer3D::godot_singleton->area_owner.get_or_null(p_object);
+	GodotCollisionObject3D *obj = GodotPhysicsServer3D::tekisasu_singleton->area_owner.get_or_null(p_object);
 	if (!obj) {
-		obj = GodotPhysicsServer3D::godot_singleton->body_owner.get_or_null(p_object);
+		obj = GodotPhysicsServer3D::tekisasu_singleton->body_owner.get_or_null(p_object);
 	}
 	ERR_FAIL_NULL_V(obj, Vector3());
 

@@ -1421,7 +1421,7 @@ ProjectSettings::ProjectSettings() {
 #ifdef TOOLS_ENABLED
 	// Available only at runtime in editor builds. Needs to be processed before anything else to work properly.
 	if (!Engine::get_singleton()->is_editor_hint()) {
-		String editor_features = OS::get_singleton()->get_environment("GODOT_EDITOR_CUSTOM_FEATURES");
+		String editor_features = OS::get_singleton()->get_environment("TEKISASU_EDITOR_CUSTOM_FEATURES");
 		if (!editor_features.is_empty()) {
 			PackedStringArray feature_list = editor_features.split(",");
 			for (const String &s : feature_list) {

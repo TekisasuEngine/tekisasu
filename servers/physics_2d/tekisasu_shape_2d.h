@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_shape_2d.h                                                      */
+/*  tekisasu_shape_2d.h                                                   */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -36,23 +36,23 @@
 
 #include "servers/physics_server_2d.h"
 
-class GodotShape2D;
+class TekisasuShape2D;
 
-class GodotShapeOwner2D {
+class TekisasuShapeOwner2D {
 public:
 	virtual void _shape_changed() = 0;
-	virtual void remove_shape(GodotShape2D *p_shape) = 0;
+	virtual void remove_shape(TekisasuShape2D *p_shape) = 0;
 
-	virtual ~GodotShapeOwner2D() {}
+	virtual ~TekisasuShapeOwner2D() {}
 };
 
-class GodotShape2D {
+class TekisasuShape2D {
 	RID self;
 	Rect2 aabb;
 	bool configured = false;
 	real_t custom_bias = 0.0;
 
-	HashMap<GodotShapeOwner2D *, int> owners;
+	HashMap<TekisasuShapeOwner2D *, int> owners;
 
 protected:
 	const double segment_is_valid_support_threshold = 0.99998;
@@ -89,10 +89,10 @@ public:
 	_FORCE_INLINE_ void set_custom_bias(real_t p_bias) { custom_bias = p_bias; }
 	_FORCE_INLINE_ real_t get_custom_bias() const { return custom_bias; }
 
-	void add_owner(GodotShapeOwner2D *p_owner);
-	void remove_owner(GodotShapeOwner2D *p_owner);
-	bool is_owner(GodotShapeOwner2D *p_owner) const;
-	const HashMap<GodotShapeOwner2D *, int> &get_owners() const;
+	void add_owner(TekisasuShapeOwner2D *p_owner);
+	void remove_owner(TekisasuShapeOwner2D *p_owner);
+	bool is_owner(TekisasuShapeOwner2D *p_owner) const;
+	const HashMap<TekisasuShapeOwner2D *, int> &get_owners() const;
 
 	_FORCE_INLINE_ void get_supports_transformed_cast(const Vector2 &p_cast, const Vector2 &p_normal, const Transform2D &p_xform, Vector2 *r_supports, int &r_amount) const {
 		get_supports(p_xform.basis_xform_inv(p_normal).normalized(), r_supports, r_amount);
@@ -127,8 +127,8 @@ public:
 			}
 		}
 	}
-	GodotShape2D() {}
-	virtual ~GodotShape2D();
+	TekisasuShape2D() {}
+	virtual ~TekisasuShape2D();
 };
 
 //let the optimizer do the magic
@@ -147,7 +147,7 @@ public:
 		r_max = MAX(maxa, maxb);                                                                                                                                    \
 	}
 
-class GodotWorldBoundaryShape2D : public GodotShape2D {
+class TekisasuWorldBoundaryShape2D : public TekisasuShape2D {
 	Vector2 normal;
 	real_t d = 0.0;
 
@@ -184,7 +184,7 @@ public:
 	}
 };
 
-class GodotSeparationRayShape2D : public GodotShape2D {
+class TekisasuSeparationRayShape2D : public TekisasuShape2D {
 	real_t length = 0.0;
 	bool slide_on_slope = false;
 
@@ -217,11 +217,11 @@ public:
 
 	DEFAULT_PROJECT_RANGE_CAST
 
-	_FORCE_INLINE_ GodotSeparationRayShape2D() {}
-	_FORCE_INLINE_ GodotSeparationRayShape2D(real_t p_length) { length = p_length; }
+	_FORCE_INLINE_ TekisasuSeparationRayShape2D() {}
+	_FORCE_INLINE_ TekisasuSeparationRayShape2D(real_t p_length) { length = p_length; }
 };
 
-class GodotSegmentShape2D : public GodotShape2D {
+class TekisasuSegmentShape2D : public TekisasuShape2D {
 	Vector2 a;
 	Vector2 b;
 	Vector2 n;
@@ -257,15 +257,15 @@ public:
 
 	DEFAULT_PROJECT_RANGE_CAST
 
-	_FORCE_INLINE_ GodotSegmentShape2D() {}
-	_FORCE_INLINE_ GodotSegmentShape2D(const Vector2 &p_a, const Vector2 &p_b, const Vector2 &p_n) {
+	_FORCE_INLINE_ TekisasuSegmentShape2D() {}
+	_FORCE_INLINE_ TekisasuSegmentShape2D(const Vector2 &p_a, const Vector2 &p_b, const Vector2 &p_n) {
 		a = p_a;
 		b = p_b;
 		n = p_n;
 	}
 };
 
-class GodotCircleShape2D : public GodotShape2D {
+class TekisasuCircleShape2D : public TekisasuShape2D {
 	real_t radius;
 
 public:
@@ -298,7 +298,7 @@ public:
 	DEFAULT_PROJECT_RANGE_CAST
 };
 
-class GodotRectangleShape2D : public GodotShape2D {
+class TekisasuRectangleShape2D : public TekisasuShape2D {
 	Vector2 half_extents;
 
 public:
@@ -342,7 +342,7 @@ public:
 		return (p_xform.xform(he) - p_circle).normalized();
 	}
 
-	_FORCE_INLINE_ Vector2 get_box_axis(const Transform2D &p_xform, const Transform2D &p_xform_inv, const GodotRectangleShape2D *p_B, const Transform2D &p_B_xform, const Transform2D &p_B_xform_inv) const {
+	_FORCE_INLINE_ Vector2 get_box_axis(const Transform2D &p_xform, const Transform2D &p_xform_inv, const TekisasuRectangleShape2D *p_B, const Transform2D &p_B_xform, const Transform2D &p_B_xform_inv) const {
 		Vector2 a, b;
 
 		{
@@ -370,7 +370,7 @@ public:
 	DEFAULT_PROJECT_RANGE_CAST
 };
 
-class GodotCapsuleShape2D : public GodotShape2D {
+class TekisasuCapsuleShape2D : public TekisasuShape2D {
 	real_t radius = 0.0;
 	real_t height = 0.0;
 
@@ -411,7 +411,7 @@ public:
 	DEFAULT_PROJECT_RANGE_CAST
 };
 
-class GodotConvexPolygonShape2D : public GodotShape2D {
+class TekisasuConvexPolygonShape2D : public TekisasuShape2D {
 	struct Point {
 		Vector2 pos;
 		Vector2 normal; //normal to next segment
@@ -463,21 +463,21 @@ public:
 
 	DEFAULT_PROJECT_RANGE_CAST
 
-	GodotConvexPolygonShape2D() {}
-	~GodotConvexPolygonShape2D();
+	TekisasuConvexPolygonShape2D() {}
+	~TekisasuConvexPolygonShape2D();
 };
 
-class GodotConcaveShape2D : public GodotShape2D {
+class TekisasuConcaveShape2D : public TekisasuShape2D {
 public:
 	virtual bool is_concave() const override { return true; }
 
 	// Returns true to stop the query.
-	typedef bool (*QueryCallback)(void *p_userdata, GodotShape2D *p_convex);
+	typedef bool (*QueryCallback)(void *p_userdata, TekisasuShape2D *p_convex);
 
 	virtual void cull(const Rect2 &p_local_aabb, QueryCallback p_callback, void *p_userdata) const = 0;
 };
 
-class GodotConcavePolygonShape2D : public GodotConcaveShape2D {
+class GodotConcavePolygonShape2D : public TekisasuConcaveShape2D {
 	struct Segment {
 		int points[2] = {};
 	};

@@ -90,9 +90,9 @@
 #endif
 
 #ifndef SANITIZERS_ENABLED
-#define GODOT_DLOPEN_MODE RTLD_NOW | RTLD_DEEPBIND
+#define TEKISASU_DLOPEN_MODE RTLD_NOW | RTLD_DEEPBIND
 #else
-#define GODOT_DLOPEN_MODE RTLD_NOW
+#define TEKISASU_DLOPEN_MODE RTLD_NOW
 #endif
 
 #if defined(MACOS_ENABLED) || (defined(__ANDROID_API__) && __ANDROID_API__ >= 28)
@@ -123,13 +123,13 @@ static void _setup_clock() {
 }
 #else
 #if defined(CLOCK_MONOTONIC_RAW) && !defined(WEB_ENABLED) // This is a better clock on Linux.
-#define GODOT_CLOCK CLOCK_MONOTONIC_RAW
+#define TEKISASU_CLOCK CLOCK_MONOTONIC_RAW
 #else
-#define GODOT_CLOCK CLOCK_MONOTONIC
+#define TEKISASU_CLOCK CLOCK_MONOTONIC
 #endif
 static void _setup_clock() {
 	struct timespec tv_now = { 0, 0 };
-	ERR_FAIL_COND_MSG(clock_gettime(GODOT_CLOCK, &tv_now) != 0, "OS CLOCK IS NOT WORKING!");
+	ERR_FAIL_COND_MSG(clock_gettime(TEKISASU_CLOCK, &tv_now) != 0, "OS CLOCK IS NOT WORKING!");
 	_clock_start = ((uint64_t)tv_now.tv_nsec / 1000L) + (uint64_t)tv_now.tv_sec * 1000000L;
 }
 #endif
@@ -302,7 +302,7 @@ uint64_t OS_Unix::get_ticks_usec() const {
 	// Unchecked return. Static analyzers might complain.
 	// If _setup_clock() succeeded, we assume clock_gettime() works.
 	struct timespec tv_now = { 0, 0 };
-	clock_gettime(GODOT_CLOCK, &tv_now);
+	clock_gettime(TEKISASU_CLOCK, &tv_now);
 	uint64_t longtime = ((uint64_t)tv_now.tv_nsec / 1000L) + (uint64_t)tv_now.tv_sec * 1000000L;
 #endif
 	longtime -= _clock_start;
@@ -808,7 +808,7 @@ Error OS_Unix::open_dynamic_library(const String &p_path, void *&p_library_handl
 
 	ERR_FAIL_COND_V(!FileAccess::exists(path), ERR_FILE_NOT_FOUND);
 
-	p_library_handle = dlopen(path.utf8().get_data(), GODOT_DLOPEN_MODE);
+	p_library_handle = dlopen(path.utf8().get_data(), TEKISASU_DLOPEN_MODE);
 	ERR_FAIL_NULL_V_MSG(p_library_handle, ERR_CANT_OPEN, vformat("Can't open dynamic library: %s. Error: %s.", p_path, dlerror()));
 
 	if (p_data != nullptr && p_data->r_resolved_path != nullptr) {
@@ -886,11 +886,11 @@ String OS_Unix::get_user_data_dir() const {
 			}
 			return get_data_path().path_join(custom_dir);
 		} else {
-			return get_data_path().path_join(get_godot_dir_name()).path_join("app_userdata").path_join(appname);
+			return get_data_path().path_join(get_tekisasu_dir_name()).path_join("app_userdata").path_join(appname);
 		}
 	}
 
-	return get_data_path().path_join(get_godot_dir_name()).path_join("app_userdata").path_join("[unnamed project]");
+	return get_data_path().path_join(get_tekisasu_dir_name()).path_join("app_userdata").path_join("[unnamed project]");
 }
 
 String OS_Unix::get_executable_path() const {

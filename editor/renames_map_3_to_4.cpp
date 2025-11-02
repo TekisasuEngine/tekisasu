@@ -1571,7 +1571,7 @@ const char *RenamesMap3To4::class_renames[][2] = {
 	{ "Physics2DDirectBodyState", "PhysicsDirectBodyState2D" },
 	{ "Physics2DDirectSpaceState", "PhysicsDirectSpaceState2D" },
 	{ "Physics2DServer", "PhysicsServer2D" },
-	{ "Physics2DServerSW", "GodotPhysicsServer2D" },
+	{ "Physics2DServerSW", "TekisasuPhysicsServer2D" },
 	{ "Physics2DShapeQueryParameters", "PhysicsShapeQueryParameters2D" },
 	{ "Physics2DTestMotionResult", "PhysicsTestMotionResult2D" },
 	{ "PhysicsBody", "PhysicsBody3D" },

@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_physics_server_2d.h                                             */
+/*  tekisasu_physics_server_2d.h                                          */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,22 +31,22 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_PHYSICS_SERVER_2D_H
-#define GODOT_PHYSICS_SERVER_2D_H
+#ifndef TEKISASU_PHYSICS_SERVER_2D_H
+#define TEKISASU_PHYSICS_SERVER_2D_H
 
-#include "godot_joints_2d.h"
-#include "godot_shape_2d.h"
-#include "godot_space_2d.h"
-#include "godot_step_2d.h"
+#include "tekisasu_joints_2d.h"
+#include "tekisasu_shape_2d.h"
+#include "tekisasu_space_2d.h"
+#include "tekisasu_step_2d.h"
 
 #include "core/templates/rid_owner.h"
 #include "servers/physics_server_2d.h"
 
-class GodotPhysicsServer2D : public PhysicsServer2D {
-	GDCLASS(GodotPhysicsServer2D, PhysicsServer2D);
+class TekisasuPhysicsServer2D : public PhysicsServer2D {
+	GDCLASS(TekisasuPhysicsServer2D, PhysicsServer2D);
 
-	friend class GodotPhysicsDirectSpaceState2D;
-	friend class GodotPhysicsDirectBodyState2D;
+	friend class TekisasuPhysicsDirectSpaceState2D;
+	friend class TekisasuPhysicsDirectBodyState2D;
 	bool active = true;
 	bool doing_sync = false;
 
@@ -58,19 +58,19 @@ class GodotPhysicsServer2D : public PhysicsServer2D {
 
 	bool flushing_queries = false;
 
-	GodotStep2D *stepper = nullptr;
-	HashSet<const GodotSpace2D *> active_spaces;
+	TekisasuStep2D *stepper = nullptr;
+	HashSet<const TekisasuSpace2D *> active_spaces;
 
-	mutable RID_PtrOwner<GodotShape2D, true> shape_owner;
-	mutable RID_PtrOwner<GodotSpace2D, true> space_owner;
-	mutable RID_PtrOwner<GodotArea2D, true> area_owner;
-	mutable RID_PtrOwner<GodotBody2D, true> body_owner;
-	mutable RID_PtrOwner<GodotJoint2D, true> joint_owner;
+	mutable RID_PtrOwner<TekisasuShape2D, true> shape_owner;
+	mutable RID_PtrOwner<TekisasuSpace2D, true> space_owner;
+	mutable RID_PtrOwner<TekisasuArea2D, true> area_owner;
+	mutable RID_PtrOwner<TekisasuBody2D, true> body_owner;
+	mutable RID_PtrOwner<TekisasuJoint2D, true> joint_owner;
 
-	static GodotPhysicsServer2D *godot_singleton;
+	static TekisasuPhysicsServer2D *tekisasu_singleton;
 
-	friend class GodotCollisionObject2D;
-	SelfList<GodotCollisionObject2D>::List pending_shape_update_list;
+	friend class TekisasuCollisionObject2D;
+	SelfList<TekisasuCollisionObject2D>::List pending_shape_update_list;
 	void _update_shapes();
 
 	RID _shape_create(ShapeType p_shape);
@@ -303,8 +303,8 @@ public:
 
 	int get_process_info(ProcessInfo p_info) override;
 
-	GodotPhysicsServer2D(bool p_using_threads = false);
-	~GodotPhysicsServer2D() {}
+	TekisasuPhysicsServer2D(bool p_using_threads = false);
+	~TekisasuPhysicsServer2D() {}
 };
 
-#endif // GODOT_PHYSICS_SERVER_2D_H
+#endif // TEKISASU_PHYSICS_SERVER_2D_H

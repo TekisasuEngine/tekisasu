@@ -1638,7 +1638,7 @@ void Window::_window_input(const Ref<InputEvent> &p_ev) {
 		// Quit from game window using the stop shortcut (F8 by default).
 		// The custom shortcut is provided via environment variable when running from the editor.
 		if (debugger_stop_shortcut.is_null()) {
-			String shortcut_str = OS::get_singleton()->get_environment("__GODOT_EDITOR_STOP_SHORTCUT__");
+			String shortcut_str = OS::get_singleton()->get_environment("__TEKISASU_EDITOR_STOP_SHORTCUT__");
 			if (!shortcut_str.is_empty()) {
 				Variant shortcut_var;
 

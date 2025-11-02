@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_collision_object_2d.cpp                                         */
+/*  tekisasu_collision_object_2d.cpp                                      */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,11 +31,11 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "godot_collision_object_2d.h"
-#include "godot_physics_server_2d.h"
-#include "godot_space_2d.h"
+#include "tekisasu_collision_object_2d.h"
+#include "tekisasu_physics_server_2d.h"
+#include "tekisasu_space_2d.h"
 
-void GodotCollisionObject2D::add_shape(GodotShape2D *p_shape, const Transform2D &p_transform, bool p_disabled) {
+void TekisasuCollisionObject2D::add_shape(TekisasuShape2D *p_shape, const Transform2D &p_transform, bool p_disabled) {
 	Shape s;
 	s.shape = p_shape;
 	s.xform = p_transform;
@@ -48,11 +48,11 @@ void GodotCollisionObject2D::add_shape(GodotShape2D *p_shape, const Transform2D 
 	p_shape->add_owner(this);
 
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer2D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		TekisasuPhysicsServer2D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 
-void GodotCollisionObject2D::set_shape(int p_index, GodotShape2D *p_shape) {
+void TekisasuCollisionObject2D::set_shape(int p_index, TekisasuShape2D *p_shape) {
 	ERR_FAIL_INDEX(p_index, shapes.size());
 	shapes[p_index].shape->remove_owner(this);
 	shapes.write[p_index].shape = p_shape;
@@ -60,25 +60,25 @@ void GodotCollisionObject2D::set_shape(int p_index, GodotShape2D *p_shape) {
 	p_shape->add_owner(this);
 
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer2D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		TekisasuPhysicsServer2D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 
-void GodotCollisionObject2D::set_shape_transform(int p_index, const Transform2D &p_transform) {
+void TekisasuCollisionObject2D::set_shape_transform(int p_index, const Transform2D &p_transform) {
 	ERR_FAIL_INDEX(p_index, shapes.size());
 
 	shapes.write[p_index].xform = p_transform;
 	shapes.write[p_index].xform_inv = p_transform.affine_inverse();
 
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer2D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		TekisasuPhysicsServer2D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 
-void GodotCollisionObject2D::set_shape_disabled(int p_idx, bool p_disabled) {
+void TekisasuCollisionObject2D::set_shape_disabled(int p_idx, bool p_disabled) {
 	ERR_FAIL_INDEX(p_idx, shapes.size());
 
-	GodotCollisionObject2D::Shape &shape = shapes.write[p_idx];
+	TekisasuCollisionObject2D::Shape &shape = shapes.write[p_idx];
 	if (shape.disabled == p_disabled) {
 		return;
 	}
@@ -93,16 +93,16 @@ void GodotCollisionObject2D::set_shape_disabled(int p_idx, bool p_disabled) {
 		space->get_broadphase()->remove(shape.bpid);
 		shape.bpid = 0;
 		if (!pending_shape_update_list.in_list()) {
-			GodotPhysicsServer2D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+			TekisasuPhysicsServer2D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 		}
 	} else if (!p_disabled && shape.bpid == 0) {
 		if (!pending_shape_update_list.in_list()) {
-			GodotPhysicsServer2D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+			TekisasuPhysicsServer2D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 		}
 	}
 }
 
-void GodotCollisionObject2D::remove_shape(GodotShape2D *p_shape) {
+void TekisasuCollisionObject2D::remove_shape(TekisasuShape2D *p_shape) {
 	//remove a shape, all the times it appears
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i].shape == p_shape) {
@@ -112,7 +112,7 @@ void GodotCollisionObject2D::remove_shape(GodotShape2D *p_shape) {
 	}
 }
 
-void GodotCollisionObject2D::remove_shape(int p_index) {
+void TekisasuCollisionObject2D::remove_shape(int p_index) {
 	//remove anything from shape to be erased to end, so subindices don't change
 	ERR_FAIL_INDEX(p_index, shapes.size());
 	for (int i = p_index; i < shapes.size(); i++) {
@@ -127,13 +127,13 @@ void GodotCollisionObject2D::remove_shape(int p_index) {
 	shapes.remove_at(p_index);
 
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer2D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		TekisasuPhysicsServer2D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 	// _update_shapes();
 	// _shapes_changed();
 }
 
-void GodotCollisionObject2D::_set_static(bool p_static) {
+void TekisasuCollisionObject2D::_set_static(bool p_static) {
 	if (_static == p_static) {
 		return;
 	}
@@ -150,7 +150,7 @@ void GodotCollisionObject2D::_set_static(bool p_static) {
 	}
 }
 
-void GodotCollisionObject2D::_unregister_shapes() {
+void TekisasuCollisionObject2D::_unregister_shapes() {
 	for (int i = 0; i < shapes.size(); i++) {
 		Shape &s = shapes.write[i];
 		if (s.bpid > 0) {
@@ -160,7 +160,7 @@ void GodotCollisionObject2D::_unregister_shapes() {
 	}
 }
 
-void GodotCollisionObject2D::_update_shapes() {
+void TekisasuCollisionObject2D::_update_shapes() {
 	if (!space) {
 		return;
 	}
@@ -187,7 +187,7 @@ void GodotCollisionObject2D::_update_shapes() {
 	}
 }
 
-void GodotCollisionObject2D::_update_shapes_with_motion(const Vector2 &p_motion) {
+void TekisasuCollisionObject2D::_update_shapes_with_motion(const Vector2 &p_motion) {
 	if (!space) {
 		return;
 	}
@@ -214,8 +214,8 @@ void GodotCollisionObject2D::_update_shapes_with_motion(const Vector2 &p_motion)
 	}
 }
 
-void GodotCollisionObject2D::_set_space(GodotSpace2D *p_space) {
-	GodotSpace2D *old_space = space;
+void TekisasuCollisionObject2D::_set_space(TekisasuSpace2D *p_space) {
+	TekisasuSpace2D *old_space = space;
 	space = p_space;
 
 	if (old_space) {
@@ -236,12 +236,12 @@ void GodotCollisionObject2D::_set_space(GodotSpace2D *p_space) {
 	}
 }
 
-void GodotCollisionObject2D::_shape_changed() {
+void TekisasuCollisionObject2D::_shape_changed() {
 	_update_shapes();
 	_shapes_changed();
 }
 
-GodotCollisionObject2D::GodotCollisionObject2D(Type p_type) :
+TekisasuCollisionObject2D::TekisasuCollisionObject2D(Type p_type) :
 		pending_shape_update_list(this) {
 	type = p_type;
 }

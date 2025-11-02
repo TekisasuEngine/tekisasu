@@ -1773,9 +1773,9 @@ void GodotPhysicsServer3D::_shape_col_cbk(const Vector3 &p_point_A, int p_index_
 	}
 }
 
-GodotPhysicsServer3D *GodotPhysicsServer3D::godot_singleton = nullptr;
+GodotPhysicsServer3D *GodotPhysicsServer3D::tekisasu_singleton = nullptr;
 GodotPhysicsServer3D::GodotPhysicsServer3D(bool p_using_threads) {
-	godot_singleton = this;
+	tekisasu_singleton = this;
 	GodotBroadPhase3D::create_func = GodotBroadPhase3DBVH::_create;
 
 	using_threads = p_using_threads;

@@ -38,7 +38,7 @@
 
 #include <type_traits>
 
-namespace GodotTypeInfo {
+namespace TekisasuTypeInfo {
 enum Metadata {
 	METADATA_NONE,
 	METADATA_INT_IS_INT8,
@@ -66,7 +66,7 @@ struct GetTypeInfo;
 	template <>                                                                       \
 	struct GetTypeInfo<m_type> {                                                      \
 		static const Variant::Type VARIANT_TYPE = m_var_type;                         \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE; \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE; \
 		static inline PropertyInfo get_class_info() {                                 \
 			return PropertyInfo(VARIANT_TYPE, String());                              \
 		}                                                                             \
@@ -74,7 +74,7 @@ struct GetTypeInfo;
 	template <>                                                                       \
 	struct GetTypeInfo<const m_type &> {                                              \
 		static const Variant::Type VARIANT_TYPE = m_var_type;                         \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE; \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE; \
 		static inline PropertyInfo get_class_info() {                                 \
 			return PropertyInfo(VARIANT_TYPE, String());                              \
 		}                                                                             \
@@ -84,7 +84,7 @@ struct GetTypeInfo;
 	template <>                                                     \
 	struct GetTypeInfo<m_type> {                                    \
 		static const Variant::Type VARIANT_TYPE = m_var_type;       \
-		static const GodotTypeInfo::Metadata METADATA = m_metadata; \
+		static const TekisasuTypeInfo::Metadata METADATA = m_metadata; \
 		static inline PropertyInfo get_class_info() {               \
 			return PropertyInfo(VARIANT_TYPE, String());            \
 		}                                                           \
@@ -92,25 +92,25 @@ struct GetTypeInfo;
 	template <>                                                     \
 	struct GetTypeInfo<const m_type &> {                            \
 		static const Variant::Type VARIANT_TYPE = m_var_type;       \
-		static const GodotTypeInfo::Metadata METADATA = m_metadata; \
+		static const TekisasuTypeInfo::Metadata METADATA = m_metadata; \
 		static inline PropertyInfo get_class_info() {               \
 			return PropertyInfo(VARIANT_TYPE, String());            \
 		}                                                           \
 	};
 
 MAKE_TYPE_INFO(bool, Variant::BOOL)
-MAKE_TYPE_INFO_WITH_META(uint8_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_UINT8)
-MAKE_TYPE_INFO_WITH_META(int8_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_INT8)
-MAKE_TYPE_INFO_WITH_META(uint16_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_UINT16)
-MAKE_TYPE_INFO_WITH_META(int16_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_INT16)
-MAKE_TYPE_INFO_WITH_META(uint32_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_UINT32)
-MAKE_TYPE_INFO_WITH_META(int32_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_INT32)
-MAKE_TYPE_INFO_WITH_META(uint64_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_UINT64)
-MAKE_TYPE_INFO_WITH_META(int64_t, Variant::INT, GodotTypeInfo::METADATA_INT_IS_INT64)
+MAKE_TYPE_INFO_WITH_META(uint8_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_UINT8)
+MAKE_TYPE_INFO_WITH_META(int8_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_INT8)
+MAKE_TYPE_INFO_WITH_META(uint16_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_UINT16)
+MAKE_TYPE_INFO_WITH_META(int16_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_INT16)
+MAKE_TYPE_INFO_WITH_META(uint32_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_UINT32)
+MAKE_TYPE_INFO_WITH_META(int32_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_INT32)
+MAKE_TYPE_INFO_WITH_META(uint64_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_UINT64)
+MAKE_TYPE_INFO_WITH_META(int64_t, Variant::INT, TekisasuTypeInfo::METADATA_INT_IS_INT64)
 MAKE_TYPE_INFO(char16_t, Variant::INT)
 MAKE_TYPE_INFO(char32_t, Variant::INT)
-MAKE_TYPE_INFO_WITH_META(float, Variant::FLOAT, GodotTypeInfo::METADATA_REAL_IS_FLOAT)
-MAKE_TYPE_INFO_WITH_META(double, Variant::FLOAT, GodotTypeInfo::METADATA_REAL_IS_DOUBLE)
+MAKE_TYPE_INFO_WITH_META(float, Variant::FLOAT, TekisasuTypeInfo::METADATA_REAL_IS_FLOAT)
+MAKE_TYPE_INFO_WITH_META(double, Variant::FLOAT, TekisasuTypeInfo::METADATA_REAL_IS_DOUBLE)
 
 MAKE_TYPE_INFO(String, Variant::STRING)
 MAKE_TYPE_INFO(Vector2, Variant::VECTOR2)
@@ -153,7 +153,7 @@ MAKE_TYPE_INFO(IPAddress, Variant::STRING)
 template <>
 struct GetTypeInfo<ObjectID> {
 	static const Variant::Type VARIANT_TYPE = Variant::INT;
-	static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_INT_IS_UINT64;
+	static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_INT_IS_UINT64;
 	static inline PropertyInfo get_class_info() {
 		return PropertyInfo(Variant::INT, String(), PROPERTY_HINT_INT_IS_OBJECTID);
 	}
@@ -163,7 +163,7 @@ struct GetTypeInfo<ObjectID> {
 template <>
 struct GetTypeInfo<Variant> {
 	static const Variant::Type VARIANT_TYPE = Variant::NIL;
-	static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;
+	static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;
 	static inline PropertyInfo get_class_info() {
 		return PropertyInfo(Variant::NIL, String(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_NIL_IS_VARIANT);
 	}
@@ -172,7 +172,7 @@ struct GetTypeInfo<Variant> {
 template <>
 struct GetTypeInfo<const Variant &> {
 	static const Variant::Type VARIANT_TYPE = Variant::NIL;
-	static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;
+	static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;
 	static inline PropertyInfo get_class_info() {
 		return PropertyInfo(Variant::NIL, String(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_NIL_IS_VARIANT);
 	}
@@ -182,7 +182,7 @@ struct GetTypeInfo<const Variant &> {
 	template <>                                                                       \
 	struct GetTypeInfo<m_template<m_type>> {                                          \
 		static const Variant::Type VARIANT_TYPE = m_var_type;                         \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE; \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE; \
 		static inline PropertyInfo get_class_info() {                                 \
 			return PropertyInfo(VARIANT_TYPE, String());                              \
 		}                                                                             \
@@ -190,7 +190,7 @@ struct GetTypeInfo<const Variant &> {
 	template <>                                                                       \
 	struct GetTypeInfo<const m_template<m_type> &> {                                  \
 		static const Variant::Type VARIANT_TYPE = m_var_type;                         \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE; \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE; \
 		static inline PropertyInfo get_class_info() {                                 \
 			return PropertyInfo(VARIANT_TYPE, String());                              \
 		}                                                                             \
@@ -205,7 +205,7 @@ MAKE_TEMPLATE_TYPE_INFO(Vector, StringName, Variant::PACKED_STRING_ARRAY)
 template <typename T>
 struct GetTypeInfo<T *, std::enable_if_t<std::is_base_of_v<Object, T>>> {
 	static const Variant::Type VARIANT_TYPE = Variant::OBJECT;
-	static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;
+	static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;
 	static inline PropertyInfo get_class_info() {
 		return PropertyInfo(StringName(T::get_class_static()));
 	}
@@ -228,7 +228,7 @@ inline String enum_qualified_name_to_class_info_name(const String &p_qualified_n
 	template <>                                                                                                                              \
 	struct GetTypeInfo<m_impl> {                                                                                                             \
 		static const Variant::Type VARIANT_TYPE = Variant::INT;                                                                              \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;                                                        \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;                                                        \
 		static inline PropertyInfo get_class_info() {                                                                                        \
 			return PropertyInfo(Variant::INT, String(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_CLASS_IS_ENUM, \
 					godot::details::enum_qualified_name_to_class_info_name(String(#m_enum)));                                                \
@@ -274,7 +274,7 @@ public:
 	template <>                                                                                                                                  \
 	struct GetTypeInfo<m_impl> {                                                                                                                 \
 		static const Variant::Type VARIANT_TYPE = Variant::INT;                                                                                  \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;                                                            \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;                                                            \
 		static inline PropertyInfo get_class_info() {                                                                                            \
 			return PropertyInfo(Variant::INT, String(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_CLASS_IS_BITFIELD, \
 					godot::details::enum_qualified_name_to_class_info_name(String(#m_enum)));                                                    \
@@ -283,7 +283,7 @@ public:
 	template <>                                                                                                                                  \
 	struct GetTypeInfo<BitField<m_impl>> {                                                                                                       \
 		static const Variant::Type VARIANT_TYPE = Variant::INT;                                                                                  \
-		static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;                                                            \
+		static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;                                                            \
 		static inline PropertyInfo get_class_info() {                                                                                            \
 			return PropertyInfo(Variant::INT, String(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_CLASS_IS_BITFIELD, \
 					godot::details::enum_qualified_name_to_class_info_name(String(#m_enum)));                                                    \

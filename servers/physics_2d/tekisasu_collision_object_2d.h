@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_collision_object_2d.h                                           */
+/*  tekisasu_collision_object_2d.h                                        */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,18 +31,18 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_COLLISION_OBJECT_2D_H
-#define GODOT_COLLISION_OBJECT_2D_H
+#ifndef TEKISASU_COLLISION_OBJECT_2D_H
+#define TEKISASU_COLLISION_OBJECT_2D_H
 
-#include "godot_broad_phase_2d.h"
-#include "godot_shape_2d.h"
+#include "tekisasu_broad_phase_2d.h"
+#include "tekisasu_shape_2d.h"
 
 #include "core/templates/self_list.h"
 #include "servers/physics_server_2d.h"
 
-class GodotSpace2D;
+class TekisasuSpace2D;
 
-class GodotCollisionObject2D : public GodotShapeOwner2D {
+class TekisasuCollisionObject2D : public TekisasuShapeOwner2D {
 public:
 	enum Type {
 		TYPE_AREA,
@@ -59,16 +59,16 @@ private:
 	struct Shape {
 		Transform2D xform;
 		Transform2D xform_inv;
-		GodotBroadPhase2D::ID bpid = 0;
+		TekisasuBroadPhase2D::ID bpid = 0;
 		Rect2 aabb_cache; //for rayqueries
-		GodotShape2D *shape = nullptr;
+		TekisasuShape2D *shape = nullptr;
 		bool disabled = false;
 		bool one_way_collision = false;
 		real_t one_way_collision_margin = 0.0;
 	};
 
 	Vector<Shape> shapes;
-	GodotSpace2D *space = nullptr;
+	TekisasuSpace2D *space = nullptr;
 	Transform2D transform;
 	Transform2D inv_transform;
 	uint32_t collision_mask = 1;
@@ -76,7 +76,7 @@ private:
 	real_t collision_priority = 1.0;
 	bool _static = true;
 
-	SelfList<GodotCollisionObject2D> pending_shape_update_list;
+	SelfList<TekisasuCollisionObject2D> pending_shape_update_list;
 
 	void _update_shapes();
 
@@ -94,9 +94,9 @@ protected:
 	void _set_static(bool p_static);
 
 	virtual void _shapes_changed() = 0;
-	void _set_space(GodotSpace2D *p_space);
+	void _set_space(TekisasuSpace2D *p_space);
 
-	GodotCollisionObject2D(Type p_type);
+	TekisasuCollisionObject2D(Type p_type);
 
 public:
 	_FORCE_INLINE_ void set_self(const RID &p_self) { self = p_self; }
@@ -111,12 +111,12 @@ public:
 	void _shape_changed() override;
 
 	_FORCE_INLINE_ Type get_type() const { return type; }
-	void add_shape(GodotShape2D *p_shape, const Transform2D &p_transform = Transform2D(), bool p_disabled = false);
-	void set_shape(int p_index, GodotShape2D *p_shape);
+	void add_shape(TekisasuShape2D *p_shape, const Transform2D &p_transform = Transform2D(), bool p_disabled = false);
+	void set_shape(int p_index, TekisasuShape2D *p_shape);
 	void set_shape_transform(int p_index, const Transform2D &p_transform);
 
 	_FORCE_INLINE_ int get_shape_count() const { return shapes.size(); }
-	_FORCE_INLINE_ GodotShape2D *get_shape(int p_index) const {
+	_FORCE_INLINE_ TekisasuShape2D *get_shape(int p_index) const {
 		CRASH_BAD_INDEX(p_index, shapes.size());
 		return shapes[p_index].shape;
 	}
@@ -135,7 +135,7 @@ public:
 
 	_FORCE_INLINE_ const Transform2D &get_transform() const { return transform; }
 	_FORCE_INLINE_ const Transform2D &get_inv_transform() const { return inv_transform; }
-	_FORCE_INLINE_ GodotSpace2D *get_space() const { return space; }
+	_FORCE_INLINE_ TekisasuSpace2D *get_space() const { return space; }
 
 	void set_shape_disabled(int p_idx, bool p_disabled);
 	_FORCE_INLINE_ bool is_shape_disabled(int p_idx) const {
@@ -177,25 +177,25 @@ public:
 	}
 	_FORCE_INLINE_ real_t get_collision_priority() const { return collision_priority; }
 
-	void remove_shape(GodotShape2D *p_shape) override;
+	void remove_shape(TekisasuShape2D *p_shape) override;
 	void remove_shape(int p_index);
 
-	virtual void set_space(GodotSpace2D *p_space) = 0;
+	virtual void set_space(TekisasuSpace2D *p_space) = 0;
 
 	_FORCE_INLINE_ bool is_static() const { return _static; }
 
 	void set_pickable(bool p_pickable) { pickable = p_pickable; }
 	_FORCE_INLINE_ bool is_pickable() const { return pickable; }
 
-	_FORCE_INLINE_ bool collides_with(GodotCollisionObject2D *p_other) const {
+	_FORCE_INLINE_ bool collides_with(TekisasuCollisionObject2D *p_other) const {
 		return p_other->collision_layer & collision_mask;
 	}
 
-	_FORCE_INLINE_ bool interacts_with(const GodotCollisionObject2D *p_other) const {
+	_FORCE_INLINE_ bool interacts_with(const TekisasuCollisionObject2D *p_other) const {
 		return collision_layer & p_other->collision_mask || p_other->collision_layer & collision_mask;
 	}
 
-	virtual ~GodotCollisionObject2D() {}
+	virtual ~TekisasuCollisionObject2D() {}
 };
 
-#endif // GODOT_COLLISION_OBJECT_2D_H
+#endif // TEKISASU_COLLISION_OBJECT_2D_H

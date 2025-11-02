@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_collision_solver_2d_sat.h                                       */
+/*  tekisasu_area_pair_2d.h                                               */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,11 +31,51 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_COLLISION_SOLVER_2D_SAT_H
-#define GODOT_COLLISION_SOLVER_2D_SAT_H
+#ifndef TEKISASU_AREA_PAIR_2D_H
+#define TEKISASU_AREA_PAIR_2D_H
 
-#include "godot_collision_solver_2d.h"
+#include "tekisasu_area_2d.h"
+#include "tekisasu_body_2d.h"
+#include "tekisasu_constraint_2d.h"
 
-bool sat_2d_calculate_penetration(const GodotShape2D *p_shape_A, const Transform2D &p_transform_A, const Vector2 &p_motion_A, const GodotShape2D *p_shape_B, const Transform2D &p_transform_B, const Vector2 &p_motion_B, GodotCollisionSolver2D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, Vector2 *sep_axis = nullptr, real_t p_margin_A = 0, real_t p_margin_B = 0);
+class TekisasuAreaPair2D : public TekisasuConstraint2D {
+	TekisasuBody2D *body = nullptr;
+	TekisasuArea2D *area = nullptr;
+	int body_shape = 0;
+	int area_shape = 0;
+	bool colliding = false;
+	bool has_space_override = false;
+	bool process_collision = false;
+	bool body_has_attached_area = false;
 
-#endif // GODOT_COLLISION_SOLVER_2D_SAT_H
+public:
+	virtual bool setup(real_t p_step) override;
+	virtual bool pre_solve(real_t p_step) override;
+	virtual void solve(real_t p_step) override;
+
+	TekisasuAreaPair2D(TekisasuBody2D *p_body, int p_body_shape, TekisasuArea2D *p_area, int p_area_shape);
+	~TekisasuAreaPair2D();
+};
+
+class TekisasuArea2Pair2D : public TekisasuConstraint2D {
+	TekisasuArea2D *area_a = nullptr;
+	TekisasuArea2D *area_b = nullptr;
+	int shape_a = 0;
+	int shape_b = 0;
+	bool colliding_a = false;
+	bool colliding_b = false;
+	bool process_collision_a = false;
+	bool process_collision_b = false;
+	bool area_a_monitorable;
+	bool area_b_monitorable;
+
+public:
+	virtual bool setup(real_t p_step) override;
+	virtual bool pre_solve(real_t p_step) override;
+	virtual void solve(real_t p_step) override;
+
+	TekisasuArea2Pair2D(TekisasuArea2D *p_area_a, int p_shape_a, TekisasuArea2D *p_area_b, int p_shape_b);
+	~TekisasuArea2Pair2D();
+};
+
+#endif // TEKISASU_AREA_PAIR_2D_H

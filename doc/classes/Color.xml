@@ -443,7 +443,7 @@
 		<method name="to_rgba32" qualifiers="const">
 			<return type="int" />
 			<description>
-				Returns the color converted to a 32-bit integer in RGBA format (each component is 8 bits). RGBA is Godot's default format. This method is the inverse of [method hex].
+				Returns the color converted to a 32-bit integer in RGBA format (each component is 8 bits). RGBA is Tekisasu Engine's default format. This method is the inverse of [method hex].
 				[codeblocks]
 				[gdscript]
 				var color = Color(1, 0.5, 0.2)
@@ -459,7 +459,7 @@
 		<method name="to_rgba64" qualifiers="const">
 			<return type="int" />
 			<description>
-				Returns the color converted to a 64-bit integer in RGBA format (each component is 16 bits). RGBA is Godot's default format. This method is the inverse of [method hex64].
+				Returns the color converted to a 64-bit integer in RGBA format (each component is 16 bits). RGBA is Tekisasu Engine's default format. This method is the inverse of [method hex64].
 				[codeblocks]
 				[gdscript]
 				var color = Color(1, 0.5, 0.2)

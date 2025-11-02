@@ -47,7 +47,7 @@ struct EditorProgress;
 
 class EditorExportPlugin;
 
-const String ENV_SCRIPT_ENCRYPTION_KEY = "GODOT_SCRIPT_ENCRYPTION_KEY";
+const String ENV_SCRIPT_ENCRYPTION_KEY = "TEKISASU_SCRIPT_ENCRYPTION_KEY";
 
 class EditorExportPlatform : public RefCounted {
 	GDCLASS(EditorExportPlatform, RefCounted);

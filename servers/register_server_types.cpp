@@ -84,7 +84,7 @@
 
 // 2D physics and navigation.
 #include "navigation_server_2d.h"
-#include "physics_2d/godot_physics_server_2d.h"
+#include "physics_2d/tekisasu_physics_server_2d.h"
 #include "physics_server_2d.h"
 #include "physics_server_2d_wrap_mt.h"
 #include "servers/extensions/physics_server_2d_extension.h"
@@ -129,7 +129,7 @@ static PhysicsServer2D *_createGodotPhysics2DCallback() {
 	bool using_threads = false;
 #endif
 
-	PhysicsServer2D *physics_server_2d = memnew(GodotPhysicsServer2D(using_threads));
+	PhysicsServer2D *physics_server_2d = memnew(TekisasuPhysicsServer2D(using_threads));
 
 	return memnew(PhysicsServer2DWrapMT(physics_server_2d, using_threads));
 }

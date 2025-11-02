@@ -101,7 +101,7 @@ struct GDExtensionPtr {
 template <typename T>
 struct GetTypeInfo<GDExtensionConstPtr<T>> {
 	static const Variant::Type VARIANT_TYPE = Variant::NIL;
-	static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;
+	static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;
 	static inline PropertyInfo get_class_info() {
 		return PropertyInfo(Variant::INT, String(), PROPERTY_HINT_INT_IS_POINTER, GDExtensionConstPtr<T>::get_name());
 	}
@@ -110,7 +110,7 @@ struct GetTypeInfo<GDExtensionConstPtr<T>> {
 template <typename T>
 struct GetTypeInfo<GDExtensionPtr<T>> {
 	static const Variant::Type VARIANT_TYPE = Variant::NIL;
-	static const GodotTypeInfo::Metadata METADATA = GodotTypeInfo::METADATA_NONE;
+	static const TekisasuTypeInfo::Metadata METADATA = TekisasuTypeInfo::METADATA_NONE;
 	static inline PropertyInfo get_class_info() {
 		return PropertyInfo(Variant::INT, String(), PROPERTY_HINT_INT_IS_POINTER, GDExtensionPtr<T>::get_name());
 	}

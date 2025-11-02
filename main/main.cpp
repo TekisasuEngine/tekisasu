@@ -2920,8 +2920,8 @@ Error Main::setup2(bool p_show_boot_logo) {
 
 #ifdef UNIX_ENABLED
 	// Print warning after initializing the renderer but before initializing audio.
-	if (OS::get_singleton()->get_environment("USER") == "root" && !OS::get_singleton()->has_environment("GODOT_SILENCE_ROOT_WARNING")) {
-		WARN_PRINT("Started the engine as `root`/superuser. This is a security risk, and subsystems like audio may not work correctly.\nSet the environment variable `GODOT_SILENCE_ROOT_WARNING` to 1 to silence this warning.");
+	if (OS::get_singleton()->get_environment("USER") == "root" && !OS::get_singleton()->has_environment("TEKISASU_SILENCE_ROOT_WARNING")) {
+		WARN_PRINT("Started the engine as `root`/superuser. This is a security risk, and subsystems like audio may not work correctly.\nSet the environment variable `TEKISASU_SILENCE_ROOT_WARNING` to 1 to silence this warning.");
 	}
 #endif
 
@@ -3450,7 +3450,7 @@ int Main::start() {
 			// Ensure that doctool is running in the root dir, but only if
 			// user did not manually specify a path as argument.
 			if (doc_tool_implicit_cwd) {
-				ERR_FAIL_COND_V_MSG(!da->dir_exists("doc"), EXIT_FAILURE, "--doctool must be run from the Godot repository's root folder, or specify a path that points there.");
+				ERR_FAIL_COND_V_MSG(!da->dir_exists("doc"), EXIT_FAILURE, "--doctool must be run from the Tekisasu Engine's repository's root folder, or specify a path that points there.");
 			}
 		}
 

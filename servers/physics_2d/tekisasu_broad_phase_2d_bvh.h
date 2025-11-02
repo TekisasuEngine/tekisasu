@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_broad_phase_2d_bvh.h                                            */
+/*  tekisasu_broad_phase_2d_bvh.h                                         */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,16 +31,16 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_BROAD_PHASE_2D_BVH_H
-#define GODOT_BROAD_PHASE_2D_BVH_H
+#ifndef TEKISASU_BROAD_PHASE_2D_BVH_H
+#define TEKISASU_BROAD_PHASE_2D_BVH_H
 
-#include "godot_broad_phase_2d.h"
+#include "tekisasu_broad_phase_2d.h"
 
 #include "core/math/bvh.h"
 #include "core/math/rect2.h"
 #include "core/math/vector2.h"
 
-class GodotBroadPhase2DBVH : public GodotBroadPhase2D {
+class TekisasuBroadPhase2DBVH : public TekisasuBroadPhase2D {
 	template <typename T>
 	class UserPairTestFunction {
 	public:
@@ -68,10 +68,10 @@ class GodotBroadPhase2DBVH : public GodotBroadPhase2D {
 		TREE_FLAG_DYNAMIC = 1 << TREE_DYNAMIC,
 	};
 
-	BVH_Manager<GodotCollisionObject2D, 2, true, 128, UserPairTestFunction<GodotCollisionObject2D>, UserCullTestFunction<GodotCollisionObject2D>, Rect2, Vector2> bvh;
+	BVH_Manager<TekisasuCollisionObject2D, 2, true, 128, UserPairTestFunction<TekisasuCollisionObject2D>, UserCullTestFunction<TekisasuCollisionObject2D>, Rect2, Vector2> bvh;
 
-	static void *_pair_callback(void *, uint32_t, GodotCollisionObject2D *, int, uint32_t, GodotCollisionObject2D *, int);
-	static void _unpair_callback(void *, uint32_t, GodotCollisionObject2D *, int, uint32_t, GodotCollisionObject2D *, int, void *);
+	static void *_pair_callback(void *, uint32_t, TekisasuCollisionObject2D *, int, uint32_t, TekisasuCollisionObject2D *, int);
+	static void _unpair_callback(void *, uint32_t, TekisasuCollisionObject2D *, int, uint32_t, TekisasuCollisionObject2D *, int, void *);
 
 	PairCallback pair_callback = nullptr;
 	void *pair_userdata = nullptr;
@@ -80,25 +80,25 @@ class GodotBroadPhase2DBVH : public GodotBroadPhase2D {
 
 public:
 	// 0 is an invalid ID
-	virtual ID create(GodotCollisionObject2D *p_object, int p_subindex = 0, const Rect2 &p_aabb = Rect2(), bool p_static = false) override;
+	virtual ID create(TekisasuCollisionObject2D *p_object, int p_subindex = 0, const Rect2 &p_aabb = Rect2(), bool p_static = false) override;
 	virtual void move(ID p_id, const Rect2 &p_aabb) override;
 	virtual void set_static(ID p_id, bool p_static) override;
 	virtual void remove(ID p_id) override;
 
-	virtual GodotCollisionObject2D *get_object(ID p_id) const override;
+	virtual TekisasuCollisionObject2D *get_object(ID p_id) const override;
 	virtual bool is_static(ID p_id) const override;
 	virtual int get_subindex(ID p_id) const override;
 
-	virtual int cull_segment(const Vector2 &p_from, const Vector2 &p_to, GodotCollisionObject2D **p_results, int p_max_results, int *p_result_indices = nullptr) override;
-	virtual int cull_aabb(const Rect2 &p_aabb, GodotCollisionObject2D **p_results, int p_max_results, int *p_result_indices = nullptr) override;
+	virtual int cull_segment(const Vector2 &p_from, const Vector2 &p_to, TekisasuCollisionObject2D **p_results, int p_max_results, int *p_result_indices = nullptr) override;
+	virtual int cull_aabb(const Rect2 &p_aabb, TekisasuCollisionObject2D **p_results, int p_max_results, int *p_result_indices = nullptr) override;
 
 	virtual void set_pair_callback(PairCallback p_pair_callback, void *p_userdata) override;
 	virtual void set_unpair_callback(UnpairCallback p_unpair_callback, void *p_userdata) override;
 
 	virtual void update() override;
 
-	static GodotBroadPhase2D *_create();
-	GodotBroadPhase2DBVH();
+	static TekisasuBroadPhase2D *_create();
+	TekisasuBroadPhase2DBVH();
 };
 
-#endif // GODOT_BROAD_PHASE_2D_BVH_H
+#endif // TEKISASU_BROAD_PHASE_2D_BVH_H

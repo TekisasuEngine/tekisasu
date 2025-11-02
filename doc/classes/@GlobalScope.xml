@@ -903,7 +903,7 @@
 		<method name="printraw" qualifiers="vararg">
 			<description>
 				Prints one or more arguments to strings in the best way possible to the OS terminal. Unlike [method print], no newline is automatically added at the end.
-				[b]Note:[/b] The OS terminal is [i]not[/i] the same as the editor's Output dock. The output sent to the OS terminal can be seen when running Godot from a terminal. On Windows, this requires using the [code]console.exe[/code] executable.
+				[b]Note:[/b] The OS terminal is [i]not[/i] the same as the editor's Output dock. The output sent to the OS terminal can be seen when running Tekisasu Engine from a terminal. On Windows, this requires using the [code]console.exe[/code] executable.
 				[codeblocks]
 				[gdscript]
 				printraw("A")
@@ -948,7 +948,7 @@
 		</method>
 		<method name="push_error" qualifiers="vararg">
 			<description>
-				Pushes an error message to Godot's built-in debugger and to the OS terminal.
+				Pushes an error message to Tekisasu Engine's built-in debugger and to the OS terminal.
 				[codeblocks]
 				[gdscript]
 				push_error("test error") # Prints "test error" to debugger and terminal as error call
@@ -962,7 +962,7 @@
 		</method>
 		<method name="push_warning" qualifiers="vararg">
 			<description>
-				Pushes a warning message to Godot's built-in debugger and to the OS terminal.
+				Pushes a warning message to Tekisasu Engine's built-in debugger and to the OS terminal.
 				[codeblocks]
 				[gdscript]
 				push_warning("test warning") # Prints "test warning" to debugger and terminal as warning call
@@ -1160,7 +1160,7 @@
 				Sets the seed for the random number generator to [param base]. Setting the seed manually can ensure consistent, repeatable results for most random functions.
 				[codeblocks]
 				[gdscript]
-				var my_seed = "Godot Rocks".hash()
+				var my_seed = "Tekisasu Rocks".hash()
 				seed(my_seed)
 				var a = randf() + randi()
 				seed(my_seed)
@@ -1168,7 +1168,7 @@
 				# a and b are now identical
 				[/gdscript]
 				[csharp]
-				ulong mySeed = (ulong)GD.Hash("Godot Rocks");
+				ulong mySeed = (ulong)GD.Hash("Tekisasu Rocks");
 				GD.Seed(mySeed);
 				var a = GD.Randf() + GD.Randi();
 				GD.Seed(mySeed);
@@ -2754,7 +2754,7 @@
 		</constant>
 		<constant name="ERR_BUG" value="47" enum="Error">
 			Bug error, caused by an implementation issue in the method.
-			[b]Note:[/b] If a built-in method returns this code, please open an issue on [url=https://github.com/godotengine/godot/issues]the GitHub Issue Tracker[/url].
+			[b]Note:[/b] If a built-in method returns this code, please open an issue on [url=https://github.com/TekisasuEngine/tekisasu/issues]the GitHub Issue Tracker[/url].
 		</constant>
 		<constant name="ERR_PRINTER_ON_FIRE" value="48" enum="Error">
 			Printer on fire error (This is an easter egg, no built-in methods return this error code).

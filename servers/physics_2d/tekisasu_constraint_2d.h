@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_body_pair_2d.h                                                  */
+/*  tekisasu_constraint_2d.h                                              */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,74 +31,43 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_BODY_PAIR_2D_H
-#define GODOT_BODY_PAIR_2D_H
+#ifndef TEKISASU_CONSTRAINT_2D_H
+#define TEKISASU_CONSTRAINT_2D_H
 
-#include "godot_body_2d.h"
-#include "godot_constraint_2d.h"
+#include "tekisasu_body_2d.h"
 
-class GodotBodyPair2D : public GodotConstraint2D {
-	enum {
-		MAX_CONTACTS = 2
-	};
-	union {
-		struct {
-			GodotBody2D *A;
-			GodotBody2D *B;
-		};
+class TekisasuConstraint2D {
+	TekisasuBody2D **_body_ptr;
+	int _body_count;
+	uint64_t island_step = 0;
+	bool disabled_collisions_between_bodies = true;
 
-		GodotBody2D *_arr[2] = { nullptr, nullptr };
-	};
+	RID self;
 
-	int shape_A = 0;
-	int shape_B = 0;
-
-	bool collide_A = false;
-	bool collide_B = false;
-
-	GodotSpace2D *space = nullptr;
-
-	struct Contact {
-		Vector2 position;
-		Vector2 normal;
-		Vector2 local_A, local_B;
-		Vector2 acc_impulse; // accumulated impulse
-		real_t acc_normal_impulse = 0.0; // accumulated normal impulse (Pn)
-		real_t acc_tangent_impulse = 0.0; // accumulated tangent impulse (Pt)
-		real_t acc_bias_impulse = 0.0; // accumulated normal impulse for position bias (Pnb)
-		real_t acc_bias_impulse_center_of_mass = 0.0; // accumulated normal impulse for position bias applied to com
-		real_t mass_normal, mass_tangent = 0.0;
-		real_t bias = 0.0;
-
-		real_t depth = 0.0;
-		bool active = false;
-		bool used = false;
-		Vector2 rA, rB;
-		real_t bounce = 0.0;
-	};
-
-	Vector2 offset_B; //use local A coordinates to avoid numerical issues on collision detection
-
-	Vector2 sep_axis;
-	Contact contacts[MAX_CONTACTS];
-	int contact_count = 0;
-	bool collided = false;
-	bool check_ccd = false;
-	bool oneway_disabled = false;
-	bool report_contacts_only = false;
-
-	bool _test_ccd(real_t p_step, GodotBody2D *p_A, int p_shape_A, const Transform2D &p_xform_A, GodotBody2D *p_B, int p_shape_B, const Transform2D &p_xform_B);
-	void _validate_contacts();
-	static void _add_contact(const Vector2 &p_point_A, const Vector2 &p_point_B, void *p_self);
-	_FORCE_INLINE_ void _contact_added_callback(const Vector2 &p_point_A, const Vector2 &p_point_B);
+protected:
+	TekisasuConstraint2D(TekisasuBody2D **p_body_ptr = nullptr, int p_body_count = 0) {
+		_body_ptr = p_body_ptr;
+		_body_count = p_body_count;
+	}
 
 public:
-	virtual bool setup(real_t p_step) override;
-	virtual bool pre_solve(real_t p_step) override;
-	virtual void solve(real_t p_step) override;
+	_FORCE_INLINE_ void set_self(const RID &p_self) { self = p_self; }
+	_FORCE_INLINE_ RID get_self() const { return self; }
 
-	GodotBodyPair2D(GodotBody2D *p_A, int p_shape_A, GodotBody2D *p_B, int p_shape_B);
-	~GodotBodyPair2D();
+	_FORCE_INLINE_ uint64_t get_island_step() const { return island_step; }
+	_FORCE_INLINE_ void set_island_step(uint64_t p_step) { island_step = p_step; }
+
+	_FORCE_INLINE_ TekisasuBody2D **get_body_ptr() const { return _body_ptr; }
+	_FORCE_INLINE_ int get_body_count() const { return _body_count; }
+
+	_FORCE_INLINE_ void disable_collisions_between_bodies(const bool p_disabled) { disabled_collisions_between_bodies = p_disabled; }
+	_FORCE_INLINE_ bool is_disabled_collisions_between_bodies() const { return disabled_collisions_between_bodies; }
+
+	virtual bool setup(real_t p_step) = 0;
+	virtual bool pre_solve(real_t p_step) = 0;
+	virtual void solve(real_t p_step) = 0;
+
+	virtual ~TekisasuConstraint2D() {}
 };
 
-#endif // GODOT_BODY_PAIR_2D_H
+#endif // TEKISASU_CONSTRAINT_2D_H

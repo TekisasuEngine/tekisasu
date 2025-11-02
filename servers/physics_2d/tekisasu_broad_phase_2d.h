@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_area_pair_2d.h                                                  */
+/*  tekisasu_broad_phase_2d.h                                             */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,51 +31,44 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_AREA_PAIR_2D_H
-#define GODOT_AREA_PAIR_2D_H
+#ifndef TEKISASU_BROAD_PHASE_2D_H
+#define TEKISASU_BROAD_PHASE_2D_H
 
-#include "godot_area_2d.h"
-#include "godot_body_2d.h"
-#include "godot_constraint_2d.h"
+#include "core/math/math_funcs.h"
+#include "core/math/rect2.h"
 
-class GodotAreaPair2D : public GodotConstraint2D {
-	GodotBody2D *body = nullptr;
-	GodotArea2D *area = nullptr;
-	int body_shape = 0;
-	int area_shape = 0;
-	bool colliding = false;
-	bool has_space_override = false;
-	bool process_collision = false;
-	bool body_has_attached_area = false;
+class TekisasuCollisionObject2D;
 
+class TekisasuBroadPhase2D {
 public:
-	virtual bool setup(real_t p_step) override;
-	virtual bool pre_solve(real_t p_step) override;
-	virtual void solve(real_t p_step) override;
+	typedef TekisasuBroadPhase2D *(*CreateFunction)();
 
-	GodotAreaPair2D(GodotBody2D *p_body, int p_body_shape, GodotArea2D *p_area, int p_area_shape);
-	~GodotAreaPair2D();
+	static CreateFunction create_func;
+
+	typedef uint32_t ID;
+
+	typedef void *(*PairCallback)(TekisasuCollisionObject2D *A, int p_subindex_A, TekisasuCollisionObject2D *B, int p_subindex_B, void *p_userdata);
+	typedef void (*UnpairCallback)(TekisasuCollisionObject2D *A, int p_subindex_A, TekisasuCollisionObject2D *B, int p_subindex_B, void *p_data, void *p_userdata);
+
+	// 0 is an invalid ID
+	virtual ID create(TekisasuCollisionObject2D *p_object_, int p_subindex = 0, const Rect2 &p_aabb = Rect2(), bool p_static = false) = 0;
+	virtual void move(ID p_id, const Rect2 &p_aabb) = 0;
+	virtual void set_static(ID p_id, bool p_static) = 0;
+	virtual void remove(ID p_id) = 0;
+
+	virtual TekisasuCollisionObject2D *get_object(ID p_id) const = 0;
+	virtual bool is_static(ID p_id) const = 0;
+	virtual int get_subindex(ID p_id) const = 0;
+
+	virtual int cull_segment(const Vector2 &p_from, const Vector2 &p_to, TekisasuCollisionObject2D **p_results, int p_max_results, int *p_result_indices = nullptr) = 0;
+	virtual int cull_aabb(const Rect2 &p_aabb, TekisasuCollisionObject2D **p_results, int p_max_results, int *p_result_indices = nullptr) = 0;
+
+	virtual void set_pair_callback(PairCallback p_pair_callback, void *p_userdata) = 0;
+	virtual void set_unpair_callback(UnpairCallback p_unpair_callback, void *p_userdata) = 0;
+
+	virtual void update() = 0;
+
+	virtual ~TekisasuBroadPhase2D();
 };
 
-class GodotArea2Pair2D : public GodotConstraint2D {
-	GodotArea2D *area_a = nullptr;
-	GodotArea2D *area_b = nullptr;
-	int shape_a = 0;
-	int shape_b = 0;
-	bool colliding_a = false;
-	bool colliding_b = false;
-	bool process_collision_a = false;
-	bool process_collision_b = false;
-	bool area_a_monitorable;
-	bool area_b_monitorable;
-
-public:
-	virtual bool setup(real_t p_step) override;
-	virtual bool pre_solve(real_t p_step) override;
-	virtual void solve(real_t p_step) override;
-
-	GodotArea2Pair2D(GodotArea2D *p_area_a, int p_shape_a, GodotArea2D *p_area_b, int p_shape_b);
-	~GodotArea2Pair2D();
-};
-
-#endif // GODOT_AREA_PAIR_2D_H
+#endif // TEKISASU_BROAD_PHASE_2D_H

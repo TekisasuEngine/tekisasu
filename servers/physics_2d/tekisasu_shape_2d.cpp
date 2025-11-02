@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_shape_2d.cpp                                                    */
+/*  tekisasu_shape_2d.cpp                                                 */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,29 +31,29 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "godot_shape_2d.h"
+#include "tekisasu_shape_2d.h"
 
 #include "core/math/geometry_2d.h"
 #include "core/templates/sort_array.h"
 
-void GodotShape2D::configure(const Rect2 &p_aabb) {
+void TekisasuShape2D::configure(const Rect2 &p_aabb) {
 	aabb = p_aabb;
 	configured = true;
-	for (const KeyValue<GodotShapeOwner2D *, int> &E : owners) {
-		GodotShapeOwner2D *co = const_cast<GodotShapeOwner2D *>(E.key);
+	for (const KeyValue<TekisasuShapeOwner2D *, int> &E : owners) {
+		TekisasuShapeOwner2D *co = const_cast<TekisasuShapeOwner2D *>(E.key);
 		co->_shape_changed();
 	}
 }
 
-Vector2 GodotShape2D::get_support(const Vector2 &p_normal) const {
+Vector2 TekisasuShape2D::get_support(const Vector2 &p_normal) const {
 	Vector2 res[2];
 	int amnt;
 	get_supports(p_normal, res, amnt);
 	return res[0];
 }
 
-void GodotShape2D::add_owner(GodotShapeOwner2D *p_owner) {
-	HashMap<GodotShapeOwner2D *, int>::Iterator E = owners.find(p_owner);
+void TekisasuShape2D::add_owner(TekisasuShapeOwner2D *p_owner) {
+	HashMap<TekisasuShapeOwner2D *, int>::Iterator E = owners.find(p_owner);
 	if (E) {
 		E->value++;
 	} else {
@@ -61,8 +61,8 @@ void GodotShape2D::add_owner(GodotShapeOwner2D *p_owner) {
 	}
 }
 
-void GodotShape2D::remove_owner(GodotShapeOwner2D *p_owner) {
-	HashMap<GodotShapeOwner2D *, int>::Iterator E = owners.find(p_owner);
+void TekisasuShape2D::remove_owner(TekisasuShapeOwner2D *p_owner) {
+	HashMap<TekisasuShapeOwner2D *, int>::Iterator E = owners.find(p_owner);
 	ERR_FAIL_COND(!E);
 	E->value--;
 	if (E->value == 0) {
@@ -70,15 +70,15 @@ void GodotShape2D::remove_owner(GodotShapeOwner2D *p_owner) {
 	}
 }
 
-bool GodotShape2D::is_owner(GodotShapeOwner2D *p_owner) const {
+bool TekisasuShape2D::is_owner(TekisasuShapeOwner2D *p_owner) const {
 	return owners.has(p_owner);
 }
 
-const HashMap<GodotShapeOwner2D *, int> &GodotShape2D::get_owners() const {
+const HashMap<TekisasuShapeOwner2D *, int> &TekisasuShape2D::get_owners() const {
 	return owners;
 }
 
-GodotShape2D::~GodotShape2D() {
+TekisasuShape2D::~TekisasuShape2D() {
 	ERR_FAIL_COND(owners.size());
 }
 
@@ -86,15 +86,15 @@ GodotShape2D::~GodotShape2D() {
 /*********************************************************/
 /*********************************************************/
 
-void GodotWorldBoundaryShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuWorldBoundaryShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	r_amount = 0;
 }
 
-bool GodotWorldBoundaryShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuWorldBoundaryShape2D::contains_point(const Vector2 &p_point) const {
 	return normal.dot(p_point) < d;
 }
 
-bool GodotWorldBoundaryShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuWorldBoundaryShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	Vector2 segment = p_begin - p_end;
 	real_t den = normal.dot(segment);
 
@@ -116,11 +116,11 @@ bool GodotWorldBoundaryShape2D::intersect_segment(const Vector2 &p_begin, const 
 	return true;
 }
 
-real_t GodotWorldBoundaryShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuWorldBoundaryShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	return 0;
 }
 
-void GodotWorldBoundaryShape2D::set_data(const Variant &p_data) {
+void TekisasuWorldBoundaryShape2D::set_data(const Variant &p_data) {
 	ERR_FAIL_COND(p_data.get_type() != Variant::ARRAY);
 	Array arr = p_data;
 	ERR_FAIL_COND(arr.size() != 2);
@@ -129,7 +129,7 @@ void GodotWorldBoundaryShape2D::set_data(const Variant &p_data) {
 	configure(Rect2(Vector2(-1e15, -1e15), Vector2(1e15 * 2, 1e15 * 2)));
 }
 
-Variant GodotWorldBoundaryShape2D::get_data() const {
+Variant TekisasuWorldBoundaryShape2D::get_data() const {
 	Array arr;
 	arr.resize(2);
 	arr[0] = normal;
@@ -141,7 +141,7 @@ Variant GodotWorldBoundaryShape2D::get_data() const {
 /*********************************************************/
 /*********************************************************/
 
-void GodotSeparationRayShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuSeparationRayShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	r_amount = 1;
 
 	if (p_normal.y > 0) {
@@ -151,26 +151,26 @@ void GodotSeparationRayShape2D::get_supports(const Vector2 &p_normal, Vector2 *r
 	}
 }
 
-bool GodotSeparationRayShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuSeparationRayShape2D::contains_point(const Vector2 &p_point) const {
 	return false;
 }
 
-bool GodotSeparationRayShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuSeparationRayShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	return false; //rays can't be intersected
 }
 
-real_t GodotSeparationRayShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuSeparationRayShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	return 0; //rays are mass-less
 }
 
-void GodotSeparationRayShape2D::set_data(const Variant &p_data) {
+void TekisasuSeparationRayShape2D::set_data(const Variant &p_data) {
 	Dictionary d = p_data;
 	length = d["length"];
 	slide_on_slope = d["slide_on_slope"];
 	configure(Rect2(0, 0, 0.001, length));
 }
 
-Variant GodotSeparationRayShape2D::get_data() const {
+Variant TekisasuSeparationRayShape2D::get_data() const {
 	Dictionary d;
 	d["length"] = length;
 	d["slide_on_slope"] = slide_on_slope;
@@ -181,7 +181,7 @@ Variant GodotSeparationRayShape2D::get_data() const {
 /*********************************************************/
 /*********************************************************/
 
-void GodotSegmentShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuSegmentShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	if (Math::abs(p_normal.dot(n)) > segment_is_valid_support_threshold) {
 		r_supports[0] = a;
 		r_supports[1] = b;
@@ -198,11 +198,11 @@ void GodotSegmentShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_suppo
 	r_amount = 1;
 }
 
-bool GodotSegmentShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuSegmentShape2D::contains_point(const Vector2 &p_point) const {
 	return false;
 }
 
-bool GodotSegmentShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuSegmentShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	if (!Geometry2D::segment_intersects_segment(p_begin, p_end, a, b, &r_point)) {
 		return false;
 	}
@@ -216,11 +216,11 @@ bool GodotSegmentShape2D::intersect_segment(const Vector2 &p_begin, const Vector
 	return true;
 }
 
-real_t GodotSegmentShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuSegmentShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	return p_mass * ((a * p_scale).distance_squared_to(b * p_scale)) / 12;
 }
 
-void GodotSegmentShape2D::set_data(const Variant &p_data) {
+void TekisasuSegmentShape2D::set_data(const Variant &p_data) {
 	ERR_FAIL_COND(p_data.get_type() != Variant::RECT2);
 
 	Rect2 r = p_data;
@@ -240,7 +240,7 @@ void GodotSegmentShape2D::set_data(const Variant &p_data) {
 	configure(aabb_new);
 }
 
-Variant GodotSegmentShape2D::get_data() const {
+Variant TekisasuSegmentShape2D::get_data() const {
 	Rect2 r;
 	r.position = a;
 	r.size = b;
@@ -251,16 +251,16 @@ Variant GodotSegmentShape2D::get_data() const {
 /*********************************************************/
 /*********************************************************/
 
-void GodotCircleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuCircleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	r_amount = 1;
 	*r_supports = p_normal * radius;
 }
 
-bool GodotCircleShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuCircleShape2D::contains_point(const Vector2 &p_point) const {
 	return p_point.length_squared() < radius * radius;
 }
 
-bool GodotCircleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuCircleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	Vector2 line_vec = p_end - p_begin;
 
 	real_t a, b, c;
@@ -286,19 +286,19 @@ bool GodotCircleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2
 	return true;
 }
 
-real_t GodotCircleShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuCircleShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	real_t a = radius * p_scale.x;
 	real_t b = radius * p_scale.y;
 	return p_mass * (a * a + b * b) / 4;
 }
 
-void GodotCircleShape2D::set_data(const Variant &p_data) {
+void TekisasuCircleShape2D::set_data(const Variant &p_data) {
 	ERR_FAIL_COND(!p_data.is_num());
 	radius = p_data;
 	configure(Rect2(-radius, -radius, radius * 2, radius * 2));
 }
 
-Variant GodotCircleShape2D::get_data() const {
+Variant TekisasuCircleShape2D::get_data() const {
 	return radius;
 }
 
@@ -306,7 +306,7 @@ Variant GodotCircleShape2D::get_data() const {
 /*********************************************************/
 /*********************************************************/
 
-void GodotRectangleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuRectangleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	for (int i = 0; i < 2; i++) {
 		Vector2 ag;
 		ag[i] = 1.0;
@@ -336,7 +336,7 @@ void GodotRectangleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_sup
 			(p_normal.y < 0) ? -half_extents.y : half_extents.y);
 }
 
-bool GodotRectangleShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuRectangleShape2D::contains_point(const Vector2 &p_point) const {
 	real_t x = p_point.x;
 	real_t y = p_point.y;
 	real_t edge_x = half_extents.x;
@@ -344,23 +344,23 @@ bool GodotRectangleShape2D::contains_point(const Vector2 &p_point) const {
 	return (x >= -edge_x) && (x < edge_x) && (y >= -edge_y) && (y < edge_y);
 }
 
-bool GodotRectangleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuRectangleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	return get_aabb().intersects_segment(p_begin, p_end, &r_point, &r_normal);
 }
 
-real_t GodotRectangleShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuRectangleShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	Vector2 he2 = half_extents * 2 * p_scale;
 	return p_mass * he2.dot(he2) / 12.0;
 }
 
-void GodotRectangleShape2D::set_data(const Variant &p_data) {
+void TekisasuRectangleShape2D::set_data(const Variant &p_data) {
 	ERR_FAIL_COND(p_data.get_type() != Variant::VECTOR2);
 
 	half_extents = p_data;
 	configure(Rect2(-half_extents, half_extents * 2.0));
 }
 
-Variant GodotRectangleShape2D::get_data() const {
+Variant TekisasuRectangleShape2D::get_data() const {
 	return half_extents;
 }
 
@@ -368,7 +368,7 @@ Variant GodotRectangleShape2D::get_data() const {
 /*********************************************************/
 /*********************************************************/
 
-void GodotCapsuleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuCapsuleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	Vector2 n = p_normal;
 
 	real_t h = height * 0.5 - radius; // half-height of the rectangle part
@@ -391,7 +391,7 @@ void GodotCapsuleShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_suppo
 	}
 }
 
-bool GodotCapsuleShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuCapsuleShape2D::contains_point(const Vector2 &p_point) const {
 	Vector2 p = p_point;
 	p.y = Math::abs(p.y);
 	p.y -= height * 0.5 - radius;
@@ -402,7 +402,7 @@ bool GodotCapsuleShape2D::contains_point(const Vector2 &p_point) const {
 	return p.length_squared() < radius * radius;
 }
 
-bool GodotCapsuleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuCapsuleShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	real_t d = 1e10;
 	Vector2 n = (p_end - p_begin).normalized();
 	bool collided = false;
@@ -462,12 +462,12 @@ bool GodotCapsuleShape2D::intersect_segment(const Vector2 &p_begin, const Vector
 	return collided; //todo
 }
 
-real_t GodotCapsuleShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuCapsuleShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	Vector2 he2 = Vector2(radius * 2, height) * p_scale;
 	return p_mass * he2.dot(he2) / 12.0;
 }
 
-void GodotCapsuleShape2D::set_data(const Variant &p_data) {
+void TekisasuCapsuleShape2D::set_data(const Variant &p_data) {
 	ERR_FAIL_COND(p_data.get_type() != Variant::ARRAY && p_data.get_type() != Variant::VECTOR2);
 
 	if (p_data.get_type() == Variant::ARRAY) {
@@ -485,7 +485,7 @@ void GodotCapsuleShape2D::set_data(const Variant &p_data) {
 	configure(Rect2(-he, he * 2));
 }
 
-Variant GodotCapsuleShape2D::get_data() const {
+Variant TekisasuCapsuleShape2D::get_data() const {
 	return Point2(height, radius);
 }
 
@@ -493,7 +493,7 @@ Variant GodotCapsuleShape2D::get_data() const {
 /*********************************************************/
 /*********************************************************/
 
-void GodotConvexPolygonShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
+void TekisasuConvexPolygonShape2D::get_supports(const Vector2 &p_normal, Vector2 *r_supports, int &r_amount) const {
 	int support_idx = -1;
 	real_t d = -1e10;
 	r_amount = 0;
@@ -521,7 +521,7 @@ void GodotConvexPolygonShape2D::get_supports(const Vector2 &p_normal, Vector2 *r
 	r_supports[0] = points[support_idx].pos;
 }
 
-bool GodotConvexPolygonShape2D::contains_point(const Vector2 &p_point) const {
+bool TekisasuConvexPolygonShape2D::contains_point(const Vector2 &p_point) const {
 	bool out = false;
 	bool in = false;
 
@@ -537,7 +537,7 @@ bool GodotConvexPolygonShape2D::contains_point(const Vector2 &p_point) const {
 	return in != out;
 }
 
-bool GodotConvexPolygonShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
+bool TekisasuConvexPolygonShape2D::intersect_segment(const Vector2 &p_begin, const Vector2 &p_end, Vector2 &r_point, Vector2 &r_normal) const {
 	Vector2 n = (p_end - p_begin).normalized();
 	real_t d = 1e10;
 	bool inters = false;
@@ -561,7 +561,7 @@ bool GodotConvexPolygonShape2D::intersect_segment(const Vector2 &p_begin, const 
 	return inters;
 }
 
-real_t GodotConvexPolygonShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
+real_t TekisasuConvexPolygonShape2D::get_moment_of_inertia(real_t p_mass, const Size2 &p_scale) const {
 	ERR_FAIL_COND_V_MSG(point_count == 0, 0, "Convex polygon shape has no points.");
 	Rect2 aabb_new;
 	aabb_new.position = points[0].pos * p_scale;
@@ -572,7 +572,7 @@ real_t GodotConvexPolygonShape2D::get_moment_of_inertia(real_t p_mass, const Siz
 	return p_mass * aabb_new.size.dot(aabb_new.size) / 12.0;
 }
 
-void GodotConvexPolygonShape2D::set_data(const Variant &p_data) {
+void TekisasuConvexPolygonShape2D::set_data(const Variant &p_data) {
 #ifdef REAL_T_IS_DOUBLE
 	ERR_FAIL_COND(p_data.get_type() != Variant::PACKED_VECTOR2_ARRAY && p_data.get_type() != Variant::PACKED_FLOAT64_ARRAY);
 #else
@@ -628,7 +628,7 @@ void GodotConvexPolygonShape2D::set_data(const Variant &p_data) {
 	configure(aabb_new);
 }
 
-Variant GodotConvexPolygonShape2D::get_data() const {
+Variant TekisasuConvexPolygonShape2D::get_data() const {
 	Vector<Vector2> dvr;
 
 	dvr.resize(point_count);
@@ -640,7 +640,7 @@ Variant GodotConvexPolygonShape2D::get_data() const {
 	return dvr;
 }
 
-GodotConvexPolygonShape2D::~GodotConvexPolygonShape2D() {
+TekisasuConvexPolygonShape2D::~TekisasuConvexPolygonShape2D() {
 	if (points) {
 		memdelete_arr(points);
 	}
@@ -950,7 +950,7 @@ void GodotConcavePolygonShape2D::cull(const Rect2 &p_local_aabb, QueryCallback p
 						Vector2 a = pointptr[s.points[0]];
 						Vector2 b = pointptr[s.points[1]];
 
-						GodotSegmentShape2D ss(a, b, (b - a).orthogonal().normalized());
+						TekisasuSegmentShape2D ss(a, b, (b - a).orthogonal().normalized());
 
 						if (p_callback(p_userdata, &ss)) {
 							return;

@@ -66,7 +66,7 @@ String _get_mono_user_dir() {
 	if (EditorPaths::get_singleton()) {
 		return EditorPaths::get_singleton()->get_data_dir().path_join("mono");
 	} else {
-		String settings_path = OS::get_singleton()->get_data_path().path_join(OS::get_singleton()->get_godot_dir_name());
+		String settings_path = OS::get_singleton()->get_data_path().path_join(OS::get_singleton()->get_tekisasu_dir_name());
 
 		// Self-contained mode if a `._sc_` or `_sc_` file is present in executable dir.
 		String exe_dir = OS::get_singleton()->get_executable_path().get_base_dir();

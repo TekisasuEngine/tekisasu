@@ -162,16 +162,16 @@ EditorPaths::EditorPaths() {
 	} else {
 		// Typically XDG_DATA_HOME or %APPDATA%.
 		data_path = OS::get_singleton()->get_data_path();
-		data_dir = data_path.path_join(OS::get_singleton()->get_godot_dir_name());
+		data_dir = data_path.path_join(OS::get_singleton()->get_tekisasu_dir_name());
 		// Can be different from data_path e.g. on Linux or macOS.
 		config_path = OS::get_singleton()->get_config_path();
-		config_dir = config_path.path_join(OS::get_singleton()->get_godot_dir_name());
+		config_dir = config_path.path_join(OS::get_singleton()->get_tekisasu_dir_name());
 		// Can be different from above paths, otherwise a subfolder of data_dir.
 		cache_path = OS::get_singleton()->get_cache_path();
 		if (cache_path == data_path) {
 			cache_dir = data_dir.path_join("cache");
 		} else {
-			cache_dir = cache_path.path_join(OS::get_singleton()->get_godot_dir_name());
+			cache_dir = cache_path.path_join(OS::get_singleton()->get_tekisasu_dir_name());
 		}
 	}
 

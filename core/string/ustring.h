@@ -31,8 +31,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef USTRING_GODOT_H
-#define USTRING_GODOT_H
+#ifndef USTRING_TEKISASU_H
+#define USTRING_TEKISASU_H
 
 // Note: _GODOT suffix added to header guard to avoid conflict with ICU header.
 
@@ -644,4 +644,4 @@ _FORCE_INLINE_ Vector<String> sarray(P... p_args) {
 	return arr;
 }
 
-#endif // USTRING_GODOT_H
+#endif // USTRING_TEKISASU_H

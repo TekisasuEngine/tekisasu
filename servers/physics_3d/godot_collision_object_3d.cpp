@@ -47,7 +47,7 @@ void GodotCollisionObject3D::add_shape(GodotShape3D *p_shape, const Transform3D 
 	p_shape->add_owner(this);
 
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer3D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		GodotPhysicsServer3D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 
@@ -58,7 +58,7 @@ void GodotCollisionObject3D::set_shape(int p_index, GodotShape3D *p_shape) {
 
 	p_shape->add_owner(this);
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer3D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		GodotPhysicsServer3D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 
@@ -68,7 +68,7 @@ void GodotCollisionObject3D::set_shape_transform(int p_index, const Transform3D 
 	shapes.write[p_index].xform = p_transform;
 	shapes.write[p_index].xform_inv = p_transform.affine_inverse();
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer3D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		GodotPhysicsServer3D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 
@@ -90,11 +90,11 @@ void GodotCollisionObject3D::set_shape_disabled(int p_idx, bool p_disabled) {
 		space->get_broadphase()->remove(shape.bpid);
 		shape.bpid = 0;
 		if (!pending_shape_update_list.in_list()) {
-			GodotPhysicsServer3D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+			GodotPhysicsServer3D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 		}
 	} else if (!p_disabled && shape.bpid == 0) {
 		if (!pending_shape_update_list.in_list()) {
-			GodotPhysicsServer3D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+			GodotPhysicsServer3D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 		}
 	}
 }
@@ -124,7 +124,7 @@ void GodotCollisionObject3D::remove_shape(int p_index) {
 	shapes.remove_at(p_index);
 
 	if (!pending_shape_update_list.in_list()) {
-		GodotPhysicsServer3D::godot_singleton->pending_shape_update_list.add(&pending_shape_update_list);
+		GodotPhysicsServer3D::tekisasu_singleton->pending_shape_update_list.add(&pending_shape_update_list);
 	}
 }
 

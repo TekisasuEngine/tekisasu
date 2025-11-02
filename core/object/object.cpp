@@ -1717,7 +1717,7 @@ void Object::_bind_methods() {
 	::ClassDB::add_virtual_method(get_class_static(), m_method, true, Vector<String>(), true);
 
 	MethodInfo notification_mi("_notification", PropertyInfo(Variant::INT, "what"));
-	notification_mi.arguments_metadata.push_back(GodotTypeInfo::Metadata::METADATA_INT_IS_INT32);
+	notification_mi.arguments_metadata.push_back(TekisasuTypeInfo::Metadata::METADATA_INT_IS_INT32);
 	BIND_OBJ_CORE_METHOD(notification_mi);
 	BIND_OBJ_CORE_METHOD(MethodInfo(Variant::BOOL, "_set", PropertyInfo(Variant::STRING_NAME, "property"), PropertyInfo(Variant::NIL, "value")));
 #ifdef TOOLS_ENABLED

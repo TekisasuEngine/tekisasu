@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_body_direct_state_2d.h                                          */
+/*  tekisasu_body_direct_state_2d.h                                       */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,18 +31,18 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_BODY_DIRECT_STATE_2D_H
-#define GODOT_BODY_DIRECT_STATE_2D_H
+#ifndef TEKISASU_BODY_DIRECT_STATE_2D_H
+#define TEKISASU_BODY_DIRECT_STATE_2D_H
 
 #include "servers/physics_server_2d.h"
 
-class GodotBody2D;
+class TekisasuBody2D;
 
-class GodotPhysicsDirectBodyState2D : public PhysicsDirectBodyState2D {
-	GDCLASS(GodotPhysicsDirectBodyState2D, PhysicsDirectBodyState2D);
+class TekisasuPhysicsDirectBodyState2D : public PhysicsDirectBodyState2D {
+	GDCLASS(TekisasuPhysicsDirectBodyState2D, PhysicsDirectBodyState2D);
 
 public:
-	GodotBody2D *body = nullptr;
+	TekisasuBody2D *body = nullptr;
 
 	virtual Vector2 get_total_gravity() const override;
 	virtual real_t get_total_angular_damp() const override;
@@ -104,4 +104,4 @@ public:
 	virtual real_t get_step() const override;
 };
 
-#endif // GODOT_BODY_DIRECT_STATE_2D_H
+#endif // TEKISASU_BODY_DIRECT_STATE_2D_H

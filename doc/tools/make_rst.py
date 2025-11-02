@@ -16,7 +16,7 @@ sys.path.append(root_directory)  # Include the root directory
 import version  # noqa: E402
 
 # $DOCS_URL/path/to/page.html(#fragment-tag)
-GODOT_DOCS_PATTERN = re.compile(r"^\$DOCS_URL/(.*)\.html(#.*)?$")
+TEKISASU_DOCS_PATTERN = re.compile(r"^\$DOCS_URL/(.*)\.html(#.*)?$")
 
 # Based on reStructuredText inline markup recognition rules
 # https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-markup-recognition-rules
@@ -1715,7 +1715,7 @@ def make_separator(section_level: bool = False) -> str:
 
 
 def make_link(url: str, title: str) -> str:
-    match = GODOT_DOCS_PATTERN.search(url)
+    match = TEKISASU_DOCS_PATTERN.search(url)
     if match:
         groups = match.groups()
         if match.lastindex == 2:

@@ -28,8 +28,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_MODULE_MBEDTLS_CONFIG_H
-#define GODOT_MODULE_MBEDTLS_CONFIG_H
+#ifndef TEKISASU_MODULE_MBEDTLS_CONFIG_H
+#define TEKISASU_MODULE_MBEDTLS_CONFIG_H
 
 #include "platform_config.h"
 
@@ -73,4 +73,4 @@
 
 #endif // GODOT_MBEDTLS_INCLUDE_H
 
-#endif // GODOT_MODULE_MBEDTLS_CONFIG_H
+#endif // TEKISASU_MODULE_MBEDTLS_CONFIG_H

@@ -104,7 +104,7 @@ public:
 	void set_argument_names(const Vector<StringName> &p_names); // Set by ClassDB, can't be inferred otherwise.
 	Vector<StringName> get_argument_names() const;
 
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const = 0;
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const = 0;
 #endif
 
 	void set_hint_flags(uint32_t p_hint) { hint_flags = p_hint; }
@@ -166,8 +166,8 @@ public:
 	}
 
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int) const override {
-		return GodotTypeInfo::METADATA_NONE;
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int) const override {
+		return TekisasuTypeInfo::METADATA_NONE;
 	}
 #endif
 
@@ -333,7 +333,7 @@ protected:
 
 public:
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const override {
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const override {
 		return call_get_argument_metadata<P...>(p_arg);
 	}
 
@@ -417,7 +417,7 @@ protected:
 
 public:
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const override {
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const override {
 		return call_get_argument_metadata<P...>(p_arg);
 	}
 
@@ -507,7 +507,7 @@ protected:
 
 public:
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const override {
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const override {
 		if (p_arg >= 0) {
 			return call_get_argument_metadata<P...>(p_arg);
 		} else {
@@ -603,7 +603,7 @@ protected:
 
 public:
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const override {
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const override {
 		if (p_arg >= 0) {
 			return call_get_argument_metadata<P...>(p_arg);
 		} else {
@@ -692,7 +692,7 @@ protected:
 
 public:
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const override {
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const override {
 		return call_get_argument_metadata<P...>(p_arg);
 	}
 
@@ -755,7 +755,7 @@ protected:
 
 public:
 #ifdef DEBUG_METHODS_ENABLED
-	virtual GodotTypeInfo::Metadata get_argument_meta(int p_arg) const override {
+	virtual TekisasuTypeInfo::Metadata get_argument_meta(int p_arg) const override {
 		if (p_arg >= 0) {
 			return call_get_argument_metadata<P...>(p_arg);
 		} else {

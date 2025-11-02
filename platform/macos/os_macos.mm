@@ -292,7 +292,7 @@ String OS_MacOS::get_bundle_icon_path() const {
 }
 
 // Get properly capitalized engine name for system paths
-String OS_MacOS::get_godot_dir_name() const {
+String OS_MacOS::get_tekisasu_dir_name() const {
 	return String(VERSION_SHORT_NAME).capitalize();
 }
 

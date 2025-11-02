@@ -71,7 +71,7 @@ class GodotPhysicsServer3D : public PhysicsServer3D {
 	SelfList<GodotCollisionObject3D>::List pending_shape_update_list;
 	void _update_shapes();
 
-	static GodotPhysicsServer3D *godot_singleton;
+	static GodotPhysicsServer3D *tekisasu_singleton;
 
 public:
 	struct CollCbkData {

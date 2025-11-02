@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_broad_phase_2d.cpp                                              */
+/*  tekisasu_broad_phase_2d.cpp                                           */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,9 +31,9 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "godot_broad_phase_2d.h"
+#include "tekisasu_broad_phase_2d.h"
 
-GodotBroadPhase2D::CreateFunction GodotBroadPhase2D::create_func = nullptr;
+TekisasuBroadPhase2D::CreateFunction TekisasuBroadPhase2D::create_func = nullptr;
 
-GodotBroadPhase2D::~GodotBroadPhase2D() {
+TekisasuBroadPhase2D::~TekisasuBroadPhase2D() {
 }

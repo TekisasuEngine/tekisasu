@@ -269,7 +269,7 @@ public:
 	virtual uint64_t get_embedded_pck_offset() const;
 
 	String get_safe_dir_name(const String &p_dir_name, bool p_allow_paths = false) const;
-	virtual String get_godot_dir_name() const;
+	virtual String get_tekisasu_dir_name() const;
 
 	virtual String get_data_path() const;
 	virtual String get_config_path() const;

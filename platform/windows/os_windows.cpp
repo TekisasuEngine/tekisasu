@@ -1802,7 +1802,7 @@ String OS_Windows::get_cache_path() const {
 }
 
 // Get properly capitalized engine name for system paths
-String OS_Windows::get_godot_dir_name() const {
+String OS_Windows::get_tekisasu_dir_name() const {
 	return String(VERSION_SHORT_NAME).capitalize();
 }
 
@@ -1855,11 +1855,11 @@ String OS_Windows::get_user_data_dir() const {
 			}
 			return get_data_path().path_join(custom_dir).replace("\\", "/");
 		} else {
-			return get_data_path().path_join(get_godot_dir_name()).path_join("app_userdata").path_join(appname).replace("\\", "/");
+			return get_data_path().path_join(get_tekisasu_dir_name()).path_join("app_userdata").path_join(appname).replace("\\", "/");
 		}
 	}
 
-	return get_data_path().path_join(get_godot_dir_name()).path_join("app_userdata").path_join("[unnamed project]");
+	return get_data_path().path_join(get_tekisasu_dir_name()).path_join("app_userdata").path_join("[unnamed project]");
 }
 
 String OS_Windows::get_unique_id() const {

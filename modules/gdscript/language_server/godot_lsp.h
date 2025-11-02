@@ -31,8 +31,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GODOT_LSP_H
-#define GODOT_LSP_H
+#ifndef TEKISASU_LSP_H
+#define TEKISASU_LSP_H
 
 #include "core/doc_data.h"
 #include "core/object/class_db.h"
@@ -1950,4 +1950,4 @@ static String marked_documentation(const String &p_bbcode) {
 }
 } // namespace lsp
 
-#endif // GODOT_LSP_H
+#endif // TEKISASU_LSP_H

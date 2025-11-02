@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  godot_area_pair_2d.cpp                                                */
+/*  tekisasu_area_pair_2d.cpp                                             */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,12 +31,12 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "godot_area_pair_2d.h"
-#include "godot_collision_solver_2d.h"
+#include "tekisasu_area_pair_2d.h"
+#include "tekisasu_collision_solver_2d.h"
 
-bool GodotAreaPair2D::setup(real_t p_step) {
+bool TekisasuAreaPair2D::setup(real_t p_step) {
 	bool result = false;
-	if (area->collides_with(body) && GodotCollisionSolver2D::solve(body->get_shape(body_shape), body->get_transform() * body->get_shape_transform(body_shape), Vector2(), area->get_shape(area_shape), area->get_transform() * area->get_shape_transform(area_shape), Vector2(), nullptr, this)) {
+	if (area->collides_with(body) && TekisasuCollisionSolver2D::solve(body->get_shape(body_shape), body->get_transform() * body->get_shape_transform(body_shape), Vector2(), area->get_shape(area_shape), area->get_transform() * area->get_shape_transform(area_shape), Vector2(), nullptr, this)) {
 		result = true;
 	}
 
@@ -62,7 +62,7 @@ bool GodotAreaPair2D::setup(real_t p_step) {
 	return process_collision;
 }
 
-bool GodotAreaPair2D::pre_solve(real_t p_step) {
+bool TekisasuAreaPair2D::pre_solve(real_t p_step) {
 	if (!process_collision) {
 		return false;
 	}
@@ -90,11 +90,11 @@ bool GodotAreaPair2D::pre_solve(real_t p_step) {
 	return false; // Never do any post solving.
 }
 
-void GodotAreaPair2D::solve(real_t p_step) {
+void TekisasuAreaPair2D::solve(real_t p_step) {
 	// Nothing to do.
 }
 
-GodotAreaPair2D::GodotAreaPair2D(GodotBody2D *p_body, int p_body_shape, GodotArea2D *p_area, int p_area_shape) {
+TekisasuAreaPair2D::TekisasuAreaPair2D(TekisasuBody2D *p_body, int p_body_shape, TekisasuArea2D *p_area, int p_area_shape) {
 	body = p_body;
 	area = p_area;
 	body_shape = p_body_shape;
@@ -106,7 +106,7 @@ GodotAreaPair2D::GodotAreaPair2D(GodotBody2D *p_body, int p_body_shape, GodotAre
 	}
 }
 
-GodotAreaPair2D::~GodotAreaPair2D() {
+TekisasuAreaPair2D::~TekisasuAreaPair2D() {
 	if (colliding) {
 		if (body_has_attached_area) {
 			body_has_attached_area = false;
@@ -122,10 +122,10 @@ GodotAreaPair2D::~GodotAreaPair2D() {
 
 //////////////////////////////////
 
-bool GodotArea2Pair2D::setup(real_t p_step) {
+bool TekisasuArea2Pair2D::setup(real_t p_step) {
 	bool result_a = area_a->collides_with(area_b);
 	bool result_b = area_b->collides_with(area_a);
-	if ((result_a || result_b) && !GodotCollisionSolver2D::solve(area_a->get_shape(shape_a), area_a->get_transform() * area_a->get_shape_transform(shape_a), Vector2(), area_b->get_shape(shape_b), area_b->get_transform() * area_b->get_shape_transform(shape_b), Vector2(), nullptr, this)) {
+	if ((result_a || result_b) && !TekisasuCollisionSolver2D::solve(area_a->get_shape(shape_a), area_a->get_transform() * area_a->get_shape_transform(shape_a), Vector2(), area_b->get_shape(shape_b), area_b->get_transform() * area_b->get_shape_transform(shape_b), Vector2(), nullptr, this)) {
 		result_a = false;
 		result_b = false;
 	}
@@ -153,7 +153,7 @@ bool GodotArea2Pair2D::setup(real_t p_step) {
 	return process_collision;
 }
 
-bool GodotArea2Pair2D::pre_solve(real_t p_step) {
+bool TekisasuArea2Pair2D::pre_solve(real_t p_step) {
 	if (process_collision_a) {
 		if (colliding_a) {
 			area_a->add_area_to_query(area_b, shape_b, shape_a);
@@ -173,11 +173,11 @@ bool GodotArea2Pair2D::pre_solve(real_t p_step) {
 	return false; // Never do any post solving.
 }
 
-void GodotArea2Pair2D::solve(real_t p_step) {
+void TekisasuArea2Pair2D::solve(real_t p_step) {
 	// Nothing to do.
 }
 
-GodotArea2Pair2D::GodotArea2Pair2D(GodotArea2D *p_area_a, int p_shape_a, GodotArea2D *p_area_b, int p_shape_b) {
+TekisasuArea2Pair2D::TekisasuArea2Pair2D(TekisasuArea2D *p_area_a, int p_shape_a, TekisasuArea2D *p_area_b, int p_shape_b) {
 	area_a = p_area_a;
 	area_b = p_area_b;
 	shape_a = p_shape_a;
@@ -188,7 +188,7 @@ GodotArea2Pair2D::GodotArea2Pair2D(GodotArea2D *p_area_a, int p_shape_a, GodotAr
 	area_b->add_constraint(this);
 }
 
-GodotArea2Pair2D::~GodotArea2Pair2D() {
+TekisasuArea2Pair2D::~TekisasuArea2Pair2D() {
 	if (colliding_a) {
 		if (area_a->has_area_monitor_callback() && area_b_monitorable) {
 			area_a->remove_area_from_query(area_b, shape_b, shape_a);
