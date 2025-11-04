@@ -301,7 +301,6 @@ def generate_scu_files(max_includes_per_scu):
     process_folder(["editor/plugins/gizmos"])
     process_folder(["editor/plugins/tiles"])
 
-    process_folder(["platform/ios/export"])
     process_folder(["platform/linuxbsd/export"])
     process_folder(["platform/macos/export"])
     process_folder(["platform/web/export"])

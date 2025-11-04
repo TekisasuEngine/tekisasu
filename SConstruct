@@ -338,11 +338,6 @@ if env["platform"] == "osx":
     print_warning('Platform "osx" has been renamed to "macos" in Tekisasu Engine 4. Building for platform "macos".')
     env["platform"] = "macos"
 
-if env["platform"] == "iphone":
-    # Deprecated alias kept for compatibility.
-    print_warning('Platform "iphone" has been renamed to "ios" in Tekisasu Engine 4. Building for platform "ios".')
-    env["platform"] = "ios"
-
 if env["platform"] in ["linux", "bsd", "x11"]:
     if env["platform"] == "x11":
         # Deprecated alias kept for compatibility.
@@ -656,7 +651,7 @@ elif methods.using_clang(env):
         )
     # Apple LLVM versions differ from upstream LLVM version \o/, compare
     # in https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
-    elif env["platform"] == "macos" or env["platform"] == "ios":
+    elif env["platform"] == "macos":
         vanilla = methods.is_vanilla_clang(env)
         if vanilla and cc_version_major < 6:
             print_warning(
