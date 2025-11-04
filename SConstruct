@@ -345,11 +345,6 @@ if env["platform"] in ["linux", "bsd", "x11"]:
     # Alias for convenience.
     env["platform"] = "linuxbsd"
 
-if env["platform"] == "javascript":
-    # Deprecated alias kept for compatibility.
-    print_warning('Platform "javascript" has been renamed to "web" in Tekisasu Engine 4. Building for platform "web".')
-    env["platform"] = "web"
-
 if env["platform"] not in platform_list:
     text = "The following platforms are available:\n\t{}\n".format("\n\t".join(platform_list))
     text += "Please run SCons again and select a valid platform: platform=<string>."
