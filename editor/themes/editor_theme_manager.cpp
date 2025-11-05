@@ -1019,7 +1019,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 			Ref<StyleBoxFlat> style_tree_cursor = p_config.base_style->duplicate();
 			style_tree_cursor->set_draw_center(false);
-			style_tree_cursor->set_border_width_all(MAX(1, p_config.border_width));
+			style_tree_cursor->set_border_width_all(0);
 			style_tree_cursor->set_border_color(p_config.contrast_color_1);
 
 			Ref<StyleBoxFlat> style_tree_title = p_config.base_style->duplicate();
