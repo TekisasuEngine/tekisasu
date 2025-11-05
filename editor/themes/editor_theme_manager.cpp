@@ -604,8 +604,19 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.button_style_focus = p_config.button_style->duplicate();
 			p_config.button_style_focus->set_draw_center(false);
-			p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-			p_config.button_style_focus->set_border_color(p_config.accent_color);
+			if ((int)EDITOR_GET("interface/editor/focus_border_type") == 0) { // Off
+				p_config.button_style_focus->set_border_width_all(0);
+				p_config.button_style_focus->set_border_color(p_config.accent_color);
+			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 1) { // On
+				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
+				p_config.button_style_focus->set_border_color(p_config.accent_color);
+			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 2) { // Translucent
+				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
+				p_config.button_style_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
+			} else { // Legacy (On)
+				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
+				p_config.button_style_focus->set_border_color(p_config.accent_color);
+			}
 
 			p_config.button_style_pressed = p_config.button_style->duplicate();
 			p_config.button_style_pressed->set_bg_color(p_config.dark_color_1.darkened(0.125));
