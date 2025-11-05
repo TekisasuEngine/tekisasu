@@ -229,7 +229,6 @@ void ProjectManager::_update_theme(bool p_skip_creation) {
 		title_bar_logo->set_icon(get_editor_theme_icon(SNAME("TitleBarLogo")));
 
 		_set_main_view_icon(MAIN_VIEW_PROJECTS, get_editor_theme_icon(SNAME("ProjectList")));
-		_set_main_view_icon(MAIN_VIEW_ASSETLIB, get_editor_theme_icon(SNAME("AssetLib")));
 
 		// Project list.
 		{
@@ -340,17 +339,6 @@ void ProjectManager::_select_main_view(int p_id) {
 	}
 	main_view_toggle_map[current_main_view]->set_pressed_no_signal(true);
 	main_view_map[current_main_view]->set_visible(true);
-
-#ifndef ANDROID_ENABLED
-	if (current_main_view == MAIN_VIEW_PROJECTS && search_box->is_inside_tree()) {
-		// Automatically grab focus when the user moves from the Templates tab
-		// back to the Projects tab.
-		search_box->grab_focus();
-	}
-
-	// The Templates tab's search field is focused on display in the asset
-	// library editor plugin code.
-#endif
 }
 
 void ProjectManager::_show_about() {
@@ -1391,20 +1379,6 @@ ProjectManager::ProjectManager() {
 			erase_missing_btn->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_erase_missing_projects));
 			project_list_sidebar->add_child(erase_missing_btn);
 		}
-	}
-
-	// Asset library view.
-	if (AssetLibraryEditorPlugin::is_available()) {
-		asset_library = memnew(EditorAssetLibrary(true));
-		asset_library->set_name("AssetLibraryTab");
-		_add_main_view(MAIN_VIEW_ASSETLIB, TTR("Asset Library"), Ref<Texture2D>(), asset_library);
-		asset_library->connect("install_asset", callable_mp(this, &ProjectManager::_install_project));
-	} else {
-		VBoxContainer *asset_library_filler = memnew(VBoxContainer);
-		asset_library_filler->set_name("AssetLibraryTab");
-		Button *asset_library_toggle = _add_main_view(MAIN_VIEW_ASSETLIB, TTR("Asset Library"), Ref<Texture2D>(), asset_library_filler);
-		asset_library_toggle->set_disabled(true);
-		asset_library_toggle->set_tooltip_text(TTR("Asset Library not available (due to using Web editor, or because SSL support disabled)."));
 	}
 
 	// Footer bar.
