@@ -59,7 +59,7 @@ void register_windows_exporter() {
 
 	Ref<EditorExportPlatformWindows> platform;
 	platform.instantiate();
-	platform->set_name("Windows Desktop");
+	platform->set_name("Windows");
 	platform->set_os_name("Windows");
 
 	EditorExport::get_singleton()->add_export_platform(platform);
