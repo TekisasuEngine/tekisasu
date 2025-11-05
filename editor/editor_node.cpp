@@ -7137,7 +7137,8 @@ EditorNode::EditorNode() {
 
 	main_menu = memnew(MenuBar);
 	title_bar->add_child(main_menu);
-	main_menu->set_theme_type_variation("MainMenuBar");
+	main_menu->set_theme_type_variation("TekisasuMenuBar");
+	main_menu->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	main_menu->set_start_index(0); // Main menu, add to the start of global menu.
 	main_menu->set_prefer_global_menu(global_menu);
 	main_menu->set_switch_on_hover(true);

@@ -1832,6 +1832,28 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("ScriptEditorPanelFloating", EditorStringName(EditorStyles), make_empty_stylebox(0, 0, 0, 0));
 		p_theme->set_stylebox("ScriptEditor", EditorStringName(EditorStyles), make_empty_stylebox(0, 0, 0, 0));
 
+		// Tekisasu menubar.
+		Ref<StyleBoxFlat> filemenu_transparent_style = p_config.button_style->duplicate();
+		filemenu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
+		filemenu_transparent_style->set_border_width_all(0);
+
+		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.button_style_hover->duplicate();
+		for (int i = 0; i < 4; i++) {
+			filemenu_transparent_style->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
+			filemenu_main_screen_button_hover->set_content_margin((Side)i, p_config.button_style_hover->get_content_margin((Side)i));
+		}
+		filemenu_transparent_style->set_content_margin(SIDE_TOP, 10 * EDSCALE);
+		filemenu_transparent_style->set_content_margin(SIDE_BOTTOM, 8 * EDSCALE);
+		filemenu_main_screen_button_hover->set_content_margin(SIDE_TOP, 10 * EDSCALE);
+		filemenu_main_screen_button_hover->set_content_margin(SIDE_BOTTOM, 8 * EDSCALE);
+
+		p_theme->set_type_variation("TekisasuMenuBar", "FlatMenuButton");
+		p_theme->set_stylebox(CoreStringName(normal), "TekisasuMenuBar", filemenu_transparent_style);
+		p_theme->set_stylebox(SceneStringName(pressed), "TekisasuMenuBar", filemenu_main_screen_button_hover);
+		p_theme->set_stylebox("hover", "TekisasuMenuBar", filemenu_main_screen_button_hover);
+		p_theme->set_stylebox("hover_pressed", "TekisasuMenuBar", filemenu_main_screen_button_hover);
+	
+
 		// Main menu.
 		Ref<StyleBoxFlat> menu_transparent_style = p_config.button_style->duplicate();
 		menu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
