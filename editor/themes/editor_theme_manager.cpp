@@ -613,6 +613,12 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 2) { // Translucent
 				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
 				p_config.button_style_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
+			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 3) { // On - Thin
+				p_config.button_style_focus->set_border_width_all(Math::round(1 * MAX(1, EDSCALE)));
+				p_config.button_style_focus->set_border_color(p_config.accent_color);
+			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 4) { // Translucent - Thin
+				p_config.button_style_focus->set_border_width_all(Math::round(1 * MAX(1, EDSCALE)));
+				p_config.button_style_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
 			} else { // Legacy (On)
 				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
 				p_config.button_style_focus->set_border_color(p_config.accent_color);
@@ -2711,6 +2717,7 @@ bool EditorThemeManager::is_generated_theme_outdated() {
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/main_font") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/code_font") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/scrollbar_type") ||
+				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/focus_border_type") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("editors/visual_editors") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("text_editor/theme") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("text_editor/help/help") ||

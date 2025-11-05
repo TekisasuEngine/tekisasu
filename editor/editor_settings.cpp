@@ -427,7 +427,7 @@ void EditorSettings::_load_defaults(Ref<ConfigFile> p_extra_config) {
 	}
 
 	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/editor/scrollbar_type", 1, "Legacy,Default,Large")
-	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/editor/focus_border_type", 0, "Off,On,Translucent")
+	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/editor/focus_border_type", 4, "Off,On,Translucent,On (Thin),Translucent (Thin)")
 	EDITOR_SETTING_USAGE(Variant::BOOL, PROPERTY_HINT_NONE, "interface/editor/use_embedded_menu", false, "", PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_RESTART_IF_CHANGED)
 	EDITOR_SETTING_USAGE(Variant::BOOL, PROPERTY_HINT_NONE, "interface/editor/use_native_file_dialogs", false, "", PROPERTY_USAGE_DEFAULT)
 	EDITOR_SETTING_USAGE(Variant::BOOL, PROPERTY_HINT_NONE, "interface/editor/expand_to_title", true, "", PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_RESTART_IF_CHANGED)
