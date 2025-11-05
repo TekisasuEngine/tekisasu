@@ -712,13 +712,6 @@
 		<member name="interface/editor/save_on_focus_loss" type="bool" setter="" getter="">
 			If [code]true[/code], scenes and scripts are saved when the editor loses focus. Depending on the work flow, this behavior can be less intrusive than [member text_editor/behavior/files/autosave_interval_secs] or remembering to save manually.
 		</member>
-		<member name="interface/editor/scrollbar_type" type="int" setter="" getter="">
-			Chooses the scrollbar type to use within the editor interface.
-			- [b]Legacy:[/b] This type of scrollbar was used in Godot 4.5 and earlier versions.  It was removed in Tekisasu Engine initially, but returns here as an option. 
-			- [b]Default:[/b] This is the normal scrollbar that more resembles traditional desktop applications in size and appearance.
-			- [b]Large:[/b] This is a thicker version of the normal scrollbar.
-			[b]Note:[/b] This setting will be ignored if [member interface/touchscreen/increase_scrollbar_touch_area] is [code]true[/code].
-		</member>
 		<member name="interface/editor/separate_distraction_mode" type="bool" setter="" getter="">
 			If [code]true[/code], the editor's Script tab will have a separate distraction mode setting from the 2D/3D/AssetLib tabs. If [code]false[/code], the distraction-free mode toggle is shared between all tabs.
 		</member>
