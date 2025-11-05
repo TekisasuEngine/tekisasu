@@ -50,8 +50,9 @@ NEW_STRING="$3"
 echo "This will replace all instances of '$OLD_STRING' with '$NEW_STRING' in this Tekisasu Engine git repo"
 echo "on a case sensitive basis."
 echo " "
-echo "PROCEED? (y/n):"
-read value
+#echo "PROCEED? (y/n):"
+#read value
+value="y"
 
 if [[ "$value" == "y" ]]; then
     for file in $(grep -F -l -r --exclude-dir=".git" $OLD_STRING . | grep -v "x86_64.obj" | grep -v "x86_64.lib" | grep -v pycache | grep -v "x86_64.exe"); do 
