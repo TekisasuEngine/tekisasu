@@ -1,8 +1,8 @@
 #define MyAppName "Tekisasu Engine"
-#define MyAppVersion "4.3.stable"
+#define MyAppVersion "4.3.1.stable.tx"
 #define MyAppPublisher "Tekisasu"
 #define MyAppURL "https://dev.tekisasu.com/"
-#define MyAppExeName "tekisasu.exe"
+#define MyAppExeName "tekisasuengine.exe"
 
 [Setup]
 AppId={{60D07AAA-400E-40F5-B073-A796C34D9D78}
@@ -22,9 +22,9 @@ DefaultGroupName=Tekisasu Engine
 AllowNoIcons=yes
 UninstallDisplayIcon={app}\{#MyAppExeName}
 #ifdef App32Bit
-  OutputBaseFilename=tekisasu-setup-x86
+  OutputBaseFilename=tekisasuengine-setup-x86
 #else
-  OutputBaseFilename=tekisasu-setup-x86_64
+  OutputBaseFilename=tekisasuengine-setup-x86_64
   ArchitecturesAllowed=x64
   ArchitecturesInstallIn64BitMode=x64
 #endif
