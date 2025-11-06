@@ -419,6 +419,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.dark_color_2 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 1.5).clamp();
 		p_config.dark_color_3 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 2).clamp();
 		p_config.dark_color_4 = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.675);
+		p_config.dark_color_5 = p_config.dark_color_2.lerp(p_config.base_color, 0.5);
 
 		p_config.contrast_color_1 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast, p_config.default_contrast));
 		p_config.contrast_color_2 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast * 1.5, p_config.default_contrast * 1.5));
@@ -460,12 +461,12 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Font colors.
 
-		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.25);
+		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.50);
 		p_config.font_focus_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
 		p_config.font_hover_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
 		p_config.font_pressed_color = p_config.accent_color;
 		p_config.font_hover_pressed_color = p_config.font_hover_color.lerp(p_config.accent_color, 0.74);
-		p_config.font_disabled_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.35);
+		p_config.font_disabled_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.25);
 		p_config.font_readonly_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.65);
 		p_config.font_placeholder_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.6);
 		p_config.font_outline_color = Color(0, 0, 0, 0);
@@ -684,11 +685,13 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.tree_panel_style = p_config.base_style->duplicate();
 			// Make Trees easier to distinguish from other controls by using a darker background color.
-			p_config.tree_panel_style->set_bg_color(p_config.dark_color_1.lerp(p_config.dark_color_2, 0.5));
+			//p_config.tree_panel_style->set_bg_color(p_config.dark_color_1.lerp(p_config.dark_color_2, 0.5));
+			p_config.tree_panel_style->set_bg_color(p_config.dark_color_5);
 			if (p_config.draw_extra_borders) {
 				p_config.tree_panel_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.tree_panel_style->set_border_color(p_config.extra_border_color_2);
 			} else {
+				p_config.tree_panel_style->set_border_width_all(0);
 				p_config.tree_panel_style->set_border_color(p_config.dark_color_3);
 			}
 		}
@@ -966,7 +969,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_color("title_button_color", "Tree", p_config.font_color);
 			p_theme->set_color("drop_position_color", "Tree", p_config.accent_color);
 
-			p_theme->set_constant("v_separation", "Tree", p_config.separation_margin);
+			p_theme->set_constant("v_separation", "Tree", p_config.separation_margin / 2);
 			p_theme->set_constant("h_separation", "Tree", (p_config.increased_margin + 2) * EDSCALE);
 			p_theme->set_constant("guide_width", "Tree", p_config.border_width);
 			p_theme->set_constant("item_margin", "Tree", 3 * p_config.increased_margin * EDSCALE);
@@ -1021,6 +1024,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			style_tree_cursor->set_draw_center(false);
 			style_tree_cursor->set_border_width_all(0);
 			style_tree_cursor->set_border_color(p_config.contrast_color_1);
+			style_tree_cursor->set_content_margin_all(0);
 
 			Ref<StyleBoxFlat> style_tree_title = p_config.base_style->duplicate();
 			style_tree_title->set_bg_color(p_config.dark_color_3);
@@ -1112,7 +1116,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_base->duplicate();
 		style_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
-		style_tab_unselected->set_bg_color(p_config.dark_color_1);
+		style_tab_unselected->set_bg_color(p_config.dark_color_5);
 		// Add some spacing between unselected tabs to make them easier to distinguish from each other
 		style_tab_unselected->set_border_color(Color(0, 0, 0, 0));
 
@@ -1123,7 +1127,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate();
 
-		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(p_config.dark_color_1, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
+		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(p_config.dark_color_5, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("tabbar_background", "TabContainer", style_tabbar_background);
@@ -2545,8 +2549,6 @@ void EditorThemeManager::_populate_text_editor_styles(const Ref<EditorTheme> &p_
 	String text_editor_color_theme = EditorSettings::get_singleton()->get("text_editor/theme/color_theme");
 	if (text_editor_color_theme == "Default") {
 		_generate_text_editor_defaults(p_config);
-	} else if (text_editor_color_theme == "Godot 2") {
-		EditorSettings::get_singleton()->load_text_editor_theme();
 	}
 
 	// Now theme is loaded, apply it to CodeEdit.

@@ -97,6 +97,7 @@ class EditorThemeManager {
 		Color dark_color_2;
 		Color dark_color_3;
 		Color dark_color_4;
+		Color dark_color_5;
 		Color contrast_color_1;
 		Color contrast_color_2;
 		Color highlight_color;
