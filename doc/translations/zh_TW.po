@@ -75035,11 +75035,11 @@ msgstr ""
 
 msgid ""
 "Sets which physics engine to use for 3D physics.\n"
-"\"DEFAULT\" and \"GodotPhysics3D\" are the same, as there is currently no "
+"\"DEFAULT\" and \"TekisasuPhysics3D\" are the same, as there is currently no "
 "alternative 3D physics server implemented."
 msgstr ""
 "設定 3D 物理使用哪個物理引擎。\n"
-"“DEFAULT”和“GodotPhysics3D”是相同的，因為目前尚未實作備選 3D 物理伺服器。"
+"“DEFAULT”和“TekisasuPhysics3D”是相同的，因為目前尚未實作備選 3D 物理伺服器。"
 
 msgid ""
 "If [code]true[/code], the 3D physics server runs on a separate thread, making "

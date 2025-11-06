@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  gjk_epa.h                                                             */
+/*  tekisasu_step_3d.h                                                    */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,13 +31,34 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GJK_EPA_H
-#define GJK_EPA_H
+#ifndef TEKISASU_STEP_3D_H
+#define TEKISASU_STEP_3D_H
 
-#include "tekisasu_collision_solver_3d.h"
-#include "tekisasu_shape_3d.h"
+#include "tekisasu_space_3d.h"
 
-bool gjk_epa_calculate_penetration(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, TekisasuCollisionSolver3D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, real_t p_margin_A = 0.0, real_t p_margin_B = 0.0);
-bool gjk_epa_calculate_distance(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, Vector3 &r_result_A, Vector3 &r_result_B);
+#include "core/templates/local_vector.h"
 
-#endif // GJK_EPA_H
+class TekisasuStep3D {
+	uint64_t _step = 1;
+
+	int iterations = 0;
+	real_t delta = 0.0;
+
+	LocalVector<LocalVector<TekisasuBody3D *>> body_islands;
+	LocalVector<LocalVector<TekisasuConstraint3D *>> constraint_islands;
+	LocalVector<TekisasuConstraint3D *> all_constraints;
+
+	void _populate_island(TekisasuBody3D *p_body, LocalVector<TekisasuBody3D *> &p_body_island, LocalVector<TekisasuConstraint3D *> &p_constraint_island);
+	void _populate_island_soft_body(TekisasuSoftBody3D *p_soft_body, LocalVector<TekisasuBody3D *> &p_body_island, LocalVector<TekisasuConstraint3D *> &p_constraint_island);
+	void _setup_constraint(uint32_t p_constraint_index, void *p_userdata = nullptr);
+	void _pre_solve_island(LocalVector<TekisasuConstraint3D *> &p_constraint_island) const;
+	void _solve_island(uint32_t p_island_index, void *p_userdata = nullptr);
+	void _check_suspend(const LocalVector<TekisasuBody3D *> &p_body_island) const;
+
+public:
+	void step(TekisasuSpace3D *p_space, real_t p_delta);
+	TekisasuStep3D();
+	~TekisasuStep3D();
+};
+
+#endif // TEKISASU_STEP_3D_H

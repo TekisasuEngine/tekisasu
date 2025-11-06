@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  gjk_epa.h                                                             */
+/*  tekisasu_area_pair_3d.h                                               */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,13 +31,71 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GJK_EPA_H
-#define GJK_EPA_H
+#ifndef TEKISASU_AREA_PAIR_3D_H
+#define TEKISASU_AREA_PAIR_3D_H
 
-#include "tekisasu_collision_solver_3d.h"
-#include "tekisasu_shape_3d.h"
+#include "tekisasu_area_3d.h"
+#include "tekisasu_body_3d.h"
+#include "tekisasu_constraint_3d.h"
+#include "tekisasu_soft_body_3d.h"
 
-bool gjk_epa_calculate_penetration(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, TekisasuCollisionSolver3D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, real_t p_margin_A = 0.0, real_t p_margin_B = 0.0);
-bool gjk_epa_calculate_distance(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, Vector3 &r_result_A, Vector3 &r_result_B);
+class TekisasuAreaPair3D : public TekisasuConstraint3D {
+	TekisasuBody3D *body = nullptr;
+	TekisasuArea3D *area = nullptr;
+	int body_shape;
+	int area_shape;
+	bool colliding = false;
+	bool process_collision = false;
+	bool has_space_override = false;
+	bool body_has_attached_area = false;
 
-#endif // GJK_EPA_H
+public:
+	virtual bool setup(real_t p_step) override;
+	virtual bool pre_solve(real_t p_step) override;
+	virtual void solve(real_t p_step) override;
+
+	TekisasuAreaPair3D(TekisasuBody3D *p_body, int p_body_shape, TekisasuArea3D *p_area, int p_area_shape);
+	~TekisasuAreaPair3D();
+};
+
+class TekisasuArea2Pair3D : public TekisasuConstraint3D {
+	TekisasuArea3D *area_a = nullptr;
+	TekisasuArea3D *area_b = nullptr;
+	int shape_a;
+	int shape_b;
+	bool colliding_a = false;
+	bool colliding_b = false;
+	bool process_collision_a = false;
+	bool process_collision_b = false;
+	bool area_a_monitorable;
+	bool area_b_monitorable;
+
+public:
+	virtual bool setup(real_t p_step) override;
+	virtual bool pre_solve(real_t p_step) override;
+	virtual void solve(real_t p_step) override;
+
+	TekisasuArea2Pair3D(TekisasuArea3D *p_area_a, int p_shape_a, TekisasuArea3D *p_area_b, int p_shape_b);
+	~TekisasuArea2Pair3D();
+};
+
+class TekisasuAreaSoftBodyPair3D : public TekisasuConstraint3D {
+	TekisasuSoftBody3D *soft_body = nullptr;
+	TekisasuArea3D *area = nullptr;
+	int soft_body_shape;
+	int area_shape;
+	bool colliding = false;
+	bool process_collision = false;
+	bool has_space_override = false;
+	bool body_has_attached_area = false;
+
+public:
+	virtual bool setup(real_t p_step) override;
+	virtual bool pre_solve(real_t p_step) override;
+	virtual void solve(real_t p_step) override;
+
+	TekisasuAreaSoftBodyPair3D(TekisasuSoftBody3D *p_sof_body, int p_soft_body_shape, TekisasuArea3D *p_area, int p_area_shape);
+	~TekisasuAreaSoftBodyPair3D();
+};
+
+#endif // TEKISASU_AREA_PAIR_3D_H

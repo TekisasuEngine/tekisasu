@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  gjk_epa.h                                                             */
+/*  tekisasu_joint_3d.h                                                   */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,13 +31,74 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GJK_EPA_H
-#define GJK_EPA_H
+#ifndef TEKISASU_JOINT_3D_H
+#define TEKISASU_JOINT_3D_H
 
-#include "tekisasu_collision_solver_3d.h"
-#include "tekisasu_shape_3d.h"
+#include "tekisasu_body_3d.h"
+#include "tekisasu_constraint_3d.h"
 
-bool gjk_epa_calculate_penetration(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, TekisasuCollisionSolver3D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, real_t p_margin_A = 0.0, real_t p_margin_B = 0.0);
-bool gjk_epa_calculate_distance(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, Vector3 &r_result_A, Vector3 &r_result_B);
+class TekisasuJoint3D : public TekisasuConstraint3D {
+protected:
+	bool dynamic_A = false;
+	bool dynamic_B = false;
 
-#endif // GJK_EPA_H
+	void plane_space(const Vector3 &n, Vector3 &p, Vector3 &q) {
+		if (Math::abs(n.z) > Math_SQRT12) {
+			// choose p in y-z plane
+			real_t a = n[1] * n[1] + n[2] * n[2];
+			real_t k = 1.0 / Math::sqrt(a);
+			p = Vector3(0, -n[2] * k, n[1] * k);
+			// set q = n x p
+			q = Vector3(a * k, -n[0] * p[2], n[0] * p[1]);
+		} else {
+			// choose p in x-y plane
+			real_t a = n.x * n.x + n.y * n.y;
+			real_t k = 1.0 / Math::sqrt(a);
+			p = Vector3(-n.y * k, n.x * k, 0);
+			// set q = n x p
+			q = Vector3(-n.z * p.y, n.z * p.x, a * k);
+		}
+	}
+
+	_FORCE_INLINE_ real_t atan2fast(real_t y, real_t x) {
+		real_t coeff_1 = Math_PI / 4.0f;
+		real_t coeff_2 = 3.0f * coeff_1;
+		real_t abs_y = Math::abs(y);
+		real_t angle;
+		if (x >= 0.0f) {
+			real_t r = (x - abs_y) / (x + abs_y);
+			angle = coeff_1 - coeff_1 * r;
+		} else {
+			real_t r = (x + abs_y) / (abs_y - x);
+			angle = coeff_2 - coeff_1 * r;
+		}
+		return (y < 0.0f) ? -angle : angle;
+	}
+
+public:
+	virtual bool setup(real_t p_step) override { return false; }
+	virtual bool pre_solve(real_t p_step) override { return true; }
+	virtual void solve(real_t p_step) override {}
+
+	void copy_settings_from(TekisasuJoint3D *p_joint) {
+		set_self(p_joint->get_self());
+		set_priority(p_joint->get_priority());
+		disable_collisions_between_bodies(p_joint->is_disabled_collisions_between_bodies());
+	}
+
+	virtual PhysicsServer3D::JointType get_type() const { return PhysicsServer3D::JOINT_TYPE_MAX; }
+	_FORCE_INLINE_ TekisasuJoint3D(TekisasuBody3D **p_body_ptr = nullptr, int p_body_count = 0) :
+			TekisasuConstraint3D(p_body_ptr, p_body_count) {
+	}
+
+	virtual ~TekisasuJoint3D() {
+		for (int i = 0; i < get_body_count(); i++) {
+			TekisasuBody3D *body = get_body_ptr()[i];
+			if (body) {
+				body->remove_constraint(this);
+			}
+		}
+	}
+};
+
+#endif // TEKISASU_JOINT_3D_H

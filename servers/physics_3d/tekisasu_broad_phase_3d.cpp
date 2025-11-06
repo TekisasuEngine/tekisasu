@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  gjk_epa.h                                                             */
+/*  tekisasu_broad_phase_3d.cpp                                           */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,13 +31,9 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GJK_EPA_H
-#define GJK_EPA_H
+#include "tekisasu_broad_phase_3d.h"
 
-#include "tekisasu_collision_solver_3d.h"
-#include "tekisasu_shape_3d.h"
+TekisasuBroadPhase3D::CreateFunction TekisasuBroadPhase3D::create_func = nullptr;
 
-bool gjk_epa_calculate_penetration(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, TekisasuCollisionSolver3D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, real_t p_margin_A = 0.0, real_t p_margin_B = 0.0);
-bool gjk_epa_calculate_distance(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, Vector3 &r_result_A, Vector3 &r_result_B);
-
-#endif // GJK_EPA_H
+TekisasuBroadPhase3D::~TekisasuBroadPhase3D() {
+}

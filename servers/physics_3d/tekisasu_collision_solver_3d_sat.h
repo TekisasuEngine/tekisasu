@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  gjk_epa.h                                                             */
+/*  tekisasu_collision_solver_3d_sat.h                                    */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -31,13 +31,11 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef GJK_EPA_H
-#define GJK_EPA_H
+#ifndef TEKISASU_COLLISION_SOLVER_3D_SAT_H
+#define TEKISASU_COLLISION_SOLVER_3D_SAT_H
 
 #include "tekisasu_collision_solver_3d.h"
-#include "tekisasu_shape_3d.h"
 
-bool gjk_epa_calculate_penetration(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, TekisasuCollisionSolver3D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, real_t p_margin_A = 0.0, real_t p_margin_B = 0.0);
-bool gjk_epa_calculate_distance(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, Vector3 &r_result_A, Vector3 &r_result_B);
+bool sat_calculate_penetration(const TekisasuShape3D *p_shape_A, const Transform3D &p_transform_A, const TekisasuShape3D *p_shape_B, const Transform3D &p_transform_B, TekisasuCollisionSolver3D::CallbackResult p_result_callback, void *p_userdata, bool p_swap = false, Vector3 *r_prev_axis = nullptr, real_t p_margin_a = 0, real_t p_margin_b = 0);
 
-#endif // GJK_EPA_H
+#endif // TEKISASU_COLLISION_SOLVER_3D_SAT_H
