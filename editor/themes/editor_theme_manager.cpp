@@ -461,7 +461,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Font colors.
 
-		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.50);
+		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.45);
 		p_config.font_focus_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
 		p_config.font_hover_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
 		p_config.font_pressed_color = p_config.accent_color;
@@ -583,7 +583,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Button styles.
 		{
-			p_config.widget_margin = Vector2(p_config.increased_margin + 2, p_config.increased_margin + 1) * EDSCALE;
+			p_config.widget_margin = Vector2(p_config.increased_margin + 1, p_config.increased_margin) * EDSCALE;
 
 			p_config.button_style = p_config.base_style->duplicate();
 			p_config.button_style->set_content_margin_individual(p_config.widget_margin.x, p_config.widget_margin.y, p_config.widget_margin.x, p_config.widget_margin.y);
@@ -2152,7 +2152,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("bg_selected", "EditorProperty", style_property_bg);
 		p_theme->set_stylebox("child_bg", "EditorProperty", style_property_child_bg);
 		p_theme->set_constant("font_offset", "EditorProperty", 8 * EDSCALE);
-		p_theme->set_constant("v_separation", "EditorProperty", p_config.increased_margin * EDSCALE);
+		p_theme->set_constant("v_separation", "EditorProperty", 2 * EDSCALE);
 
 		const Color property_color = p_config.font_color.lerp(Color(0.5, 0.5, 0.5), 0.5);
 		const Color readonly_color = property_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.25);

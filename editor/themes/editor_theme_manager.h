@@ -85,7 +85,7 @@ class EditorThemeManager {
 		bool dark_theme = false;
 
 		int base_margin = 4;
-		int increased_margin = 4;
+		int increased_margin = 2;
 		int separation_margin = 4;
 		int popup_margin = 12;
 		int window_border_margin = 8;
