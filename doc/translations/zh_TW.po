@@ -74871,11 +74871,11 @@ msgstr ""
 
 msgid ""
 "Sets which physics engine to use for 2D physics.\n"
-"\"DEFAULT\" and \"GodotPhysics2D\" are the same, as there is currently no "
+"\"DEFAULT\" and \"TekisasuPhysics2D\" are the same, as there is currently no "
 "alternative 2D physics server implemented."
 msgstr ""
 "設定 2D 物理使用哪個物理引擎。\n"
-"“DEFAULT”和“GodotPhysics2D”是相同的，因為目前尚未實作備選 2D 物理伺服器。"
+"“DEFAULT”和“TekisasuPhysics2D”是相同的，因為目前尚未實作備選 2D 物理伺服器。"
 
 msgid ""
 "If [code]true[/code], the 2D physics server runs on a separate thread, making "

@@ -122,7 +122,7 @@ static PhysicsServer3D *_createTekisasuPhysics3DCallback() {
 }
 #endif // _3D_DISABLED
 
-static PhysicsServer2D *_createGodotPhysics2DCallback() {
+static PhysicsServer2D *_createTekisasuPhysics2DCallback() {
 #ifdef THREADS_ENABLED
 	bool using_threads = GLOBAL_GET("physics/2d/run_on_separate_thread");
 #else
@@ -292,8 +292,8 @@ void register_server_types() {
 
 	GLOBAL_DEF(PropertyInfo(Variant::STRING, PhysicsServer2DManager::setting_property_name, PROPERTY_HINT_ENUM, "DEFAULT"), "DEFAULT");
 
-	PhysicsServer2DManager::get_singleton()->register_server("GodotPhysics2D", callable_mp_static(_createGodotPhysics2DCallback));
-	PhysicsServer2DManager::get_singleton()->set_default_server("GodotPhysics2D");
+	PhysicsServer2DManager::get_singleton()->register_server("TekisasuPhysics2D", callable_mp_static(_createTekisasuPhysics2DCallback));
+	PhysicsServer2DManager::get_singleton()->set_default_server("TekisasuPhysics2D");
 
 	GDREGISTER_ABSTRACT_CLASS(NavigationServer2D);
 	GDREGISTER_CLASS(NavigationPathQueryParameters2D);
