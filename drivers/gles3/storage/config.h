@@ -82,6 +82,7 @@ public:
 	bool astc_supported = false;
 	bool astc_hdr_supported = false;
 	bool astc_layered_supported = false;
+	bool srgb_framebuffer_supported = false;
 
 	bool force_vertex_shading = false;
 
@@ -98,6 +99,9 @@ public:
 	// Adreno 3XX compatibility
 	bool disable_particles_workaround = false; // set to 'true' to disable 'GPUParticles'
 	bool flip_xy_workaround = false;
+
+	// PowerVR GE 8320 workaround
+	bool disable_transform_feedback_shader_cache = false;
 
 #ifdef ANDROID_ENABLED
 	PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC eglFramebufferTextureMultiviewOVR = nullptr;

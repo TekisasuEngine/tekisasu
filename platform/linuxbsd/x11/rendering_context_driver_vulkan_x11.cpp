@@ -35,11 +35,7 @@
 
 #include "rendering_context_driver_vulkan_x11.h"
 
-#ifdef USE_VOLK
-#include <volk.h>
-#else
-#include <vulkan/vulkan.h>
-#endif
+#include "drivers/vulkan/tekisasu_vulkan.h"
 
 const char *RenderingContextDriverVulkanX11::_get_platform_surface_extension() const {
 	return VK_KHR_XLIB_SURFACE_EXTENSION_NAME;

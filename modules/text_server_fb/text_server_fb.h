@@ -42,7 +42,7 @@
 #ifdef GDEXTENSION
 // Headers for building as GDExtension plug-in.
 
-#include <godot_cpp/godot.hpp>
+#include <godot_cpp/tekisasu.hpp>
 
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/ext_wrappers.gen.inc>

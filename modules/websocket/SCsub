@@ -9,7 +9,7 @@ thirdparty_obj = []
 
 if env["platform"] == "web":
     # Our JavaScript/C++ interface.
-    env.AddJSLibraries(["library_godot_websocket.js"])
+    env.AddJSLibraries(["library_tekisasu_websocket.js"])
 
 elif env["builtin_wslay"]:
     # Thirdparty source files

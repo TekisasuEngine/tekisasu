@@ -13,19 +13,22 @@
 # C H O P O <ograncthulhu@gmail.com>, 2024.
 # ninjum <ninhum@gmx.com>, 2024.
 # spukes <soyceltista@hotmail.com>, 2024.
+# "Aquiles T. M." <aquiles.sonido@gmail.com>, 2024.
+# Guachipoto <guachipoto993@gmail.com>, 2024.
+# "Miguel A. Bouzada" <mbouzada@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine editor interface\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
-"PO-Revision-Date: 2024-08-12 20:09+0000\n"
-"Last-Translator: spukes <soyceltista@hotmail.com>\n"
+"PO-Revision-Date: 2025-02-06 23:02+0000\n"
+"Last-Translator: \"Miguel A. Bouzada\" <mbouzada@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/godot-engine/"
 "godot/gl/>\n"
 "Language: gl\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
 msgstr "Fío principal"
@@ -37,49 +40,49 @@ msgid "Physical"
 msgstr "Físico"
 
 msgid "Left Mouse Button"
-msgstr "Botón Esquerdo do Rato"
+msgstr "Botón esquerdo do rato"
 
 msgid "Right Mouse Button"
-msgstr "Botón Dereito do Rato"
+msgstr "Botón dereito do rato"
 
 msgid "Middle Mouse Button"
-msgstr "Botón Central do Rato"
+msgstr "Botón central do rato"
 
 msgid "Mouse Wheel Up"
-msgstr "Roda do Rato Cara Arriba"
+msgstr "Roda do rato cara arriba"
 
 msgid "Mouse Wheel Down"
-msgstr "Roda do Rato Cara Abaixo"
+msgstr "Roda do rato cara abaixo"
 
 msgid "Mouse Wheel Left"
-msgstr "Roda do Rato Cara a Esquerda"
+msgstr "Roda do rato cara a esquerda"
 
 msgid "Mouse Wheel Right"
-msgstr "Roda do Rato Cara a Dereita"
+msgstr "Roda do rato cara a dereita"
 
 msgid "Mouse Thumb Button 1"
-msgstr "Botón do Rato Polgar 1"
+msgstr "Botón de Polgar do Rato 1"
 
 msgid "Mouse Thumb Button 2"
-msgstr "Botón do Rato Polgar 2"
+msgstr "Botón de Polgar do Rato 2"
 
 msgid "Button"
 msgstr "Botón"
 
 msgid "Double Click"
-msgstr "Dobre clic"
+msgstr "Duplo Clic"
 
 msgid "Mouse motion at position (%s) with velocity (%s)"
 msgstr "Movemento do rato na posición (%s) con velocidade (%s)"
 
 msgid "Left Stick X-Axis, Joystick 0 X-Axis"
-msgstr "Eixe X da Panca Esquerda, Eixe X do Joystick 0"
+msgstr "Eixo X da Panca Esquerda, Eixo X do Joystick 0"
 
 msgid "Left Stick Y-Axis, Joystick 0 Y-Axis"
-msgstr "Eixe Y da Panca Esquerda, Eixe Y do Joystick 0"
+msgstr "Eixo Y da Panca Esquerda, Eixo Y do Joystick 0"
 
 msgid "Right Stick X-Axis, Joystick 1 X-Axis"
-msgstr "Eixe X da Panca Dereita, Eixe X do Joystick 1"
+msgstr "Eixo X da Panca Dereita, Eixo X do Joystick 1"
 
 msgid "Right Stick Y-Axis, Joystick 1 Y-Axis"
 msgstr "Eixe Y da Panca Dereita, Eixe Y do Joystick 1"
@@ -526,6 +529,12 @@ msgstr "Facer os Manipuladores equilibrados"
 msgid "Make Handles Mirrored"
 msgstr "Facer os manipuladores simétricos"
 
+msgid "Make Handles Balanced (Auto Tangent)"
+msgstr "Facer os Manipuladores equilibrados (Tanxente Automática)"
+
+msgid "Make Handles Mirrored (Auto Tangent)"
+msgstr "Facer os Manipuladores espellados (Tanxente Automática)"
+
 msgid "Add Bezier Point"
 msgstr "Engadir Punto Bezier"
 
@@ -696,6 +705,21 @@ msgstr "Relaxación:"
 
 msgid "In-Handle:"
 msgstr "No manexo:"
+
+msgid "Out-Handle:"
+msgstr "Manipulador de saída:"
+
+msgid "Handle mode: Free\n"
+msgstr "Modo de manexo: Libre\n"
+
+msgid "Handle mode: Linear\n"
+msgstr "Modo de manexo: Lineal\n"
+
+msgid "Handle mode: Balanced\n"
+msgstr "Modo de manexo: Equilibrado\n"
+
+msgid "Handle mode: Mirrored\n"
+msgstr "Modo de manexo: Espellado\n"
 
 msgid "Stream:"
 msgstr "Fluxo:"
@@ -902,6 +926,15 @@ msgstr "Pegar Pistas"
 
 msgid "Animation Scale Keys"
 msgstr "Escalar Claves de Animación"
+
+msgid "Animation Set Start Offset"
+msgstr "Definir Offset Inicial da Animación"
+
+msgid "Animation Set End Offset"
+msgstr "Definir Offset Final da Animación"
+
+msgid "Make Easing Keys"
+msgstr "Crear Chaves de Interpolación"
 
 msgid "Animation Add RESET Keys"
 msgstr "Añadir Claves de Animación de RESET"
@@ -1588,8 +1621,14 @@ msgstr "Crear Cartafol"
 msgid "Folder name is valid."
 msgstr "O nome do cartafol é válido."
 
+msgid "Double-click to open in browser."
+msgstr "Dobre-clic para abrir no navegador."
+
 msgid "Thanks from the Godot community!"
 msgstr "Moitas grazas de parte da comunidade de Godot!"
+
+msgid "(unknown)"
+msgstr "(descoñecido)"
 
 msgid "Godot Engine contributors"
 msgstr "Colaboradores de Godot Engine"
@@ -1609,6 +1648,9 @@ msgstr "Desenvolvedores"
 
 msgid "Authors"
 msgstr "Autores"
+
+msgid "Patrons"
+msgstr "Mecenas"
 
 msgid "Platinum Sponsors"
 msgstr "Patrocinadores Platino"
@@ -2874,6 +2916,33 @@ msgstr "Duplicar..."
 msgid "Rename..."
 msgstr "Renomear..."
 
+msgid "Yellow"
+msgstr "Amarelo"
+
+msgid "Green"
+msgstr "Verde"
+
+msgid "Teal"
+msgstr "Verde Azulado"
+
+msgid "Blue"
+msgstr "Azul"
+
+msgid "Purple"
+msgstr "Morado"
+
+msgid "Pink"
+msgstr "Rosa"
+
+msgid "Gray"
+msgstr "Gris"
+
+msgid "Go to previous selected folder/file."
+msgstr "Ir ao cartafol previamente seleccionado."
+
+msgid "Go to next selected folder/file."
+msgstr "Ir ao seguinte cartafol seleccionado."
+
 msgid "Re-Scan Filesystem"
 msgstr "Reexaminar Sistema de Arquivos"
 
@@ -2939,6 +3008,19 @@ msgstr "Mover"
 msgid "Select Current Folder"
 msgstr "Seleccionar Cartafol Actual"
 
+msgid "Cannot save file with an empty filename."
+msgstr "Non pode gardar un ficheiro cun nome baleiro."
+
+msgid "Cannot save file with a name starting with a dot."
+msgstr "Non pode gardar un ficheiro cun nome que comeza cun punto."
+
+msgid ""
+"File \"%s\" already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"O ficheiro \"%s\" xa existe.\n"
+"Quere sobreescribilo?"
+
 msgid "Select This Folder"
 msgstr "Seleccionar Este Cartafol"
 
@@ -2962,6 +3044,9 @@ msgstr "Abrir un Arquivo ou Directorio"
 
 msgid "Save a File"
 msgstr "Gardar un Arquivo"
+
+msgid "Could not create folder. File with that name already exists."
+msgstr "Non se puido crear o cartafol. Xa existe un ficheiro con ese nome."
 
 msgid "Go Back"
 msgstr "Retroceder"
@@ -4586,7 +4671,7 @@ msgstr "Seguro que queres executar %d proxectos ao mesmo tempo?"
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -4597,7 +4682,7 @@ msgid ""
 "engine anymore."
 msgstr ""
 "O proxecto seleccionado \"%s\" non especifica a súa versión de Godot "
-"compatible no seu ficheiro de configuración (\"project.tekisasu\").\n"
+"compatible no seu ficheiro de configuración (\"project.godot\").\n"
 "\n"
 "Ruta do proxecto: %s\n"
 "\n"
@@ -4676,16 +4761,16 @@ msgid "It would be a good idea to name your project."
 msgstr "Sería unha boa idea nomear o teu proxecto."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
 msgstr ""
 "O arquivo de proxecto '.zip' non é válido; non conteñe ningún arquivo de "
-"configuración 'project.tekisasu'."
+"configuración 'project.godot'."
 
 msgid "New Game Project"
 msgstr "Novo Proxecto de Xogo"
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "Non se pudo crear o arquivo 'project.tekisasu' na ruta do proxecto."
+msgid "Couldn't create project.godot in project path."
+msgstr "Non se pudo crear o arquivo 'project.godot' na ruta do proxecto."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Erro ao abrir o arquivo comprimido, non está en formato ZIP."
@@ -4735,8 +4820,8 @@ msgstr "Engadir Acción de Entrada"
 msgid "Erase Input Action"
 msgstr "Eliminar Acción de Entrada"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "Configuración do Proxecto (project.tekisasu)"
+msgid "Project Settings (project.godot)"
+msgstr "Configuración do Proxecto (project.godot)"
 
 msgid "Input Map"
 msgstr "Mapeado de Entradas"

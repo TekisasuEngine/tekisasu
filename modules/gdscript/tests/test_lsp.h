@@ -41,7 +41,7 @@
 #include "../language_server/gdscript_extend_parser.h"
 #include "../language_server/gdscript_language_protocol.h"
 #include "../language_server/gdscript_workspace.h"
-#include "../language_server/godot_lsp.h"
+#include "../language_server/tekisasu_lsp.h"
 
 #include "core/io/dir_access.h"
 #include "core/io/file_access_pack.h"

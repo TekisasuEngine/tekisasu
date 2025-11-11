@@ -2063,12 +2063,12 @@ void ScriptEditor::_update_online_doc() {
 	}
 	if (native_class_doc) {
 		String name = eh->get_class();
-		String tooltip = vformat(TTR("Open '%s' in Godot online documentation."), name);
+		String tooltip = vformat(TTR("Open '%s' in Tekisasu Engine online documentation."), name);
 		site_search->set_text(TTR("Open in Online Docs"));
 		site_search->set_tooltip_text(tooltip);
 	} else {
 		site_search->set_text(TTR("Online Docs"));
-		site_search->set_tooltip_text(TTR("Open Godot online documentation."));
+		site_search->set_tooltip_text(TTR("Open Tekisasu Engine online documentation."));
 	}
 }
 
@@ -2086,6 +2086,8 @@ void ScriptEditor::_update_script_colors() {
 		if (!n) {
 			continue;
 		}
+
+		script_list->set_item_custom_bg_color(i, Color(0, 0, 0, 0));
 
 		if (script_temperature_enabled) {
 			int pass = n->get_meta("__editor_pass", -1);
@@ -2112,7 +2114,7 @@ void ScriptEditor::_update_script_names() {
 
 	HashSet<Ref<Script>> used;
 	Node *edited = EditorNode::get_singleton()->get_edited_scene();
-	if (edited && EDITOR_GET("text_editor/script_list/highlight_scene_scripts")) {
+	if (edited) {
 		_find_scripts(edited, edited, used);
 	}
 
@@ -2282,7 +2284,7 @@ void ScriptEditor::_update_script_names() {
 		script_list->set_item_tooltip(index, sedata_filtered[i].tooltip);
 		script_list->set_item_metadata(index, sedata_filtered[i].index); /* Saving as metadata the script's index in the tab container and not the filtered one */
 		if (sedata_filtered[i].used) {
-			script_list->set_item_custom_bg_color(index, Color(.5, .5, .5, .125));
+			script_list->set_item_custom_bg_color(index, Color(88 / 255.0, 88 / 255.0, 60 / 255.0));
 		}
 		if (tab_container->get_current_tab() == sedata_filtered[i].index) {
 			script_list->select(index);
@@ -2712,9 +2714,11 @@ void ScriptEditor::apply_scripts() const {
 }
 
 void ScriptEditor::reload_scripts(bool p_refresh_only) {
-	if (external_editor_active) {
-		return;
-	}
+	// Call deferred to make sure it runs on the main thread.
+	callable_mp(this, &ScriptEditor::_reload_scripts).call_deferred(p_refresh_only);
+}
+
+void ScriptEditor::_reload_scripts(bool p_refresh_only) {
 	for (int i = 0; i < tab_container->get_tab_count(); i++) {
 		ScriptEditorBase *se = Object::cast_to<ScriptEditorBase>(tab_container->get_tab_control(i));
 		if (!se) {

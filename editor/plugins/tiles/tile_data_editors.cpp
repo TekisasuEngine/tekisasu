@@ -168,10 +168,14 @@ void GenericTilePolygonEditor::_base_control_draw() {
 	base_control->draw_set_transform_matrix(xform);
 
 	// Draw fill rect under texture region.
-	Rect2 texture_rect(-background_region.size / 2, background_region.size);
+	Rect2 texture_rect(Vector2(), background_region.size);
 	if (tile_data) {
 		texture_rect.position -= tile_data->get_texture_origin();
+		if (tile_data->get_transpose()) {
+			texture_rect.size = Size2(texture_rect.size.y, texture_rect.size.x);
+		}
 	}
+	texture_rect.position -= texture_rect.size / 2; // Half-size offset must be applied after transposing.
 	base_control->draw_rect(texture_rect, Color(1, 1, 1, 0.3));
 
 	// Draw the background.
@@ -183,18 +187,14 @@ void GenericTilePolygonEditor::_base_control_draw() {
 		if (tile_data->get_flip_v()) {
 			region_size.y = -region_size.y;
 		}
-		base_control->draw_texture_rect_region(background_atlas_source->get_texture(), Rect2(-background_region.size / 2 - tile_data->get_texture_origin(), region_size), background_region, tile_data->get_modulate(), tile_data->get_transpose());
+		// Destination rect position must account for transposing, size must not.
+		base_control->draw_texture_rect_region(background_atlas_source->get_texture(), Rect2(texture_rect.position, region_size), background_region, tile_data->get_modulate(), tile_data->get_transpose());
 	}
 
 	// Compute and draw the grid area.
 	Rect2 grid_area = Rect2(-base_tile_size / 2, base_tile_size);
-	if (tile_data) {
-		grid_area.expand_to(-background_region.get_size() / 2 - tile_data->get_texture_origin());
-		grid_area.expand_to(background_region.get_size() / 2 - tile_data->get_texture_origin());
-	} else {
-		grid_area.expand_to(-background_region.get_size() / 2);
-		grid_area.expand_to(background_region.get_size() / 2);
-	}
+	grid_area.expand_to(texture_rect.position);
+	grid_area.expand_to(texture_rect.get_end());
 	base_control->draw_rect(grid_area, Color(1, 1, 1, 0.3), false);
 
 	// Draw grid.
@@ -497,10 +497,6 @@ void GenericTilePolygonEditor::_snap_point(Point2 &r_point) {
 
 		case SNAP_HALF_PIXEL:
 			r_point = r_point.snappedf(0.5);
-			break;
-
-		case SNAP_ONE_PIXEL:
-			r_point = r_point.snappedf(1.0);
 			break;
 
 		case SNAP_GRID: {
@@ -874,9 +870,8 @@ void GenericTilePolygonEditor::_notification(int p_what) {
 			button_center_view->set_icon(get_editor_theme_icon(SNAME("CenterView")));
 			button_advanced_menu->set_icon(get_editor_theme_icon(SNAME("GuiTabMenuHl")));
 			button_pixel_snap->get_popup()->set_item_icon(0, get_editor_theme_icon(SNAME("SnapDisable")));
-			button_pixel_snap->get_popup()->set_item_icon(1, get_editor_theme_icon(SNAME("SnapHalf")));
-			button_pixel_snap->get_popup()->set_item_icon(2, get_editor_theme_icon(SNAME("SnapOne")));
-			button_pixel_snap->get_popup()->set_item_icon(3, get_editor_theme_icon(SNAME("SnapGrid")));
+			button_pixel_snap->get_popup()->set_item_icon(1, get_editor_theme_icon(SNAME("Snap")));
+			button_pixel_snap->get_popup()->set_item_icon(2, get_editor_theme_icon(SNAME("SnapGrid")));
 			button_pixel_snap->set_icon(button_pixel_snap->get_popup()->get_item_icon(current_snap_option));
 
 			PopupMenu *p = button_advanced_menu->get_popup();
@@ -961,7 +956,6 @@ GenericTilePolygonEditor::GenericTilePolygonEditor() {
 	button_pixel_snap->set_tooltip_text(TTR("Toggle Grid Snap"));
 	button_pixel_snap->get_popup()->add_item(TTR("Disable Snap"), SNAP_NONE);
 	button_pixel_snap->get_popup()->add_item(TTR("Half-Pixel Snap"), SNAP_HALF_PIXEL);
-	button_pixel_snap->get_popup()->add_item(TTR("Pixel Snap"), SNAP_ONE_PIXEL);
 	button_pixel_snap->get_popup()->add_item(TTR("Grid Snap"), SNAP_GRID);
 	button_pixel_snap->get_popup()->connect("index_pressed", callable_mp(this, &GenericTilePolygonEditor::_set_snap_option));
 
@@ -1394,10 +1388,8 @@ void TileDataTextureOriginEditor::draw_over_tile(CanvasItem *p_canvas_item, Tran
 
 	TileSetSource *source = *(tile_set->get_source(p_cell.source_id));
 	TileSetAtlasSource *atlas_source = Object::cast_to<TileSetAtlasSource>(source);
-	if (atlas_source->is_position_in_tile_texture_region(p_cell.get_atlas_coords(), p_cell.alternative_tile, -tile_set_tile_size / 2) && atlas_source->is_position_in_tile_texture_region(p_cell.get_atlas_coords(), p_cell.alternative_tile, tile_set_tile_size / 2 - Vector2(1, 1))) {
-		Transform2D tile_xform;
-		tile_xform.set_scale(tile_set_tile_size);
-		tile_set->draw_tile_shape(p_canvas_item, p_transform * tile_xform, color);
+	if (atlas_source->is_rect_in_tile_texture_region(p_cell.get_atlas_coords(), p_cell.alternative_tile, Rect2(Vector2(-tile_set_tile_size) / 2, tile_set_tile_size))) {
+		tile_set->draw_tile_shape(p_canvas_item, p_transform.scaled_local(tile_set_tile_size), color);
 	}
 
 	if (atlas_source->is_position_in_tile_texture_region(p_cell.get_atlas_coords(), p_cell.alternative_tile, Vector2())) {

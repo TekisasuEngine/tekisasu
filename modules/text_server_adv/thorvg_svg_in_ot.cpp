@@ -36,7 +36,7 @@
 
 #include <godot_cpp/classes/xml_parser.hpp>
 #include <godot_cpp/core/mutex_lock.hpp>
-#include <godot_cpp/godot.hpp>
+#include <godot_cpp/tekisasu.hpp>
 #include <godot_cpp/templates/vector.hpp>
 
 using namespace godot;

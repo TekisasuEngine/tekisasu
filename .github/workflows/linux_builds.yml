@@ -5,7 +5,7 @@ on:
 # Global Settings
 env:
   # Used for the cache key. Add version suffix to force clean build.
-  GODOT_BASE_BRANCH: 4.3
+  TEKISASU_BASE_BRANCH: 4.3
   SCONSFLAGS: verbose=yes warnings=extra werror=yes module_text_server_fb_enabled=yes
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -186,7 +186,7 @@ jobs:
       - name: .NET source generators tests
         if: ${{ matrix.build-mono }}
         run: |
-          dotnet test modules/mono/editor/Godot.NET.Sdk/Godot.SourceGenerators.Tests
+          dotnet test modules/mono/editor/Tekisasu.NET.Sdk/Tekisasu.SourceGenerators.Tests
 
       # Check class reference
       - name: Check for class reference updates

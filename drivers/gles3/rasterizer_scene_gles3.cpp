@@ -780,7 +780,6 @@ void RasterizerSceneGLES3::_draw_sky(RID p_env, const Projection &p_projection, 
 	ERR_FAIL_COND(p_env.is_null());
 
 	Sky *sky = sky_owner.get_or_null(environment_get_sky(p_env));
-	ERR_FAIL_NULL(sky);
 
 	GLES3::SkyMaterialData *material_data = nullptr;
 	RID sky_material;
@@ -854,6 +853,15 @@ void RasterizerSceneGLES3::_draw_sky(RID p_env, const Projection &p_projection, 
 	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::SKY_ENERGY_MULTIPLIER, p_sky_energy_multiplier, shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
 	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::LUMINANCE_MULTIPLIER, p_luminance_multiplier, shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
 
+	Color fog_color = environment_get_fog_light_color(p_env).srgb_to_linear() * environment_get_fog_light_energy(p_env);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::FOG_ENABLED, environment_get_fog_enabled(p_env), shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::FOG_AERIAL_PERSPECTIVE, environment_get_fog_aerial_perspective(p_env), shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::FOG_LIGHT_COLOR, fog_color, shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::FOG_SUN_SCATTER, environment_get_fog_sun_scatter(p_env), shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::FOG_DENSITY, environment_get_fog_density(p_env), shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::FOG_SKY_AFFECT, environment_get_fog_sky_affect(p_env), shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+	material_storage->shaders.sky_shader.version_set_uniform(SkyShaderGLES3::DIRECTIONAL_LIGHT_COUNT, sky_globals.directional_light_count, shader_data->version, SkyShaderGLES3::MODE_BACKGROUND, spec_constants);
+
 	if (p_use_multiview) {
 		glBindBufferBase(GL_UNIFORM_BUFFER, SKY_MULTIVIEW_UNIFORM_LOCATION, scene_state.multiview_buffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
@@ -907,7 +915,7 @@ void RasterizerSceneGLES3::_update_sky_radiance(RID p_env, const Projection &p_p
 	RS::SkyMode sky_mode = sky->mode;
 
 	if (sky_mode == RS::SKY_MODE_AUTOMATIC) {
-		if (shader_data->uses_time || shader_data->uses_position) {
+		if ((shader_data->uses_time || shader_data->uses_position) && sky->radiance_size == 256) {
 			update_single_frame = true;
 			sky_mode = RS::SKY_MODE_REALTIME;
 		} else if (shader_data->uses_light || shader_data->ubo_size > 0) {
@@ -928,7 +936,7 @@ void RasterizerSceneGLES3::_update_sky_radiance(RID p_env, const Projection &p_p
 	int max_processing_layer = sky->mipmap_count;
 
 	// Update radiance cubemap
-	if (sky->reflection_dirty && (sky->processing_layer > max_processing_layer || update_single_frame)) {
+	if (sky->reflection_dirty && (sky->processing_layer >= max_processing_layer || update_single_frame)) {
 		static const Vector3 view_normals[6] = {
 			Vector3(+1, 0, 0),
 			Vector3(-1, 0, 0),
@@ -2390,7 +2398,6 @@ void RasterizerSceneGLES3::render_scene(const Ref<RenderSceneBuffers> &p_render_
 	bool draw_sky = false;
 	bool draw_sky_fog_only = false;
 	bool keep_color = false;
-	bool draw_canvas = false;
 	float sky_energy_multiplier = 1.0;
 
 	if (unlikely(get_debug_draw_mode() == RS::VIEWPORT_DEBUG_DRAW_OVERDRAW)) {
@@ -2430,13 +2437,12 @@ void RasterizerSceneGLES3::render_scene(const Ref<RenderSceneBuffers> &p_render_
 				draw_sky = !render_data.transparent_bg;
 			} break;
 			case RS::ENV_BG_CANVAS: {
-				draw_canvas = true;
+				keep_color = true;
 			} break;
 			case RS::ENV_BG_KEEP: {
 				keep_color = true;
 			} break;
 			case RS::ENV_BG_CAMERA_FEED: {
-				keep_color = true;
 			} break;
 			default: {
 			}
@@ -2548,15 +2554,10 @@ void RasterizerSceneGLES3::render_scene(const Ref<RenderSceneBuffers> &p_render_
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
-	// Need to clear framebuffer unless:
-	// a) We explicitly request not to (i.e. ENV_BG_KEEP).
-	// b) We are rendering to a non-intermediate framebuffer with ENV_BG_CANVAS (shared between 2D and 3D).
-	if (!keep_color && (!draw_canvas || fbo != rt->fbo)) {
+	if (!keep_color) {
 		clear_color.a = render_data.transparent_bg ? 0.0f : 1.0f;
 		glClearBufferfv(GL_COLOR, 0, clear_color.components);
-	}
-
-	if ((keep_color || draw_canvas) && fbo != rt->fbo) {
+	} else if (fbo != rt->fbo) {
 		// Need to copy our current contents to our intermediate/MSAA buffer
 		GLES3::CopyEffects *copy_effects = GLES3::CopyEffects::get_singleton();
 
@@ -2567,9 +2568,6 @@ void RasterizerSceneGLES3::render_scene(const Ref<RenderSceneBuffers> &p_render_
 		glBindTexture(rt->view_count > 1 ? GL_TEXTURE_2D_ARRAY : GL_TEXTURE_2D, rt->color);
 
 		copy_effects->copy_screen(render_data.luminance_multiplier);
-
-		scene_state.enable_gl_depth_test(true);
-		scene_state.enable_gl_depth_draw(true);
 	}
 
 	RENDER_TIMESTAMP("Render Opaque Pass");
@@ -2600,7 +2598,7 @@ void RasterizerSceneGLES3::render_scene(const Ref<RenderSceneBuffers> &p_render_
 
 	scene_state.enable_gl_depth_draw(false);
 
-	if (draw_sky) {
+	if (draw_sky || draw_sky_fog_only) {
 		RENDER_TIMESTAMP("Render Sky");
 
 		scene_state.enable_gl_depth_test(true);
@@ -3290,6 +3288,10 @@ void RasterizerSceneGLES3::_render_list_template(RenderListParameters *p_params,
 				}
 
 				material_storage->shaders.scene_shader.version_set_uniform(SceneShaderGLES3::OPAQUE_PREPASS_THRESHOLD, opaque_prepass_threshold, shader->version, instance_variant, spec_constants);
+
+				prev_shader = shader;
+				prev_variant = instance_variant;
+				prev_spec_constants = spec_constants;
 			}
 
 			// Pass in lighting uniforms.
@@ -3327,7 +3329,7 @@ void RasterizerSceneGLES3::_render_list_template(RenderListParameters *p_params,
 				}
 
 				// Pass light count and array of light indices for base pass.
-				if ((prev_inst != inst || prev_shader != shader || prev_variant != instance_variant || prev_spec_constants != spec_constants) && pass == 0) {
+				if ((prev_inst != inst || prev_shader != shader || prev_variant != instance_variant) && pass == 0) {
 					// Rebind the light indices.
 					material_storage->shaders.scene_shader.version_set_uniform(SceneShaderGLES3::OMNI_LIGHT_COUNT, inst->omni_light_gl_cache.size(), shader->version, instance_variant, spec_constants);
 					material_storage->shaders.scene_shader.version_set_uniform(SceneShaderGLES3::SPOT_LIGHT_COUNT, inst->spot_light_gl_cache.size(), shader->version, instance_variant, spec_constants);
@@ -3383,10 +3385,6 @@ void RasterizerSceneGLES3::_render_list_template(RenderListParameters *p_params,
 					prev_inst = inst;
 				}
 			}
-
-			prev_shader = shader;
-			prev_variant = instance_variant;
-			prev_spec_constants = spec_constants;
 
 			// Pass in reflection probe data
 			if constexpr (p_pass_mode == PASS_MODE_COLOR || p_pass_mode == PASS_MODE_COLOR_TRANSPARENT) {

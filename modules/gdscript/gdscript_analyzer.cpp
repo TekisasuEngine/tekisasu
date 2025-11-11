@@ -3228,6 +3228,7 @@ void GDScriptAnalyzer::reduce_call(GDScriptParser::CallNode *p_call, bool p_is_a
 					push_error(vformat(R"(No constructor of "%s" matches the signature "%s".)", Variant::get_type_name(builtin_type), signature), p_call);
 				}
 			}
+
 #ifdef DEBUG_ENABLED
 			// Consider `Signal(self, "my_signal")` as an implicit use of the signal.
 			if (builtin_type == Variant::SIGNAL && p_call->arguments.size() >= 2) {
@@ -3246,6 +3247,7 @@ void GDScriptAnalyzer::reduce_call(GDScriptParser::CallNode *p_call, bool p_is_a
 				}
 			}
 #endif
+
 			p_call->set_datatype(call_type);
 			return;
 		} else if (GDScriptUtilityFunctions::function_exists(function_name)) {

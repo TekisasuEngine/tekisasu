@@ -58,7 +58,7 @@
 # idleman <1524328475@qq.com>, 2019.
 # king <wangding1992@126.com>, 2019.
 # silentbird <silentbird520@outlook.com>, 2019.
-# Haoyu Qiu <timothyqiu32@gmail.com>, 2019, 2020, 2021, 2022, 2023, 2024.
+# Haoyu Qiu <timothyqiu32@gmail.com>, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Revan Ji <jiruifancr@gmail.com>, 2020.
 # nieyuanhong <15625988003@163.com>, 2020.
 # binotaliu <binota@protonmail.ch>, 2020.
@@ -105,16 +105,16 @@ msgstr ""
 "Project-Id-Version: Chinese (Simplified) (Godot Engine)\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: 2018-01-20 12:15+0200\n"
-"PO-Revision-Date: 2024-08-13 23:09+0000\n"
+"PO-Revision-Date: 2025-01-09 02:15+0000\n"
 "Last-Translator: Haoyu Qiu <timothyqiu32@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"godot-engine/godot/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/godot-engine/godot/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
 msgstr "主线程"
@@ -634,6 +634,9 @@ msgstr "粘贴动画关键帧"
 
 msgid "Animation Delete Keys"
 msgstr "删除动画关键帧"
+
+msgid "Animation Bezier Curve Change Call"
+msgstr "修改动画贝赛尔曲线调用"
 
 msgid "Focus"
 msgstr "聚焦"
@@ -1547,7 +1550,7 @@ msgid "No results for \"%s\"."
 msgstr "未找到 “%s”。"
 
 msgid "This class is marked as deprecated."
-msgstr "这个类被标记为已废弃。"
+msgstr "这个类被标记为已弃用。"
 
 msgid "This class is marked as experimental."
 msgstr "这个类被标记为实验性。"
@@ -2595,7 +2598,7 @@ msgid "Import Dock"
 msgstr "导入面板"
 
 msgid "History Dock"
-msgstr "历史停靠面板"
+msgstr "历史面板"
 
 msgid "Allows to view and edit 3D scenes."
 msgstr "允许查看并编辑 3D 场景。"
@@ -3300,7 +3303,7 @@ msgid "Toggle visibility of editor messages."
 msgstr "切换编辑器消息的可见性。"
 
 msgid "Native Shader Source Inspector"
-msgstr "本地着色器源检查器"
+msgstr "原生着色器源检查器"
 
 msgid "Unnamed Project"
 msgstr "未命名项目"
@@ -3573,7 +3576,7 @@ msgstr "打开项目管理器前要保存下列场景更改吗？"
 msgid ""
 "This option is deprecated. Situations where refresh must be forced are now "
 "considered a bug. Please report."
-msgstr "该选项已废弃。必须强制刷新的情况现在属于 Bug。请提交报告。"
+msgstr "该选项已弃用。必须强制刷新的情况现在属于 Bug。请提交报告。"
 
 msgid "Pick a Main Scene"
 msgstr "选择主场景"
@@ -8464,7 +8467,7 @@ msgid "Couldn't create any collision shapes."
 msgstr "无法创建碰撞形状。"
 
 msgid "Can't create a collision shape as sibling for the scene root."
-msgstr "无法为场景根节点创建碰撞形状兄弟节点。"
+msgstr "无法为场景根节点创建碰撞形状同级节点。"
 
 msgid "Mesh is empty!"
 msgstr "网格为空！"
@@ -9471,14 +9474,14 @@ msgstr "移除曲线外控制点"
 msgid "Remove In-Control from Curve"
 msgstr "从曲线中移除顶点"
 
-msgid "Split Curve"
-msgstr "拆分曲线"
-
 msgid "Move Point in Curve"
 msgstr "在曲线中移动顶点"
 
 msgid "Add Point to Curve"
 msgstr "向曲线添加顶点"
+
+msgid "Split Curve"
+msgstr "拆分曲线"
 
 msgid "Move In-Control in Curve"
 msgstr "移动曲线内控制点"
@@ -10405,13 +10408,13 @@ msgid "Invalid geometry, can't create collision polygon."
 msgstr "无效的几何体，无法创建多边形碰撞体。"
 
 msgid "Create CollisionPolygon2D Sibling"
-msgstr "创建 CollisionPolygon2D 兄弟节点"
+msgstr "创建 CollisionPolygon2D 同级节点"
 
 msgid "Invalid geometry, can't create light occluder."
 msgstr "无效的几何体，无法创建遮光体。"
 
 msgid "Create LightOccluder2D Sibling"
-msgstr "创建 LightOccluder2D 兄弟节点"
+msgstr "创建 LightOccluder2D 同级节点"
 
 msgid "Sprite2D"
 msgstr "Sprite2D"
@@ -10796,7 +10799,7 @@ msgid "Select all Theme items with item data."
 msgstr "选择所有主题项目及项目数据。"
 
 msgid "Deselect All"
-msgstr "取消全选"
+msgstr "取消选择"
 
 msgid "Deselect all Theme items."
 msgstr "取消选择所有主题项目。"
@@ -11539,7 +11542,7 @@ msgid "From Coords"
 msgstr "从坐标"
 
 msgid "From Alternative"
-msgstr "从替代"
+msgstr "从备选"
 
 msgid "To Source"
 msgstr "到源"
@@ -11548,7 +11551,7 @@ msgid "To Coords"
 msgstr "到坐标"
 
 msgid "To Alternative"
-msgstr "到替代"
+msgstr "到备选"
 
 msgid "Global actions:"
 msgstr "全局动作："
@@ -13400,7 +13403,7 @@ msgstr ""
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -13410,7 +13413,7 @@ msgid ""
 "Warning: You won't be able to open the project with previous versions of the "
 "engine anymore."
 msgstr ""
-"所选项目“%s”没有在配置文件（“project.tekisasu”）中指定其支持的 Godot 版本。\n"
+"所选项目“%s”没有在配置文件（“project.godot”）中指定其支持的 Godot 版本。\n"
 "\n"
 "项目路径：%s\n"
 "\n"
@@ -13425,7 +13428,7 @@ msgid ""
 "Project path: %s\n"
 "\n"
 "You have three options:\n"
-"- Convert only the configuration file (\"project.tekisasu\"). Use this to open "
+"- Convert only the configuration file (\"project.godot\"). Use this to open "
 "the project without attempting to convert its scenes, resources and scripts.\n"
 "- Convert the entire project including its scenes, resources and scripts "
 "(recommended if you are upgrading).\n"
@@ -13439,15 +13442,15 @@ msgstr ""
 "项目路径：%s\n"
 "\n"
 "你有三个选择：\n"
-"- 仅转换配置文件（“project.tekisasu”）。此选项可以打开项目，但不尝试转换其中的场"
+"- 仅转换配置文件（“project.godot”）。此选项可以打开项目，但不尝试转换其中的场"
 "景、资源、脚本。\n"
 "- 转换整个项目，包括其中的场景、资源、脚本（升级时推荐）。\n"
 "- 什么都不做，返回。\n"
 "\n"
 "警告：选择转换选项后，将无法再使用以前版本的引擎打开该项目。"
 
-msgid "Convert project.tekisasu Only"
-msgstr "仅转换 project.tekisasu"
+msgid "Convert project.godot Only"
+msgstr "仅转换 project.godot"
 
 msgid ""
 "The selected project \"%s\" was generated by an older engine version, and "
@@ -13468,8 +13471,8 @@ msgstr ""
 "\n"
 "警告：将无法再使用以前版本的引擎打开该项目。"
 
-msgid "Convert project.tekisasu"
-msgstr "转换 project.tekisasu"
+msgid "Convert project.godot"
+msgstr "转换 project.godot"
 
 msgid ""
 "Can't open project \"%s\" at the following path:\n"
@@ -13699,15 +13702,15 @@ msgid "Invalid \".zip\" project file; it is not in ZIP format."
 msgstr "无效的“.zip”项目文件；不是 ZIP 格式。"
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
-msgstr "无效的“.zip”项目文件；没有包含 “project.tekisasu” 文件。"
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+msgstr "无效的“.zip”项目文件；没有包含 “project.godot” 文件。"
 
 msgid "Valid project found at path."
 msgstr "路径处存在有效项目。"
 
 msgid ""
-"Please choose a \"project.tekisasu\", a directory with one, or a \".zip\" file."
-msgstr "请选择“project.tekisasu”、包含该文件的目录或“.zip”文件。"
+"Please choose a \"project.godot\", a directory with one, or a \".zip\" file."
+msgstr "请选择“project.godot”、包含该文件的目录或“.zip”文件。"
 
 msgid "The path specified is invalid."
 msgstr "指定的路径无效。"
@@ -13810,8 +13813,8 @@ msgstr ""
 msgid "Couldn't create project directory, check permissions."
 msgstr "无法创建项目目录，请检查权限。"
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "无法在项目路径下创建 project.tekisasu 文件。"
+msgid "Couldn't create project.godot in project path."
+msgstr "无法在项目路径下创建 project.godot 文件。"
 
 msgid "Couldn't create icon.svg in project path."
 msgstr "无法在项目路径下创建 icon.svg 文件。"
@@ -13874,6 +13877,9 @@ msgstr "最近编辑时间戳"
 msgid "Missing Project"
 msgstr "缺失项目"
 
+msgid "Missing Date"
+msgstr "日期缺失"
+
 msgid "Restart Now"
 msgstr "立即重启"
 
@@ -13927,8 +13933,8 @@ msgstr "重命名输入动作"
 msgid "Update Input Action Order"
 msgstr "更新输入动作顺序"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "项目设置（project.tekisasu）"
+msgid "Project Settings (project.godot)"
+msgstr "项目设置（project.godot）"
 
 msgid "Advanced Settings"
 msgstr "高级设置"
@@ -14362,6 +14368,9 @@ msgstr "移除节点"
 msgid "Change type of node(s)"
 msgstr "修改节点的类型"
 
+msgid "Reparent to New Node"
+msgstr "重设父节点为新节点"
+
 msgid "This operation requires a single selected node."
 msgstr "此操作只能应用于单个选中节点。"
 
@@ -14448,7 +14457,7 @@ msgid "Can't paste root node into the same scene."
 msgstr "不能将根节点粘贴进相同场景。"
 
 msgid "Paste Node(s) as Sibling of %s"
-msgstr "粘贴为 %s 的兄弟节点"
+msgstr "粘贴为 %s 的同级节点"
 
 msgid "Paste Node(s) as Child of %s"
 msgstr "粘贴为 %s 的子节点"
@@ -14475,7 +14484,7 @@ msgid "Expand/Collapse Branch"
 msgstr "展开/折叠分支"
 
 msgid "Paste as Sibling"
-msgstr "粘贴为兄弟节点"
+msgstr "粘贴为同级节点"
 
 msgid "Change Type..."
 msgstr "更改类型..."
@@ -15092,6 +15101,9 @@ msgstr "正在加速结构中构造网格 %d/%d"
 msgid "Optimizing acceleration structure"
 msgstr "正在优化加速结构"
 
+msgid "Denoising %d%%"
+msgstr "降噪 %d%%"
+
 msgid "Begin Bake"
 msgstr "开始烘焙"
 
@@ -15461,7 +15473,7 @@ msgstr "OpenXR 合成层的父节点必须为 XROrigin3D。"
 msgid ""
 "OpenXR composition layers must have orthonormalized transforms (ie. no scale "
 "or shearing)."
-msgstr "OpenXR 合成层的变换必须正交归一（即无缩放和切变）。"
+msgstr "OpenXR 合成层的变换必须正交归一（即无缩放和倾斜）。"
 
 msgid ""
 "Hole punching won't work as expected unless the sort order is less than zero."
@@ -17016,12 +17028,8 @@ msgid ""
 msgstr ""
 "“Remote Path”属性必须指向有效的 Node3D 或从 Node3D 派生的节点才能正常工作。"
 
-msgid ""
-"Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D or "
-"set a path to an external skeleton."
-msgstr ""
-"未设置 Skeleton3D 节点！SkeletonModifier3D 必须是 Skeleton3D 的子节点，或者需"
-"要设置外部骨骼的路径。"
+msgid "Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D."
+msgstr "未设置 Skeleton3D 节点！SkeletonModifier3D 必须是 Skeleton3D 的子节点。"
 
 msgid "This body will be ignored until you set a mesh."
 msgstr "在设置网格之前，将忽略该实体。"

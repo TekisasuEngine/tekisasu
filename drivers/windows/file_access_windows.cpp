@@ -558,8 +558,6 @@ uint64_t FileAccessWindows::_get_modified_time(const String &p_file) {
 
 	HANDLE handle = CreateFileW((LPCWSTR)(file.utf16().get_data()), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, nullptr);
 
-
-
 	if (handle != INVALID_HANDLE_VALUE) {
 		FILETIME ft_create, ft_write;
 

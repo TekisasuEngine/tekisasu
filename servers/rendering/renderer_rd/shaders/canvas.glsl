@@ -479,8 +479,7 @@ void main() {
 
 #endif
 	if (bool(draw_data.flags & FLAGS_CLIP_RECT_UV)) {
-		vec2 half_texpixel = draw_data.color_texture_pixel_size * 0.5;
-		uv = clamp(uv, draw_data.src_rect.xy + half_texpixel, draw_data.src_rect.xy + abs(draw_data.src_rect.zw) - half_texpixel);
+		uv = clamp(uv, draw_data.src_rect.xy, draw_data.src_rect.xy + abs(draw_data.src_rect.zw));
 	}
 
 #endif

@@ -65,7 +65,7 @@
 # Fabrice <fabricecipolla@gmail.com>, 2019.
 # Romain Paquet <titou.paquet@gmail.com>, 2019.
 # Xavier Sellier <contact@binogure-studio.com>, 2019.
-# Sofiane <Sofiane-77@caramail.fr>, 2019, 2021, 2022.
+# Sofiane <Sofiane-77@caramail.fr>, 2019, 2021, 2022, 2024.
 # Camille Mohr-Daurat <pouleyketchoup@gmail.com>, 2019.
 # Pierre Stempin <pierre.stempin@gmail.com>, 2019, 2023.
 # Pierre Caye <pierrecaye@laposte.net>, 2020, 2021, 2022.
@@ -174,13 +174,19 @@
 # Unreal Vision <unrealvisionyt@gmail.com>, 2024.
 # Jokod <jb.jokod@gmail.com>, 2024.
 # didierGuieu <didier.guieu@hotmail.fr>, 2024.
+# The Kiwy <tttthekiwy@gmail.com>, 2024.
+# François de la Taste <canardbleu@gmail.com>, 2024.
+# Patou <75997617+xorblo-doitus@users.noreply.github.com>, 2024.
+# Florian Echelard <florian.echelard@gmail.com>, 2024.
+# paul-arg <paul.arguillere@gmail.com>, 2024, 2025.
+# Patrice Ferlet <metal3d@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine editor interface\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-13 23:09+0000\n"
-"Last-Translator: #Guigui <guillaume.grosjean@outlook.fr>\n"
+"PO-Revision-Date: 2025-01-28 15:53+0000\n"
+"Last-Translator: Patrice Ferlet <metal3d@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/godot-engine/godot/"
 "fr/>\n"
 "Language: fr\n"
@@ -188,10 +194,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
-msgstr "Thread principal"
+msgstr "Fil principal"
 
 msgid "Unset"
 msgstr "Non défini"
@@ -713,6 +719,9 @@ msgstr "Clés de collage d’animation"
 
 msgid "Animation Delete Keys"
 msgstr "Supprimer les clés d’animation"
+
+msgid "Animation Bezier Curve Change Call"
+msgstr "Changer l’appel d'animation"
 
 msgid "Focus"
 msgstr "Focus"
@@ -5211,13 +5220,13 @@ msgid "Feature List:"
 msgstr "Liste des fonctionnalités :"
 
 msgid "Encryption"
-msgstr "Cryptage"
+msgstr "Chiffrement"
 
 msgid "Encrypt Exported PCK"
 msgstr "Encrypter le PCK exporté"
 
 msgid "Encrypt Index (File Names and Info)"
-msgstr "Encrypter l'index (noms de fichiers et infos)"
+msgstr "Chiffrer l'index (noms de fichiers et infos)"
 
 msgid ""
 "Filters to include files/folders\n"
@@ -5243,7 +5252,7 @@ msgid ""
 "Note: Encryption key needs to be stored in the binary,\n"
 "you need to build the export templates from source."
 msgstr ""
-"Note : La clé de cryptage doit être stocké dans le binaire,\n"
+"Note : La clé de chiffrement doit être stockée dans le binaire,\n"
 "vous devez compiler les modèles d'exportation depuis les sources."
 
 msgid "More Info..."
@@ -8578,7 +8587,7 @@ msgstr ""
 "l'éditeur lui-même."
 
 msgid "Customize Run Instances..."
-msgstr "Personnalise les instances d'exécution..."
+msgstr "Personnaliser les instances d'exécution..."
 
 msgid ""
 "Name: %s\n"
@@ -9987,14 +9996,14 @@ msgstr "Supprimer Out-Control d'une courbe"
 msgid "Remove In-Control from Curve"
 msgstr "Supprimer In-Control d'une courbe"
 
-msgid "Split Curve"
-msgstr "Scinder la courbe"
-
 msgid "Move Point in Curve"
 msgstr "Déplacer le point dans la courbe"
 
 msgid "Add Point to Curve"
 msgstr "Ajouter un point à la courbe"
+
+msgid "Split Curve"
+msgstr "Scinder la courbe"
 
 msgid "Move In-Control in Curve"
 msgstr "Déplacer In-Control dans courbe"
@@ -14165,7 +14174,7 @@ msgstr ""
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -14176,7 +14185,7 @@ msgid ""
 "engine anymore."
 msgstr ""
 "Le projet sélectionné « %s » n'indique pas la version de Godot qu'il supporte "
-"dans son fichier de configuration (« project.tekisasu »).\n"
+"dans son fichier de configuration (« project.godot »).\n"
 "\n"
 "Chemin du projet : %s\n"
 "\n"
@@ -14193,7 +14202,7 @@ msgid ""
 "Project path: %s\n"
 "\n"
 "You have three options:\n"
-"- Convert only the configuration file (\"project.tekisasu\"). Use this to open "
+"- Convert only the configuration file (\"project.godot\"). Use this to open "
 "the project without attempting to convert its scenes, resources and scripts.\n"
 "- Convert the entire project including its scenes, resources and scripts "
 "(recommended if you are upgrading).\n"
@@ -14208,7 +14217,7 @@ msgstr ""
 "Chemin d'accès du projet : %s\n"
 "\n"
 "Vous avez trois options :\n"
-"- Convertir seulement le fichier de configuration (\"project.tekisasu\"). "
+"- Convertir seulement le fichier de configuration (\"project.godot\"). "
 "Utiliser cette option pour ouvrir le projet sans tenter de convertir ses "
 "scènes, ressources et scripts.\n"
 "- Convertir le projet entier comprenant ses scènes, ressources et scripts "
@@ -14218,7 +14227,7 @@ msgstr ""
 "Avertissement : Si vous sélectionnez une option de conversion, vous ne serez "
 "pas en état d'ouvrir le projet avec les versions antérieures du moteur."
 
-msgid "Convert project.tekisasu Only"
+msgid "Convert project.godot Only"
 msgstr "Convertir Seulement projet.godot"
 
 msgid ""
@@ -14242,7 +14251,7 @@ msgstr ""
 "Attention : Il ne sera plus possible d'ouvrir ce projet avec les précédentes "
 "versions du moteur de jeu."
 
-msgid "Convert project.tekisasu"
+msgid "Convert project.godot"
 msgstr "Convertir projet.godot"
 
 msgid ""
@@ -14490,18 +14499,18 @@ msgid "Invalid \".zip\" project file; it is not in ZIP format."
 msgstr "Fichier de projet \".zip\" invalide, il n'est pas au format ZIP."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
 msgstr ""
 "Fichier de projet \".zip\" invalide, il ne contient pas de fichier \"project."
 "godot\"."
 
 msgid "Valid project found at path."
-msgstr "Valider le projet trouvé au chemin."
+msgstr "Projet valide trouvé au chemin."
 
 msgid ""
-"Please choose a \"project.tekisasu\", a directory with one, or a \".zip\" file."
+"Please choose a \"project.godot\", a directory with one, or a \".zip\" file."
 msgstr ""
-"Veuillez choisir un fichier \"project.tekisasu\", un répertoire en contenant un, "
+"Veuillez choisir un fichier \"project.godot\", un répertoire en contenant un, "
 "ou un fichier \".zip\"."
 
 msgid "The path specified is invalid."
@@ -14614,8 +14623,8 @@ msgstr ""
 msgid "Couldn't create project directory, check permissions."
 msgstr "Impossible de créer le répertoire du projet, vérifiez les permissions."
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "Impossible de créer le fichier project.tekisasu dans le chemin du projet."
+msgid "Couldn't create project.godot in project path."
+msgstr "Impossible de créer le fichier project.godot dans le chemin du projet."
 
 msgid "Couldn't create icon.svg in project path."
 msgstr "Impossible de créer icon.svg dans le chemin du projet."
@@ -14685,6 +14694,9 @@ msgstr "Date de dernière modification"
 msgid "Missing Project"
 msgstr "Projet manquant"
 
+msgid "Missing Date"
+msgstr "Date manquante"
+
 msgid "Restart Now"
 msgstr "Redémarrer maintenant"
 
@@ -14741,8 +14753,8 @@ msgstr "Renommer l'entrée d'action"
 msgid "Update Input Action Order"
 msgstr "Mettre à jour l’ordre des actions de saisie"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "Paramètres du projet (project.tekisasu)"
+msgid "Project Settings (project.godot)"
+msgstr "Paramètres du projet (project.godot)"
 
 msgid "Advanced Settings"
 msgstr "Options avancées"
@@ -14901,7 +14913,7 @@ msgid "Space-separated arguments, example: host player1 blue"
 msgstr "Arguments séparés par un espace, exemple : hôte joueur1 bleu"
 
 msgid "Comma-separated tags, example: demo, steam, event"
-msgstr "Des balises séparées par une virgule, exemple : démo, vapeur, événement"
+msgstr "Des balises séparées par une virgule, exemple : demo, steam, evenement"
 
 msgid "Instance Configuration"
 msgstr "Configuration des instances"
@@ -15197,6 +15209,9 @@ msgstr "Supprimer le(s) nœud(s)"
 
 msgid "Change type of node(s)"
 msgstr "Changer le type de nœud (s)"
+
+msgid "Reparent to New Node"
+msgstr "Reparenter à un nouveau nœud"
 
 msgid "This operation requires a single selected node."
 msgstr ""
@@ -15913,7 +15928,7 @@ msgid "Next Bar"
 msgstr "Barre suivante"
 
 msgid "Clip End"
-msgstr "Arrêter le clip"
+msgstr "Fin du clip"
 
 msgctxt "Transition Time Position"
 msgid "Same"
@@ -15949,7 +15964,7 @@ msgid "Same Position"
 msgstr "Même position"
 
 msgid "Clip Start"
-msgstr "Démarrer le clip"
+msgstr "Début du clip"
 
 msgid "Prev Position"
 msgstr "Position précédente"
@@ -15958,7 +15973,7 @@ msgid "Fade Mode:"
 msgstr "Mode fondu :"
 
 msgid "Fade Beats:"
-msgstr "Disparition de battements :"
+msgstr "Durée du fondu en battements :"
 
 msgid "Filler Clip:"
 msgstr "Clip de remplissage :"
@@ -15977,6 +15992,9 @@ msgstr "Tracer un maillage dans la structure d'accélération %d/%d"
 
 msgid "Optimizing acceleration structure"
 msgstr "Optimise la structure d'accélération"
+
+msgid "Denoising %d%%"
+msgstr "Suppression du bruit à %d%%"
 
 msgid "Begin Bake"
 msgstr "Commencer le précalcul"
@@ -18200,12 +18218,10 @@ msgstr ""
 "La propriété \"Remote Path\" doit pointer vers un nœud 3D valide ou un nœud "
 "3D dérivé d'un nœud pour fonctionner."
 
-msgid ""
-"Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D or "
-"set a path to an external skeleton."
+msgid "Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D."
 msgstr ""
-"Un nœud Skeleton3D n'est pas défini ! Un SkeletonModifier3D doit être "
-"l'enfant d'un Skeleton3D ou défini un chemin vers un squelette externe."
+"Nœud Skeleton3D non défini ! SkeletonModifier3D doit être un enfant de "
+"Skeleton3D."
 
 msgid "This body will be ignored until you set a mesh."
 msgstr "Ce corps sera ignoré jusqu'à ce que vous définissiez un maillage."

@@ -445,6 +445,7 @@ Color CodeHighlighter::get_keyword_color(const String &p_keyword) const {
 }
 
 void CodeHighlighter::set_keyword_colors(const Dictionary p_keywords) {
+	keywords.clear();
 	keywords = p_keywords;
 	clear_highlighting_cache();
 }
@@ -478,6 +479,7 @@ Color CodeHighlighter::get_member_keyword_color(const String &p_member_keyword) 
 }
 
 void CodeHighlighter::set_member_keyword_colors(const Dictionary &p_member_keywords) {
+	member_keywords.clear();
 	member_keywords = p_member_keywords;
 	clear_highlighting_cache();
 }

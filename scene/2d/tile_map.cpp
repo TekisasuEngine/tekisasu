@@ -78,7 +78,8 @@ void TileMap::_set_tile_map_data_using_compatibility_format(int p_layer, TileMap
 	for (int i = 0; i < c; i += offset) {
 		const uint8_t *ptr = (const uint8_t *)&r[i];
 		uint8_t local[12];
-		for (int j = 0; j < ((p_format >= TileMapDataFormat::TILE_MAP_DATA_FORMAT_2) ? 12 : 8); j++) {
+		const int buffer_size = (p_format >= TileMapDataFormat::TILE_MAP_DATA_FORMAT_2) ? 12 : 8;
+		for (int j = 0; j < buffer_size; j++) {
 			local[j] = ptr[j];
 		}
 
@@ -818,7 +819,7 @@ TypedArray<Vector2i> TileMap::get_surrounding_cells(const Vector2i &p_coords) {
 }
 
 PackedStringArray TileMap::get_configuration_warnings() const {
-	PackedStringArray warnings = Node::get_configuration_warnings();
+	PackedStringArray warnings = Node2D::get_configuration_warnings();
 
 	warnings.push_back(RTR("The TileMap node is deprecated as it is superseded by the use of multiple TileMapLayer nodes.\nTo convert a TileMap to a set of TileMapLayer nodes, open the TileMap bottom panel with this node selected, click the toolbox icon in the top-right corner and choose \"Extract TileMap layers as individual TileMapLayer nodes\"."));
 

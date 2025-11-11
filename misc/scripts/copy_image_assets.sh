@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 if [[ -z "$1" ]] || [[ -z "$2" ]]; then
     echo "Usage: misc/scripts/copy_image_assets.sh SOURCE_DIR DEST_DIR"
     echo "Example: misc/scripts/copy_image_assets.sh ./assets/images ./build/images"

@@ -38,11 +38,7 @@
 
 #include "servers/rendering/rendering_context_driver.h"
 
-#ifdef USE_VOLK
-#include <volk.h>
-#else
-#include <vulkan/vulkan.h>
-#endif
+#include "drivers/vulkan/tekisasu_vulkan.h"
 
 class RenderingContextDriverVulkan : public RenderingContextDriver {
 public:

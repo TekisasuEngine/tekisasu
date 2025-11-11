@@ -1,3 +1,4 @@
+# Doesn't produce the warning:
 signal used_as_first_class_signal()
 signal used_with_signal_constructor()
 signal used_with_signal_emit()
@@ -5,6 +6,7 @@ signal used_with_object_emit_signal()
 signal used_with_object_connect()
 signal used_with_object_disconnect()
 signal used_with_self_prefix()
+
 # Produce the warning:
 signal used_with_dynamic_name()
 signal just_unused()
@@ -19,6 +21,7 @@ func no_exec():
 	print(connect("used_with_object_connect", Callable()))
 	disconnect("used_with_object_disconnect", Callable())
 	print(self.emit_signal("used_with_self_prefix"))
+
 	var dynamic_name := "used_with_dynamic_name"
 	print(emit_signal(dynamic_name))
 

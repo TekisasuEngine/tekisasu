@@ -3124,8 +3124,8 @@ msgstr "Velg en mappe å søke gjennom"
 msgid "Remove All"
 msgstr "Fjern alle"
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "Kunne ikke lage project.tekisasu i prosjektstien."
+msgid "Couldn't create project.godot in project path."
+msgstr "Kunne ikke lage project.godot i prosjektstien."
 
 msgid "The following files failed extraction from package:"
 msgstr "De følgende filene feilet ekstrahering fra pakke:"

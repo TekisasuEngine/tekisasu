@@ -125,8 +125,17 @@ void editor_register_fonts(const Ref<Theme> &p_theme) {
 	TextServer::Hinting font_mono_hinting;
 	switch (font_hinting_setting) {
 		case 0:
+			// The "Auto" setting uses the setting that best matches the OS' font rendering:
+			// - macOS doesn't use font hinting.
+			// - Windows uses ClearType, which is in between "Light" and "Normal" hinting.
+			// - Linux has configurable font hinting, but most distributions including Ubuntu default to "Light".
+#ifdef MACOS_ENABLED
 			font_hinting = TextServer::HINTING_NONE;
 			font_mono_hinting = TextServer::HINTING_NONE;
+#else
+			font_hinting = TextServer::HINTING_LIGHT;
+			font_mono_hinting = TextServer::HINTING_LIGHT;
+#endif
 			break;
 		case 1:
 			font_hinting = TextServer::HINTING_NONE;

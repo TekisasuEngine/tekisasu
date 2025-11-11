@@ -1639,6 +1639,8 @@ void RendererSceneCull::_update_instance(Instance *p_instance) {
 		if (p_instance->scenario) {
 			RendererSceneOcclusionCull::get_singleton()->scenario_set_instance(p_instance->scenario->self, p_instance->self, p_instance->base, p_instance->transform, p_instance->visible);
 		}
+	} else if (p_instance->base_type == RS::INSTANCE_NONE) {
+		return;
 	}
 
 	if (!p_instance->aabb.has_surface()) {
@@ -1844,9 +1846,6 @@ void RendererSceneCull::_update_instance(Instance *p_instance) {
 			pair.bvh2 = &p_instance->scenario->indexers[Scenario::INDEXER_VOLUMES];
 		}
 		pair.cull_mask = RSG::light_storage->light_get_cull_mask(p_instance->base);
-	} else if (p_instance->base_type == RS::INSTANCE_LIGHTMAP) {
-		pair.pair_mask = RS::INSTANCE_GEOMETRY_MASK;
-		pair.bvh = &p_instance->scenario->indexers[Scenario::INDEXER_GEOMETRY];
 	} else if (geometry_instance_pair_mask & (1 << RS::INSTANCE_REFLECTION_PROBE) && (p_instance->base_type == RS::INSTANCE_REFLECTION_PROBE)) {
 		pair.pair_mask = RS::INSTANCE_GEOMETRY_MASK;
 		pair.bvh = &p_instance->scenario->indexers[Scenario::INDEXER_GEOMETRY];
@@ -2880,9 +2879,6 @@ void RendererSceneCull::_scene_cull(CullData &cull_data, InstanceCullResult &cul
 
 						for (const Instance *E : geom->lights) {
 							InstanceLightData *light = static_cast<InstanceLightData *>(E->base_data);
-							if (!(RSG::light_storage->light_get_cull_mask(E->base) & idata.layer_mask)) {
-								continue;
-							}							
 							instance_pair_buffer[idx++] = light->instance;
 							if (idx == MAX_INSTANCE_PAIRS) {
 								break;
@@ -3098,11 +3094,11 @@ void RendererSceneCull::_render_scene(const RendererSceneRender::CameraData *p_c
 		Vector<Instance *> lights_with_shadow;
 
 		for (Instance *E : scenario->directional_lights) {
-			if (!E->visible) {
+			if (!E->visible || !(E->layer_mask & p_visible_layers)) {
 				continue;
 			}
 
-			if (directional_lights.size() >= RendererSceneRender::MAX_DIRECTIONAL_LIGHTS) {
+			if (directional_lights.size() > RendererSceneRender::MAX_DIRECTIONAL_LIGHTS) {
 				break;
 			}
 

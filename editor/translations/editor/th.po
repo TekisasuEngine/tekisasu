@@ -9,7 +9,7 @@
 # Lon3r <mptube.p@gmail.com>, 2020.
 # Kongfa Warorot <gongpha@hotmail.com>, 2020, 2021.
 # Kongfa Waroros <gongpha@hotmail.com>, 2021.
-# Atirut Wattanamongkol <artjang301@gmail.com>, 2021, 2023.
+# Atirut Wattanamongkol <artjang301@gmail.com>, 2021, 2023, 2024.
 # PT 07 <porton555@gmail.com>, 2021.
 # SysError_ <ictsanook@hotmail.com>, 2021, 2023.
 # Kanda Ninthfish <akkhaporn@gmail.com>, 2022.
@@ -18,13 +18,16 @@
 # LadsForTea <jajasamag@gmail.com>, 2023.
 # Satakun Utama <galaxytomostore@gmail.com>, 2023.
 # รัชพล คิดการ <rutchaphon.far@gmail.com>, 2023.
+# Donte <donte5405@outlook.com>, 2024.
+# Mineis Meee <simsfashion694@gmail.com>, 2024.
+# Suvijak Nopparatcharoensuk <guy.suvijak@hotmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine editor interface\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-12-13 14:13+0000\n"
-"Last-Translator: รัชพล คิดการ <rutchaphon.far@gmail.com>\n"
+"PO-Revision-Date: 2025-01-29 20:50+0000\n"
+"Last-Translator: Suvijak Nopparatcharoensuk <guy.suvijak@hotmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/godot-engine/godot/"
 "th/>\n"
 "Language: th\n"
@@ -32,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3-rc\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
 msgstr "เธรดหลัก"
@@ -184,6 +187,9 @@ msgstr "ปุ่มจอยที่ %d"
 msgid "Pressure:"
 msgstr "แรงกด:"
 
+msgid "touched"
+msgstr "สัมผัส"
+
 msgid "released"
 msgstr "ปล่อย"
 
@@ -264,16 +270,19 @@ msgid "Completion Query"
 msgstr "ตัวช่วยเติมโค้ด"
 
 msgid "New Line"
-msgstr "บรรทัดใหม่"
+msgstr "สร้างบรรทัดใหม่"
 
 msgid "New Blank Line"
-msgstr "บรรทัดว่างใหม่"
+msgstr "สร้างบรรทัดว่างใหม่"
 
 msgid "New Line Above"
-msgstr "บรรทัดใหม่ด้านบน"
+msgstr "สร้างบรรทัดใหม่ด้านบน"
 
 msgid "Indent"
-msgstr "ย่อหน้า"
+msgstr "เพิ่มย่อหน้า"
+
+msgid "Dedent"
+msgstr "ลดย่อหน้า"
 
 msgid "Backspace"
 msgstr "ลบไปทางซ้าย"
@@ -434,6 +443,9 @@ msgstr ""
 
 msgid "An action with the name '%s' already exists."
 msgstr "มีชื่อของ Action '%s' อยู่แล้ว"
+
+msgid "Cannot Revert - Action is same as initial"
+msgstr "ไม่สามารถเปลี่ยนกลับได้ - การดำเนินการเหมือนกับครั้งแรก"
 
 msgid "Revert Action"
 msgstr "ย้อนกลับ Action"
@@ -699,8 +711,17 @@ msgstr "เปลี่ยนโหมดการประมาณค่าช
 msgid "Change Animation Loop Mode"
 msgstr "เปลี่ยนโหมดการวนซ้ำแอนิเมชัน"
 
+msgid ""
+"Compressed tracks can't be edited or removed. Re-import the animation with "
+"compression disabled in order to edit."
+msgstr ""
+"แทร็กที่บีบอัดไม่สามารถแก้ไขหรือลบได้ นำเข้าภาพเคลื่อนไหวอีกครั้งโดยปิดใช้งานการบีบอัดเพื่อแก้ไข"
+
 msgid "Remove Anim Track"
 msgstr "ลบแทร็กแอนิเมชัน"
+
+msgid "Hold Shift when clicking the key icon to skip this dialog."
+msgstr "กด Shift ค้างไว้เมื่อคลิกไอคอนรูปกุญแจเพื่อข้ามกล่องโต้ตอบนี้"
 
 msgid "Create"
 msgstr "สร้าง"
@@ -764,6 +785,9 @@ msgstr "ขนาด"
 msgid "Methods"
 msgstr "วิธีการ"
 
+msgid "Bezier"
+msgstr "เบซิเยร์"
+
 msgid "Audio"
 msgstr "เสียง"
 
@@ -773,11 +797,36 @@ msgstr "คลิปบอร์ดว่างเปล่า!"
 msgid "Paste Tracks"
 msgstr "วางแทร็ก"
 
+msgid "Make Easing Keys"
+msgstr "สร้างคีย์ Easing"
+
+msgid ""
+"Some AnimationPlayerEditor's options are disabled since this is the dummy "
+"AnimationPlayer for preview.\n"
+"\n"
+"The dummy player is forced active, non-deterministic and doesn't have the "
+"root motion track. Furthermore, the original node is inactive temporary."
+msgstr ""
+"ตัวเลือกบางตัวของ AnimationPlayerEditor ถูกปิดใช้งานเนื่องจากนี่คือ AnimationPlayer "
+"จำลองสำหรับการดูตัวอย่าง\n"
+"\n"
+"ตัวเล่นจำลองจะถูกบังคับให้ทำงาน ไม่แน่นอน และไม่มีแทร็กการเคลื่อนที่หลัก นอกจากนี้ "
+"โหนดดั้งเดิมจะไม่ทำงานชั่วคราว"
+
+msgid "AnimationPlayer is inactive. The playback will not be processed."
+msgstr "AnimationPlayer ไม่ทำงาน การเล่นซ้ำจะไม่ได้รับการประมวลผล"
+
 msgid "Select an AnimationPlayer node to create and edit animations."
 msgstr "เลือกโหนด AnimationPlayer เพื่อสร้างและแก้ไขแอนิเมชัน"
 
 msgid "Warning: Editing imported animation"
 msgstr "คำเตือน: กำลังแก้ไขแอนิเมชันที่นำเข้ามา"
+
+msgid "Dummy Player"
+msgstr "ผู้เล่นดัมมี่"
+
+msgid "Toggle between the bezier curve editor and track editor."
+msgstr "สลับไปมาระหว่างตัวแก้ไขเส้นโค้งเบซิเยร์และตัวแก้ไขแทร็ก"
 
 msgid "Only show tracks from nodes selected in tree."
 msgstr "แสดงแทร็กจากโหนดที่เลือกในผังเท่านั้น"
@@ -803,6 +852,18 @@ msgstr "แก้ไข"
 msgid "Animation properties."
 msgstr "คุณสมบัติแอนิเมชัน"
 
+msgid "Set Start Offset (Audio)"
+msgstr "ตั้งค่าออฟเซ็ตเริ่มต้น (เสียง)"
+
+msgid "Set End Offset (Audio)"
+msgstr "ตั้งค่าออฟเซ็ตสิ้นสุด (เสียง)"
+
+msgid "Move First Selected Key to Cursor"
+msgstr "ย้ายคีย์ที่เลือกแรกไปที่เคอร์เซอร์"
+
+msgid "Move Last Selected Key to Cursor"
+msgstr "ย้ายคีย์ที่เลือกล่าสุดไปที่เคอร์เซอร์"
+
 msgid "Delete Selection"
 msgstr "ลบที่เลือก"
 
@@ -821,6 +882,12 @@ msgstr "สร้างแทร็กรีเซ็ท"
 msgid "Optimize"
 msgstr "เพิ่มประสิทธิภาพ"
 
+msgid "Trim keys placed in negative time"
+msgstr "ตัดแต่งคีย์ที่วางอยู่ในจังหวะลบ"
+
+msgid "Trim keys placed exceed the animation length"
+msgstr "ตัดแต่งคีย์ที่วางเกินความยาวของแอนิเมชั่น"
+
 msgid "Remove invalid keys"
 msgstr "ลบคีย์ที่ผิดพลาด"
 
@@ -835,6 +902,33 @@ msgstr "เก็บกวาด"
 
 msgid "Scale Ratio:"
 msgstr "อัตราส่วนขนาด:"
+
+msgid "Select Transition and Easing"
+msgstr "เลือกการเปลี่ยนผ่านและ Easing"
+
+msgctxt "Transition Type"
+msgid "Sine"
+msgstr "Sine (อัตราส่วนของด้านตรงข้ามมุมที่กำหนด)"
+
+msgctxt "Transition Type"
+msgid "Quart"
+msgstr "Quart (เศษหนึ่งส่วนสี่)"
+
+msgctxt "Transition Type"
+msgid "Bounce"
+msgstr "เด้ง"
+
+msgctxt "Transition Type"
+msgid "Spring"
+msgstr "สปริง"
+
+msgctxt "Ease Type"
+msgid "InOut"
+msgstr "เข้าออก"
+
+msgctxt "Ease Type"
+msgid "OutIn"
+msgstr "ออกเข้า"
 
 msgid "Select Tracks to Copy"
 msgstr "เลือกแทร็กที่จะคัดลอก"
@@ -875,6 +969,9 @@ msgstr "แทนที่ทั้งหมด"
 msgid "Selection Only"
 msgstr "เฉพาะที่กำลังเลือก"
 
+msgid "Hide"
+msgstr "ซ่อน"
+
 msgid "Toggle Scripts Panel"
 msgstr "เปิด/ปิดแผงสคริปต์"
 
@@ -907,6 +1004,9 @@ msgid ""
 "target node."
 msgstr "ไม่พบเมธอดเป้าหมาย ระบุเมธอดที่ถูกต้องหรือเพิ่มสคริปต์ในโนดเป้าหมาย"
 
+msgid "%s: Callback code won't be generated, please add it manually."
+msgstr "%s: ไม่สามารถสร้างรหัสการโทรกลับได้ กรุณาเพิ่มรหัสด้วยตนเอง"
+
 msgid "Connect to Node:"
 msgstr "เชื่อมต่อกับโนด:"
 
@@ -922,6 +1022,9 @@ msgstr "ไม่มีสคริปต์ในฉาก"
 msgid "Select Method"
 msgstr "เลือกเมท็อด"
 
+msgid "No method found matching given filters."
+msgstr "ไม่พบวิธีการที่ตรงกับตัวกรองที่กำหนด"
+
 msgid "Remove"
 msgstr "ลบ"
 
@@ -930,6 +1033,9 @@ msgstr "เพิ่มตัวแปร:"
 
 msgid "Extra Call Arguments:"
 msgstr "ตัวแปรเพิ่มเติม:"
+
+msgid "Allows to drop arguments sent by signal emitter."
+msgstr "อนุญาตให้ลบอาร์กิวเมนต์ที่ส่งโดยตัวส่งสัญญาณ"
 
 msgid "Receiver Method:"
 msgstr "ตัวรับเมธอด:"
@@ -1004,6 +1110,12 @@ msgstr "สร้าง %s ใหม่"
 msgid "No results for \"%s\"."
 msgstr "ไม่มีผลลัพธ์สำหรับ \"%s\""
 
+msgid "This class is marked as deprecated."
+msgstr "คลาสนี้ถูกทำเครื่องหมายว่าไม่สนับสนุนอีกต่อไป"
+
+msgid "This class is marked as experimental."
+msgstr "คลาสนี้ถูกทำเครื่องหมายว่าเป็นคลาสทดลอง"
+
 msgid "Favorites:"
 msgstr "ที่ชื่นชอบ:"
 
@@ -1037,8 +1149,29 @@ msgstr "คัดลอกตำแหน่งโหนด"
 msgid "Instance:"
 msgstr "อินสแตนซ์:"
 
+msgid ""
+"This node has been instantiated from a PackedScene file:\n"
+"%s\n"
+"Click to open the original file in the Editor."
+msgstr ""
+"โหนดนี้ถูกสร้างขึ้นจากไฟล์ PackedScene:\n"
+"%s\n"
+"คลิกเพื่อเปิดไฟล์ต้นฉบับใน Editor"
+
 msgid "Toggle Visibility"
 msgstr "ซ่อน/แสดง"
+
+msgid "Updating assets on target device:"
+msgstr "การอัปเดตสินทรัพย์บนอุปกรณ์เป้าหมาย:"
+
+msgid "Getting remote file system"
+msgstr "การรับระบบไฟล์ระยะไกล"
+
+msgid "Sending list of changed files:"
+msgstr "ส่งรายการไฟล์ที่เปลี่ยนแปลง:"
+
+msgid "ms"
+msgstr "ms (มิลลิวินาที)"
 
 msgid "Monitors"
 msgstr "มอนิเตอร์"
@@ -1076,6 +1209,20 @@ msgstr "รวม"
 msgid "Self"
 msgstr "ตัวเอง"
 
+msgid ""
+"Inclusive: Includes time from other functions called by this function.\n"
+"Use this to spot bottlenecks.\n"
+"\n"
+"Self: Only count the time spent in the function itself, not in other "
+"functions called by that function.\n"
+"Use this to find individual functions to optimize."
+msgstr ""
+"รวม: รวมเวลาจากฟังก์ชันอื่นที่เรียกใช้โดยฟังก์ชันนี้\n"
+"ใช้สิ่งนี้เพื่อระบุจุดคอขวด\n"
+"\n"
+"ตนเอง: นับเฉพาะเวลาที่ใช้ในฟังก์ชันนั้นเท่านั้น ไม่นับในฟังก์ชันอื่นที่เรียกใช้โดยฟังก์ชันนั้น\n"
+"ใช้สิ่งนี้เพื่อค้นหาฟังก์ชันแต่ละรายการเพื่อเพิ่มประสิทธิภาพ"
+
 msgid "Frame #:"
 msgstr "เฟรมที่:"
 
@@ -1088,6 +1235,15 @@ msgstr "เวลา"
 msgid "Calls"
 msgstr "จำนวนครั้ง"
 
+msgid "CPU"
+msgstr "ซีพียู"
+
+msgid "GPU"
+msgstr "จีพียู"
+
+msgid "Execution resumed."
+msgstr "การดำเนินการเริ่มต้นอีกครั้ง"
+
 msgid "Bytes:"
 msgstr "ไบต์:"
 
@@ -1097,8 +1253,14 @@ msgstr "ผิดพลาด:"
 msgid "Stack Trace"
 msgstr "แทร็กสแตค"
 
+msgid "Debug session closed."
+msgstr "เซสชันแก้ไขปิดแล้ว"
+
 msgid "Copy Error"
 msgstr "คัดลอกผิดพลาด"
+
+msgid "Open C++ Source on GitHub"
+msgstr "เปิดซอร์ส C++ บน GitHub"
 
 msgid "C++ Source"
 msgstr "C++ ต้นฉบับ"
@@ -1216,6 +1378,12 @@ msgstr "ค้นหาทรัพยากรมาแทนที่:"
 msgid "Open"
 msgstr "เปิด"
 
+msgid "Owners of: %s (Total: %d)"
+msgstr "เจ้าของ: %s (รวม: %d)"
+
+msgid "Localization remap for path '%s' and locale '%s'."
+msgstr "การรีแมปตำแหน่งสำหรับเส้นทาง '%s' และตำแหน่ง '%s'"
+
 msgid "Cannot remove:"
 msgstr "ไม่สามารถลบ:"
 
@@ -1252,14 +1420,30 @@ msgstr "เป็นเจ้าของ"
 msgid "Resources Without Explicit Ownership:"
 msgstr "รีซอร์สที่ไม่มีเจ้าของที่ชัดเจน:"
 
+msgid "Using slashes in folder names will create subfolders recursively."
+msgstr "การใช้เครื่องหมายทับในชื่อโฟลเดอร์จะสร้างโฟลเดอร์ย่อยขึ้นมาซ้ำๆ"
+
 msgid "Could not create folder."
 msgstr "ไม่สามารถสร้างโฟลเดอร์"
 
 msgid "Create Folder"
 msgstr "สร้างโฟลเดอร์"
 
+msgid "Double-click to open in browser."
+msgstr "ดับเบิลคลิกเพื่อเปิดในเบราว์เซอร์"
+
 msgid "Thanks from the Godot community!"
 msgstr "ขอขอบคุณจากชุมชนผู้ใช้ Godot!"
+
+msgid "(unknown)"
+msgstr "(ไม่ทราบ)"
+
+msgid ""
+"Git commit date: %s\n"
+"Click to copy the version number."
+msgstr ""
+"วันที่คอมมิต Git: %s\n"
+"คลิกเพื่อคัดลอกหมายเลขเวอร์ชัน"
 
 msgid "Godot Engine contributors"
 msgstr "ผู้ช่วยพัฒนา Godot Engine"
@@ -1276,6 +1460,9 @@ msgstr "ผู้พัฒนา"
 msgid "Authors"
 msgstr "ทีมงาน"
 
+msgid "Patrons"
+msgstr "ผู้สนับสนุน"
+
 msgid "Platinum Sponsors"
 msgstr "ผู้สนับสนุนระดับทองคำขาว"
 
@@ -1284,6 +1471,12 @@ msgstr "ผู้สนับสนุนระดับทอง"
 
 msgid "Silver Sponsors"
 msgstr "ผู้บริจาคระดับเงิน"
+
+msgid "Diamond Members"
+msgstr "สมาชิกระดับเพชร"
+
+msgid "Titanium Members"
+msgstr "สมาชิกระดับไททาเนียม"
 
 msgid "Donors"
 msgstr "ผู้บริจาค"
@@ -1313,11 +1506,43 @@ msgstr "ไลบรารี"
 msgid "Licenses"
 msgstr "สัญญาอนุญาต"
 
+msgid "%d file conflicts with your project and won't be installed"
+msgid_plural "%d files conflict with your project and won't be installed"
+msgstr[0] "ไฟล์ %d ไฟล์ขัดแย้งกับโครงการของคุณและจะไม่ได้รับการติดตั้ง"
+
+msgid "This asset doesn't have a root directory, so it can't be ignored."
+msgstr "สินทรัพย์นี้ไม่มีไดเร็กทอรีรูท ดังนั้นจึงไม่สามารถละเลยได้"
+
+msgid "Ignore the root directory when extracting files."
+msgstr "ไม่ต้องสนใจไดเร็กทอรีรูทเมื่อแตกไฟล์"
+
 msgid "Uncompressing Assets"
 msgstr "กำลังคลายบีบอัด"
 
+msgid "Asset \"%s\" installed successfully!"
+msgstr "ติดตั้งสินทรัพย์ \"%s\" สำเร็จแล้ว!"
+
 msgid "Success!"
 msgstr "สำเร็จ!"
+
+msgid "Open the list of the asset contents and select which files to install."
+msgstr "เปิดรายการเนื้อหาของสินทรัพย์และเลือกไฟล์ที่จะติดตั้ง"
+
+msgid ""
+"Change the folder where the contents of the asset are going to be installed."
+msgstr "เปลี่ยนโฟลเดอร์ที่จะติดตั้งเนื้อหาของทรัพย์สิน"
+
+msgid "Ignore asset root"
+msgstr "ไม่สนใจรากสินทรัพย์"
+
+msgid "Show contents of the asset and conflicting files."
+msgstr "แสดงเนื้อหาของทรัพย์สินและไฟล์ที่ขัดแย้ง"
+
+msgid "Contents of the asset:"
+msgstr "เนื้อหาของสินทรัพย์:"
+
+msgid "Configure Asset Before Installing"
+msgstr "กำหนดค่าสินทรัพย์ก่อนการติดตั้ง"
 
 msgid "Install"
 msgstr "ติดตั้ง"
@@ -1403,6 +1628,9 @@ msgstr "เปิดเลย์เอาต์ของบัสเสียง
 msgid "There is no '%s' file."
 msgstr "ไม่มีไฟล์ '%s'"
 
+msgid "Layout:"
+msgstr "เลย์เอาต์:"
+
 msgid "Invalid file, not an audio bus layout."
 msgstr "ไฟล์ไม่ถูกต้อง ไม่ใช่เลย์เอาต์ของ Audio Bus"
 
@@ -1436,6 +1664,24 @@ msgstr "โหลดค่าเริ่มต้นเลย์เอาต์
 msgid "Create a new Bus Layout."
 msgstr "สร้างเลย์เอาต์บัสใหม่"
 
+msgid "Cannot begin with a digit."
+msgstr "ไม่สามารถเริ่มต้นด้วยตัวเลขได้"
+
+msgid "Valid characters:"
+msgstr "ตัวอักษรที่ถูกต้อง:"
+
+msgid "Must not collide with an existing engine class name."
+msgstr "จะต้องไม่ชนกับชื่อคลาสเครื่องยนต์ที่มีอยู่"
+
+msgid "Must not collide with an existing global script class name."
+msgstr "จะต้องไม่ขัดแย้งกับชื่อคลาสสคริปต์ Global ที่มีอยู่"
+
+msgid "Must not collide with an existing built-in type name."
+msgstr "ต้องไม่ขัดแย้งกับชื่อประเภทที่มีอยู่แล้วภายใน"
+
+msgid "Must not collide with an existing global constant name."
+msgstr "จะต้องไม่ขัดแย้งกับชื่อค่าคงที่ Global ที่มีอยู่"
+
 msgid "Autoload '%s' already exists!"
 msgstr "มีออโต้โหลด '%s' อยู่แล้ว!"
 
@@ -1454,20 +1700,88 @@ msgstr "เปิด"
 msgid "Rearrange Autoloads"
 msgstr "จัดลำดับออโต้โหลด"
 
+msgid "%s is an invalid path. File does not exist."
+msgstr "%s เป็นเส้นทางที่ไม่ถูกต้อง ไฟล์ไม่มีอยู่"
+
 msgid "%s is an invalid path. Not in resource path (res://)."
 msgstr "เส้นทางไฟล์ %s ไม่ถูกต้อง: ไม่มีในเส้นทางไฟล์ (res://)"
 
 msgid "Path:"
 msgstr "ตำแหน่ง:"
 
+msgid "Set path or press \"%s\" to create a script."
+msgstr "ตั้งค่าเส้นทางหรือกด \"%s\" เพื่อสร้างสคริปต์"
+
 msgid "Node Name:"
 msgstr "ชื่อโนด:"
+
+msgid "3D Engine"
+msgstr "เอ็นจิ้น 3D"
+
+msgid "2D Physics"
+msgstr "ฟิสิกส์ 2 มิติ"
+
+msgid "3D Physics"
+msgstr "ฟิสิกส์ 3 มิติ"
 
 msgid "Navigation"
 msgstr "ตัวนำทาง"
 
+msgid "RenderingDevice"
+msgstr "ตัวเรนเดอร์"
+
 msgid "Vulkan"
 msgstr "Vulkan"
+
+msgid "Text Server: Fallback"
+msgstr "ข้อความจากเซิร์ฟเวอร์: สำรอง"
+
+msgid "Text Server: Advanced"
+msgstr "ข้อความจากเซิร์ฟเวอร์: ขั้นสูง"
+
+msgid "TTF, OTF, Type 1, WOFF1 Fonts"
+msgstr "ฟอนต์ TTF, OTF, Type 1, WOFF1"
+
+msgid "SIL Graphite Fonts"
+msgstr "ฟอนต์ SIL Graphite"
+
+msgid "Multi-channel Signed Distance Field Font Rendering"
+msgstr "การเรนเดอร์ฟอนต์ฟิลด์ระยะห่างที่มีการเซ็นชื่อหลายช่องทาง"
+
+msgid "3D Nodes as well as RenderingServer access to 3D features."
+msgstr "3D Nodes รวมถึงการเข้าถึงฟีเจอร์ 3D ของ RenderingServer"
+
+msgid "2D Physics nodes and PhysicsServer2D."
+msgstr "โหนดฟิสิกส์ 2D และ PhysicsServer2D"
+
+msgid ""
+"TrueType, OpenType, Type 1, and WOFF1 font format support using FreeType "
+"library (if disabled, WOFF2 support is also disabled)."
+msgstr ""
+"รองรับรูปแบบฟอนต์ TrueType, OpenType, Type 1 และ WOFF1 โดยใช้ไลบรารี FreeType "
+"(หากปิดใช้งาน การรองรับ WOFF2 จะถูกปิดใช้งานด้วยเช่นกัน)"
+
+msgid "WOFF2 font format support using FreeType and Brotli libraries."
+msgstr "รูปแบบฟอนต์ WOFF2 รองรับการใช้ไลบรารี FreeType และ Brotli"
+
+msgid ""
+"SIL Graphite smart font technology support (supported by Advanced Text Server "
+"only)."
+msgstr ""
+"รองรับเทคโนโลยีฟอนต์อัจฉริยะ SIL Graphite (รองรับโดย Advanced Text Server เท่านั้น)"
+
+msgid ""
+"Multi-channel signed distance field font rendering support using msdfgen "
+"library (pre-rendered MSDF fonts can be used even if this option disabled)."
+msgstr ""
+"รองรับการเรนเดอร์ฟอนต์ฟิลด์ระยะห่างที่ลงนามหลายช่องทางโดยใช้ไลบรารี msdfgen "
+"(สามารถใช้ฟอนต์ MSDF ที่เรนเดอร์ไว้ล่วงหน้าได้ แม้ว่าตัวเลือกนี้จะปิดใช้งานอยู่ก็ตาม)"
+
+msgid "Text Rendering and Font Options:"
+msgstr "ตัวเลือกการแสดงผลข้อความและแบบอักษร:"
+
+msgid "This will scan all files in the current project to detect used classes."
+msgstr "การดำเนินการนี้จะสแกนไฟล์ทั้งหมดในโปรเจ็กต์ปัจจุบันเพื่อตรวจหาคลาสที่ใช้"
 
 msgid "File '%s' format is invalid, import aborted."
 msgstr "นามสกุลของไฟล์ '%s' ผิดพลาด ยกเลิกการนำเข้า"
@@ -1487,6 +1801,9 @@ msgstr "รีเซ็ตเป็นค่าเริ่มต้น"
 msgid "Export Profile"
 msgstr "ส่งออกโปรไฟล์"
 
+msgid "Forced Classes on Detect:"
+msgstr "คลาสบังคับในการตรวจจับ:"
+
 msgid "Paste Params"
 msgstr "วางตัวแปร"
 
@@ -1505,8 +1822,14 @@ msgstr "[ว่างเปล่า]"
 msgid "[unsaved]"
 msgstr "[ไฟล์ใหม่]"
 
+msgid "%s - Godot Engine"
+msgstr "%s - Godot Engine"
+
 msgid "Dock Position"
 msgstr "ตำแหน่งแผง"
+
+msgid "Move this dock to the bottom panel."
+msgstr "ย้ายแท่นนี้ไปที่แผงด้านล่าง"
 
 msgid "3D Editor"
 msgstr "ตัวแก้ไข 3D"
@@ -1555,6 +1878,9 @@ msgstr ""
 "สามารถตั้งค่าการนำเข้าการตั้งต่าสำหรับ asset ต่าง ๆ ได้ ต้องการหน้าต่าง FileSystem "
 "เพื่อใช้งานฟังก์ชันนี้"
 
+msgid "Provides an overview of the editor's and each scene's undo history."
+msgstr "ให้ภาพรวมของประวัติการเลิกทำของตัวแก้ไขและแต่ละฉาก"
+
 msgid "(none)"
 msgstr "(ว่าง)"
 
@@ -1582,6 +1908,9 @@ msgstr "ตั้งค่าคลาส:"
 msgid "Enable Contextual Editor"
 msgstr "เปิดการทำงานตัวแก้ไขตามบริบท"
 
+msgid "Main Features:"
+msgstr "คุณสมบัติหลัก:"
+
 msgid ""
 "Profile '%s' already exists. Remove it first before importing, import aborted."
 msgstr "มีโปรไฟล์ '%s' อยู่แล้ว กรุณาลบก่อนที่จะนำเข้า, การนำเข้าถูกยกเลิก"
@@ -1600,6 +1929,9 @@ msgstr "นำเข้า"
 
 msgid "Export"
 msgstr "ส่งออก"
+
+msgid "Extra Options:"
+msgstr "ตัวเลือกเพิ่มเติม:"
 
 msgid "Create or import a profile to edit available classes and properties."
 msgstr "สร้าง หรือนำเข้าโปรไฟล์การตั้งค่าเพื่อแก้ไขฟังก์ชัน/คลาสและคุณสมบัติต่าง ๆ"
@@ -1632,6 +1964,12 @@ msgstr "มีการนำเข้าไฟล์ %s หลายอัน �
 
 msgid "(Re)Importing Assets"
 msgstr "กำลังนำเข้าทรัพยากร(อีกครั้ง)"
+
+msgid "Import resources of type: %s"
+msgstr "นำเข้าทรัพยากรประเภท: %s"
+
+msgid "This value is an integer composed as a bitmask of the following flags."
+msgstr "ค่านี้เป็นจำนวนเต็มที่ประกอบเป็นบิตมาสก์ของแฟล็กต่อไปนี้"
 
 msgid "Constructors"
 msgstr "ตัวสร้าง"
@@ -2045,6 +2383,12 @@ msgstr "ตั้งค่าตัวแก้ไข"
 msgid "Project"
 msgstr "โปรเจกต์"
 
+msgid "Project Settings..."
+msgstr "การตั้งค่าโปรเจกต์..."
+
+msgid "Project Settings"
+msgstr "การตั้งค่าโปรเจกต์"
+
 msgid "Version Control"
 msgstr "เวอร์ชันคอนโทรล"
 
@@ -2108,6 +2452,9 @@ msgstr "คุณสมบัติ"
 msgid "Node"
 msgstr "โนด"
 
+msgid "Output"
+msgstr "เอาท์พุต"
+
 msgid "Don't Save"
 msgstr "ไม่บันทึก"
 
@@ -2138,6 +2485,9 @@ msgid ""
 msgstr ""
 "ไฟล์เหล่านี้มีความใหม่กว่าบนดิสก์\n"
 "ต้องจะทำอย่างไรต่อไป?"
+
+msgid "Version Control Settings..."
+msgstr "การตั้งค่าระบบจัดการเวอร์ชัน"
 
 msgid "New Inherited"
 msgstr "สืบทอด"
@@ -2272,6 +2622,9 @@ msgstr "การตั้งค่าตัวแก้ไข"
 
 msgid "General"
 msgstr "ทั่วไป"
+
+msgid "Filter Settings"
+msgstr "กรองการตั้งค่า"
 
 msgid "The editor must be restarted for changes to take effect."
 msgstr "ต้องเปิดตัวแก้ไขใหม่เพื่อให้การเปลี่ยนแปลงมีผล"
@@ -4332,14 +4685,14 @@ msgstr "ลบจุดควบคุมขาออกของเส้นโ
 msgid "Remove In-Control from Curve"
 msgstr "ลบจุดควบคุมขาเข้าของเส้นโค้ง"
 
-msgid "Split Curve"
-msgstr "แยกเส้นโค้ง"
-
 msgid "Move Point in Curve"
 msgstr "ย้ายจุดในเส้นโค้ง"
 
 msgid "Add Point to Curve"
 msgstr "เพิ่มจุดในเส้นโค้ง"
+
+msgid "Split Curve"
+msgstr "แยกเส้นโค้ง"
 
 msgid "Move In-Control in Curve"
 msgstr "ย้ายจุดควบคุมขาเข้าของเส้นโค้ง"
@@ -4801,6 +5154,15 @@ msgstr "ไปเบรกพอยต์ถัดไป"
 
 msgid "Go to Previous Breakpoint"
 msgstr "ไปเบรกพอยต์ก่อนหน้า"
+
+msgid "Shader Editor"
+msgstr "ตัวแก้ไขเชเดอร์"
+
+msgid "Make the shader editor floating."
+msgstr "ทำให้ตัวแก้ไขเชเดอร์เป็นแบบลอยได้"
+
+msgid "Toggle Shader Editor Bottom Panel"
+msgstr "เปิด/ปิดแผงตัวแก้ไขเชเดอร์"
 
 msgid "This skeleton has no bones, create some children Bone2D nodes."
 msgstr "โครงหลักนี้ยังไม่มีโครงใดๆ สร้างโหนดลูกของ Bone2D"
@@ -5600,7 +5962,7 @@ msgstr "ยืนยันการรันโปรเจกต์ %d โป�
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -5641,6 +6003,23 @@ msgstr "สแกน"
 msgid "Loading, please wait..."
 msgstr "กำลังโหลด โปรดรอ..."
 
+msgid "Filter Projects"
+msgstr "กรองโปรเจ็กต์"
+
+msgid "Tags"
+msgstr "แท็ก"
+
+msgid "You don't have any projects yet."
+msgstr "คุณยังไม่มีโปรเจ็กต์ใดๆ"
+
+msgid ""
+"Get started by creating a new one,\n"
+"importing one that exists, or by downloading a project template from the "
+"Asset Library!"
+msgstr ""
+"เริ่มต้นด้วยการสร้างโปรเจกต์ใหม่,\n"
+"นำเข้าที่มีอยู่แล้ว, หรือดาวน์โหลดเทมเพล็ตโปรเจกต์จาก Asset Library!"
+
 msgid "Create New Project"
 msgstr "สร้างโปรเจกต์ใหม่"
 
@@ -5649,6 +6028,9 @@ msgstr "นำเข้าโปรเจกต์ที่มีอยู่เ
 
 msgid "Rename Project"
 msgstr "เปลี่ยนชื่อโปรเจกต์"
+
+msgid "Manage Tags"
+msgstr "จัดการแท็ก"
 
 msgid "Remove Missing"
 msgstr "ลบที่หายไป"
@@ -5659,12 +6041,15 @@ msgstr "เลือกโฟลเดอร์เพื่อสแกน"
 msgid "Remove All"
 msgstr "ลบทั้งหมด"
 
+msgid "Manage Project Tags"
+msgstr "จัดการแท็กโปรเจกต์"
+
 msgid "It would be a good idea to name your project."
 msgstr "ควรตั้งชื่อโปรเจกต์"
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
-msgstr "ไฟล์โปรเจกต์ \".zip\" ผิดพลาด เนื่องจากไม่มีไฟล์ \"project.tekisasu\""
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+msgstr "ไฟล์โปรเจกต์ \".zip\" ผิดพลาด เนื่องจากไม่มีไฟล์ \"project.godot\""
 
 msgid "The path specified doesn't exist."
 msgstr "ไม่พบที่อยู่ที่ระบุเอาไว้"
@@ -5672,8 +6057,8 @@ msgstr "ไม่พบที่อยู่ที่ระบุเอาไว
 msgid "New Game Project"
 msgstr "โปรเจกต์เกมใหม่"
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "สร้างไฟล์ project.tekisasu ไม่ได้"
+msgid "Couldn't create project.godot in project path."
+msgstr "สร้างไฟล์ project.godot ไม่ได้"
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "ผิดพลาดขณะเปิดไฟล์แพคเกจ, ไม่ใช่รูปแบบ zip"
@@ -5726,8 +6111,8 @@ msgstr "เปลี่ยน Action deadzone"
 msgid "Erase Input Action"
 msgstr "ลบการกระทำ"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "ตัวเลือกโปรเจกต์ (project.tekisasu)"
+msgid "Project Settings (project.godot)"
+msgstr "ตัวเลือกโปรเจกต์ (project.godot)"
 
 msgid "Input Map"
 msgstr "ปุ่มกด"
@@ -6058,6 +6443,9 @@ msgstr "ตำแหน่งฐานไม่ถูกต้อง"
 
 msgid "Wrong extension chosen."
 msgstr "เลือกนามสกุลไม่ถูกต้อง"
+
+msgid "Note: Built-in shaders can't be edited using an external editor."
+msgstr "หมายเหตุ: ไม่สามารถแก้ไขเชเดอร์ในตัวได้โดยใช้ตัวแก้ไขภายนอก"
 
 msgid "Change Cylinder Radius"
 msgstr "ปรับรัศมีทรงกระบอก"
@@ -6428,8 +6816,358 @@ msgstr "ซอร์สไม่ถูกต้องสำหรับเชด
 msgid "Invalid comparison function for that type."
 msgstr "ฟังก์ชันการเปรียบเทียบไม่ถูกต้องสำหรับประเภทนั้น"
 
+msgid "Varying may not be assigned in the '%s' function."
+msgstr "การ Varying ไม่สามารถกำหนดใน Function '%s' ได้"
+
+msgid ""
+"Varying with '%s' data type may only be assigned in the 'fragment' function."
+msgstr "การ Varying ด้วยข้อมูลประเภท '%s' สามารถระบุใน Function 'fragment' เท่านั้น"
+
+msgid ""
+"Varyings which assigned in 'vertex' function may not be reassigned in "
+"'fragment' or 'light'."
+msgstr ""
+"การ Varying ที่ระบุใน Function 'vertex' ไม่สามารถกำหนดใหม่เป็น 'fragment' หรือ "
+"'light' ได้"
+
+msgid ""
+"Varyings which assigned in 'fragment' function may not be reassigned in "
+"'vertex' or 'light'."
+msgstr ""
+"การ Varying ที่ระบุใน Function 'fragment' ไม่สามารถกำหนดใหม่เป็น 'vertex' หรือ "
+"'light' ได้"
+
+msgid "'%s' cannot be used within the '%s' processor function."
+msgstr "'%s' ไม่สามารถใช้งานภายใน Processor Function '%s' ได้"
+
+msgid ""
+"'%s' cannot be used here, because '%s' is called by the '%s' processor "
+"function (which is not allowed)."
+msgstr ""
+"'%s' ไม่สามารถใช้งานตรงนี้ได้ เพราะ '%s' ถูกเรียกใช้โดย Processor Function '%s' "
+"(ซึ่งไม่สามารถทำได้)"
+
+msgid "Assignment to function."
+msgstr "การกำหนดให้กับ Function"
+
+msgid "Swizzling assignment contains duplicates."
+msgstr "มีส่วนซ้ำของ Swizzling Assignment"
+
+msgid "Assignment to uniform."
+msgstr "การกำหนดให้กับ Uniform"
+
 msgid "Constants cannot be modified."
-msgstr "ค่าคงที่ไม่สามารถแก้ไขได้"
+msgstr "Constant จะไม่สามารถแก้ไขได้อีก"
+
+msgid ""
+"Sampler argument %d of function '%s' called more than once using both built-"
+"ins and uniform textures, this is not supported (use either one or the other)."
+msgstr ""
+"Sampler Argument %d ของ Function '%s' ถูกเรียกมากกว่าหนึ่งครั้งโดยใช้ทั้ง Built-in และ "
+"Uniform Texture ซึ่งไม่รองรับ (เลือกใช้อย่างใดอย่างหนึ่ง)"
+
+msgid ""
+"Sampler argument %d of function '%s' called more than once using textures "
+"that differ in either filter, repeat, or texture hint setting."
+msgstr ""
+"Sampler Argument %d ของ Function '%s' ถูกเรียกมากกว่าหนึ่งครั้งโดยใช้ Texture "
+"ที่มีความแตกต่างที่อาจเป็น Filter, Repeat หรือการตั้งค่า Texture Hint"
+
+msgid ""
+"Sampler argument %d of function '%s' called more than once using different "
+"built-ins. Only calling with the same built-in is supported."
+msgstr ""
+"Sampler Argument %d ของ Function %s ถูกเรียกใช้มากกว่าหนึ่งครั้งโดยใช้ Built-in "
+"ประเภทที่แตกต่างกัน ระบบรองรับการเรียกใช้งานแบบ Built-in ประเภทเดียวเท่านั้น"
+
+msgid "Array size is already defined."
+msgstr "Array Size ได้ถูกระบุอยู่แล้ว"
+
+msgid "Unknown array size is forbidden in that context."
+msgstr "ไม่อนุญาตให้ใช้ Array Size แบบไม่รู้ขนาดใน Context ดังกล่าว"
+
+msgid "Array size expressions are not supported."
+msgstr "ไม่รองรับ Expression แบบ Array Size"
+
+msgid "Expected a positive integer constant."
+msgstr "ต้องการ Constant แบบ Integer ค่าจำนวนเต็มบวก"
+
+msgid "Invalid data type for the array."
+msgstr "ประเภทข้อมูลสำหรับ Array ไม่ถูกต้อง"
+
+msgid "Array size mismatch."
+msgstr "ขนาดของ Array ไม่สัมพันธ์กัน"
+
+msgid "Expected array initialization."
+msgstr "ต้องการตัวประกาศ Array"
+
+msgid "Cannot convert from '%s' to '%s'."
+msgstr "ไม่สามารถแปลงข้อมูลจาก '%s' ไป '%s' ได้"
+
+msgid "Expected ')' in expression."
+msgstr "ต้องการเครื่องหมาย ')' ใน Expression"
+
+msgid "Void value not allowed in expression."
+msgstr "ไม่อนุญาตให้ใช้ข้อมูลแบบ Void ใน Expression"
+
+msgid "Expected '(' after the type name."
+msgstr "ต้องการเครื่องหมาย '(' หลังจากชื่อ Type"
+
+msgid "No matching constructor found for: '%s'."
+msgstr "ไม่พบ Constructor สำหรับ: '%s'"
+
+msgid "Built-in function '%s' is not supported for the '%s' shader type."
+msgstr "Function แบบ Built-in '%s' ไม่รองรับ Shader Type แบบ '%s'"
+
+msgid "Expected a function name."
+msgstr "โปรดใส่ชื่อ Function"
+
+msgid "No matching function found for: '%s'."
+msgstr "ไม่พบ Function สำหรับ: '%s'"
+
+msgid "Varying '%s' cannot be passed for the '%s' parameter in that context."
+msgstr "การ Varying '%s' ไม่สามารถ Pass สำหรับ Parameter '%s' ใน Context ดังกล่าวได้"
+
+msgid ""
+"Unable to pass a multiview texture sampler as a parameter to custom function. "
+"Consider to sample it in the main function and then pass the vector result to "
+"it."
+msgstr ""
+"ไม่สามารถ Pass ข้อมูล Multiview Texture Sampler ในรูปแบบ Parameter ไปยัง Function "
+"แบบกำหนดเองได้ โปรด Sample ข้อมูลดังกล่าวใน Function หลักและจากนั้นให้ส่งผ่านผลลัพธ์ข้อมูล "
+"Vector ออกมาแทน"
+
+msgid "Unknown identifier in expression: '%s'."
+msgstr "ไม่รู้จัก Identifier ใน Expression: '%s'"
+
+msgid ""
+"%s has been removed in favor of using hint_%s with a uniform.\n"
+"To continue with minimal code changes add 'uniform sampler2D %s : hint_%s, "
+"filter_linear_mipmap;' near the top of your shader."
+msgstr ""
+"%s ได้ถูกนำออก ขอให้ใช้ hint_%s กับข้อมูล Uniform แทน\n"
+"เพื่อให้เกิดการแก้ไขโค้ดน้อยที่สุด ให้เพิ่ม 'uniform sampler2D %s : hint_%s, "
+"filter_linear_mipmap;' ที่โค้ดส่วนบนของ Shader ของคุณแทน"
+
+msgid "Varying with '%s' data type may only be used in the 'fragment' function."
+msgstr "การ Varying กับ '%s' จะสามารถใช้งานกับ Function 'fragment' ได้เท่านั้น"
+
+msgid "Varying '%s' must be assigned in the 'fragment' function first."
+msgstr "การ Varying '%s' จะต้องระบุใน Function '%s' ก่อน"
+
+msgid ""
+"Varying with integer data type must be declared with `flat` interpolation "
+"qualifier."
+msgstr ""
+"การ Varying กับข้อมูลประเภท Integer จะต้องระบุ Interpolation Qualifier แบบ `flat` "
+"เท่านั้น"
+
+msgid "Can't use function as identifier: '%s'."
+msgstr "ไม่สามารถใช้ Function'%s' แบบ Identifier ได้"
+
+msgid "Only integer expressions are allowed for indexing."
+msgstr "อนุญาตให้ใช้ Integer Expression สำหรับ Indexing เท่านั้น"
+
+msgid "Index [%d] out of range [%d..%d]."
+msgstr "Index [%d] เกินระยะ [%d..%d] ที่กำหนด"
+
+msgid "Expected expression, found: '%s'."
+msgstr "ต้องการ Expression แต่พบ '%s' แทน"
+
+msgid "Empty statement. Remove ';' to fix this warning."
+msgstr "Statement ว่าง ให้นำ ';' ออกเพื่อแก้ปัญหาคำเตือนนี้"
+
+msgid "Expected an identifier as a member."
+msgstr "ต้องการ Identifier ให้เป็น Member"
+
+msgid "Cannot combine symbols from different sets in expression '.%s'."
+msgstr "ไม่สามารถรวม Symbol ของ Set ที่แตกต่างกันใน Expression '%s' ได้"
+
+msgid "Invalid member for '%s' expression: '.%s'."
+msgstr "Member ของ Expression '%s' ไม่ถูกต้อง: '%s'"
+
+msgid "An object of type '%s' can't be indexed."
+msgstr "Object ของประเภท '%s' ไม่สามารถ Index ได้"
+
+msgid "Invalid base type for increment/decrement operator."
+msgstr "Base Type ของ Increment/Decrement Operator ไม่ถูกต้อง"
+
+msgid "Invalid use of increment/decrement operator in a constant expression."
+msgstr "การใช้ Increment/Decrement Operator สำหรับ Constant Expression ไม่ถูกต้อง"
+
+msgid "Invalid token for the operator: '%s'."
+msgstr "Token สำหรับ Operator ไม่ถูกต้อง: '%s'"
+
+msgid "Unexpected end of expression."
+msgstr "มีตัวอักษรที่ไม่ถูกต้องที่ท้ายสุดของคำสั่ง"
+
+msgid "Invalid arguments to unary operator '%s': %s."
+msgstr "Argument ถึง Unary Operator '%s' ไม่ถูกต้อง: '%s'"
+
+msgid "Missing matching ':' for select operator."
+msgstr "ตัว Matching ':' ของ Select Operator หายไป"
+
+msgid "Invalid argument to ternary operator: '%s'."
+msgstr "Argument ของ Ternary Operator ไม่ถูกต้อง: '%s'"
+
+msgid "Invalid arguments to operator '%s': '%s'."
+msgstr "Argument ของ Operator '%s' ไม่ถูกต้อง: '%s'"
+
+msgid "A switch may only contain '%s' and '%s' blocks."
+msgstr "สเตตเมนต์ 'switch' สามารถมีบล็อก'%s' และ '%s' ได้เท่านั้น"
+
+msgid "Expected variable type after precision modifier."
+msgstr "ต้องระบุประเภทตัวแปรหลังจาก Precision Modifier"
+
+msgid "Invalid variable type (samplers are not allowed)."
+msgstr "ประเภทตัวแปรไม่ถูกต้อง (ไม่อนุญาตให้ใช้ Samplers)"
+
+msgid "Expected an identifier or '[' after type."
+msgstr "ต้องการ Identifier หรือ '[' หลังจากประเภทข้อมูล"
+
+msgid "Expected an identifier."
+msgstr "ต้องการ Identifier"
+
+msgid "Expected array initializer."
+msgstr "ต้องระบุ Array Initializer"
+
+msgid "Expected data type after precision modifier."
+msgstr "ต้องระบุประเภทข้อมูลหลังจากการระบุ Precision Modifier"
+
+msgid "Expected a constant expression."
+msgstr "ต้องการนิพจน์สำหรับ Constant"
+
+msgid "Expected initialization of constant."
+msgstr "ต้องการข้อมูลเริ่มต้นสำหรับ Constant"
+
+msgid "Expected constant expression for argument %d of function call after '='."
+msgstr ""
+"ต้องการ Constant Expression สำหรับ Argument %d ของ Function Call หลังจากส่วน '='"
+
+msgid "Expected a boolean expression."
+msgstr "ต้องการนิพจน์ Boolean"
+
+msgid "Expected an integer expression."
+msgstr "ต้องการนิพจน์ Integer"
+
+msgid "Cases must be defined before default case."
+msgstr "Default Case ต้องประกาศหลังสุดเสมอ"
+
+msgid "Default case must be defined only once."
+msgstr "บล็อก Default Case มีได้อันเดียวเท่านั้น"
+
+msgid "Duplicated case label: %d."
+msgstr "Case Label ซ้ำกัน: '%d'"
+
+msgid "'%s' must be placed within a '%s' block."
+msgstr "'%s' จะต้องอยู่ในบล็อก '%s'"
+
+msgid "Expected an integer constant."
+msgstr "ต้องการ Constant ประเภท Integer"
+
+msgid "Using '%s' in the '%s' processor function is incorrect."
+msgstr "การใช้ '%s' ใน Processor Function '%s' นั้นไม่ถูกต้อง"
+
+msgid "Expected '%s' with an expression of type '%s'."
+msgstr "ต้องการ '%s' สำหรับนิพจน์ของชนิดข้อมูล '%s'"
+
+msgid "Expected return with an expression of type '%s'."
+msgstr "จำเป็นต้อง Return ค่ากลับสำหรับประเภทข้อมูล '%s'"
+
+msgid "Use of '%s' is not allowed here."
+msgstr "ไม่อนุญาตให้ใช้ '%s' ตรงนี้"
+
+msgid "'%s' is not allowed outside of a loop or '%s' statement."
+msgstr "'%s' ไม่อนุญาตให้อยู่นอก Loop หรือ Statement '%s'"
+
+msgid "'%s' is not allowed outside of a loop."
+msgstr "'%s' ไม่อนุญาตให้อยู่นอก Loop"
+
+msgid "The middle expression is expected to be a boolean operator."
+msgstr "ตรงกลางของนิพจน์จะต้องเป็นเครื่องหมายที่เกี่ยวข้องกับ Boolean"
+
+msgid "The left expression is expected to be a variable declaration."
+msgstr "ฝั่งด้านซ้ายของนิพจน์จะต้องเป็นการประกาศตัวแปร"
+
+msgid "The precision modifier cannot be used on structs."
+msgstr "Precision Modifier ไม่สามารถใช้งานกับข้อมูลประเภท Struct ได้"
+
+msgid "The precision modifier cannot be used on boolean types."
+msgstr "Precision Modifier ไม่สามารถใช้งานกับข้อมูลประเภท Boolean ได้"
+
+msgid "Expected '%s' at the beginning of shader. Valid types are: %s."
+msgstr "ต้องการ '%s' ที่จุดเริ่มต้นของ Shader โดยชนิดที่ถูกต้องคือ: %s."
+
+msgid ""
+"Expected an identifier after '%s', indicating the type of shader. Valid types "
+"are: %s."
+msgstr "ต้องการ Identifier หลังจาก '%s' ซึ่งระบุชนิดของ Shader โดยชนิดที่ถูกต้องคือ: '%s'"
+
+msgid "Invalid shader type. Valid types are: %s"
+msgstr "Shader Type ผิด ที่ถูกต้องคือ: %s"
+
+msgid "Expected an identifier for render mode."
+msgstr "ต้องการ Identifier ของ Render Mode"
+
+msgid "Duplicated render mode: '%s'."
+msgstr "Render Mode ซ้ำ: '%s'"
+
+msgid ""
+"Redefinition of render mode: '%s'. The '%s' mode has already been set to '%s'."
+msgstr "Redefinition ของ Render Mode: '%s'. '%s' ได้ถูกตั้งค่าเป็น '%s' อยู่แล้ว"
+
+msgid "Invalid render mode: '%s'."
+msgstr "โหมด Render ไม่ถูกต้อง: '%s'"
+
+msgid "Unexpected token: '%s'."
+msgstr "Token เกินออกมา: '%s'"
+
+msgid "Expected a struct identifier."
+msgstr "ต้องการ Identifier เพิ่มเติมสำหรับ Struct"
+
+msgid "Nested structs are not allowed."
+msgstr "ไม่อนุญาตให้ประกาศ Struct แบบ Nested"
+
+msgid "Expected data type."
+msgstr "ประเภทข้อมูลหายไป"
+
+msgid "A '%s' data type is not allowed here."
+msgstr "ไม่อนุญาตให้ใช้ข้อมูลประเภท '%s' ตรงนี้"
+
+msgid "Expected an identifier or '['."
+msgstr "Identifier หรือ '[' หายไป"
+
+msgid "Empty structs are not allowed."
+msgstr "ไม่อนุญาตให้ประกาศ Struct แบบว่างเปล่า"
+
+msgid "Uniform instances are not yet implemented for '%s' shaders."
+msgstr "Uniform Instance ยังไม่รองรับสำหรับ Shader '%s' ในขณะนี้"
+
+msgid "Uniform instances are not supported in gl_compatibility shaders."
+msgstr "ไม่รองรับ Uniform Instance สำหรับ Shader ในโหมด gl_compatibility"
+
+msgid "Varyings cannot be used in '%s' shaders."
+msgstr "Varyings ไม่สามารถใช้งานกับ Shader '%s' ได้"
+
+msgid "Interpolation qualifiers are not supported for uniforms."
+msgstr "Inperpolation Qualifier ต่าง ๆ ไม่สามารถใช้งานได้กับ Uniform"
+
+msgid "The '%s' data type is not supported for uniforms."
+msgstr "ไม่สามารถรองรับประเภทข้อมูล '%s' สำหรับข้อมูล Uniform"
+
+msgid "The '%s' data type is not allowed here."
+msgstr "ไม่อนุญาตให้ใช้อักขระ '%s' ตรงนี้"
+
+msgid "Interpolation modifier '%s' cannot be used with boolean types."
+msgstr "Interpolation Modifier '%s' ไม่สามารถใช้งานกับข้อมูลชนิด Boolean ได้"
+
+msgid "Invalid data type for varying."
+msgstr "ประเภทข้อมูลสำหรับ varying ไม่ถูกต้อง"
+
+msgid ""
+"'hint_normal_roughness_texture' is only available when using the Forward+ "
+"backend."
+msgstr "'hint_normal_roughness_texture' ใช้งานได้ในระบบเรนเดอร์ Forward+ เท่านั้น"
 
 msgid "Invalid argument name."
 msgstr "ชื่อตัวแปรอาร์กูเมนท์ไม่ถูกต้อง"

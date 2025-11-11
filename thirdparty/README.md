@@ -87,8 +87,13 @@ Files extracted from upstream source:
 ## certs
 
 - Upstream: Mozilla, via https://github.com/bagder/ca-bundle
-- Version: git (c5a419971b1bec220368c619aaafd0b818aa119f, 2024)
+- Version: git (4d3fe6683f651d96be1bbef316b201e9b33b274d, 2024),
+  generated from mozilla-release changeset b8ea2342548b8571e58f9176d9555ccdb5ec199f
 - License: MPL 2.0
+
+Files extracted from upstream source:
+
+- `ca-bundle.crt` renamed to `ca-certificates.crt`
 
 
 ## clipper2
@@ -177,12 +182,12 @@ Files extracted from upstream source:
 
 Files extracted from upstream:
 
-- All `.cpp` files listed in `modules/raycast/godot_update_embree.py`
-- All header files in the directories listed in `modules/raycast/godot_update_embree.py`
-- All config files listed in `modules/raycast/godot_update_embree.py`
+- All `.cpp` files listed in `modules/raycast/tekisasu_update_embree.py`
+- All header files in the directories listed in `modules/raycast/tekisasu_update_embree.py`
+- All config files listed in `modules/raycast/tekisasu_update_embree.py`
 - `LICENSE.txt`
 
-The `modules/raycast/godot_update_embree.py` script can be used to pull the
+The `modules/raycast/tekisasu_update_embree.py` script can be used to pull the
 relevant files from the latest Embree release and apply some automatic changes.
 
 Some changes have been made in order to remove exceptions and fix minor build errors.
@@ -208,7 +213,7 @@ to be usable by Godot's socket implementation and allow IPv6 and DTLS.
 Apply the patches in the `patches/` folder when syncing on newer upstream
 commits.
 
-Three files (`godot.cpp`, `enet/godot.h`, `enet/godot_ext.h`) have been added to
+Three files (`tekisasu.cpp`, `enet/tekisasu.h`, `enet/tekisasu_ext.h`) have been added to
 provide ENet socket implementation using Godot classes.
 
 It is still possible to build against a system wide ENet but doing so will limit
@@ -407,7 +412,7 @@ Files extracted from upstream source:
 
 Files generated from upstream source:
 
-- The `icudt75l.dat` built with the provided `godot_data.json` config file (see
+- The `icudt75l.dat` built with the provided `tekisasu_data.json` config file (see
   https://github.com/unicode-org/icu/blob/master/docs/userguide/icu_data/buildtool.md
   for instructions).
 
@@ -415,7 +420,7 @@ Files generated from upstream source:
   (replace `data` subfolder from the main source archive)
 2. Build ICU with default options: `./runConfigureICU {PLATFORM} && make`
 3. Reconfigure ICU with custom data config:
-   `ICU_DATA_FILTER_FILE={GODOT_SOURCE}/thirdparty/icu4c/godot_data.json ./runConfigureICU {PLATFORM} --with-data-packaging=common`
+   `ICU_DATA_FILTER_FILE={GODOT_SOURCE}/thirdparty/icu4c/tekisasu_data.json ./runConfigureICU {PLATFORM} --with-data-packaging=common`
 4. Delete `data/out` folder and rebuild data: `cd data && rm -rf ./out && make`
 5. Copy `source/data/out/icudt75l.dat` to the `{GODOT_SOURCE}/thirdparty/icu4c/icudt75l.dat`
 
@@ -550,9 +555,9 @@ File extracted from upstream release tarball:
   upstream GH-9020)
 - Applied the patch `msvc-redeclaration-bug.diff` to fix a compilation error
   with some MSVC versions
-- Added 2 files `godot_core_mbedtls_platform.c` and `godot_core_mbedtls_config.h`
+- Added 2 files `tekisasu_core_mbedtls_platform.c` and `tekisasu_core_mbedtls_config.h`
   providing configuration for light bundling with core
-- Added the file `godot_module_mbedtls_config.h` to customize the build
+- Added the file `tekisasu_module_mbedtls_config.h` to customize the build
   configuration when bundling the full library
 
 
@@ -609,7 +614,7 @@ to solve some MSVC warnings. See the patches in the `patches` directory.
 ## miniupnpc
 
 - Upstream: https://github.com/miniupnp/miniupnp
-- Version: 2.2.7 (d4d5ec7d48c093b37b2ea5d7171ede21ce9d7ff2, 2024)
+- Version: 2.2.8 (b55145ec095652289a59c33603f3abafee898273, 2024)
 - License: BSD-3-Clause
 
 Files extracted from upstream source:
@@ -685,8 +690,8 @@ Collection of single-file libraries used in Godot components.
   * License: MIT
 - `qoa.h`
   * Upstream: https://github.com/phoboslab/qoa
-  * Version: git (5c2a86d615661f34636cf179abf4fa278d3257e0, 2024)
-  * Modifications: Inlined functions, patched uninitialized variables and untyped mallocs.
+  * Version: git (e0c69447d4d3945c3c92ac1751e4cdc9803a8303, 2024)
+  * Modifications: Added a few modifiers to comply with C++ nature.
   * License: MIT
 - `r128.{c,h}`
   * Upstream: https://github.com/fahickman/r128
@@ -886,7 +891,7 @@ instead of `miniz.h` as an external dependency.
 ## thorvg
 
 - Upstream: https://github.com/thorvg/thorvg
-- Version: 0.14.2 (f6c4d8a94e0b2194fe911d6e19a550683055dd50, 2024)
+- Version: 0.14.10 (366dcd72850c360b49e841e568fc5a154d7cce9e, 2024)
 - License: MIT
 
 Files extracted from upstream source:

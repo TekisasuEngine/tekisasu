@@ -34,7 +34,7 @@
 #ifdef GDEXTENSION
 // Headers for building as GDExtension plug-in.
 
-#include <godot_cpp/godot.hpp>
+#include <godot_cpp/tekisasu.hpp>
 
 using namespace godot;
 

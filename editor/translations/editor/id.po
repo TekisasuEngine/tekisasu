@@ -41,7 +41,7 @@
 # Primananda Kurnia <primakurnia71@gmail.com>, 2022.
 # FellowMustard <rachmawanng33@gmail.com>, 2022.
 # Muhammad Zainal Abidin <eviepk12@gmail.com>, 2022.
-# adfriz <aditiyaafrizal2@gmail.com>, 2023.
+# adfriz <aditiyaafrizal2@gmail.com>, 2023, 2024.
 # Taufiq Rahman <pxpiksy@gmail.com>, 2023.
 # Muhammad Azri Fatihah Susanto <muhammad.azri.f.s@gmail.com>, 2023.
 # ammar sajili <sjlammar@gmail.com>, 2023.
@@ -62,13 +62,16 @@
 # Hajir Asyafi <hajirasyafi@gmail.com>, 2024.
 # Azizkhasyi 11 <azizkhasyi11@gmail.com>, 2024.
 # "@andiDermawan" <andidermawan2004@gmail.com>, 2024.
+# Bintang AP <prep77070@gmail.com>, 2024.
+# "Achmad Izzuddin (Adin)" <achmadizzuddin999@gmail.com>, 2024.
+# meghundul <meghundul@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine editor interface\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-14 12:59+0000\n"
-"Last-Translator: Septian Ganendra Savero Kurniawan <mail@init.id>\n"
+"PO-Revision-Date: 2025-01-23 17:31+0000\n"
+"Last-Translator: meghundul <meghundul@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/godot-engine/"
 "godot/id/>\n"
 "Language: id\n"
@@ -76,7 +79,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
 msgstr "Utas Utama"
@@ -94,7 +97,7 @@ msgid "Right Mouse Button"
 msgstr "Tombol kanan Mouse"
 
 msgid "Middle Mouse Button"
-msgstr "Tombol Tengah mouse"
+msgstr "Tombol Tengah Mouse"
 
 msgid "Mouse Wheel Up"
 msgstr "Gulir Mouse ke atas"
@@ -493,6 +496,9 @@ msgstr ""
 msgid "An action with the name '%s' already exists."
 msgstr "Sudah ada aksi dengan nama '%s'."
 
+msgid "Cannot Revert - Action is same as initial"
+msgstr "Tidak Bisa Mengembalikan - Aksi sama dengan nilai awal"
+
 msgid "Revert Action"
 msgstr "Kembalikan Tindakan"
 
@@ -511,8 +517,14 @@ msgstr "Sunting Acara"
 msgid "Remove Event"
 msgstr "Menghapus Event"
 
+msgid "Filter by Name"
+msgstr "Filter Nama"
+
 msgid "Clear All"
 msgstr "Hapus Semua"
+
+msgid "Clear all search filters."
+msgstr "Hapus semua filter pencarian."
 
 msgid "Add New Action"
 msgstr "Tambahkan Tindakan Baru"
@@ -543,6 +555,9 @@ msgstr "Sisipkan Key Disini"
 
 msgid "Duplicate Selected Key(s)"
 msgstr "Duplikat Kunci Terpilih"
+
+msgid "Cut Selected Key(s)"
+msgstr "Potong Kunci Terpilih"
 
 msgid "Copy Selected Key(s)"
 msgstr "Salin Kunci Yang Dipilih"
@@ -579,6 +594,9 @@ msgstr "Pindah Titik-titik Bezier"
 
 msgid "Animation Duplicate Keys"
 msgstr "Kunci Duplikat Animasi"
+
+msgid "Animation Paste Keys"
+msgstr "Tempel Kunci Animasi"
 
 msgid "Animation Delete Keys"
 msgstr "Kunci Hapus Animasi"
@@ -1103,6 +1121,9 @@ msgstr "Pergi ke Langkah Sebelumnya"
 msgid "Apply Reset"
 msgstr "Terapkan Reset"
 
+msgid "Bake Animation..."
+msgstr "Kemas Animasi..."
+
 msgid "Optimize Animation (no undo)..."
 msgstr "Optimalkan Animasi (tanpa undo)..."
 
@@ -1470,7 +1491,7 @@ msgid "Copy Name"
 msgstr "Salin Nama"
 
 msgid "Edit..."
-msgstr "Edit..."
+msgstr "Sunting..."
 
 msgid "Go to Method"
 msgstr "Menuju Ke Metode"
@@ -1622,6 +1643,9 @@ msgstr ""
 "termasuk fungsi yang dipanggil.\n"
 "Gunakan ini untuk menemukan fungsi individual untuk optimalisasi."
 
+msgid "Display internal functions"
+msgstr "Menampilkan fungsi internal"
+
 msgid "Frame #:"
 msgstr "Bingkai #:"
 
@@ -1651,6 +1675,9 @@ msgstr "Eksekusi dilanjutkan."
 
 msgid "Bytes:"
 msgstr "Bytes:"
+
+msgid "Warning:"
+msgstr "Peringatan:"
 
 msgid "Error:"
 msgstr "Error:"
@@ -1737,7 +1764,7 @@ msgid "Collapse All"
 msgstr "Lipat Semua"
 
 msgid "Profiler"
-msgstr "Profiler"
+msgstr "Pembuat profil"
 
 msgid "Visual Profiler"
 msgstr "Profiler Visual"
@@ -2044,6 +2071,9 @@ msgstr "Berkas ini gagal mengekstrak dari aset \"%s\":"
 msgid "(and %s more files)"
 msgstr "(dan %s berkas lebih banyak)"
 
+msgid "Asset \"%s\" installed successfully!"
+msgstr "Aset \"%s\" berhasil di install!"
+
 msgid "Success!"
 msgstr "Sukses!"
 
@@ -2211,6 +2241,12 @@ msgstr "Buat Layout Bus Baru."
 msgid "Audio Bus Layout"
 msgstr "Tata Letak Bus Audio"
 
+msgid "Valid characters:"
+msgstr "Karakter yang valid:"
+
+msgid "Keyword cannot be used as an Autoload name."
+msgstr "Kata kunci tidak dapat digunakan sebagai nama Muat Otomatis."
+
 msgid "Autoload '%s' already exists!"
 msgstr "Autoload '%s' telah ada!"
 
@@ -2371,8 +2407,14 @@ msgstr "Fitur Umum:"
 msgid "Text Rendering and Font Options:"
 msgstr "Opsi Perenderan Teks dan Jenis Huruf:"
 
+msgid "Reset the edited profile?"
+msgstr "Setel ulang profil yang telah diedit?"
+
 msgid "File saving failed."
 msgstr "Penyimpanan file gagal."
+
+msgid "Create a new profile?"
+msgstr "Buat profil baru?"
 
 msgid "Nodes and Classes:"
 msgstr "Node dan Kelas:"
@@ -3438,6 +3480,9 @@ msgstr ""
 "Tidak dapat menulis ke file '%s', file sedang digunakan, terkunci atau tidak "
 "memiliki izin."
 
+msgid "Preparing scenes for reload"
+msgstr "Menyiapkan scene untuk memuat ulang"
+
 msgid ""
 "Changing the renderer requires restarting the editor.\n"
 "\n"
@@ -3948,6 +3993,9 @@ msgstr "Jalankan Proyek"
 msgid "Write your logic in the _run() method."
 msgstr "Tulis logika di dalam fungsi _run()."
 
+msgid "The current scene already has a root node."
+msgstr "Scene ini sudah mempunyai root node."
+
 msgid "Edit Built-in Action: %s"
 msgstr "Edit Tindakan Bawaan:%s"
 
@@ -4053,11 +4101,29 @@ msgstr "Semua Perangkat"
 msgid "Device"
 msgstr "Perangkat"
 
+msgid "Failed to get Info.plist hash."
+msgstr "Gagal untuk mendapatkan info.plist hash."
+
+msgid "Invalid Info.plist, no bundle id."
+msgstr "Tidak valid Info.plist, tidak ada id bundle."
+
+msgid "Invalid Info.plist, can't load."
+msgstr "Info.plist tidak valid, tidak bisa memuat."
+
 msgid "Failed to create \"%s\" subfolder."
 msgstr "Tidak dapat membuat sub folder \"%s\"."
 
+msgid "Failed to extract thin binary."
+msgstr "Gagal untuk ekstrak biner tipis."
+
 msgid "Invalid binary format."
 msgstr "Format biner tidak valid."
+
+msgid "Failed to create _CodeSignature subfolder."
+msgstr "Gagal membuat subfolder _CodeSignature."
+
+msgid "Failed to create fat binary."
+msgstr "Gagal membuat biner tebal."
 
 msgid "Unknown object type."
 msgstr "Jenis objek tidak diketahui."
@@ -6892,6 +6958,13 @@ msgstr "Buat Node"
 msgid "Change Default Type"
 msgstr "Ubah Tipe Baku"
 
+msgid ""
+"All selected CanvasItems are either invisible or locked in some way and can't "
+"be transformed."
+msgstr ""
+"Semua CanvasItem yang dipilih tidak terlihat atau terkunci dalam beberapa "
+"cara dan tidak dapat diubah."
+
 msgid "Set Target Position"
 msgstr "Tetapkan Posisi Target"
 
@@ -7184,6 +7257,15 @@ msgstr "Navigasi Terlihat"
 
 msgid "Visible Avoidance"
 msgstr "Penghindaran Terlihat"
+
+msgid ""
+"When this option is enabled, redraw requests of 2D objects will become "
+"visible (as a short flash) in the running project.\n"
+"This is useful to troubleshoot low processor mode."
+msgstr ""
+"Ketika opsi ini diaktifkan, sumber daya kurva yang digunakan oleh node path "
+"akan terlihat pada proyek yang sedang berjalan.\n"
+"Ini berguna untuk memecahkan masalah pada mode prosesor rendah."
 
 msgid "Synchronize Scene Changes"
 msgstr "Sinkronkan Perubahan Skena"
@@ -8411,14 +8493,14 @@ msgstr "Hapus Kontrol-Luar dari Kurva"
 msgid "Remove In-Control from Curve"
 msgstr "Hapus Kontrol-Dalam dari Kurva"
 
-msgid "Split Curve"
-msgstr "Pisahkan Kurva"
-
 msgid "Move Point in Curve"
 msgstr "Geser Titik dalam Kurva"
 
 msgid "Add Point to Curve"
 msgstr "Tambah Titik ke Kurva"
+
+msgid "Split Curve"
+msgstr "Pisahkan Kurva"
 
 msgid "Move In-Control in Curve"
 msgstr "Geser Kontrol-Dalam dalam Kurva"
@@ -8722,8 +8804,8 @@ msgid ""
 "Cannot run the script because it's not a tool script (add the @tool "
 "annotation at the top)."
 msgstr ""
-"Tidak bisa menjalankan skrip karena itu bukan alat skrip (tambahkan @tool "
-"anotasi di bagian atas)"
+"Tidak bisa menjalankan skrip karena itu bukan skrip tool (tambahkan @tool "
+"anotasi di bagian atas)."
 
 msgid "Cannot run the script because it's not a tool script."
 msgstr "Tidak bisa menjalankan skrip karena itu bukan sebuah alat skrip."
@@ -10664,7 +10746,7 @@ msgstr "Apakah Anda yakin menjalankan %d proyek sekaligus?"
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -10765,9 +10847,9 @@ msgid "It would be a good idea to name your project."
 msgstr "Sebaiknya berikan nama untuk proyek Anda."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
 msgstr ""
-"Berkas proyek \".zip\" tidak valid; tidak terdapat berkas \"project.tekisasu\" "
+"Berkas proyek \".zip\" tidak valid; tidak terdapat berkas \"project.godot\" "
 "di dalamnya."
 
 msgid "The path specified doesn't exist."
@@ -10776,8 +10858,8 @@ msgstr "Lokasi yang ditentukan tidak ada."
 msgid "New Game Project"
 msgstr "Proyek Baru Permainan"
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "Tidak dapat membuat project.tekisasu dalam lokasi proyek."
+msgid "Couldn't create project.godot in project path."
+msgstr "Tidak dapat membuat project.godot dalam lokasi proyek."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Gagal saat membuka paket, tidak dalam bentuk zip."
@@ -10836,8 +10918,8 @@ msgstr "Ubah deadzone Aksi"
 msgid "Erase Input Action"
 msgstr "Hapus Aksi Input"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "Pengaturan Proyek (project.tekisasu)"
+msgid "Project Settings (project.godot)"
+msgstr "Pengaturan Proyek (project.godot)"
 
 msgid "Advanced Settings"
 msgstr "Setelan Lanjutan"
@@ -11805,8 +11887,42 @@ msgstr "Konstanta tidak dapat dimodifikasi."
 msgid "Invalid argument name."
 msgstr "Nama argumen tidak valid."
 
+msgid "Unmatched endif."
+msgstr "Endif tidak sesuai."
+
+msgid "Invalid endif."
+msgstr "Endif tidak sah."
+
+msgid "Invalid ifdef."
+msgstr "Ifdef tidak sah."
+
+msgid "Invalid ifndef."
+msgstr "Ifndef tidak sah."
+
+msgid "Shader include file does not exist:"
+msgstr "File shader tidak ada."
+
+msgid ""
+"Shader include load failed. Does the shader include exist? Is there a cyclic "
+"dependency?"
+msgstr ""
+"Memuat shader gagal. Apakah menyematkan shader ada? Apakah ada ketergantungan "
+"siklus?"
+
+msgid "Shader include resource type is wrong."
+msgstr "Jenis shader termasuk sumber salah."
+
+msgid "Cyclic include found"
+msgstr "Siklus muat ditemukan"
+
+msgid "Shader max include depth exceeded."
+msgstr "Maksimum shader termasuk kedalaman terlampaui."
+
 msgid "Invalid undef."
 msgstr "Tidak valid."
+
+msgid "Macro expansion limit exceeded."
+msgstr "Ekspansi macro melebihi batas."
 
 msgid "Invalid macro argument list."
 msgstr "Daftar Argumen Macro Tidak Valid."

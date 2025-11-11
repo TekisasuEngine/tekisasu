@@ -46,11 +46,7 @@
 #endif
 #include "thirdparty/vulkan/vk_mem_alloc.h"
 
-#ifdef USE_VOLK
-#include <volk.h>
-#else
-#include <vulkan/vulkan.h>
-#endif
+#include "drivers/vulkan/tekisasu_vulkan.h"
 
 // Design principles:
 // - Vulkan structs are zero-initialized and fields not requiring a non-zero value are omitted (except in cases where expresivity reasons apply).

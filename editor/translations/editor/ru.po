@@ -198,13 +198,19 @@
 # Tim Zh <tim3@mail.ru>, 2024.
 # Lev73 <asusgamens@gmail.com>, 2024.
 # LLIax <aultero@gmail.com>, 2024.
+# Dmitry <prostoikanal99@gmail.com>, 2024.
+# fingerionam <hurdanukka@gufum.com>, 2024.
+# Dainis K <bonanzaaa.mad@gmail.com>, 2024.
+# СТАРЫЙ ХЛЕБ <ctapiuxleb1@gmail.com>, 2024.
+# Kiril Yakymchuk <stbestich@gmail.com>, 2025.
+# ogyrec <ogyrec.off@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine editor interface\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-08 16:09+0000\n"
-"Last-Translator: Olesya_Gerasimenko <gammaray@basealt.ru>\n"
+"PO-Revision-Date: 2025-01-26 10:28+0000\n"
+"Last-Translator: ogyrec <ogyrec.off@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/godot-engine/"
 "godot/ru/>\n"
 "Language: ru\n"
@@ -213,7 +219,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
 msgstr "Главный поток"
@@ -246,10 +252,10 @@ msgid "Mouse Wheel Right"
 msgstr "Колесо мыши вправо"
 
 msgid "Mouse Thumb Button 1"
-msgstr "Кнопка большого пальца мыши 1"
+msgstr "Кнопка ползунка мыши 1"
 
 msgid "Mouse Thumb Button 2"
-msgstr "Кнопка большого пальца мыши 2"
+msgstr "Боковая Кнопка Мыши 2"
 
 msgid "Button"
 msgstr "Кнопка"
@@ -258,7 +264,7 @@ msgid "Double Click"
 msgstr "Двойной щелчок"
 
 msgid "Mouse motion at position (%s) with velocity (%s)"
-msgstr "Движение мыши в местоположении (%s) с быстротой (%s)"
+msgstr "Перемещение мыши в нужном положении (%s) со скоростью (%s)"
 
 msgid "Left Stick X-Axis, Joystick 0 X-Axis"
 msgstr "Левый стик по оси X, джойстик 0 по оси X"
@@ -294,7 +300,7 @@ msgid "Unknown Joypad Axis"
 msgstr "Неизвестная ось джойстика"
 
 msgid "Joypad Motion on Axis %d (%s) with Value %.2f"
-msgstr "Движение джойстика по оси %d (%s) со значением %.2f"
+msgstr "Перемещение джойстика по оси %d (%s) со значением %.2f"
 
 msgid "Bottom Action, Sony Cross, Xbox A, Nintendo B"
 msgstr "Нижнее действие, Sony Cross, Xbox A, Nintendo B"
@@ -315,7 +321,7 @@ msgid "Guide, Sony PS, Xbox Home"
 msgstr "Руководство, Sony PS, Xbox Home"
 
 msgid "Start, Xbox Menu, Nintendo +"
-msgstr "Start, Xbox Menu, Nintendo +"
+msgstr "Старт, Xbox Меню, Nintendo+"
 
 msgid "Left Stick, Sony L3, Xbox L/LS"
 msgstr "Левый стик, Sony L3, Xbox L/LS"
@@ -342,7 +348,7 @@ msgid "D-pad Right"
 msgstr "D-pad Вправо"
 
 msgid "Xbox Share, PS5 Microphone, Nintendo Capture"
-msgstr "Xbox Share, PS5 Microphone, Nintendo Capture"
+msgstr "Xbox Share, PS5 Микрофон, Nintendo Capture"
 
 msgid "Xbox Paddle 1"
 msgstr "Xbox Крестовина 1"
@@ -385,7 +391,7 @@ msgid "Magnify Gesture at (%s) with factor %s"
 msgstr "Жест увеличения в (%s) с коэффициентом %s"
 
 msgid "Pan Gesture at (%s) with delta (%s)"
-msgstr "Жест панорамирования на (%s) с дельтой (%s)"
+msgstr "Жест панорамирования по направлению (%s) с дельтой (%s)"
 
 msgid "MIDI Input on Channel=%s Message=%s"
 msgstr "MIDI Вход на канале=%s Сообщение=%s"
@@ -736,6 +742,9 @@ msgstr "Вставить ключи анимации"
 
 msgid "Animation Delete Keys"
 msgstr "Удалить ключи анимации"
+
+msgid "Animation Bezier Curve Change Call"
+msgstr "Вызов изменения кривой Безье анимации"
 
 msgid "Focus"
 msgstr "Фокус"
@@ -2182,7 +2191,7 @@ msgid "Gold Members"
 msgstr "Участники золотого уровня"
 
 msgid "Donors"
-msgstr "Доноры"
+msgstr "Cпонсоры"
 
 msgid "License"
 msgstr "Лицензия"
@@ -3952,6 +3961,24 @@ msgid ""
 msgstr ""
 "Невозможно записать в файл «%s»; файл используется, заблокирован или "
 "отсутствуют разрешения."
+
+msgid "Preparing scenes for reload"
+msgstr "Подготовка сцен к перезагрузке"
+
+msgid "Analyzing scene %s"
+msgstr "Анализ сцены %s"
+
+msgid "Preparation done."
+msgstr "Подготовка завершена."
+
+msgid "Scenes reloading"
+msgstr "Перезагрузка сцен"
+
+msgid "Reloading..."
+msgstr "Перезагрузка..."
+
+msgid "Reloading done."
+msgstr "Перезагрузка завершена."
 
 msgid ""
 "Changing the renderer requires restarting the editor.\n"
@@ -6783,9 +6810,9 @@ msgid ""
 "LMB: Move Point\n"
 "RMB: Erase Point"
 msgstr ""
-"Редактирование точек.\n"
+"Редактировать точки.\n"
 "ЛКМ: переместить точку.\n"
-"ПКМ: стереть точку."
+"ПКМ: удалить точку."
 
 msgid "Erase points."
 msgstr "Удалить точки."
@@ -9898,14 +9925,14 @@ msgstr "Удалить выходной элемент управления из
 msgid "Remove In-Control from Curve"
 msgstr "Удалить входной элемент управления из кривой"
 
-msgid "Split Curve"
-msgstr "Разделить кривую"
-
 msgid "Move Point in Curve"
 msgstr "Переместить точку в кривой"
 
 msgid "Add Point to Curve"
 msgstr "Добавить точку к кривой"
+
+msgid "Split Curve"
+msgstr "Разделить кривую"
 
 msgid "Move In-Control in Curve"
 msgstr "Переместить входной элемент управления в кривой"
@@ -12094,7 +12121,7 @@ msgid "Physics"
 msgstr "Физика"
 
 msgid "Physics Layer %d"
-msgstr "Слой физики %"
+msgstr "Физический слой %d"
 
 msgid "No physics layers"
 msgstr "Нет слоёв физики"
@@ -14028,7 +14055,7 @@ msgstr ""
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -14038,7 +14065,7 @@ msgid ""
 "Warning: You won't be able to open the project with previous versions of the "
 "engine anymore."
 msgstr ""
-"В файле конфигурации («project.tekisasu») выбранного проекта «%s» не указана "
+"В файле конфигурации («project.godot») выбранного проекта «%s» не указана "
 "поддерживаемая версия Godot.\n"
 "\n"
 "Путь к проекту: %s\n"
@@ -14056,7 +14083,7 @@ msgid ""
 "Project path: %s\n"
 "\n"
 "You have three options:\n"
-"- Convert only the configuration file (\"project.tekisasu\"). Use this to open "
+"- Convert only the configuration file (\"project.godot\"). Use this to open "
 "the project without attempting to convert its scenes, resources and scripts.\n"
 "- Convert the entire project including its scenes, resources and scripts "
 "(recommended if you are upgrading).\n"
@@ -14071,7 +14098,7 @@ msgstr ""
 "Путь к проекту: %s\n"
 "\n"
 "У вас есть три варианта:\n"
-"- Конвертировать только файл конфигурации («project.tekisasu»). Выберите этот "
+"- Конвертировать только файл конфигурации («project.godot»). Выберите этот "
 "вариант, чтобы открыть проект, не конвертируя его сцены, ресурсы и скрипты.\n"
 "- Конвертировать весь проект, включая его сцены, ресурсы и скрипты "
 "(рекомендуется, если вы обновляетесь).\n"
@@ -14080,8 +14107,8 @@ msgstr ""
 "Предупреждение: если выбрать опцию конвертирования, будет утрачена "
 "возможность открыть проект с помощью предыдущих версий движка."
 
-msgid "Convert project.tekisasu Only"
-msgstr "Конвертировать только project.tekisasu"
+msgid "Convert project.godot Only"
+msgstr "Конвертировать только project.godot"
 
 msgid ""
 "The selected project \"%s\" was generated by an older engine version, and "
@@ -14104,8 +14131,8 @@ msgstr ""
 "Предупреждение: будет утрачена возможность открыть проект с помощью "
 "предыдущих версий движка."
 
-msgid "Convert project.tekisasu"
-msgstr "Конвертировать project.tekisasu"
+msgid "Convert project.godot"
+msgstr "Конвертировать project.godot"
 
 msgid ""
 "Can't open project \"%s\" at the following path:\n"
@@ -14349,15 +14376,15 @@ msgid "Invalid \".zip\" project file; it is not in ZIP format."
 msgstr "Недействительный «ZIP»-файл проекта; он не в формате ZIP."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
-msgstr "Недействительный ZIP-файл проекта; он не содержит файл «project.tekisasu»."
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+msgstr "Недействительный ZIP-файл проекта; он не содержит файл «project.godot»."
 
 msgid "Valid project found at path."
 msgstr "По указанному пути обнаружен корректный проект."
 
 msgid ""
-"Please choose a \"project.tekisasu\", a directory with one, or a \".zip\" file."
-msgstr "Выберите файл «project.tekisasu», каталог с ним или файл «.zip»."
+"Please choose a \"project.godot\", a directory with one, or a \".zip\" file."
+msgstr "Выберите файл «project.godot», каталог с ним или файл «.zip»."
 
 msgid "The path specified is invalid."
 msgstr "Указан некорректный путь."
@@ -14467,8 +14494,8 @@ msgstr ""
 msgid "Couldn't create project directory, check permissions."
 msgstr "Не удалось создать каталог проекта, проверьте права."
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "Не удалось создать project.tekisasu в папке проекта."
+msgid "Couldn't create project.godot in project path."
+msgstr "Не удалось создать project.godot в папке проекта."
 
 msgid "Couldn't create icon.svg in project path."
 msgstr "Не удалось создать icon.svg в папке проекта."
@@ -14535,6 +14562,9 @@ msgstr "Временная метка последнего изменения"
 msgid "Missing Project"
 msgstr "Отсутствующий проект"
 
+msgid "Missing Date"
+msgstr "Отсутствующие данные"
+
 msgid "Restart Now"
 msgstr "Перезапустить сейчас"
 
@@ -14590,8 +14620,8 @@ msgstr "Переименовать действие ввода"
 msgid "Update Input Action Order"
 msgstr "Обновить порядок действий ввода"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "Настройки проекта (project.tekisasu)"
+msgid "Project Settings (project.godot)"
+msgstr "Настройки проекта (project.godot)"
 
 msgid "Advanced Settings"
 msgstr "Расширенные настройки"
@@ -15045,6 +15075,9 @@ msgstr "Удалить узлы"
 
 msgid "Change type of node(s)"
 msgstr "Изменить тип узлов"
+
+msgid "Reparent to New Node"
+msgstr "Изменить родительский узел на новый"
 
 msgid "This operation requires a single selected node."
 msgstr "Для этой операции требуется один выбранный узел."
@@ -15813,6 +15846,9 @@ msgstr "Построение сетки в структуре ускорения
 
 msgid "Optimizing acceleration structure"
 msgstr "Оптимизация структуры ускорения"
+
+msgid "Denoising %d%%"
+msgstr "Устранение шума %d%%"
 
 msgid "Begin Bake"
 msgstr "Начать запекание"
@@ -17504,6 +17540,18 @@ msgstr ""
 "установите её."
 
 msgid ""
+"The TileMap node is deprecated as it is superseded by the use of multiple "
+"TileMapLayer nodes.\n"
+"To convert a TileMap to a set of TileMapLayer nodes, open the TileMap bottom "
+"panel with this node selected, click the toolbox icon in the top-right corner "
+"and choose \"Extract TileMap layers as individual TileMapLayer nodes\"."
+msgstr ""
+"Узел TileMap устарел и заменён использованием нескольких узлов TileMapLayer.\n"
+"Чтобы преобразовать TileMap в несколько TileMapLayer, откройте нижнюю панель "
+"TileMap, выбрав этот узел, щёлкните значок инструментов в правом верхнем углу "
+"и выберите «Извлечь слои как отдельные узлы TileMapLayer»."
+
+msgid ""
 "A Y-sorted layer has the same Z-index value as a not Y-sorted layer.\n"
 "This may lead to unwanted behaviors, as a layer that is not Y-sorted will be "
 "Y-sorted as a whole with tiles from Y-sorted layers."
@@ -17948,12 +17996,10 @@ msgstr ""
 "Свойство «Удалённый путь» должно указывать на действительный узел Node3D или "
 "на действительный производный от Node3D узел."
 
-msgid ""
-"Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D or "
-"set a path to an external skeleton."
+msgid "Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D."
 msgstr ""
 "Узел Skeleton3D не задан! SkeletonModifier3D должен быть дочерним элементом "
-"Skeleton3D, либо следует указать путь к внешнему скелету."
+"Skeleton3D."
 
 msgid "This body will be ignored until you set a mesh."
 msgstr "Это тело будет игнорироваться, пока вы не установите сетку."

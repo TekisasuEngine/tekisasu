@@ -696,11 +696,9 @@ RID RenderingDevice::texture_create(const TextureFormat &p_format, const Texture
 
 	if (format.texture_type == TEXTURE_TYPE_1D_ARRAY || format.texture_type == TEXTURE_TYPE_2D_ARRAY || format.texture_type == TEXTURE_TYPE_CUBE_ARRAY || format.texture_type == TEXTURE_TYPE_CUBE) {
 		ERR_FAIL_COND_V_MSG(format.array_layers < 1, RID(),
-				"Number of layers must be equal or greater than 1 for arrays and cubemaps.");
+				"Amount of layers must be equal or greater than 1 for arrays and cubemaps.");
 		ERR_FAIL_COND_V_MSG((format.texture_type == TEXTURE_TYPE_CUBE_ARRAY || format.texture_type == TEXTURE_TYPE_CUBE) && (format.array_layers % 6) != 0, RID(),
 				"Cubemap and cubemap array textures must provide a layer number that is multiple of 6");
-		ERR_FAIL_COND_V_MSG(format.array_layers > driver->limit_get(LIMIT_MAX_TEXTURE_ARRAY_LAYERS), RID(),
-				"Number of layers exceeds device maximum.");
 	} else {
 		format.array_layers = 1;
 	}
@@ -711,28 +709,6 @@ RID RenderingDevice::texture_create(const TextureFormat &p_format, const Texture
 
 	format.height = format.texture_type != TEXTURE_TYPE_1D && format.texture_type != TEXTURE_TYPE_1D_ARRAY ? format.height : 1;
 	format.depth = format.texture_type == TEXTURE_TYPE_3D ? format.depth : 1;
-
-	uint64_t size_max = 0;
-	switch (format.texture_type) {
-		case TEXTURE_TYPE_1D:
-		case TEXTURE_TYPE_1D_ARRAY:
-			size_max = driver->limit_get(LIMIT_MAX_TEXTURE_SIZE_1D);
-			break;
-		case TEXTURE_TYPE_2D:
-		case TEXTURE_TYPE_2D_ARRAY:
-			size_max = driver->limit_get(LIMIT_MAX_TEXTURE_SIZE_2D);
-			break;
-		case TEXTURE_TYPE_CUBE:
-		case TEXTURE_TYPE_CUBE_ARRAY:
-			size_max = driver->limit_get(LIMIT_MAX_TEXTURE_SIZE_CUBE);
-			break;
-		case TEXTURE_TYPE_3D:
-			size_max = driver->limit_get(LIMIT_MAX_TEXTURE_SIZE_3D);
-			break;
-		case TEXTURE_TYPE_MAX:
-			break;
-	}
-	ERR_FAIL_COND_V_MSG(format.width > size_max || format.height > size_max || format.depth > size_max, RID(), "Texture dimensions exceed device maximum.");
 
 	uint32_t required_mipmaps = get_image_required_mipmaps(format.width, format.height, format.depth);
 
@@ -1651,8 +1627,8 @@ Vector<uint8_t> RenderingDevice::texture_get_data(RID p_texture, uint32_t p_laye
 			copy_region.texture_region_size.z = d;
 			command_buffer_texture_copy_regions_vector.push_back(copy_region);
 
-			w = (w >> 1);
-			h = (h >> 1);
+			w = MAX(1u, w >> 1);
+			h = MAX(1u, h >> 1);
 			d = MAX(1u, d >> 1);
 		}
 
@@ -5092,13 +5068,19 @@ void RenderingDevice::swap_buffers() {
 
 void RenderingDevice::submit() {
 	_THREAD_SAFE_METHOD_
+	ERR_FAIL_COND_MSG(is_main_instance, "Only local devices can submit and sync.");
+	ERR_FAIL_COND_MSG(local_device_processing, "device already submitted, call sync to wait until done.");
 	_end_frame();
 	_execute_frame(false);
+	local_device_processing = true;
 }
 
 void RenderingDevice::sync() {
 	_THREAD_SAFE_METHOD_
+	ERR_FAIL_COND_MSG(is_main_instance, "Only local devices can submit and sync.");
+	ERR_FAIL_COND_MSG(!local_device_processing, "sync can only be called after a submit");
 	_begin_frame();
+	local_device_processing = false;
 }
 
 void RenderingDevice::_free_pending_resources(int p_frame) {
@@ -5350,7 +5332,7 @@ Error RenderingDevice::initialize(RenderingContextDriver *p_context, DisplayServ
 	Error err;
 
 	RenderingContextDriver::SurfaceID main_surface = 0;
-	const bool main_instance = (singleton == this) && (p_main_window != DisplayServer::INVALID_WINDOW_ID);
+	is_main_instance = (singleton == this) && (p_main_window != DisplayServer::INVALID_WINDOW_ID);
 	if (p_main_window != DisplayServer::INVALID_WINDOW_ID) {
 		// Retrieve the surface from the main window if it was specified.
 		main_surface = p_context->surface_get_from_window(p_main_window);
@@ -5398,7 +5380,7 @@ Error RenderingDevice::initialize(RenderingContextDriver *p_context, DisplayServ
 	err = driver->initialize(device_index, frame_count);
 	ERR_FAIL_COND_V_MSG(err != OK, FAILED, "Failed to initialize driver for device.");
 
-	if (main_instance) {
+	if (is_main_instance) {
 		// Only the singleton instance with a display should print this information.
 		String rendering_method;
 		if (OS::get_singleton()->get_current_rendering_method() == "mobile") {
@@ -5526,7 +5508,7 @@ Error RenderingDevice::initialize(RenderingContextDriver *p_context, DisplayServ
 	compute_list = nullptr;
 
 	bool project_pipeline_cache_enable = GLOBAL_GET("rendering/rendering_device/pipeline_cache/enable");
-	if (main_instance && project_pipeline_cache_enable) {
+	if (is_main_instance && project_pipeline_cache_enable) {
 		// Only the instance that is not a local device and is also the singleton is allowed to manage a pipeline cache.
 		pipeline_cache_file_path = vformat("user://vulkan/pipelines.%s.%s",
 				OS::get_singleton()->get_current_rendering_method(),

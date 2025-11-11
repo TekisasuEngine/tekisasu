@@ -72,13 +72,13 @@ SkinReference::~SkinReference() {
 ///////////////////////////////////////
 
 bool Skeleton3D::_set(const StringName &p_path, const Variant &p_value) {
-	String path = p_path;
-
 #ifndef DISABLE_DEPRECATED
-	if (path.begins_with("animate_physical_bones")) {
+	if (p_path == SNAME("animate_physical_bones")) {
 		set_animate_physical_bones(p_value);
+		return true;
 	}
 #endif
+	String path = p_path;
 
 	if (!path.begins_with("bones/")) {
 		return false;
@@ -142,13 +142,13 @@ bool Skeleton3D::_set(const StringName &p_path, const Variant &p_value) {
 }
 
 bool Skeleton3D::_get(const StringName &p_path, Variant &r_ret) const {
-	String path = p_path;
-
 #ifndef DISABLE_DEPRECATED
-	if (path.begins_with("animate_physical_bones")) {
+	if (p_path == SNAME("animate_physical_bones")) {
 		r_ret = get_animate_physical_bones();
+		return true;
 	}
 #endif
+	String path = p_path;
 
 	if (!path.begins_with("bones/")) {
 		return false;

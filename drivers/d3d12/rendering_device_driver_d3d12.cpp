@@ -1418,7 +1418,14 @@ RDD::TextureID RenderingDeviceDriverD3D12::texture_create(const TextureFormat &p
 	}
 	tex_info->states_ptr = &tex_info->owner_info.states;
 	tex_info->format = p_format.format;
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#endif
 	tex_info->desc = *(CD3DX12_RESOURCE_DESC *)&resource_desc;
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 	tex_info->base_layer = 0;
 	tex_info->layers = resource_desc.ArraySize();
 	tex_info->base_mip = 0;
@@ -2146,43 +2153,44 @@ void RenderingDeviceDriverD3D12::command_pipeline_barrier(CommandBufferID p_cmd_
 	for (uint32_t i = 0; i < p_texture_barriers.size(); i++) {
 		const TextureBarrier &texture_barrier_rd = p_texture_barriers[i];
 		const TextureInfo *texture_info = (const TextureInfo *)(texture_barrier_rd.texture.id);
+		if (texture_info->main_texture) {
+			texture_info = texture_info->main_texture;
+		}
 		_rd_stages_and_access_to_d3d12(p_src_stages, texture_barrier_rd.prev_layout, texture_barrier_rd.src_access, texture_barrier_d3d12.SyncBefore, texture_barrier_d3d12.AccessBefore);
 		_rd_stages_and_access_to_d3d12(p_dst_stages, texture_barrier_rd.next_layout, texture_barrier_rd.dst_access, texture_barrier_d3d12.SyncAfter, texture_barrier_d3d12.AccessAfter);
 		texture_barrier_d3d12.LayoutBefore = _rd_texture_layout_to_d3d12_barrier_layout(texture_barrier_rd.prev_layout);
 		texture_barrier_d3d12.LayoutAfter = _rd_texture_layout_to_d3d12_barrier_layout(texture_barrier_rd.next_layout);
 		texture_barrier_d3d12.pResource = texture_info->resource;
-		texture_barrier_d3d12.Subresources.IndexOrFirstMipLevel = texture_barrier_rd.subresources.base_mipmap;
-		texture_barrier_d3d12.Subresources.NumMipLevels = texture_barrier_rd.subresources.mipmap_count;
-		texture_barrier_d3d12.Subresources.FirstArraySlice = texture_barrier_rd.subresources.base_layer;
-		texture_barrier_d3d12.Subresources.NumArraySlices = texture_barrier_rd.subresources.layer_count;
-		texture_barrier_d3d12.Subresources.FirstPlane = _compute_plane_slice(texture_info->format, texture_barrier_rd.subresources.aspect);
-		texture_barrier_d3d12.Subresources.NumPlanes = format_get_plane_count(texture_info->format);
+		if (texture_barrier_rd.subresources.mipmap_count == texture_info->mipmaps && texture_barrier_rd.subresources.layer_count == texture_info->layers) {
+			// So, all resources. Then, let's be explicit about it so D3D12 doesn't think
+			// we are dealing with a subset of subresources.
+			texture_barrier_d3d12.Subresources.IndexOrFirstMipLevel = 0xffffffff;
+			texture_barrier_d3d12.Subresources.NumMipLevels = 0;
+			// Because NumMipLevels == 0, all the other fields are ignored by D3D12.
+		} else {
+			texture_barrier_d3d12.Subresources.IndexOrFirstMipLevel = texture_barrier_rd.subresources.base_mipmap;
+			texture_barrier_d3d12.Subresources.NumMipLevels = texture_barrier_rd.subresources.mipmap_count;
+			texture_barrier_d3d12.Subresources.FirstArraySlice = texture_barrier_rd.subresources.base_layer;
+			texture_barrier_d3d12.Subresources.NumArraySlices = texture_barrier_rd.subresources.layer_count;
+			texture_barrier_d3d12.Subresources.FirstPlane = _compute_plane_slice(texture_info->format, texture_barrier_rd.subresources.aspect);
+			texture_barrier_d3d12.Subresources.NumPlanes = format_get_plane_count(texture_info->format);
+		}
 		texture_barrier_d3d12.Flags = (texture_barrier_rd.prev_layout == RDD::TEXTURE_LAYOUT_UNDEFINED) ? D3D12_TEXTURE_BARRIER_FLAG_DISCARD : D3D12_TEXTURE_BARRIER_FLAG_NONE;
 		texture_barriers.push_back(texture_barrier_d3d12);
 	}
 
 	// Define the barrier groups and execute.
 	D3D12_BARRIER_GROUP barrier_groups[3] = {};
-	uint32_t barrier_groups_count = 0;
-	if (!global_barriers.is_empty()) {
-		D3D12_BARRIER_GROUP &barrier_group = barrier_groups[barrier_groups_count++];
-		barrier_group.Type = D3D12_BARRIER_TYPE_GLOBAL;
-		barrier_group.NumBarriers = global_barriers.size();
-		barrier_group.pGlobalBarriers = global_barriers.ptr();
-	}
-	if (!buffer_barriers.is_empty()) {
-		D3D12_BARRIER_GROUP &barrier_group = barrier_groups[barrier_groups_count++];
-		barrier_group.Type = D3D12_BARRIER_TYPE_BUFFER;
-		barrier_group.NumBarriers = buffer_barriers.size();
-		barrier_group.pBufferBarriers = buffer_barriers.ptr();
-	}
-	if (!texture_barriers.is_empty()) {
-		D3D12_BARRIER_GROUP &barrier_group = barrier_groups[barrier_groups_count++];
-		barrier_group.Type = D3D12_BARRIER_TYPE_TEXTURE;
-		barrier_group.NumBarriers = texture_barriers.size();
-		barrier_group.pTextureBarriers = texture_barriers.ptr();
-	}
-	cmd_list_7->Barrier(barrier_groups_count, barrier_groups);
+	barrier_groups[0].Type = D3D12_BARRIER_TYPE_GLOBAL;
+	barrier_groups[1].Type = D3D12_BARRIER_TYPE_BUFFER;
+	barrier_groups[2].Type = D3D12_BARRIER_TYPE_TEXTURE;
+	barrier_groups[0].NumBarriers = global_barriers.size();
+	barrier_groups[1].NumBarriers = buffer_barriers.size();
+	barrier_groups[2].NumBarriers = texture_barriers.size();
+	barrier_groups[0].pGlobalBarriers = global_barriers.ptr();
+	barrier_groups[1].pBufferBarriers = buffer_barriers.ptr();
+	barrier_groups[2].pTextureBarriers = texture_barriers.ptr();
+	cmd_list_7->Barrier(ARRAY_SIZE(barrier_groups), barrier_groups);
 }
 
 /****************/
@@ -2333,18 +2341,6 @@ RDD::CommandPoolID RenderingDeviceDriverD3D12::command_pool_create(CommandQueueF
 
 void RenderingDeviceDriverD3D12::command_pool_free(CommandPoolID p_cmd_pool) {
 	CommandPoolInfo *command_pool = (CommandPoolInfo *)(p_cmd_pool.id);
-	// Destroy all command buffers associated with this command pool, mirroring Vulkan's behavior.
-	SelfList<CommandBufferInfo> *cmd_buf_elem = command_pool->command_buffers.first();
-	while (cmd_buf_elem != nullptr) {
-		CommandBufferInfo *cmd_buf_info = cmd_buf_elem->self();
-		cmd_buf_elem = cmd_buf_elem->next();
-
-		cmd_buf_info->cmd_list.Reset();
-		cmd_buf_info->cmd_allocator.Reset();
-
-		VersatileResource::free(resources_allocator, cmd_buf_info);
-	}
-
 	memdelete(command_pool);
 }
 
@@ -2353,7 +2349,7 @@ void RenderingDeviceDriverD3D12::command_pool_free(CommandPoolID p_cmd_pool) {
 RDD::CommandBufferID RenderingDeviceDriverD3D12::command_buffer_create(CommandPoolID p_cmd_pool) {
 	DEV_ASSERT(p_cmd_pool);
 
-	CommandPoolInfo *command_pool = (CommandPoolInfo *)(p_cmd_pool.id);
+	const CommandPoolInfo *command_pool = (CommandPoolInfo *)(p_cmd_pool.id);
 	D3D12_COMMAND_LIST_TYPE list_type;
 	if (command_pool->buffer_type == COMMAND_BUFFER_TYPE_SECONDARY) {
 		list_type = D3D12_COMMAND_LIST_TYPE_BUNDLE;
@@ -2388,9 +2384,6 @@ RDD::CommandBufferID RenderingDeviceDriverD3D12::command_buffer_create(CommandPo
 	CommandBufferInfo *cmd_buf_info = VersatileResource::allocate<CommandBufferInfo>(resources_allocator);
 	cmd_buf_info->cmd_allocator = cmd_allocator;
 	cmd_buf_info->cmd_list = cmd_list;
-
-	// Add this command buffer to the command pool's list of command buffers.
-	command_pool->command_buffers.add(&cmd_buf_info->command_buffer_info_elem);
 
 	return CommandBufferID(cmd_buf_info);
 }
@@ -6638,8 +6631,6 @@ static Error create_command_signature(ID3D12Device *device, D3D12_INDIRECT_ARGUM
 
 Error RenderingDeviceDriverD3D12::_initialize_frames(uint32_t p_frame_count) {
 	Error err;
-	D3D12MA::ALLOCATION_DESC allocation_desc = {};
-	allocation_desc.HeapType = D3D12_HEAP_TYPE_DEFAULT;
 
 	//CD3DX12_RESOURCE_DESC resource_desc = CD3DX12_RESOURCE_DESC::Buffer(D3D12_CONSTANT_BUFFER_DATA_PLACEMENT_ALIGNMENT);
 	uint32_t resource_descriptors_per_frame = GLOBAL_GET("rendering/rendering_device/d3d12/max_resource_descriptors_per_frame");

@@ -36,7 +36,7 @@
 
 #include "../gdscript_parser.h"
 #include "gdscript_extend_parser.h"
-#include "godot_lsp.h"
+#include "tekisasu_lsp.h"
 
 #include "core/variant/variant.h"
 #include "editor/editor_file_system.h"

@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  tekisasu_application_delegate.h                                          */
+/*  tekisasu_application_delegate.h                                       */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */

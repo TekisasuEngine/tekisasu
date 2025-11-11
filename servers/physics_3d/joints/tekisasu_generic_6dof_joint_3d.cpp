@@ -32,7 +32,7 @@
 /**************************************************************************/
 
 /*
-Adapted to Tekisasu Engine from the Bullet library, via upstream Godot.
+Adapted to Godot from the Bullet library.
 */
 
 /*

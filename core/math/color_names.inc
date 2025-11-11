@@ -40,7 +40,7 @@ struct NamedColor {
 };
 
 // NOTE: This data is duplicated in the file:
-// modules/mono/glue/GodotSharp/GodotSharp/Core/Colors.cs
+// modules/mono/glue/TekisasuSharp/TekisasuSharp/Core/Colors.cs
 
 static NamedColor named_colors[] = {
 	{ "ALICE_BLUE", Color::hex(0xF0F8FFFF) },

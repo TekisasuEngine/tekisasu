@@ -25,9 +25,6 @@
 
 #ifdef THORVG_THREAD_SUPPORT
 
-// Tekisasu - disable for Visual Studio 2022 17.12.0+
-// #define _DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR
-
 #include <mutex>
 #include "tvgTaskScheduler.h"
 

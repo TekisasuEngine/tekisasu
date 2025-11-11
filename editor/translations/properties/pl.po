@@ -24,7 +24,7 @@
 # Sebastian Pasich <sebastian.pasich@gmail.com>, 2017, 2019, 2020, 2022, 2023.
 # siatek papieros <sbigneu@gmail.com>, 2016.
 # Zatherz <zatherz@linux.pl>, 2017, 2020, 2021.
-# Tomek <kobewi4e@gmail.com>, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Tomek <kobewi4e@gmail.com>, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Wojcieh Er Zet <wojcieh.rzepecki@gmail.com>, 2018.
 # Dariusz Siek <dariuszynski@gmail.com>, 2018, 2019, 2020, 2021.
 # Szymon Nowakowski <smnbdg13@gmail.com>, 2019.
@@ -90,13 +90,18 @@
 # Krzysztof Chorzempa <krzys.chorzempa@gmail.com>, 2024.
 # Krzysztof Chorzempa <kasztan2@users.noreply.github.com>, 2024.
 # gre-gorn <gre-gorn@users.noreply.hosted.weblate.org>, 2024.
+# Kuba <wiechciu@gmail.com>, 2024.
+# OskarO 140 <oskarek.o140@gmail.com>, 2024.
+# User <user938193@gmail.com>, 2024.
+# Piotr Wieczorek <wieczorek.piotr.praga@protonmail.com>, 2024.
+# Cyprian Klimaszewski <cyprian.klimaszewski@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine properties\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-06-29 15:09+0000\n"
-"Last-Translator: gre-gorn <gre-gorn@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-01-16 14:00+0000\n"
+"Last-Translator: Tomek <kobewi4e@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/godot-engine/godot-"
 "properties/pl/>\n"
 "Language: pl\n"
@@ -105,7 +110,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Application"
 msgstr "Aplikacja"
@@ -245,6 +250,9 @@ msgstr "Domyślny układ magistrali"
 msgid "General"
 msgstr "Ogólne"
 
+msgid "Default Playback Type"
+msgstr "Domyślny typ odtwarzania"
+
 msgid "Text to Speech"
 msgstr "Tekst na mowę"
 
@@ -262,15 +270,6 @@ msgstr "Kategoria sesji"
 
 msgid "Mix With Others"
 msgstr "Mieszaj z Innymi"
-
-msgid "Editor"
-msgstr "Edytor"
-
-msgid "Script"
-msgstr "Skrypt"
-
-msgid "Search in File Extensions"
-msgstr "Rozszerzenia szukania w plikach"
 
 msgid "Subwindows"
 msgstr "Okna podrzędne"
@@ -313,6 +312,9 @@ msgstr "Profiler"
 
 msgid "Max Functions"
 msgstr "Maksymalna liczba funkcji"
+
+msgid "Max Timestamp Query Elements"
+msgstr "Maks. znaczniki zapytania czasu"
 
 msgid "Compression"
 msgstr "Kompresja"
@@ -920,6 +922,9 @@ msgstr "Przełącz tryb"
 msgid "Interface"
 msgstr "Interfejs"
 
+msgid "Editor"
+msgstr "Edytor"
+
 msgid "Editor Language"
 msgstr "Język edytora"
 
@@ -1020,7 +1025,7 @@ msgid "Show Internal Errors in Toast Notifications"
 msgstr "Pokaż błędy wewnętrzne w powiadomieniach Toast"
 
 msgid "Show Update Spinner"
-msgstr "Pokaż suwak aktualizacji"
+msgstr "Pokaż wiatraczek aktualizacji"
 
 msgid "Low Processor Mode Sleep (µsec)"
 msgstr "Uśpienie trybu niskiego użycia procesora (µsec)"
@@ -1392,6 +1397,15 @@ msgstr "Pozostań w edytorze skryptów przy zaznaczonym elemencie"
 msgid "Open Script When Connecting Signal to Existing Method"
 msgstr "Otwórz skrypt przy łączeniu sygnału do istniejącej metody"
 
+msgid "Use Default Word Separators"
+msgstr "Użyj domyślnych separatorów słów"
+
+msgid "Use Custom Word Separators"
+msgstr "Użyj niestandardowych separatorów słów"
+
+msgid "Custom Word Separators"
+msgstr "Niestandardowe separatory słów"
+
 msgid "Indent"
 msgstr "Wcięcie"
 
@@ -1408,7 +1422,7 @@ msgid "Trim Trailing Whitespace on Save"
 msgstr "Przytnij końcowe białe znaki przy zapisie"
 
 msgid "Trim Final Newlines on Save"
-msgstr "Przytnij końcowe białe znaki przy zapisie"
+msgstr "Przytnij ostatnie puste linie przy zapisie"
 
 msgid "Autosave Interval Secs"
 msgstr "czas autozapisu sek"
@@ -1486,7 +1500,7 @@ msgid "Editors"
 msgstr "Edytory"
 
 msgid "Grid Map"
-msgstr "Siatka"
+msgstr "Mapa siatek"
 
 msgid "Pick Distance"
 msgstr "Dystans łapania"
@@ -1692,6 +1706,9 @@ msgstr "Automatyczne opóźnienie wypalania"
 msgid "Autorename Animation Tracks"
 msgstr "Automatycznie przemianuj ścieżki animacji"
 
+msgid "Confirm Insert Track"
+msgstr "Potwierdź wstawienie ścieżki"
+
 msgid "Default Create Bezier Tracks"
 msgstr "Twórz domyślnie ścieżki Beziera"
 
@@ -1820,6 +1837,9 @@ msgstr "Wejście"
 
 msgid "Buffering"
 msgstr "Buforowanie"
+
+msgid "Agile Event Flushing"
+msgstr "Zwinne spłukiwanie zdarzeń"
 
 msgid "Project Manager"
 msgstr "Menedżer projektów"
@@ -2397,6 +2417,9 @@ msgstr "Rozmiar MSDF"
 msgid "Allow System Fallback"
 msgstr "Pozwalaj na systemową rezerwę"
 
+msgid "Force Autohinter"
+msgstr "Wymuś Autohinter"
+
 msgid "Hinting"
 msgstr "Podpowiedź"
 
@@ -2418,6 +2441,9 @@ msgstr "Wsparcie skryptów"
 msgid "OpenType Features"
 msgstr "Funkcje OpenType"
 
+msgid "Fallbacks"
+msgstr "Błędy"
+
 msgid "Compress"
 msgstr "Skompresuj"
 
@@ -2430,8 +2456,14 @@ msgstr "Rozmiar konturu"
 msgid "Variation"
 msgstr "Odmiana"
 
+msgid "OpenType"
+msgstr "OpenType"
+
 msgid "Embolden"
 msgstr "Pogrub"
+
+msgid "Face Index"
+msgstr "Indeks ściany"
 
 msgid "Transform"
 msgstr "Przekształcanie"
@@ -2475,6 +2507,9 @@ msgstr "Stratna jakość"
 msgid "HDR Compression"
 msgstr "Kompresja HDR"
 
+msgid "Channel Pack"
+msgstr "Pakiet kanałów"
+
 msgid "Mipmaps"
 msgstr "Mipmapy"
 
@@ -2513,6 +2548,9 @@ msgstr "Odwróć Y mapy normalnych"
 
 msgid "HDR as sRGB"
 msgstr "HDR jako sRGB"
+
+msgid "HDR Clamp Exposure"
+msgstr "Ekspozycja zacisku HDR"
 
 msgid "Size Limit"
 msgstr "Limit rozmiaru"
@@ -2671,6 +2709,9 @@ msgstr "Rozmiar dysku nachylenia Ścieżki 3D"
 msgid "Path Tilt"
 msgstr "Odchył ścieżki"
 
+msgid "Open Dominant Script on Scene Change"
+msgstr "Otwórz główny skrypt przy zmianie sceny"
+
 msgid "External"
 msgstr "Zewnętrzne"
 
@@ -2704,6 +2745,9 @@ msgstr "Szkielet"
 msgid "Selected Bone"
 msgstr "Zaznaczona kość"
 
+msgid "Bone Axis Length"
+msgstr "Długość osi kości"
+
 msgid "Bone Shape"
 msgstr "Kształt kości"
 
@@ -2712,6 +2756,9 @@ msgstr "ID"
 
 msgid "Texture"
 msgstr "Tekstura"
+
+msgid "Margins"
+msgstr "Margines"
 
 msgid "Separation"
 msgstr "Odstęp"
@@ -2746,6 +2793,9 @@ msgstr "Ścieżka do prywatnego klucza SSH"
 msgid "Main Run Args"
 msgstr "Główne argumenty włączania"
 
+msgid "Script"
+msgstr "Skrypt"
+
 msgid "Templates Search Path"
 msgstr "Ścieżka szukania szablonów"
 
@@ -2767,14 +2817,29 @@ msgstr "Nazwa wtyczki"
 msgid "Autoload on Startup"
 msgstr "Automatyczne ładowanie podczas uruchamiania"
 
+msgid "Show Scene Tree Root Selection"
+msgstr "Pokazuj zaznaczenie korzenia sceny"
+
+msgid "Derive Script Globals by Name"
+msgstr "Zaciągaj zmienne globalne skryptu po nazwach"
+
 msgid "Ask Before Deleting Related Animation Tracks"
 msgstr "Zapytaj przed usunięciem powiązanych ścieżek animacji"
+
+msgid "Use Favorites Root Selection"
+msgstr "Użyj wybierania ulubionych korzeni sceny"
 
 msgid "Flush stdout on Print"
 msgstr "Wyczyść stdout podczas używania Print"
 
 msgid "Max Errors per Second"
 msgstr "Maksymalna liczba błędów na sekundę"
+
+msgid "File Logging"
+msgstr "Rejestrowanie plików"
+
+msgid "Enable File Logging"
+msgstr "Włącz rejestrowanie do pliku"
 
 msgid "Log Path"
 msgstr "Ścieżka logowania"
@@ -2788,20 +2853,38 @@ msgstr "Sterownik"
 msgid "GL Compatibility"
 msgstr "Kompatybilność GL"
 
+msgid "Nvidia Disable Threaded Optimization"
+msgstr "Wyłącz Optymalizację Wątkową Nvidia"
+
+msgid "Force Angle on Devices"
+msgstr "Wymuś kąt na urządzeniach"
+
 msgid "Renderer"
 msgstr "Renderer"
 
 msgid "Rendering Method"
 msgstr "Sposób renderowania"
 
+msgid "Include Text Server Data"
+msgstr "Dołącz dane serwera tekstów"
+
+msgid "DPI"
+msgstr "DPI"
+
 msgid "Allow hiDPI"
 msgstr "Zezwalaj na hiDPI"
+
+msgid "Per Pixel Transparency"
+msgstr "Przezroczystość na piksel"
 
 msgid "Allowed"
 msgstr "Zezwolono"
 
 msgid "Threads"
 msgstr "Wątki"
+
+msgid "Thread Model"
+msgstr "Model wątkowy"
 
 msgid "Handheld"
 msgstr "Konsola przenośna"
@@ -2812,17 +2895,29 @@ msgstr "Ustawienie"
 msgid "stdout"
 msgstr "stdout"
 
+msgid "Print FPS"
+msgstr "Wyświetl FPS"
+
 msgid "Print GPU Profile"
 msgstr "Wyświetl profil GPU"
 
 msgid "Verbose stdout"
 msgstr "Werbalne stdout"
 
+msgid "Frame Delay Msec"
+msgstr "Opóźnienie klatki w milisekundach"
+
 msgid "Low Processor Mode"
 msgstr "Tryb niskiego wykorzystania procesora"
 
+msgid "Allow High Refresh Rate"
+msgstr "Zezwól na wysoką częstotliwość odświeżania"
+
 msgid "Hide Home Indicator"
 msgstr "Ukryj wskaźnik powitalny"
+
+msgid "Hide Status Bar"
+msgstr "Schowaj pasek postępu"
 
 msgid "Suppress UI Gesture"
 msgstr "Ignoruj gesty UI"
@@ -2851,6 +2946,12 @@ msgstr "Ekran uruchamiania"
 msgid "BG Color"
 msgstr "Kolor tła"
 
+msgid "Pen Tablet"
+msgstr "Tablet graficzny"
+
+msgid "Environment"
+msgstr "Środowisko"
+
 msgid "Defaults"
 msgstr "Domyślne"
 
@@ -2860,8 +2961,17 @@ msgstr "Domyślny pusty kolor"
 msgid "Icon"
 msgstr "Ikona"
 
+msgid "Pointing"
+msgstr "Wskazywanie"
+
 msgid "Android"
 msgstr "Android"
+
+msgid "Text Driver"
+msgstr "Sterownik tekstów"
+
+msgid "Search in File Extensions"
+msgstr "Rozszerzenia szukania w plikach"
 
 msgid "Mouse Cursor"
 msgstr "Kursor myszy"
@@ -2899,6 +3009,9 @@ msgstr "Projekt"
 msgid "Assembly Name"
 msgstr "Nazwa zespołu"
 
+msgid "Solution Directory"
+msgstr "Katalog rozwiązania"
+
 msgid "Time"
 msgstr "Czas"
 
@@ -2922,6 +3035,9 @@ msgstr "Fizyka 2D"
 
 msgid "Active Objects"
 msgstr "Aktywne obiekty"
+
+msgid "Islands"
+msgstr "Wyspy"
 
 msgid "Physics 3D"
 msgstr "Fizyka 3D"
@@ -2968,6 +3084,12 @@ msgstr "Warstwa kolizji"
 msgid "Collision Mask"
 msgstr "Maska kolizji"
 
+msgid "Collision Priority"
+msgstr "Priorytet kolizji"
+
+msgid "Flip Faces"
+msgstr "Odbij ściany"
+
 msgid "Mesh"
 msgstr "Mesh"
 
@@ -3004,6 +3126,9 @@ msgstr "Głębia"
 msgid "Spin Degrees"
 msgstr "Stopnie obrotu"
 
+msgid "Spin Sides"
+msgstr "Obróć ściany"
+
 msgid "Path Node"
 msgstr "Ścieżka węzła"
 
@@ -3028,6 +3153,9 @@ msgstr "CSG"
 msgid "Importer"
 msgstr "Importer"
 
+msgid "Allow Geometry Helper Nodes"
+msgstr "Zezwól na węzły pomocnicze geometrii"
+
 msgid "FBX2glTF"
 msgstr "FBX2glTF"
 
@@ -3042,6 +3170,9 @@ msgstr "Lista uwag"
 
 msgid "Language Server"
 msgstr "Serwer języka"
+
+msgid "Use Thread"
+msgstr "Użyj wątku"
 
 msgid "Intensity"
 msgstr "Intensywność"
@@ -4272,6 +4403,9 @@ msgstr "Shadery"
 
 msgid "Shader Language"
 msgstr "Język shadera"
+
+msgid "Treat Warnings as Errors"
+msgstr "Traktuj ostrzeżenia jako błędy"
 
 msgid "Has Tracking Data"
 msgstr "Posiada dane śledzenia"

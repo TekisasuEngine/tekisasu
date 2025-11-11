@@ -541,7 +541,6 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_theme->set_color("forward_plus_color", EditorStringName(Editor), Color::hex(0x5d8c3fff));
 		p_theme->set_color("mobile_color", EditorStringName(Editor), Color::hex(0xa5557dff));
 		p_theme->set_color("gl_compatibility_color", EditorStringName(Editor), Color::hex(0x5586a4ff));
-		p_theme->set_color("overridden_color", EditorStringName(Editor), Color::hex(0xc92626ff));
 
 		if (p_config.dark_theme) {
 			p_theme->set_color("highend_color", EditorStringName(Editor), Color(1.0, 0.0, 0.0));
@@ -1790,7 +1789,11 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
-		p_theme->set_stylebox("PanelForeground", EditorStringName(EditorStyles), p_config.base_style);
+
+		// Tekisasu - new editor_panel_foreground stylebox.
+		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
+		editor_panel_foreground->set_corner_radius_all(0);
+		p_theme->set_stylebox("PanelForeground", EditorStringName(EditorStyles), editor_panel_foreground);
 
 		// Editor focus.
 		p_theme->set_stylebox("Focus", EditorStringName(EditorStyles), p_config.button_style_focus);
@@ -2694,7 +2697,6 @@ bool EditorThemeManager::is_generated_theme_outdated() {
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/font") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/main_font") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/code_font") ||
-				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/scrollbar_type") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("interface/editor/focus_border_type") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("editors/visual_editors") ||
 				EditorSettings::get_singleton()->check_changed_settings_in_group("text_editor/theme") ||

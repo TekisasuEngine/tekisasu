@@ -112,13 +112,17 @@
 # TrueJole <jole.koop@gmail.com>, 2024.
 # Dirk Graf <bb3234@web.de>, 2024.
 # tct123 <tct1234@protonmail.com>, 2024.
+# Michael S <michi.mega123@gmail.com>, 2024.
+# jl <jl-friesen@gmx.de>, 2024.
+# Leona 'leo' Gottfried <s6573328@stud.uni-frankfurt.de>, 2024.
+# Deleted User <noreply+102345@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Godot Engine editor interface\n"
 "Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-09 17:09+0000\n"
-"Last-Translator: tct123 <tct1234@protonmail.com>\n"
+"PO-Revision-Date: 2025-01-09 02:15+0000\n"
+"Last-Translator: Deleted User <noreply+102345@weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/godot-engine/godot/"
 "de/>\n"
 "Language: de\n"
@@ -126,7 +130,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "Main Thread"
 msgstr "Hauptthread"
@@ -135,7 +139,7 @@ msgid "Unset"
 msgstr "Nicht gesetzt"
 
 msgid "Physical"
-msgstr "Physisch"
+msgstr "physischPhysisch"
 
 msgid "Left Mouse Button"
 msgstr "Linke Maustaste"
@@ -652,6 +656,9 @@ msgstr "Animations-Keys einfügen"
 
 msgid "Animation Delete Keys"
 msgstr "Animations-Keys löschen"
+
+msgid "Animation Bezier Curve Change Call"
+msgstr "Animation Bézierkurve Aufruf ändern"
 
 msgid "Focus"
 msgstr "Fokus"
@@ -3911,6 +3918,24 @@ msgstr ""
 "In Datei ‚%s‘ kann nicht geschrieben werden. Die Datei wird bereits "
 "verwendet, sie ist gesperrt, oder es ist keine Schreibberechtigung vorhanden."
 
+msgid "Preparing scenes for reload"
+msgstr "Szenen zum Neuladen vorbereiten"
+
+msgid "Analyzing scene %s"
+msgstr "Szene %s wird analysiert"
+
+msgid "Preparation done."
+msgstr "Vorbereitung abgeschlossen."
+
+msgid "Scenes reloading"
+msgstr "Szenen neu laden"
+
+msgid "Reloading..."
+msgstr "Neuladen..."
+
+msgid "Reloading done."
+msgstr "Neuladen abgeschlossen."
+
 msgid ""
 "Changing the renderer requires restarting the editor.\n"
 "\n"
@@ -6608,13 +6633,13 @@ msgid "Property Name Style"
 msgstr "Eigenschaftennamensstil"
 
 msgid "Raw (e.g. \"%s\")"
-msgstr "Roh (z.B. „%s“)"
+msgstr "Roh (z. B. \"%s\")"
 
 msgid "Capitalized (e.g. \"%s\")"
-msgstr "Große Anfangsbuchstaben (z.B. „%s“)"
+msgstr "Groß geschrieben (z.B. \"%s\")"
 
 msgid "Localized (e.g. \"Z Index\")"
-msgstr "Lokalisiert (z.B. „Z-Index“)"
+msgstr "Lokalisiert (z. B. \"Z-Index\")"
 
 msgid "Localization not available for current language."
 msgstr "Keine Übersetzung für die aktuelle Sprache vorhanden."
@@ -8818,8 +8843,8 @@ msgid ""
 "Failed fitting a lightmap image into an atlas. This should never happen and "
 "should be reported."
 msgstr ""
-"Die Einpassung eines Lichtkartenbildes in einen Atlas ist fehlgeschlagen. "
-"Dies sollte nie passieren und gemeldet werden."
+"Die Anpassung eines Lichtkartenbildes in einen Atlas ist fehlgeschlagen. Dies "
+"sollte nie passieren und gemeldet werden."
 
 msgid "Bake Lightmaps"
 msgstr "Lightmaps backen"
@@ -9888,14 +9913,14 @@ msgstr "Ausgangsgriff von Kurve löschen"
 msgid "Remove In-Control from Curve"
 msgstr "Eingangsgriff von Kurve entfernen"
 
-msgid "Split Curve"
-msgstr "Kurve Teilen"
-
 msgid "Move Point in Curve"
 msgstr "Punkt auf Kurve verschieben"
 
 msgid "Add Point to Curve"
 msgstr "Punkt zu Kurve hinzufügen"
+
+msgid "Split Curve"
+msgstr "Kurve Teilen"
 
 msgid "Move In-Control in Curve"
 msgstr "Eingangsgriff auf Kurve verschieben"
@@ -11586,19 +11611,19 @@ msgid "Item"
 msgstr "Element"
 
 msgid "Disabled Item"
-msgstr "Deaktiviertes Objekt"
+msgstr "Deaktiviertes Element"
 
 msgid "Check Item"
-msgstr "Überprüfe Element"
+msgstr "Checkbox Element"
 
 msgid "Checked Item"
-msgstr "Überprüftes Element"
+msgstr "Markiertes Checkbox Element"
 
 msgid "Radio Item"
-msgstr "Element der Auswahl"
+msgstr "Auswahlelement"
 
 msgid "Checked Radio Item"
-msgstr "Markiertes Element der Auswahl"
+msgstr "Markiertes Auswahlelement"
 
 msgid "Named Separator"
 msgstr "Benannter Trenner"
@@ -13139,8 +13164,8 @@ msgid ""
 "Returns an associated 4D vector if the provided boolean value is true or "
 "false."
 msgstr ""
-"Gibt den jeweiligen 4D-Vektor zurück, wenn der angegebene boolsche Wert wahr "
-"oder falsch ist."
+"Gibt einen zugehörigen 4D-Vektor zurück, wenn der angegebene boolesche Wert "
+"true oder false ist."
 
 msgid ""
 "Returns an associated boolean if the provided boolean value is true or false."
@@ -14057,7 +14082,7 @@ msgstr ""
 
 msgid ""
 "The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.tekisasu\").\n"
+"its configuration file (\"project.godot\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
@@ -14085,7 +14110,7 @@ msgid ""
 "Project path: %s\n"
 "\n"
 "You have three options:\n"
-"- Convert only the configuration file (\"project.tekisasu\"). Use this to open "
+"- Convert only the configuration file (\"project.godot\"). Use this to open "
 "the project without attempting to convert its scenes, resources and scripts.\n"
 "- Convert the entire project including its scenes, resources and scripts "
 "(recommended if you are upgrading).\n"
@@ -14100,7 +14125,7 @@ msgstr ""
 "Projektpfad: %s\n"
 "\n"
 "Es gibt drei Entscheidungsmöglichkeiten:\n"
-"- Lediglich die Konfigurationsdatei („project.tekisasu“) konvertieren. Dies ist "
+"- Lediglich die Konfigurationsdatei („project.godot“) konvertieren. Dies ist "
 "hilfreich, um das Projekt lediglich zu öffnen, ohne Szenen, Ressourcen oder "
 "Skripte zu konvertieren.\n"
 "- Das gesamte Projekt inklusive Szenen, Ressourcen und Skripten konvertieren. "
@@ -14111,8 +14136,8 @@ msgstr ""
 "Achtung: Sollte eine der Konvertierungsmöglichkeiten ausgewählt werden, kann "
 "das Projekt nicht mehr mit älteren Godot-Versionen geöffnet werden."
 
-msgid "Convert project.tekisasu Only"
-msgstr "Nur project.tekisasu konvertieren"
+msgid "Convert project.godot Only"
+msgstr "Nur project.godot konvertieren"
 
 msgid ""
 "The selected project \"%s\" was generated by an older engine version, and "
@@ -14135,8 +14160,8 @@ msgstr ""
 "Achtung: Das Projekt kann nach der Umwandlung nicht mehr mit einer älteren "
 "Version geöffnet werden."
 
-msgid "Convert project.tekisasu"
-msgstr "project.tekisasu konvertieren"
+msgid "Convert project.godot"
+msgstr "project.godot konvertieren"
 
 msgid ""
 "Can't open project \"%s\" at the following path:\n"
@@ -14384,16 +14409,16 @@ msgid "Invalid \".zip\" project file; it is not in ZIP format."
 msgstr "Ungültige „.zip“-Projektdatei; sie ist nicht im ZIP-Format."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
-msgstr "Ungültige „.zip“-Projektdatei, enthält keine „project.tekisasu“-Datei."
+"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+msgstr "Ungültige „.zip“-Projektdatei, enthält keine „project.godot“-Datei."
 
 msgid "Valid project found at path."
 msgstr "Gültiges Projekt im Pfad gefunden."
 
 msgid ""
-"Please choose a \"project.tekisasu\", a directory with one, or a \".zip\" file."
+"Please choose a \"project.godot\", a directory with one, or a \".zip\" file."
 msgstr ""
-"Bitte ein „project.tekisasu“, ein Verzeichnis damit oder eine „.zip“-Datei."
+"Bitte ein „project.godot“, ein Verzeichnis damit oder eine „.zip“-Datei."
 
 msgid "The path specified is invalid."
 msgstr "Der angegebene Pfad ist ungültig."
@@ -14506,8 +14531,8 @@ msgstr ""
 "Das Projektverzeichnis konnte nicht erstellt werden, überprüfen Sie die "
 "Berechtigungen."
 
-msgid "Couldn't create project.tekisasu in project path."
-msgstr "project.tekisasu konnte nicht im Projektpfad erzeugt werden."
+msgid "Couldn't create project.godot in project path."
+msgstr "project.godot konnte nicht im Projektpfad erzeugt werden."
 
 msgid "Couldn't create icon.svg in project path."
 msgstr "icon.svg konnte im Projektpfad nicht erzeugt werden."
@@ -14577,6 +14602,9 @@ msgstr "Zeitstempel der letzten Bearbeitung"
 msgid "Missing Project"
 msgstr "Fehlendes Projekt"
 
+msgid "Missing Date"
+msgstr "Fehlendes Datum"
+
 msgid "Restart Now"
 msgstr "Jetzt Neustarten"
 
@@ -14633,8 +14661,8 @@ msgstr "Eingabeaktion umbenennen"
 msgid "Update Input Action Order"
 msgstr "Reihenfolge der Eingabeaktionen aktualisieren"
 
-msgid "Project Settings (project.tekisasu)"
-msgstr "Projekteinstellungen (project.tekisasu)"
+msgid "Project Settings (project.godot)"
+msgstr "Projekteinstellungen (project.godot)"
 
 msgid "Advanced Settings"
 msgstr "Erweiterte Einstellungen"
@@ -15092,6 +15120,9 @@ msgstr "Entferne Node(s)"
 
 msgid "Change type of node(s)"
 msgstr "Node-Typ(en) ändern"
+
+msgid "Reparent to New Node"
+msgstr "Node unter neuen Node hängen"
 
 msgid "This operation requires a single selected node."
 msgstr "Diese Aktion benötigt einen einzelnen ausgewählten Node."
@@ -15865,6 +15896,9 @@ msgstr "Am Einzeichnen des Meshs in einen Beschleunigungsstruktur %d/%d"
 
 msgid "Optimizing acceleration structure"
 msgstr "Am Optimieren der Beschleunigungsstruktur"
+
+msgid "Denoising %d%%"
+msgstr "Rauschunterdrückung%d%%"
 
 msgid "Begin Bake"
 msgstr "Backen beginnen"
@@ -17582,6 +17616,20 @@ msgstr ""
 "festgelegt werden."
 
 msgid ""
+"The TileMap node is deprecated as it is superseded by the use of multiple "
+"TileMapLayer nodes.\n"
+"To convert a TileMap to a set of TileMapLayer nodes, open the TileMap bottom "
+"panel with this node selected, click the toolbox icon in the top-right corner "
+"and choose \"Extract TileMap layers as individual TileMapLayer nodes\"."
+msgstr ""
+"Der TileMap-Node ist veraltet, da dieser durch die Verwendung mehrerer "
+"TileMapLayer-Nodes ersetzt wird.\n"
+"Um eine TileMap in einen Satz von TileMapLayer-Nodes umzuwandeln, öffnen Sie "
+"das untere TileMap-Bedienfeld mit diesem ausgewählten Node, klicken Sie auf "
+"das Toolbox-Symbol in der oberen rechten Ecke und wählen Sie „Extrahieren von "
+"TileMap-Ebenen als einzelne TileMapLayer-Nodes“."
+
+msgid ""
 "A Y-sorted layer has the same Z-index value as a not Y-sorted layer.\n"
 "This may lead to unwanted behaviors, as a layer that is not Y-sorted will be "
 "Y-sorted as a whole with tiles from Y-sorted layers."
@@ -18036,12 +18084,10 @@ msgstr ""
 "Die „Remote-Pfad“-Eigenschaft muss auf ein gültiges Node3D oder einen von "
 "Node3D abgeleiteten Node verweisen."
 
-msgid ""
-"Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D or "
-"set a path to an external skeleton."
+msgid "Skeleton3D node not set! SkeletonModifier3D must be child of Skeleton3D."
 msgstr ""
 "Skeleton3D-Node nicht gesetzt! SkeletonModifier3D muss Child von Skeleton3D "
-"sein oder einen Pfad zu einem externen Skelett setzen."
+"sein."
 
 msgid "This body will be ignored until you set a mesh."
 msgstr "Dieser Körper wird ignoriert bis Sie ein Mesh zuweisen."

@@ -163,6 +163,7 @@ void CanvasItemMaterial::_queue_shader_change() {
 	if (!_is_initialized()) {
 		return;
 	}
+
 	MutexLock lock(material_mutex);
 
 	if (!element.in_list()) {

@@ -34,11 +34,7 @@
 #ifndef VULKAN_HOOKS_H
 #define VULKAN_HOOKS_H
 
-#ifdef USE_VOLK
-#include <volk.h>
-#else
-#include <vulkan/vulkan.h>
-#endif
+#include "drivers/vulkan/tekisasu_vulkan.h"
 
 class VulkanHooks {
 private:

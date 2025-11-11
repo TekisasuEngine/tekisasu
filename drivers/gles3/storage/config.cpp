@@ -91,6 +91,7 @@ Config::Config() {
 		etc2_supported = false;
 		s3tc_supported = true;
 		rgtc_supported = true; //RGTC - core since OpenGL version 3.0
+		srgb_framebuffer_supported = true;
 	} else {
 		float_texture_supported = extensions.has("GL_EXT_color_buffer_float");
 		etc2_supported = true;
@@ -103,6 +104,7 @@ Config::Config() {
 		s3tc_supported = extensions.has("GL_EXT_texture_compression_dxt1") || extensions.has("GL_EXT_texture_compression_s3tc") || extensions.has("WEBGL_compressed_texture_s3tc");
 #endif
 		rgtc_supported = extensions.has("GL_EXT_texture_compression_rgtc") || extensions.has("GL_ARB_texture_compression_rgtc") || extensions.has("EXT_texture_compression_rgtc");
+		srgb_framebuffer_supported = extensions.has("GL_EXT_sRGB_write_control");
 	}
 
 	glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &max_vertex_texture_image_units);
@@ -124,7 +126,7 @@ Config::Config() {
 #ifdef WEB_ENABLED
 	msaa_supported = (msaa_max_samples > 0);
 #else
-	msaa_supported = extensions.has("GL_EXT_framebuffer_multisample");
+	msaa_supported = true;
 #endif
 #ifndef IOS_ENABLED
 #ifdef WEB_ENABLED
@@ -221,6 +223,8 @@ Config::Config() {
 			//https://github.com/godotengine/godot/issues/92662#issuecomment-2161199477
 			//disable_particles_workaround = false;
 		}
+	} else if (rendering_device_name == "PowerVR Rogue GE8320") {
+		disable_transform_feedback_shader_cache = true;
 	}
 }
 

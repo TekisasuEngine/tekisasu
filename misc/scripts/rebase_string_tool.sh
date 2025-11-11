@@ -47,15 +47,14 @@ fi
 OLD_STRING="$2"
 NEW_STRING="$3"
 
-echo "This will replace all instances of '$OLD_STRING' with '$NEW_STRING' in this Tekisasu Engine git repo"
-echo "on a case sensitive basis."
-echo " "
+echo "'$OLD_STRING' -> '$NEW_STRING'"
+echo "---------------------------------------------------------"
 #echo "PROCEED? (y/n):"
 #read value
 value="y"
 
 if [[ "$value" == "y" ]]; then
-    for file in $(grep -F -l -r --exclude-dir=".git" $OLD_STRING . | grep -v "x86_64.obj" | grep -v "x86_64.lib" | grep -v pycache | grep -v "x86_64.exe"); do 
+    for file in $(grep -F -l -r --exclude-dir=".git" $OLD_STRING . | grep -v "x86_64.obj" | grep -v "x86_64.lib" | grep -v pycache | grep -v "x86_64.exe" | grep -v "scripts"); do 
         sed -i -e "s/$OLD_STRING/$NEW_STRING/g" "$file"
         echo "processed: $file"
     done
@@ -68,3 +67,5 @@ else
     echo " "
     exit 0
 fi
+
+echo " "

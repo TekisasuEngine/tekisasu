@@ -688,7 +688,7 @@ void LightStorage::update_light_buffers(RenderDataRD *p_render_data, const Paged
 						float bias_scale = light_instance->shadow_transform[j].bias_scale * light_data.soft_shadow_scale;
 						light_data.shadow_bias[j] = light->param[RS::LIGHT_PARAM_SHADOW_BIAS] / 100.0 * bias_scale;
 						light_data.shadow_normal_bias[j] = light->param[RS::LIGHT_PARAM_SHADOW_NORMAL_BIAS] * light_instance->shadow_transform[j].shadow_texel_size;
-						light_data.shadow_transmittance_bias[j] = light->param[RS::LIGHT_PARAM_TRANSMITTANCE_BIAS] * bias_scale;
+						light_data.shadow_transmittance_bias[j] = light->param[RS::LIGHT_PARAM_TRANSMITTANCE_BIAS] / 100.0 * bias_scale;
 						light_data.shadow_z_range[j] = light_instance->shadow_transform[j].farplane;
 						light_data.shadow_range_begin[j] = light_instance->shadow_transform[j].range_begin;
 						RendererRD::MaterialStorage::store_camera(shadow_mtx, light_data.shadow_matrices[j]);
@@ -2292,7 +2292,7 @@ bool LightStorage::shadow_atlas_update_light(RID p_atlas, RID p_light_instance, 
 		old_quadrant = (old_key >> QUADRANT_SHIFT) & 0x3;
 		old_shadow = old_key & SHADOW_INDEX_MASK;
 
-		should_realloc = shadow_atlas->quadrants[old_quadrant].subdivision != (uint32_t)best_subdiv && (shadow_atlas->quadrants[old_quadrant].shadows[old_shadow].alloc_tick - tick > shadow_atlas_realloc_tolerance_msec);
+		should_realloc = shadow_atlas->quadrants[old_quadrant].subdivision != (uint32_t)best_subdiv && (tick - shadow_atlas->quadrants[old_quadrant].shadows[old_shadow].alloc_tick > shadow_atlas_realloc_tolerance_msec);
 		should_redraw = shadow_atlas->quadrants[old_quadrant].shadows[old_shadow].version != p_light_version;
 
 		if (!should_realloc) {
