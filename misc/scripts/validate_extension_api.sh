@@ -1,7 +1,7 @@
 #!/bin/bash
 set -o pipefail
 
-if [ ! -f "version.py" ]; then
+if [ ! -f "version.gen.py" ]; then
   echo "Warning: This script is intended to be run from the root of the Tekisasu Engine repository."
   echo "Some of the paths checks may not work as intended from a different folder."
 fi

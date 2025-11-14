@@ -93,7 +93,7 @@ TEST_CASE("[PCKPacker] Pack a PCK file with some files and directories") {
 	const String base_dir = OS::get_singleton()->get_executable_path().get_base_dir();
 
 	CHECK_MESSAGE(
-			pck_packer.add_file("version.py", base_dir.path_join("../version.py"), "version.py") == OK,
+			pck_packer.add_file("version.gen.py", base_dir.path_join("../version.gen.py"), "version.gen.py") == OK,
 			"Adding a file to the PCK should return an OK error code.");
 	CHECK_MESSAGE(
 			pck_packer.add_file("some/directories with spaces/to/create/icon.png", base_dir.path_join("../icon.png")) == OK,

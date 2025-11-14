@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from collections import OrderedDict
 from typing import Any, Dict, List, Optional, TextIO, Tuple, Union
 
-# Import hardcoded version information from version.py
+# Import hardcoded version information from version.gen.py
 root_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../")
 sys.path.append(root_directory)  # Include the root directory
 import version  # noqa: E402

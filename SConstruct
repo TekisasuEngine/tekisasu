@@ -48,7 +48,7 @@ _helper_module("gles3_builders", "gles3_builders.py")
 _helper_module("glsl_builders", "glsl_builders.py")
 _helper_module("methods", "methods.py")
 _helper_module("platform_methods", "platform_methods.py")
-_helper_module("version", "version.py")
+_helper_module("version", "version.gen.py")
 _helper_module("core.core_builders", "core/core_builders.py")
 _helper_module("main.main_builders", "main/main_builders.py")
 

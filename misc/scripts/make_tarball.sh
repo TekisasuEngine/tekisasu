@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -e "version.py" ]; then
+if [ ! -e "version.gen.py" ]; then
   echo "This script should be ran from the root folder of the Tekisasu Engine repository."
   exit 1
 fi
