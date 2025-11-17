@@ -1124,7 +1124,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		style_tab_disabled->set_bg_color(p_config.disabled_bg_color);
 		style_tab_disabled->set_border_color(p_config.disabled_bg_color);
 
-		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate();
+		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate(); // Tekisasu - no tab focus borders
+		style_tab_focus->set_border_width_all(0);
+		style_tab_focus->set_border_color(p_config.accent_color);
 
 		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(p_config.dark_color_5, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
