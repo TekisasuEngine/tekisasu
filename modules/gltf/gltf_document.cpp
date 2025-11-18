@@ -6961,7 +6961,7 @@ Error GLTFDocument::_serialize_asset_header(Ref<GLTFState> p_state) {
 		asset["copyright"] = p_state->copyright;
 	}
 	String hash = String(VERSION_HASH);
-	asset["generator"] = String(VERSION_FULL_NAME) + String("@") + (hash.is_empty() ? String("unknown") : hash);
+	asset["generator"] = String(TEKISASU_FULL_NAME) + String("@") + (hash.is_empty() ? String("unknown") : hash);
 	p_state->json["asset"] = asset;
 	ERR_FAIL_COND_V(!asset.has("version"), Error::FAILED);
 	ERR_FAIL_COND_V(!p_state->json.has("asset"), Error::FAILED);

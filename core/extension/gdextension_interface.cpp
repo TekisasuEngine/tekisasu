@@ -247,7 +247,7 @@ static void gdextension_get_tekisasu_version(GDExtensionTekisasuVersion *r_tekis
 	r_tekisasu_version->major = VERSION_MAJOR;
 	r_tekisasu_version->minor = VERSION_MINOR;
 	r_tekisasu_version->patch = VERSION_PATCH;
-	r_tekisasu_version->string = VERSION_FULL_NAME;
+	r_tekisasu_version->string = TEKISASU_FULL_NAME;
 }
 
 // Memory Functions

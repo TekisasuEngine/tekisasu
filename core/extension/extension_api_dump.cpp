@@ -116,7 +116,7 @@ Dictionary GDExtensionAPIDump::generate_extension_api(bool p_include_docs) {
 #endif
 		header["version_status"] = VERSION_STATUS;
 		header["version_build"] = VERSION_BUILD;
-		header["version_full_name"] = VERSION_FULL_NAME;
+		header["version_full_name"] = TEKISASU_FULL_NAME;
 
 		api_dump["header"] = header;
 	}
