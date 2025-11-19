@@ -6719,8 +6719,13 @@ void EditorNode::_rebuild_bus_buttons() {
 	int bus_count = AudioServer::get_singleton()->get_bus_count();
 	for (int i = 0; i < bus_count; i++) {
 		Button *bus_button = memnew(Button);
-		bus_button->set_flat(true);
-		bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
+		bus_button->set_flat(false);
+		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
+			bus_button->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+		} else {
+			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
+		}
+		
 		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
 		bus_button->connect("pressed", callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
 		audio_bus_buttons_hb->add_child(bus_button);
@@ -6739,9 +6744,9 @@ void EditorNode::_update_bus_button_colors() {
 		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
 			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
 			if (is_muted) {
-				button->add_theme_color_override("font_color", Color(1, 0.3, 0.3)); // Red for muted
+				button->add_theme_color_override("font_color", Color(0.85, 0.09, 0.3, 0.95)); // Red for muted
 			} else {
-				button->add_theme_color_override("font_color", Color(0.3, 1, 0.3)); // Green for not muted
+				button->add_theme_color_override("font_color", Color(0.07, 0.67, 0.53, 0.9)); // Green for not muted
 			}
 		}
 	}
@@ -7432,6 +7437,11 @@ EditorNode::EditorNode() {
 	title_bar->add_child(main_editor_button_hb);
 
 	// Audio bus toggle buttons container
+	// Spacer to center 2D / 3D / Script buttons.
+	HBoxContainer *audio_bus_spacer = memnew(HBoxContainer);
+	audio_bus_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	audio_bus_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(audio_bus_spacer);
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	title_bar->add_child(audio_bus_buttons_hb);
