@@ -6743,11 +6743,18 @@ void EditorNode::_update_bus_button_colors() {
 
 		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
 			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
+			Color color;
 			if (is_muted) {
-				button->add_theme_color_override("font_color", Color(0.85, 0.09, 0.3, 0.95)); // Red for muted
+				color = Color(0.85, 0.09, 0.3, 0.95); // Red for muted
 			} else {
-				button->add_theme_color_override("font_color", Color(0.07, 0.67, 0.53, 0.9)); // Green for not muted
+				color = Color(0.07, 0.67, 0.53, 0.9); // Green for not muted
 			}
+			// Apply to both text and icon
+			button->add_theme_color_override("font_color", color);
+			button->add_theme_color_override("icon_normal_color", color);
+			button->add_theme_color_override("icon_pressed_color", color);
+			button->add_theme_color_override("icon_hover_color", color);
+			button->add_theme_color_override("icon_focus_color", color);
 		}
 	}
 }
