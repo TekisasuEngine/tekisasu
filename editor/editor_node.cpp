@@ -203,6 +203,72 @@ EditorProgress::~EditorProgress() {
 	}
 }
 
+// tekisasu todo
+void EditorNode::_tx_devaudio_button_toggled_bgm() {
+	ProjectSettings *ps = ProjectSettings::get_singleton();
+	bool mute_bgm = ps->get("audio/buses/mute_tekisasu_devaudio_bgm");
+	if (mute_bgm == false) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_bgm", true);
+	} else if (mute_bgm == true) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_bgm", false);
+	} else {
+		print_line("Warning: Invalid state for BGM bus toggle.  Setting to false.");
+		ps->set("audio/buses/mute_tekisasu_devaudio_bgm", false);
+	}	
+}
+
+void EditorNode::_tx_devaudio_button_toggled_fx() {
+	ProjectSettings *ps = ProjectSettings::get_singleton();
+	bool mute_fx = ps->get("audio/buses/mute_tekisasu_devaudio_fx");
+	if (mute_fx == false) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_fx", true);
+	} else if (mute_fx == true) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_fx", false);
+	} else {
+		print_line("Warning: Invalid state for FX bus toggle.  Setting to false.");
+		ps->set("audio/buses/mute_tekisasu_devaudio_fx", false);
+	}	
+}
+
+void EditorNode::_tx_devaudio_button_toggled_voice() {
+	ProjectSettings *ps = ProjectSettings::get_singleton();
+	bool mute_voice = ps->get("audio/buses/mute_tekisasu_devaudio_voice");
+	if (mute_voice == false) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_voice", true);
+	} else if (mute_voice == true) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_voice", false);
+	} else {
+		print_line("Warning: Invalid state for Voice bus toggle.  Setting to false.");
+		ps->set("audio/buses/mute_tekisasu_devaudio_voice", false);
+	}	
+}
+
+void EditorNode::_tx_devaudio_button_toggled_foley() {
+	ProjectSettings *ps = ProjectSettings::get_singleton();
+	bool mute_foley = ps->get("audio/buses/mute_tekisasu_devaudio_foley");
+	if (mute_foley == false) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_foley", true);
+	} else if (mute_foley == true) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_foley", false);
+	} else {
+		print_line("Warning: Invalid state for Foley bus toggle.  Setting to false.");
+		ps->set("audio/buses/mute_tekisasu_devaudio_foley", false);
+	}	
+}
+
+void EditorNode::_tx_devaudio_button_toggled_misc() {
+	ProjectSettings *ps = ProjectSettings::get_singleton();
+	bool mute_misc = ps->get("audio/buses/mute_tekisasu_devaudio_misc");
+	if (mute_misc == false) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_misc", true);
+	} else if (mute_misc == true) {
+		ps->set("audio/buses/mute_tekisasu_devaudio_misc", false);
+	} else {
+		print_line("Warning: Invalid state for Misc bus toggle.  Setting to false.");
+		ps->set("audio/buses/mute_tekisasu_devaudio_misc", false);
+	}	
+}
+
 void EditorNode::disambiguate_filenames(const Vector<String> p_full_paths, Vector<String> &r_filenames) {
 	ERR_FAIL_COND_MSG(p_full_paths.size() != r_filenames.size(), vformat("disambiguate_filenames requires two string vectors of same length (%d != %d).", p_full_paths.size(), r_filenames.size()));
 
@@ -3487,7 +3553,7 @@ void EditorNode::_update_file_menu_closed() {
 	file_menu->set_item_disabled(file_menu->get_item_index(FILE_OPEN_PREV), false);
 }
 
-void EditorNode::_audio_debug_button_toggled(const String &p_setting_name, bool p_pressed) {
+void EditorNode::_tx_devaudio_button_toggled(const String &p_setting_name, bool p_pressed) {
 	ProjectSettings::get_singleton()->set_setting(p_setting_name, p_pressed);
 }
 
@@ -7358,50 +7424,13 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
-	// Tekisasu TODO - Audio debug toggle buttons
-	audio_debug_buttons_hb = memnew(HBoxContainer);
-	title_bar->add_child(audio_debug_buttons_hb);
 
-	audio_debug_bgm_button = memnew(Button);
-	audio_debug_bgm_button->set_text(TTR("BGM"));
-	audio_debug_bgm_button->set_toggle_mode(true);
-	audio_debug_bgm_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_BGM"));
-	audio_debug_bgm_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_BGM"));
-	audio_debug_buttons_hb->add_child(audio_debug_bgm_button);
-
-	audio_debug_fx_button = memnew(Button);
-	audio_debug_fx_button->set_text(TTR("FX"));
-	audio_debug_fx_button->set_toggle_mode(true);
-	audio_debug_fx_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_FX"));
-	audio_debug_fx_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_FX"));
-	audio_debug_buttons_hb->add_child(audio_debug_fx_button);
-
-	audio_debug_voice_button = memnew(Button);
-	audio_debug_voice_button->set_text(TTR("Voice"));
-	audio_debug_voice_button->set_toggle_mode(true);
-	audio_debug_voice_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Voice"));
-	audio_debug_voice_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Voice"));
-	audio_debug_buttons_hb->add_child(audio_debug_voice_button);
-
-	audio_debug_foley_button = memnew(Button);
-	audio_debug_foley_button->set_text(TTR("Foley"));
-	audio_debug_foley_button->set_toggle_mode(true);
-	audio_debug_foley_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Foley"));
-	audio_debug_foley_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Foley"));
-	audio_debug_buttons_hb->add_child(audio_debug_foley_button);
-
-	audio_debug_misc_button = memnew(Button);
-	audio_debug_misc_button->set_text(TTR("Misc"));
-	audio_debug_misc_button->set_toggle_mode(true);
-	audio_debug_misc_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Misc"));
-	audio_debug_misc_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Misc"));
-	audio_debug_buttons_hb->add_child(audio_debug_misc_button);
 
 	// Spacer - devaudio and 2d/3d/script 
-	HBoxContainer *left_spacer2 = memnew(HBoxContainer);
-	left_spacer2->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	left_spacer2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(left_spacer2);
+	HBoxContainer *mid_left_spacer = memnew(HBoxContainer);
+	mid_left_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	mid_left_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(mid_left_spacer);
 
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
@@ -7485,6 +7514,63 @@ EditorNode::EditorNode() {
 		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
 	}
 
+	// Spacer for 2D / 3D / Script buttons and dev audio menu.
+	Control *mid_right_spacer = memnew(Control);
+	mid_right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	mid_right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(mid_right_spacer);
+
+
+	// Tekisasu TODO - Audio debug toggle buttons
+	tx_devaudio_buttons_hb = memnew(HBoxContainer);
+	title_bar->add_child(tx_devaudio_buttons_hb);
+
+	tx_devaudio_icon_label = memnew(Button);
+	tx_devaudio_icon_label->set_flat(true);
+	tx_devaudio_icon_label->set_toggle_mode(false);
+	tx_devaudio_icon_label->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+	tx_devaudio_buttons_hb->add_child(tx_devaudio_icon_label);
+
+	tx_devaudio_bgm_button = memnew(Button);
+	tx_devaudio_bgm_button->set_text(TTR("BGM"));
+	tx_devaudio_bgm_button->set_toggle_mode(true);
+	tx_devaudio_bgm_button->set_pressed(EDITOR_GET("audio/buses/mute_tekisasu_devaudio_bgm"));
+	//ProjectSettings::get_singleton()->set("audio/buses/mute_tekisasu_devaudio_bgm", tx_devaudio_bgm_button.is_pressed);
+	tx_devaudio_bgm_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_tx_devaudio_button_toggled_bgm));
+	tx_devaudio_bgm_button->add_theme_color_override(SceneStringName(font_color), Color(0.08, 0.76, 0.60, 1));
+	tx_devaudio_buttons_hb->add_child(tx_devaudio_bgm_button);
+
+	tx_devaudio_fx_button = memnew(Button);
+	tx_devaudio_fx_button->set_text(TTR("FX"));
+	tx_devaudio_fx_button->set_toggle_mode(true);
+	tx_devaudio_fx_button->set_pressed(EDITOR_GET("audio/buses/mute_tekisasu_devaudio_fx"));
+//	tx_devaudio_fx_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_tx_devaudio_button_toggled_fx).bind("audio/buses/mute_tekisasu_devaudio_fx"));
+	tx_devaudio_fx_button->add_theme_color_override(SceneStringName(font_color), Color(0.08, 0.76, 0.60, 1));
+	tx_devaudio_buttons_hb->add_child(tx_devaudio_fx_button);
+
+	tx_devaudio_voice_button = memnew(Button);
+	tx_devaudio_voice_button->set_text(TTR("Voice"));
+	tx_devaudio_voice_button->set_toggle_mode(true);
+	tx_devaudio_voice_button->set_pressed(EDITOR_GET("audio/buses/mute_tekisasu_devaudio_voice"));
+//	tx_devaudio_voice_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_tx_devaudio_button_toggled_voice).bind("audio/buses/mute_tekisasu_devaudio_voice"));
+	tx_devaudio_voice_button->add_theme_color_override(SceneStringName(font_color), Color(0.08, 0.76, 0.60, 1));
+	tx_devaudio_buttons_hb->add_child(tx_devaudio_voice_button);
+
+	tx_devaudio_foley_button = memnew(Button);
+	tx_devaudio_foley_button->set_text(TTR("Foley"));
+	tx_devaudio_foley_button->set_toggle_mode(true);
+	tx_devaudio_foley_button->set_pressed(EDITOR_GET("audio/buses/mute_tekisasu_devaudio_foley"));
+//	tx_devaudio_foley_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_tx_devaudio_button_toggled_foley).bind("audio/buses/mute_tekisasu_devaudio_foley"));
+	tx_devaudio_foley_button->add_theme_color_override(SceneStringName(font_color), Color(0.08, 0.76, 0.60, 1));
+	tx_devaudio_buttons_hb->add_child(tx_devaudio_foley_button);
+
+	tx_devaudio_misc_button = memnew(Button);
+	tx_devaudio_misc_button->set_text(TTR("Misc"));
+	tx_devaudio_misc_button->set_toggle_mode(true);
+	tx_devaudio_misc_button->set_pressed(EDITOR_GET("audio/buses/mute_tekisasu_devaudio_misc"));
+//	tx_devaudio_misc_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_tx_devaudio_button_toggled_misc).bind("audio/buses/mute_tekisasu_devaudio_misc"));
+	tx_devaudio_misc_button->add_theme_color_override(SceneStringName(font_color), Color(0.08, 0.76, 0.60, 1));
+	tx_devaudio_buttons_hb->add_child(tx_devaudio_misc_button);
 
 	// Spacer to center 2D / 3D / Script buttons.
 	Control *right_spacer = memnew(Control);

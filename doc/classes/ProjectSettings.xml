@@ -378,6 +378,21 @@
 		<member name="audio/buses/default_bus_layout" type="String" setter="" getter="" default="&quot;res://default_bus_layout.tres&quot;">
 			Default [AudioBusLayout] resource file to use in the project, unless overridden by the scene.
 		</member>
+		<member name="audio/buses/mute_tekisasu_devaudio_bgm" type="bool" setter="" getter="" default="false">
+			This toggles the bgm bus if the appropriate configuration is present within the project.
+		</member>
+		<member name="audio/buses/mute_tekisasu_devaudio_fx" type="bool" setter="" getter="" default="false">
+			This toggles the fx bus if the appropriate configuration is present within the project.
+		</member>
+		<member name="audio/buses/mute_tekisasu_devaudio_voice" type="bool" setter="" getter="" default="false">
+			This toggles the voice bus if the appropriate configuration is present within the project.
+		</member>
+		<member name="audio/buses/mute_tekisasu_devaudio_foley" type="bool" setter="" getter="" default="false">
+			This toggles the foley bus if the appropriate configuration is present within the project.
+		</member>
+		<member name="audio/buses/mute_tekisasu_devaudio_misc" type="bool" setter="" getter="" default="false">
+			This toggles the misc bus if the appropriate configuration is present within the project.
+		</member>
 		<member name="audio/driver/driver" type="String" setter="" getter="">
 			Specifies the audio driver to use. This setting is platform-dependent as each platform supports different audio drivers. If left empty, the default audio driver will be used.
 			The [code]Dummy[/code] audio driver disables all audio playback and recording, which is useful for non-game applications as it reduces CPU usage. It also prevents the engine from appearing as an application playing audio in the OS' audio mixer.

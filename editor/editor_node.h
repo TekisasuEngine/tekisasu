@@ -430,12 +430,13 @@ private:
 	String current_path;
 	MenuButton *update_spinner = nullptr;
 
-	HBoxContainer *audio_debug_buttons_hb = nullptr;
-	Button *audio_debug_bgm_button = nullptr;
-	Button *audio_debug_fx_button = nullptr;
-	Button *audio_debug_voice_button = nullptr;
-	Button *audio_debug_foley_button = nullptr;
-	Button *audio_debug_misc_button = nullptr;
+	HBoxContainer *tx_devaudio_buttons_hb = nullptr;
+	Button *tx_devaudio_icon_label = nullptr;
+	Button *tx_devaudio_bgm_button = nullptr;
+	Button *tx_devaudio_fx_button = nullptr;
+	Button *tx_devaudio_voice_button = nullptr;
+	Button *tx_devaudio_foley_button = nullptr;
+	Button *tx_devaudio_misc_button = nullptr;
 
 	HBoxContainer *main_editor_button_hb = nullptr;
 	Vector<Button *> main_editor_buttons;
@@ -577,7 +578,12 @@ private:
 	void _update_file_menu_opened();
 	void _update_file_menu_closed();
 
-	void _audio_debug_button_toggled(const String &p_setting_name, bool p_pressed);
+	void _tx_devaudio_button_toggled(const String &p_setting_name, bool p_pressed);
+	void _tx_devaudio_button_toggled_bgm();
+	void _tx_devaudio_button_toggled_fx();
+	void _tx_devaudio_button_toggled_voice();
+	void _tx_devaudio_button_toggled_foley();
+	void _tx_devaudio_button_toggled_misc();
 
 	void _remove_plugin_from_enabled(const String &p_name);
 	void _plugin_over_edit(EditorPlugin *p_plugin, Object *p_object);
