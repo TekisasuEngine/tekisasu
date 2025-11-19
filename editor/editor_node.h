@@ -355,6 +355,7 @@ private:
 	Control *left_menu_spacer = nullptr;
 	Control *right_menu_spacer = nullptr;
 	EditorTitleBar *title_bar = nullptr;
+	HBoxContainer *menu_bar_buttons = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
 	VBoxContainer *main_screen_vbox = nullptr;
 	MenuBar *main_menu = nullptr;

@@ -51,6 +51,8 @@
 #include "main/main.h"
 #include "scene/3d/bone_attachment_3d.h"
 #include "scene/animation/animation_tree.h"
+#include "scene/gui/box_container.h"
+#include "scene/gui/button.h"
 #include "scene/gui/color_picker.h"
 #include "scene/gui/dialogs.h"
 #include "scene/gui/file_dialog.h"
@@ -6996,6 +6998,19 @@ EditorNode::EditorNode() {
 
 	title_bar = memnew(EditorTitleBar);
 	main_vbox->add_child(title_bar);
+
+	// Add button bar between title bar and main content
+	menu_bar_buttons = memnew(HBoxContainer);
+	main_vbox->add_child(menu_bar_buttons);
+	menu_bar_buttons->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	
+	// Create 5 buttons
+	for (int i = 0; i < 5; i++) {
+		Button *btn = memnew(Button);
+		btn->set_text("Button " + itos(i + 1));
+		btn->set_flat(true);
+		menu_bar_buttons->add_child(btn);
+	}
 
 	left_l_hsplit = memnew(DockSplitContainer);
 	left_l_hsplit->set_name("DockHSplitLeftL");
