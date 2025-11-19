@@ -658,6 +658,9 @@ void EditorNode::_notification(int p_what) {
 
 			ResourceImporterTexture::get_singleton()->update_imports();
 
+			// Update audio bus button colors
+			_update_bus_button_colors();
+
 			if (requested_first_scan) {
 				requested_first_scan = false;
 
@@ -762,6 +765,11 @@ void EditorNode::_notification(int p_what) {
 			// Set up a theme context for the 2D preview viewport using the stored preview theme.
 			CanvasItemEditor::ThemePreviewMode theme_preview_mode = (CanvasItemEditor::ThemePreviewMode)(int)EditorSettings::get_singleton()->get_project_metadata("2d_editor", "theme_preview", CanvasItemEditor::THEME_PREVIEW_PROJECT);
 			update_preview_themes(theme_preview_mode);
+
+			// Initialize audio bus buttons and connect to layout changes
+			AudioServer::get_singleton()->connect("bus_layout_changed", callable_mp(this, &EditorNode::_rebuild_bus_buttons));
+			AudioServer::get_singleton()->connect("bus_renamed", callable_mp(this, &EditorNode::_on_bus_renamed));
+			_rebuild_bus_buttons();
 
 			/* DO NOT LOAD SCENES HERE, WAIT FOR FILE SCANNING AND REIMPORT TO COMPLETE */
 		} break;
@@ -6699,6 +6707,72 @@ int EditorNode::execute_and_show_output(const String &p_title, const String &p_p
 	return eta.exitcode;
 }
 
+void EditorNode::_rebuild_bus_buttons() {
+	// Clear existing buttons
+	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
+		audio_bus_buttons_hb->remove_child(kv.value);
+		memdelete(kv.value);
+	}
+	audio_bus_buttons.clear();
+
+	// Create buttons for each bus
+	int bus_count = AudioServer::get_singleton()->get_bus_count();
+	for (int i = 0; i < bus_count; i++) {
+		Button *bus_button = memnew(Button);
+		bus_button->set_flat(true);
+		bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
+		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
+		bus_button->connect("pressed", callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
+		audio_bus_buttons_hb->add_child(bus_button);
+		audio_bus_buttons[i] = bus_button;
+	}
+
+	// Update colors for the new buttons
+	_update_bus_button_colors();
+}
+
+void EditorNode::_update_bus_button_colors() {
+	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
+		int bus_index = kv.key;
+		Button *button = kv.value;
+
+		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
+			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
+			if (is_muted) {
+				button->add_theme_color_override("font_color", Color(1, 0.3, 0.3)); // Red for muted
+			} else {
+				button->add_theme_color_override("font_color", Color(0.3, 1, 0.3)); // Green for not muted
+			}
+		}
+	}
+}
+
+void EditorNode::_on_bus_button_pressed(int p_bus_index) {
+	if (p_bus_index < AudioServer::get_singleton()->get_bus_count()) {
+		bool current_mute = AudioServer::get_singleton()->is_bus_mute(p_bus_index);
+		bool new_mute = !current_mute;
+		
+		EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
+		ur->create_action(TTR("Toggle Audio Bus Mute"));
+		ur->add_do_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, new_mute);
+		ur->add_undo_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, current_mute);
+		if (audio_bus_editor) {
+			ur->add_do_method(audio_bus_editor, "_update_bus", p_bus_index);
+			ur->add_undo_method(audio_bus_editor, "_update_bus", p_bus_index);
+		}
+		ur->commit_action();
+	}
+}
+
+void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name) {
+	// Update button text when a bus is renamed
+	if (audio_bus_buttons.has(p_bus_index)) {
+		Button *button = audio_bus_buttons[p_bus_index];
+		button->set_text(p_new_name);
+		button->set_tooltip_text(TTR("Toggle mute for bus: ") + p_new_name);
+	}
+}
+
 EditorNode::EditorNode() {
 	DEV_ASSERT(!singleton);
 	singleton = this;
@@ -7357,6 +7431,11 @@ EditorNode::EditorNode() {
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
 
+	// Audio bus toggle buttons container
+	audio_bus_buttons_hb = memnew(HBoxContainer);
+	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+	title_bar->add_child(audio_bus_buttons_hb);
+
 	// Options are added and handled by DebuggerEditorPlugin.
 	debug_menu = memnew(PopupMenu);
 	debug_menu->set_name(TTR("Debug"));
@@ -7729,7 +7808,7 @@ EditorNode::EditorNode() {
 	add_editor_plugin(memnew(Node3DEditorPlugin));
 	add_editor_plugin(memnew(ScriptEditorPlugin));
 
-	EditorAudioBuses *audio_bus_editor = EditorAudioBuses::register_editor();
+	audio_bus_editor = EditorAudioBuses::register_editor();
 
 	ScriptTextEditor::register_editor(); // Register one for text scripts.
 	TextEditor::register_editor();
