@@ -434,6 +434,9 @@ private:
 	Vector<Button *> main_editor_buttons;
 	Vector<EditorPlugin *> editor_table;
 
+	HBoxContainer *audio_bus_buttons_hb = nullptr;
+	HashMap<int, Button *> audio_bus_buttons;
+
 	AudioStreamPreviewGenerator *audio_preview_gen = nullptr;
 	ProgressDialog *progress_dialog = nullptr;
 	BackgroundProgress *progress_hb = nullptr;
@@ -700,6 +703,10 @@ private:
 	void _notify_nodes_scene_reimported(Node *p_node, Array p_reimported_nodes);
 
 	void _remove_all_not_owned_children(Node *p_node, Node *p_owner);
+
+	void _rebuild_bus_buttons();
+	void _update_bus_button_colors();
+	void _on_bus_button_pressed(int p_bus_index);
 
 protected:
 	friend class FileSystemDock;

@@ -658,6 +658,9 @@ void EditorNode::_notification(int p_what) {
 
 			ResourceImporterTexture::get_singleton()->update_imports();
 
+			// Update audio bus button colors
+			_update_bus_button_colors();
+
 			if (requested_first_scan) {
 				requested_first_scan = false;
 
@@ -762,6 +765,10 @@ void EditorNode::_notification(int p_what) {
 			// Set up a theme context for the 2D preview viewport using the stored preview theme.
 			CanvasItemEditor::ThemePreviewMode theme_preview_mode = (CanvasItemEditor::ThemePreviewMode)(int)EditorSettings::get_singleton()->get_project_metadata("2d_editor", "theme_preview", CanvasItemEditor::THEME_PREVIEW_PROJECT);
 			update_preview_themes(theme_preview_mode);
+
+			// Initialize audio bus buttons and connect to layout changes
+			AudioServer::get_singleton()->connect("bus_layout_changed", callable_mp(this, &EditorNode::_rebuild_bus_buttons));
+			_rebuild_bus_buttons();
 
 			/* DO NOT LOAD SCENES HERE, WAIT FOR FILE SCANNING AND REIMPORT TO COMPLETE */
 		} break;
@@ -6699,6 +6706,54 @@ int EditorNode::execute_and_show_output(const String &p_title, const String &p_p
 	return eta.exitcode;
 }
 
+void EditorNode::_rebuild_bus_buttons() {
+	// Clear existing buttons
+	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
+		audio_bus_buttons_hb->remove_child(kv.value);
+		memdelete(kv.value);
+	}
+	audio_bus_buttons.clear();
+
+	// Create buttons for each bus
+	int bus_count = AudioServer::get_singleton()->get_bus_count();
+	for (int i = 0; i < bus_count; i++) {
+		Button *bus_button = memnew(Button);
+		bus_button->set_flat(true);
+		bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
+		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
+		bus_button->connect("pressed", callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
+		audio_bus_buttons_hb->add_child(bus_button);
+		audio_bus_buttons[i] = bus_button;
+	}
+
+	// Update colors for the new buttons
+	_update_bus_button_colors();
+}
+
+void EditorNode::_update_bus_button_colors() {
+	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
+		int bus_index = kv.key;
+		Button *button = kv.value;
+
+		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
+			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
+			if (is_muted) {
+				button->add_theme_color_override("font_color", Color(1, 0.3, 0.3)); // Red for muted
+			} else {
+				button->add_theme_color_override("font_color", Color(0.3, 1, 0.3)); // Green for not muted
+			}
+		}
+	}
+}
+
+void EditorNode::_on_bus_button_pressed(int p_bus_index) {
+	if (p_bus_index < AudioServer::get_singleton()->get_bus_count()) {
+		bool current_mute = AudioServer::get_singleton()->is_bus_mute(p_bus_index);
+		AudioServer::get_singleton()->set_bus_mute(p_bus_index, !current_mute);
+		_update_bus_button_colors();
+	}
+}
+
 EditorNode::EditorNode() {
 	DEV_ASSERT(!singleton);
 	singleton = this;
@@ -7356,6 +7411,11 @@ EditorNode::EditorNode() {
 
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
+
+	// Audio bus toggle buttons container
+	audio_bus_buttons_hb = memnew(HBoxContainer);
+	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+	title_bar->add_child(audio_bus_buttons_hb);
 
 	// Options are added and handled by DebuggerEditorPlugin.
 	debug_menu = memnew(PopupMenu);
