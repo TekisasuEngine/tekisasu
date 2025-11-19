@@ -707,6 +707,7 @@ private:
 	void _rebuild_bus_buttons();
 	void _update_bus_button_colors();
 	void _on_bus_button_pressed(int p_bus_index);
+	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
 
 protected:
 	friend class FileSystemDock;

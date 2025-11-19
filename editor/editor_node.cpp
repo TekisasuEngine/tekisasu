@@ -768,6 +768,7 @@ void EditorNode::_notification(int p_what) {
 
 			// Initialize audio bus buttons and connect to layout changes
 			AudioServer::get_singleton()->connect("bus_layout_changed", callable_mp(this, &EditorNode::_rebuild_bus_buttons));
+			AudioServer::get_singleton()->connect("bus_renamed", callable_mp(this, &EditorNode::_on_bus_renamed));
 			_rebuild_bus_buttons();
 
 			/* DO NOT LOAD SCENES HERE, WAIT FOR FILE SCANNING AND REIMPORT TO COMPLETE */
@@ -6756,6 +6757,15 @@ void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 		ur->add_do_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, new_mute);
 		ur->add_undo_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, current_mute);
 		ur->commit_action();
+	}
+}
+
+void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name) {
+	// Update button text when a bus is renamed
+	if (audio_bus_buttons.has(p_bus_index)) {
+		Button *button = audio_bus_buttons[p_bus_index];
+		button->set_text(p_new_name);
+		button->set_tooltip_text(TTR("Toggle mute for bus: ") + p_new_name);
 	}
 }
 
