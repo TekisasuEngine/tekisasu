@@ -6756,6 +6756,10 @@ void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 		ur->create_action(TTR("Toggle Audio Bus Mute"));
 		ur->add_do_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, new_mute);
 		ur->add_undo_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, current_mute);
+		if (audio_bus_editor) {
+			ur->add_do_method(audio_bus_editor, "_update_bus", p_bus_index);
+			ur->add_undo_method(audio_bus_editor, "_update_bus", p_bus_index);
+		}
 		ur->commit_action();
 	}
 }
@@ -7804,7 +7808,7 @@ EditorNode::EditorNode() {
 	add_editor_plugin(memnew(Node3DEditorPlugin));
 	add_editor_plugin(memnew(ScriptEditorPlugin));
 
-	EditorAudioBuses *audio_bus_editor = EditorAudioBuses::register_editor();
+	audio_bus_editor = EditorAudioBuses::register_editor();
 
 	ScriptTextEditor::register_editor(); // Register one for text scripts.
 	TextEditor::register_editor();
