@@ -7340,7 +7340,7 @@ EditorNode::EditorNode() {
 	ED_SHORTCUT_OVERRIDE("editor/quit_to_project_list", "macos", KeyModifierMask::META + KeyModifierMask::CTRL + KeyModifierMask::ALT + Key::Q);
 	project_menu->add_shortcut(ED_GET_SHORTCUT("editor/quit_to_project_list"), RUN_PROJECT_MANAGER, true);
 
-	// Spacer to center 2D / 3D / Script buttons.
+	// Spacer - devaudio and 2d/3d/script 
 	HBoxContainer *left_spacer = memnew(HBoxContainer);
 	left_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	left_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -7358,7 +7358,7 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
-	// Audio debug toggle buttons
+	// Tekisasu TODO - Audio debug toggle buttons
 	audio_debug_buttons_hb = memnew(HBoxContainer);
 	title_bar->add_child(audio_debug_buttons_hb);
 
@@ -7366,36 +7366,42 @@ EditorNode::EditorNode() {
 	audio_debug_bgm_button->set_text(TTR("BGM"));
 	audio_debug_bgm_button->set_toggle_mode(true);
 	audio_debug_bgm_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_BGM"));
-	audio_debug_bgm_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_BGM"));
+	audio_debug_bgm_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_BGM"));
 	audio_debug_buttons_hb->add_child(audio_debug_bgm_button);
 
 	audio_debug_fx_button = memnew(Button);
 	audio_debug_fx_button->set_text(TTR("FX"));
 	audio_debug_fx_button->set_toggle_mode(true);
 	audio_debug_fx_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_FX"));
-	audio_debug_fx_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_FX"));
+	audio_debug_fx_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_FX"));
 	audio_debug_buttons_hb->add_child(audio_debug_fx_button);
 
 	audio_debug_voice_button = memnew(Button);
 	audio_debug_voice_button->set_text(TTR("Voice"));
 	audio_debug_voice_button->set_toggle_mode(true);
 	audio_debug_voice_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Voice"));
-	audio_debug_voice_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Voice"));
+	audio_debug_voice_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Voice"));
 	audio_debug_buttons_hb->add_child(audio_debug_voice_button);
 
 	audio_debug_foley_button = memnew(Button);
 	audio_debug_foley_button->set_text(TTR("Foley"));
 	audio_debug_foley_button->set_toggle_mode(true);
 	audio_debug_foley_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Foley"));
-	audio_debug_foley_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Foley"));
+	audio_debug_foley_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Foley"));
 	audio_debug_buttons_hb->add_child(audio_debug_foley_button);
 
 	audio_debug_misc_button = memnew(Button);
 	audio_debug_misc_button->set_text(TTR("Misc"));
 	audio_debug_misc_button->set_toggle_mode(true);
 	audio_debug_misc_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Misc"));
-	audio_debug_misc_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Misc"));
+	audio_debug_misc_button->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Misc"));
 	audio_debug_buttons_hb->add_child(audio_debug_misc_button);
+
+	// Spacer - devaudio and 2d/3d/script 
+	HBoxContainer *left_spacer2 = memnew(HBoxContainer);
+	left_spacer2->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	left_spacer2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(left_spacer2);
 
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
