@@ -6999,19 +6999,6 @@ EditorNode::EditorNode() {
 	title_bar = memnew(EditorTitleBar);
 	main_vbox->add_child(title_bar);
 
-	// Add button bar between title bar and main content
-	menu_bar_buttons = memnew(HBoxContainer);
-	main_vbox->add_child(menu_bar_buttons);
-	menu_bar_buttons->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	
-	// Create 5 buttons
-	for (int i = 0; i < 5; i++) {
-		Button *btn = memnew(Button);
-		btn->set_text("Button " + itos(i + 1));
-		btn->set_flat(true);
-		menu_bar_buttons->add_child(btn);
-	}
-
 	left_l_hsplit = memnew(DockSplitContainer);
 	left_l_hsplit->set_name("DockHSplitLeftL");
 	main_vbox->add_child(left_l_hsplit);
@@ -7188,6 +7175,18 @@ EditorNode::EditorNode() {
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
 		editor_logo_quick_menu->get_popup()->connect("id_pressed", callable_mp(this, &EditorNode::_menu_option));
+	}
+
+	// Add button bar between title bar start and main menu
+	menu_bar_buttons = memnew(HBoxContainer);
+	title_bar->add_child(menu_bar_buttons);
+	
+	// Create 5 buttons
+	for (int i = 0; i < 5; i++) {
+		Button *btn = memnew(Button);
+		btn->set_text("Button " + itos(i + 1));
+		btn->set_flat(true);
+		menu_bar_buttons->add_child(btn);
 	}
 
 	main_menu = memnew(MenuBar);
