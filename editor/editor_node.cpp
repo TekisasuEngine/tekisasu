@@ -6725,7 +6725,7 @@ void EditorNode::_rebuild_bus_buttons() {
 		} else {
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
 		}
-		
+
 		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
 		bus_button->connect("pressed", callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
 		audio_bus_buttons_hb->add_child(bus_button);
@@ -6763,7 +6763,7 @@ void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 	if (p_bus_index < AudioServer::get_singleton()->get_bus_count()) {
 		bool current_mute = AudioServer::get_singleton()->is_bus_mute(p_bus_index);
 		bool new_mute = !current_mute;
-		
+
 		EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
 		ur->create_action(TTR("Toggle Audio Bus Mute"));
 		ur->add_do_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, new_mute);
@@ -7253,7 +7253,7 @@ EditorNode::EditorNode() {
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Search Help"), HELP_SEARCH);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Online Documentation"), HELP_DOCS);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Tekisasu Developer Resources"), HELP_DEVSITE);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Export Project"), FILE_EXPORT_PROJECT);	
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Export Project"), FILE_EXPORT_PROJECT);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Manage Export Templates"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
 		editor_logo_quick_menu->get_popup()->add_separator();
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
@@ -7531,7 +7531,6 @@ EditorNode::EditorNode() {
 		// On macOS  "Quit" and "About" options are in the "app" menu.
 		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
 	}
-
 
 	// Spacer to center 2D / 3D / Script buttons.
 	Control *right_spacer = memnew(Control);
