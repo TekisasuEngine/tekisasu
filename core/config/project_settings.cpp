@@ -1492,6 +1492,12 @@ ProjectSettings::ProjectSettings() {
 	GLOBAL_DEF(PropertyInfo(Variant::INT, "audio/general/ios/session_category", PROPERTY_HINT_ENUM, "Ambient,Multi Route,Play and Record,Playback,Record,Solo Ambient"), 0);
 	GLOBAL_DEF("audio/general/ios/mix_with_others", false);
 
+	GLOBAL_DEF("audio/debug/tekisasu_devaudio_BGM", true);
+	GLOBAL_DEF("audio/debug/tekisasu_devaudio_FX", true);
+	GLOBAL_DEF("audio/debug/tekisasu_devaudio_Voice", true);
+	GLOBAL_DEF("audio/debug/tekisasu_devaudio_Foley", true);
+	GLOBAL_DEF("audio/debug/tekisasu_devaudio_Misc", true);
+
 	_add_builtin_input_map();
 
 	// Keep the enum values in sync with the `DisplayServer::ScreenOrientation` enum.

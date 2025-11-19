@@ -430,6 +430,13 @@ private:
 	String current_path;
 	MenuButton *update_spinner = nullptr;
 
+	HBoxContainer *audio_debug_buttons_hb = nullptr;
+	Button *audio_debug_bgm_button = nullptr;
+	Button *audio_debug_fx_button = nullptr;
+	Button *audio_debug_voice_button = nullptr;
+	Button *audio_debug_foley_button = nullptr;
+	Button *audio_debug_misc_button = nullptr;
+
 	HBoxContainer *main_editor_button_hb = nullptr;
 	Vector<Button *> main_editor_buttons;
 	Vector<EditorPlugin *> editor_table;
@@ -569,6 +576,8 @@ private:
 	void _export_as_menu_option(int p_idx);
 	void _update_file_menu_opened();
 	void _update_file_menu_closed();
+
+	void _audio_debug_button_toggled(const String &p_setting_name, bool p_pressed);
 
 	void _remove_plugin_from_enabled(const String &p_name);
 	void _plugin_over_edit(EditorPlugin *p_plugin, Object *p_object);

@@ -3487,6 +3487,10 @@ void EditorNode::_update_file_menu_closed() {
 	file_menu->set_item_disabled(file_menu->get_item_index(FILE_OPEN_PREV), false);
 }
 
+void EditorNode::_audio_debug_button_toggled(const String &p_setting_name, bool p_pressed) {
+	ProjectSettings::get_singleton()->set_setting(p_setting_name, p_pressed);
+}
+
 VBoxContainer *EditorNode::get_main_screen_control() {
 	return main_screen_vbox;
 }
@@ -7353,6 +7357,45 @@ EditorNode::EditorNode() {
 		project_title->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 		left_spacer->add_child(project_title);
 	}
+
+	// Audio debug toggle buttons
+	audio_debug_buttons_hb = memnew(HBoxContainer);
+	title_bar->add_child(audio_debug_buttons_hb);
+
+	audio_debug_bgm_button = memnew(Button);
+	audio_debug_bgm_button->set_text(TTR("BGM"));
+	audio_debug_bgm_button->set_toggle_mode(true);
+	audio_debug_bgm_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_BGM"));
+	audio_debug_bgm_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_BGM"));
+	audio_debug_buttons_hb->add_child(audio_debug_bgm_button);
+
+	audio_debug_fx_button = memnew(Button);
+	audio_debug_fx_button->set_text(TTR("FX"));
+	audio_debug_fx_button->set_toggle_mode(true);
+	audio_debug_fx_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_FX"));
+	audio_debug_fx_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_FX"));
+	audio_debug_buttons_hb->add_child(audio_debug_fx_button);
+
+	audio_debug_voice_button = memnew(Button);
+	audio_debug_voice_button->set_text(TTR("Voice"));
+	audio_debug_voice_button->set_toggle_mode(true);
+	audio_debug_voice_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Voice"));
+	audio_debug_voice_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Voice"));
+	audio_debug_buttons_hb->add_child(audio_debug_voice_button);
+
+	audio_debug_foley_button = memnew(Button);
+	audio_debug_foley_button->set_text(TTR("Foley"));
+	audio_debug_foley_button->set_toggle_mode(true);
+	audio_debug_foley_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Foley"));
+	audio_debug_foley_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Foley"));
+	audio_debug_buttons_hb->add_child(audio_debug_foley_button);
+
+	audio_debug_misc_button = memnew(Button);
+	audio_debug_misc_button->set_text(TTR("Misc"));
+	audio_debug_misc_button->set_toggle_mode(true);
+	audio_debug_misc_button->set_pressed(GLOBAL_GET("audio/debug/tekisasu_devaudio_Misc"));
+	audio_debug_misc_button->connect(SceneStringName(toggled), callable_mp(this, &EditorNode::_audio_debug_button_toggled).bind("audio/debug/tekisasu_devaudio_Misc"));
+	audio_debug_buttons_hb->add_child(audio_debug_misc_button);
 
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
