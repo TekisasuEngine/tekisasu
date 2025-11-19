@@ -6749,8 +6749,13 @@ void EditorNode::_update_bus_button_colors() {
 void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 	if (p_bus_index < AudioServer::get_singleton()->get_bus_count()) {
 		bool current_mute = AudioServer::get_singleton()->is_bus_mute(p_bus_index);
-		AudioServer::get_singleton()->set_bus_mute(p_bus_index, !current_mute);
-		_update_bus_button_colors();
+		bool new_mute = !current_mute;
+		
+		EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
+		ur->create_action(TTR("Toggle Audio Bus Mute"));
+		ur->add_do_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, new_mute);
+		ur->add_undo_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, current_mute);
+		ur->commit_action();
 	}
 }
 
