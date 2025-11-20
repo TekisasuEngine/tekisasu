@@ -6730,28 +6730,32 @@ void EditorNode::_rebuild_bus_buttons() {
 	// Create buttons for each bus
 	int bus_count = AudioServer::get_singleton()->get_bus_count();
 	for (int i = 0; i < bus_count; i++) {
-		// Add "master:" label before Master bus button
+		// Add "master:" icon before Master bus button
 		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
-			audio_bus_master_label = memnew(Label);
-			audio_bus_master_label->set_text(TTR("master:"));
+			audio_bus_master_label = memnew(MenuButton);
+			audio_bus_master_label->set_flat(true);
+			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
+			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
+			audio_bus_master_label->set_disabled(true);
 			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-			audio_bus_master_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
-			audio_bus_master_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
+			audio_bus_master_label->set_focus_mode(Control::FOCUS_NONE);
 			audio_bus_buttons_hb->add_child(audio_bus_master_label);
 		}
 
 		Button *bus_button = memnew(Button);
 		bus_button->set_flat(false);
 		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
-			bus_button->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+			bus_button->set_text(TTR("Master"));
 		} else {
-			// Add "buses:" label before first non-master bus
+			// Add "buses:" icon before first non-master bus
 			if (i == 1) {
-				audio_bus_buses_label = memnew(Label);
-				audio_bus_buses_label->set_text(TTR("buses:"));
+				audio_bus_buses_label = memnew(MenuButton);
+				audio_bus_buses_label->set_flat(true);
+				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
+				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
+				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-				audio_bus_buses_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
-				audio_bus_buses_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
+				audio_bus_buses_label->set_focus_mode(Control::FOCUS_NONE);
 				audio_bus_buttons_hb->add_child(audio_bus_buses_label);
 			}
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
@@ -7310,6 +7314,11 @@ EditorNode::EditorNode() {
 		editor_logo_quick_menu->set_theme_type_variation("FlatMenuButton");
 		title_bar->add_child(editor_logo_quick_menu);
 		editor_logo_quick_menu->set_tooltip_text(TTR("Tekisasu Engine"));
+		// Override icon color to use white instead of the default icon_normal_color
+		editor_logo_quick_menu->add_theme_color_override("icon_normal_color", Color(1, 1, 1, 0.95));
+		editor_logo_quick_menu->add_theme_color_override("icon_focus_color", Color(1, 1, 1, 0.95));
+		editor_logo_quick_menu->add_theme_color_override("icon_hover_color", Color(1, 1, 1, 0.95));
+		editor_logo_quick_menu->add_theme_color_override("icon_pressed_color", Color(1, 1, 1, 1));
 		editor_logo_quick_menu->get_popup()->add_item(TTR("About"), HELP_ABOUT);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
 		editor_logo_quick_menu->get_popup()->add_separator();
@@ -7506,12 +7515,26 @@ EditorNode::EditorNode() {
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
 
+	// Transparent non-interactive label spacer 
+	Label *runbar_spacer = memnew(Label);
+	runbar_spacer->set_text(" | ");
+	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
+	title_bar->add_child(runbar_spacer);
+
+	// Run bar section (moved before audio bus)
+	project_run_bar = memnew(EditorRunBar);
+	title_bar->add_child(project_run_bar);
+	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
+	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	// Spacer to center 2D / 3D / Script buttons and Runbar.
+	Control *right_spacer = memnew(Control);
+	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(right_spacer);
+
 	// Audio bus toggle buttons container
-	// Spacer to center 2D / 3D / Script buttons.
-	HBoxContainer *audio_bus_spacer = memnew(HBoxContainer);
-	audio_bus_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	audio_bus_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(audio_bus_spacer);
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	title_bar->add_child(audio_bus_buttons_hb);
@@ -7595,17 +7618,14 @@ EditorNode::EditorNode() {
 		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
 	}
 
-	// Spacer to center 2D / 3D / Script buttons.
-	Control *right_spacer = memnew(Control);
-	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(right_spacer);
 
-	project_run_bar = memnew(EditorRunBar);
-	title_bar->add_child(project_run_bar);
-	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
-	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
-
+	// Transparent non-interactive label spacer 
+	Label *topright_spacer = memnew(Label);
+	topright_spacer->set_text(" | ");
+	topright_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	topright_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
+	title_bar->add_child(topright_spacer);
+	
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
 	title_bar->add_child(right_menu_hb);
 
