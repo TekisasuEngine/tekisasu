@@ -439,8 +439,8 @@ private:
 
 	HBoxContainer *audio_bus_buttons_hb = nullptr;
 	HashMap<int, Button *> audio_bus_buttons;
-	TextureRect *audio_bus_master_label = nullptr;
-	TextureRect *audio_bus_buses_label = nullptr;
+	MenuButton *audio_bus_master_label = nullptr;
+	MenuButton *audio_bus_buses_label = nullptr;
 
 	AudioStreamPreviewGenerator *audio_preview_gen = nullptr;
 	ProgressDialog *progress_dialog = nullptr;

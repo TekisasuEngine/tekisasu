@@ -6732,13 +6732,13 @@ void EditorNode::_rebuild_bus_buttons() {
 	for (int i = 0; i < bus_count; i++) {
 		// Add "master:" icon before Master bus button
 		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
-			audio_bus_master_label = memnew(TextureRect);
-			audio_bus_master_label->set_texture(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
+			audio_bus_master_label = memnew(MenuButton);
+			audio_bus_master_label->set_flat(true);
+			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
+			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
+			audio_bus_master_label->set_disabled(true);
 			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-			audio_bus_master_label->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
-			audio_bus_master_label->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
-			audio_bus_master_label->set_custom_minimum_size(Size2(0, 24));
-			audio_bus_master_label->set_modulate(theme->get_color("icon_normal_color", EditorStringName(Editor)));
+			audio_bus_master_label->set_focus_mode(Control::FOCUS_NONE);
 			audio_bus_buttons_hb->add_child(audio_bus_master_label);
 		}
 
@@ -6749,13 +6749,13 @@ void EditorNode::_rebuild_bus_buttons() {
 		} else {
 			// Add "buses:" icon before first non-master bus
 			if (i == 1) {
-				audio_bus_buses_label = memnew(TextureRect);
-				audio_bus_buses_label->set_texture(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
+				audio_bus_buses_label = memnew(MenuButton);
+				audio_bus_buses_label->set_flat(true);
+				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
+				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
+				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-				audio_bus_buses_label->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
-				audio_bus_buses_label->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
-				audio_bus_buses_label->set_custom_minimum_size(Size2(0, 24));
-				audio_bus_buses_label->set_modulate(theme->get_color("icon_normal_color", EditorStringName(Editor)));
+				audio_bus_buses_label->set_focus_mode(Control::FOCUS_NONE);
 				audio_bus_buttons_hb->add_child(audio_bus_buses_label);
 			}
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
