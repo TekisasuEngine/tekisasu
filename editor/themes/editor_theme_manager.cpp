@@ -2469,7 +2469,7 @@ void EditorThemeManager::_generate_text_editor_defaults(ThemeConfiguration &p_co
 	const Color base_type_color =            p_config.dark_theme ? Color(0.26, 1.0, 0.76)        : Color(0, 0.6, 0.2);
 	const Color engine_type_color =          p_config.dark_theme ? Color(0.56, 1, 0.86)          : Color(0.11, 0.55, 0.4);
 	const Color user_type_color =            p_config.dark_theme ? Color(0.78, 1, 0.93)          : Color(0.18, 0.45, 0.4);
-	const Color comment_color =              p_config.dark_theme ? Color(0.20, 0.25, 0.52, 0.74) : Color(0.08, 0.08, 0.08, 0.5);
+	const Color comment_color =              p_config.dark_theme ? Color(0.42, 0.47, 0.74, 0.74) : Color(0.08, 0.08, 0.08, 0.5);
 	const Color doc_comment_color =          p_config.dark_theme ? Color(0.6, 0.7, 0.8, 0.8)	 : Color(0.15, 0.15, 0.4, 0.7);
 	const Color string_color =               p_config.dark_theme ? Color(1, 0.93, 0.63)          : Color(0.6, 0.42, 0);
 
@@ -2482,9 +2482,9 @@ void EditorThemeManager::_generate_text_editor_defaults(ThemeConfiguration &p_co
 	const Color completion_scroll_color =         Color(mono_value, mono_value, mono_value, 0.29);
 	const Color completion_scroll_hovered_color = Color(mono_value, mono_value, mono_value, 0.4);
 	const Color completion_font_color =           p_config.font_color;
-	const Color text_color =                      p_config.font_color;
-	const Color line_number_color =               Color(0.24, 0.24, 0.25, 0.5);
-	const Color safe_line_number_color =          p_config.dark_theme ? (dim_color * Color(1, 1.2, 1, 1.5)) : Color(0.20, 0.35, 0.51, 0.74);
+	const Color text_color =                      Color(0.63, 0.63, 0.79, 1);
+	const Color line_number_color =               Color(1, 1, 1, 0.74);
+	const Color safe_line_number_color =          Color(0.25, 0.50, 0.87, 0.74);
 	const Color caret_color =                     p_config.mono_color;
 	const Color caret_background_color =          p_config.mono_color.inverted();
 	const Color text_selected_color =             Color(0, 0, 0, 0);
