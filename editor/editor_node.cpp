@@ -7506,12 +7506,20 @@ EditorNode::EditorNode() {
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
 
-	// Audio bus toggle buttons container
-	// Spacer to center 2D / 3D / Script buttons.
-	HBoxContainer *audio_bus_spacer = memnew(HBoxContainer);
-	audio_bus_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	audio_bus_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	// Run bar section (moved before audio bus)
+	project_run_bar = memnew(EditorRunBar);
+	title_bar->add_child(project_run_bar);
+	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
+	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	// Transparent non-interactive label spacer (replacing audio_bus_spacer)
+	Label *audio_bus_spacer = memnew(Label);
+	audio_bus_spacer->set_text("     ");
+	audio_bus_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	audio_bus_spacer->add_theme_color_override("font_color", Color(0, 0, 0, 0));
 	title_bar->add_child(audio_bus_spacer);
+
+	// Audio bus toggle buttons container
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	title_bar->add_child(audio_bus_buttons_hb);
@@ -7600,11 +7608,6 @@ EditorNode::EditorNode() {
 	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	title_bar->add_child(right_spacer);
-
-	project_run_bar = memnew(EditorRunBar);
-	title_bar->add_child(project_run_bar);
-	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
-	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
 	title_bar->add_child(right_menu_hb);
