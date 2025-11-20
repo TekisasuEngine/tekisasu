@@ -122,6 +122,7 @@ class ProjectSettingsEditor;
 class RunSettingsDialog;
 class SceneImportSettingsDialog;
 class ScriptCreateDialog;
+class StyleBoxFlat;
 class SurfaceUpgradeTool;
 class SurfaceUpgradeDialog;
 class WindowWrapper;
