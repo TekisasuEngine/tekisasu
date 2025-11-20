@@ -464,7 +464,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.45);
 		p_config.font_focus_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
 		p_config.font_hover_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
-		p_config.font_pressed_color = p_config.accent_color;
+		p_config.font_pressed_color = Color(1, 1, 1, 1);
 		p_config.font_hover_pressed_color = p_config.font_hover_color.lerp(p_config.accent_color, 0.74);
 		p_config.font_disabled_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.25);
 		p_config.font_readonly_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.65);
