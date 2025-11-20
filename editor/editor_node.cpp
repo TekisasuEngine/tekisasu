@@ -658,9 +658,6 @@ void EditorNode::_notification(int p_what) {
 
 			ResourceImporterTexture::get_singleton()->update_imports();
 
-			// Update audio bus button colors
-			_update_bus_button_colors();
-
 			if (requested_first_scan) {
 				requested_first_scan = false;
 
@@ -6781,6 +6778,8 @@ void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 			ur->add_do_method(audio_bus_editor, "_update_bus", p_bus_index);
 			ur->add_undo_method(audio_bus_editor, "_update_bus", p_bus_index);
 		}
+		ur->add_do_method(this, "_update_bus_button_colors");
+		ur->add_undo_method(this, "_update_bus_button_colors");
 		ur->commit_action();
 	}
 }
