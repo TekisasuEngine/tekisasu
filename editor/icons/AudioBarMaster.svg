@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 113 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;">
+    <g transform="matrix(4.16667,0,0,4.16667,0,0)">
+        <g id="path1" transform="matrix(6.66667,0,0,6.66667,9.91473,0)">
+            <path d="M1.382,0.335L0.777,0.858L0.204,0.858L0.204,1.531L0.768,1.531L1.382,2.062L1.382,0.335Z" style="fill:rgb(224,224,224);fill-rule:nonzero;stroke:rgb(224,224,224);stroke-width:0.18px;"/>
+        </g>
+        <g id="path2" transform="matrix(6.66667,0,0,6.66667,9.91473,0)">
+            <path d="M1.718,0.572C1.992,0.945 1.992,1.455 1.718,1.828M1.947,0.343C2.349,0.843 2.349,1.556 1.947,2.057" style="fill:none;fill-rule:nonzero;stroke:rgb(224,224,224);stroke-width:0.18px;stroke-linecap:round;stroke-linejoin:miter;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,-1.3385,-0.548773)">
+            <g transform="matrix(16.3109,0,0,16.3109,11.6522,14.4496)">
+            </g>
+            <text x="1.866px" y="14.45px" style="font-family:'JetBrainsMono-Regular', 'JetBrains Mono', monospace;font-size:16.311px;fill:rgb(224,224,224);">M</text>
+        </g>
+    </g>
+</svg>
