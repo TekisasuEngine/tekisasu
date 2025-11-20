@@ -916,7 +916,7 @@ void EditorSettings::_load_godot2_text_editor_theme() {
 	_initial_set("text_editor/theme/highlighting/base_type_color", Color(0.64, 1.0, 0.83));
 	_initial_set("text_editor/theme/highlighting/engine_type_color", Color(0.51, 0.83, 1.0));
 	_initial_set("text_editor/theme/highlighting/user_type_color", Color(0.42, 0.67, 0.93));
-	_initial_set("text_editor/theme/highlighting/comment_color", Color(0.4, 0.4, 0.4));
+	_initial_set("text_editor/theme/highlighting/comment_color", Color(0.42, 0.47, 0.74, 0.74));
 	_initial_set("text_editor/theme/highlighting/doc_comment_color", Color(0.5, 0.6, 0.7));
 	_initial_set("text_editor/theme/highlighting/string_color", Color(0.94, 0.43, 0.75));
 	_initial_set("text_editor/theme/highlighting/background_color", Color(0.13, 0.12, 0.15));
@@ -926,9 +926,9 @@ void EditorSettings::_load_godot2_text_editor_theme() {
 	_initial_set("text_editor/theme/highlighting/completion_scroll_color", Color(1, 1, 1, 0.29));
 	_initial_set("text_editor/theme/highlighting/completion_scroll_hovered_color", Color(1, 1, 1, 0.4));
 	_initial_set("text_editor/theme/highlighting/completion_font_color", Color(0.67, 0.67, 0.67));
-	_initial_set("text_editor/theme/highlighting/text_color", Color(0.67, 0.67, 0.67));
-	_initial_set("text_editor/theme/highlighting/line_number_color", Color(0.67, 0.67, 0.67, 0.4));
-	_initial_set("text_editor/theme/highlighting/safe_line_number_color", Color(0.67, 0.78, 0.67, 0.6));
+	_initial_set("text_editor/theme/highlighting/text_color", Color(0.63, 0.63, 0.79, 1));
+	_initial_set("text_editor/theme/highlighting/line_number_color", Color(1, 1, 1, 0.74));
+	_initial_set("text_editor/theme/highlighting/safe_line_number_color", Color(0.25, 0.50, 0.87, 0.74));
 	_initial_set("text_editor/theme/highlighting/caret_color", Color(0.67, 0.67, 0.67));
 	_initial_set("text_editor/theme/highlighting/caret_background_color", Color(0, 0, 0));
 	_initial_set("text_editor/theme/highlighting/text_selected_color", Color(0, 0, 0, 0));
