@@ -6733,7 +6733,7 @@ void EditorNode::_rebuild_bus_buttons() {
 		// Add "master:" label before Master bus button
 		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
 			audio_bus_master_label = memnew(Label);
-			audio_bus_master_label->set_text(TTR("master:"));
+			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
 			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 			audio_bus_master_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
 			audio_bus_master_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
@@ -6743,12 +6743,12 @@ void EditorNode::_rebuild_bus_buttons() {
 		Button *bus_button = memnew(Button);
 		bus_button->set_flat(false);
 		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
-			bus_button->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+			bus_button->set_text(TTR("Master"));
 		} else {
 			// Add "buses:" label before first non-master bus
 			if (i == 1) {
 				audio_bus_buses_label = memnew(Label);
-				audio_bus_buses_label->set_text(TTR("buses:"));
+				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 				audio_bus_buses_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
 				audio_bus_buses_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
@@ -7615,7 +7615,13 @@ EditorNode::EditorNode() {
 	}
 
 
-
+	// Transparent non-interactive label spacer 
+	Label *topright_spacer = memnew(Label);
+	topright_spacer->set_text(" | ");
+	topright_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	topright_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
+	title_bar->add_child(topright_spacer);
+	
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
 	title_bar->add_child(right_menu_hb);
 
