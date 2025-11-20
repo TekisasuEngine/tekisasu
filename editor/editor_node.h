@@ -80,6 +80,7 @@ class DependencyErrorDialog;
 class DockSplitContainer;
 class DynamicFontImportSettingsDialog;
 class EditorAbout;
+class EditorAudioBuses;
 class EditorBuildProfileManager;
 class EditorBottomPanel;
 class EditorCommandPalette;
@@ -297,6 +298,7 @@ private:
 	EditorResourcePreview *resource_preview = nullptr;
 	EditorSelection *editor_selection = nullptr;
 	EditorSettingsDialog *editor_settings_dialog = nullptr;
+	EditorAudioBuses *audio_bus_editor = nullptr;
 	HistoryDock *history_dock = nullptr;
 
 	ProjectExportDialog *project_export = nullptr;
@@ -433,6 +435,9 @@ private:
 	HBoxContainer *main_editor_button_hb = nullptr;
 	Vector<Button *> main_editor_buttons;
 	Vector<EditorPlugin *> editor_table;
+
+	HBoxContainer *audio_bus_buttons_hb = nullptr;
+	HashMap<int, Button *> audio_bus_buttons;
 
 	AudioStreamPreviewGenerator *audio_preview_gen = nullptr;
 	ProgressDialog *progress_dialog = nullptr;
@@ -700,6 +705,11 @@ private:
 	void _notify_nodes_scene_reimported(Node *p_node, Array p_reimported_nodes);
 
 	void _remove_all_not_owned_children(Node *p_node, Node *p_owner);
+
+	void _rebuild_bus_buttons();
+	void _update_bus_button_colors();
+	void _on_bus_button_pressed(int p_bus_index);
+	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
 
 protected:
 	friend class FileSystemDock;
