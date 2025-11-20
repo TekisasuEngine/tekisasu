@@ -7508,7 +7508,7 @@ EditorNode::EditorNode() {
 
 	// Transparent non-interactive label spacer 
 	Label *runbar_spacer = memnew(Label);
-	runbar_spacer->set_text("   |   ");
+	runbar_spacer->set_text(" | ");
 	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
 	title_bar->add_child(runbar_spacer);
