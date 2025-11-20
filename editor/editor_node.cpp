@@ -6759,6 +6759,9 @@ void EditorNode::_update_bus_button_colors() {
 				}
 			}
 			button->add_theme_color_override("font_color", color);
+			button->add_theme_color_override("font_pressed_color", color);
+			button->add_theme_color_override("font_hover_color", color);
+			button->add_theme_color_override("font_focus_color", color);
 			button->add_theme_color_override("icon_normal_color", color);
 			button->add_theme_color_override("icon_pressed_color", color);
 			button->add_theme_color_override("icon_hover_color", color);
