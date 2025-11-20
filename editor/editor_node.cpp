@@ -6730,13 +6730,13 @@ void EditorNode::_rebuild_bus_buttons() {
 	// Create buttons for each bus
 	int bus_count = AudioServer::get_singleton()->get_bus_count();
 	for (int i = 0; i < bus_count; i++) {
-		// Add "master:" label before Master bus button
+		// Add "master:" icon before Master bus button
 		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
-			audio_bus_master_label = memnew(Label);
-			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
+			audio_bus_master_label = memnew(TextureRect);
+			audio_bus_master_label->set_texture(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
 			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-			audio_bus_master_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
-			audio_bus_master_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
+			audio_bus_master_label->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
+			audio_bus_master_label->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 			audio_bus_buttons_hb->add_child(audio_bus_master_label);
 		}
 
@@ -6745,13 +6745,13 @@ void EditorNode::_rebuild_bus_buttons() {
 		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
 			bus_button->set_text(TTR("Master"));
 		} else {
-			// Add "buses:" label before first non-master bus
+			// Add "buses:" icon before first non-master bus
 			if (i == 1) {
-				audio_bus_buses_label = memnew(Label);
-				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
+				audio_bus_buses_label = memnew(TextureRect);
+				audio_bus_buses_label->set_texture(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-				audio_bus_buses_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
-				audio_bus_buses_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
+				audio_bus_buses_label->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
+				audio_bus_buses_label->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 				audio_bus_buttons_hb->add_child(audio_bus_buses_label);
 			}
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
