@@ -6812,10 +6812,10 @@ void EditorNode::_update_bus_button_colors() {
 			button->add_theme_color_override("icon_focus_color", color);
 			// Add background colors
 			button->add_theme_color_override("font_outline_color", bg_color);
-			button->add_theme_stylebox_override("normal", _create_bg_stylebox(bg_color));
-			button->add_theme_stylebox_override("hover", _create_bg_stylebox(bg_color * 1.2));
-			button->add_theme_stylebox_override("pressed", _create_bg_stylebox(bg_color * 1.4));
-			button->add_theme_stylebox_override("focus", _create_bg_stylebox(bg_color));
+			button->add_theme_style_override("normal", _create_bg_stylebox(bg_color));
+			button->add_theme_style_override("hover", _create_bg_stylebox(bg_color * 1.2));
+			button->add_theme_style_override("pressed", _create_bg_stylebox(bg_color * 1.4));
+			button->add_theme_style_override("focus", _create_bg_stylebox(bg_color));
 		}
 	}
 }
