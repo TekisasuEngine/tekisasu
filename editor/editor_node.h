@@ -122,6 +122,7 @@ class ProjectSettingsEditor;
 class RunSettingsDialog;
 class SceneImportSettingsDialog;
 class ScriptCreateDialog;
+class StyleBoxFlat;
 class SurfaceUpgradeTool;
 class SurfaceUpgradeDialog;
 class WindowWrapper;
@@ -438,6 +439,8 @@ private:
 
 	HBoxContainer *audio_bus_buttons_hb = nullptr;
 	HashMap<int, Button *> audio_bus_buttons;
+	Label *audio_bus_master_label = nullptr;
+	Label *audio_bus_buses_label = nullptr;
 
 	AudioStreamPreviewGenerator *audio_preview_gen = nullptr;
 	ProgressDialog *progress_dialog = nullptr;
@@ -707,6 +710,7 @@ private:
 	void _remove_all_not_owned_children(Node *p_node, Node *p_owner);
 
 	void _rebuild_bus_buttons();
+	Ref<StyleBoxFlat> _create_bg_stylebox(const Color &p_color);
 	void _update_bus_button_colors();
 	void _on_bus_button_pressed(int p_bus_index);
 	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);

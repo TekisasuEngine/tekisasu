@@ -68,6 +68,7 @@
 #include "scene/resources/image_texture.h"
 #include "scene/resources/packed_scene.h"
 #include "scene/resources/portable_compressed_texture.h"
+#include "scene/resources/style_box_flat.h"
 #include "scene/theme/theme_db.h"
 #include "servers/display_server.h"
 #include "servers/navigation_server_3d.h"
@@ -657,9 +658,6 @@ void EditorNode::_notification(int p_what) {
 			editor_selection->update();
 
 			ResourceImporterTexture::get_singleton()->update_imports();
-
-			// Update audio bus button colors
-			_update_bus_button_colors();
 
 			if (requested_first_scan) {
 				requested_first_scan = false;
@@ -6615,6 +6613,8 @@ void EditorNode::_bind_methods() {
 
 	ClassDB::bind_method("stop_child_process", &EditorNode::stop_child_process);
 
+	ClassDB::bind_method("_update_bus_button_colors", &EditorNode::_update_bus_button_colors);
+
 	ADD_SIGNAL(MethodInfo("request_help_search"));
 	ADD_SIGNAL(MethodInfo("script_add_function_request", PropertyInfo(Variant::OBJECT, "obj"), PropertyInfo(Variant::STRING, "function"), PropertyInfo(Variant::PACKED_STRING_ARRAY, "args")));
 	ADD_SIGNAL(MethodInfo("resource_saved", PropertyInfo(Variant::OBJECT, "obj")));
@@ -6715,14 +6715,45 @@ void EditorNode::_rebuild_bus_buttons() {
 	}
 	audio_bus_buttons.clear();
 
+	// Clear existing labels
+	if (audio_bus_master_label) {
+		audio_bus_buttons_hb->remove_child(audio_bus_master_label);
+		memdelete(audio_bus_master_label);
+		audio_bus_master_label = nullptr;
+	}
+	if (audio_bus_buses_label) {
+		audio_bus_buttons_hb->remove_child(audio_bus_buses_label);
+		memdelete(audio_bus_buses_label);
+		audio_bus_buses_label = nullptr;
+	}
+
 	// Create buttons for each bus
 	int bus_count = AudioServer::get_singleton()->get_bus_count();
 	for (int i = 0; i < bus_count; i++) {
+		// Add "master:" label before Master bus button
+		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
+			audio_bus_master_label = memnew(Label);
+			audio_bus_master_label->set_text(TTR("master:"));
+			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+			audio_bus_master_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+			audio_bus_master_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
+			audio_bus_buttons_hb->add_child(audio_bus_master_label);
+		}
+
 		Button *bus_button = memnew(Button);
 		bus_button->set_flat(false);
 		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
 			bus_button->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
 		} else {
+			// Add "buses:" label before first non-master bus
+			if (i == 1) {
+				audio_bus_buses_label = memnew(Label);
+				audio_bus_buses_label->set_text(TTR("buses:"));
+				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+				audio_bus_buses_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+				audio_bus_buses_label->add_theme_font_override("font", theme->get_font(SNAME("doc_italic"), EditorStringName(EditorFonts)));
+				audio_bus_buttons_hb->add_child(audio_bus_buses_label);
+			}
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
 		}
 
@@ -6736,6 +6767,13 @@ void EditorNode::_rebuild_bus_buttons() {
 	_update_bus_button_colors();
 }
 
+Ref<StyleBoxFlat> EditorNode::_create_bg_stylebox(const Color &p_color) {
+	Ref<StyleBoxFlat> style = memnew(StyleBoxFlat);
+	style->set_bg_color(p_color);
+	style->set_corner_radius_all(4);
+	return style;
+}
+
 void EditorNode::_update_bus_button_colors() {
 	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
 		int bus_index = kv.key;
@@ -6744,26 +6782,40 @@ void EditorNode::_update_bus_button_colors() {
 		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
 			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
 			Color color;
+			Color bg_color;
 			if (is_muted) {
 				// Red for muted, slightly different for master and non-master buses
 				if ((String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master") {
 					color = Color(0.94, 0.44, 0.56, 1.0); // Red for muted
+					bg_color = Color(0.94, 0.44, 0.56, 0.2); // Darker red background
 				} else {
 					color = Color(0.85, 0.28, 0.44, 0.85); // Red for muted, opacity at 0.85 for non-master buses
+					bg_color = Color(0.85, 0.28, 0.44, 0.2); // Darker red background
 				}
 			} else {
 				// Green for not muted, slightly different for master and non-master buses
 				if ((String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master") {
 					color = Color(0.46, 0.85, 0.69, 1.0); // Green for not muted
+					bg_color = Color(0.46, 0.85, 0.69, 0.2); // Darker green background
 				} else {
 					color = Color(0.36, 0.73, 0.58, 0.85); // Green for not muted, opacity at 0.85 for non-master buses
+					bg_color = Color(0.36, 0.73, 0.58, 0.2); // Darker green background
 				}
 			}
 			button->add_theme_color_override("font_color", color);
+			button->add_theme_color_override("font_pressed_color", color);
+			button->add_theme_color_override("font_hover_color", color);
+			button->add_theme_color_override("font_focus_color", color);
 			button->add_theme_color_override("icon_normal_color", color);
 			button->add_theme_color_override("icon_pressed_color", color);
 			button->add_theme_color_override("icon_hover_color", color);
 			button->add_theme_color_override("icon_focus_color", color);
+			// Add background colors
+			button->add_theme_color_override("font_outline_color", bg_color);
+			button->add_theme_style_override("normal", _create_bg_stylebox(bg_color));
+			button->add_theme_style_override("hover", _create_bg_stylebox(bg_color * 1.2));
+			button->add_theme_style_override("pressed", _create_bg_stylebox(bg_color * 1.4));
+			button->add_theme_style_override("focus", _create_bg_stylebox(bg_color));
 		}
 	}
 }
@@ -6781,6 +6833,8 @@ void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 			ur->add_do_method(audio_bus_editor, "_update_bus", p_bus_index);
 			ur->add_undo_method(audio_bus_editor, "_update_bus", p_bus_index);
 		}
+		ur->add_do_method(this, "_update_bus_button_colors");
+		ur->add_undo_method(this, "_update_bus_button_colors");
 		ur->commit_action();
 	}
 }
