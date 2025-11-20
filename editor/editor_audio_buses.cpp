@@ -469,6 +469,11 @@ void EditorAudioBus::_mute_toggled() {
 	ur->add_undo_method(AudioServer::get_singleton(), "set_bus_mute", get_index(), AudioServer::get_singleton()->is_bus_mute(get_index()));
 	ur->add_do_method(buses, "_update_bus", get_index());
 	ur->add_undo_method(buses, "_update_bus", get_index());
+	// Update the top menubar bus button colors when mute is toggled in the audio mixer
+	if (EditorNode::get_singleton()) {
+		ur->add_do_method(EditorNode::get_singleton(), "_update_bus_button_colors");
+		ur->add_undo_method(EditorNode::get_singleton(), "_update_bus_button_colors");
+	}
 	ur->commit_action();
 
 	updating_bus = false;
