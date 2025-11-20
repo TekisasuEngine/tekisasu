@@ -6714,14 +6714,43 @@ void EditorNode::_rebuild_bus_buttons() {
 	}
 	audio_bus_buttons.clear();
 
+	// Clear existing labels
+	if (audio_bus_master_label) {
+		audio_bus_buttons_hb->remove_child(audio_bus_master_label);
+		memdelete(audio_bus_master_label);
+		audio_bus_master_label = nullptr;
+	}
+	if (audio_bus_buses_label) {
+		audio_bus_buttons_hb->remove_child(audio_bus_buses_label);
+		memdelete(audio_bus_buses_label);
+		audio_bus_buses_label = nullptr;
+	}
+
 	// Create buttons for each bus
 	int bus_count = AudioServer::get_singleton()->get_bus_count();
 	for (int i = 0; i < bus_count; i++) {
+		// Add "Master:" label before Master bus button
+		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
+			audio_bus_master_label = memnew(Label);
+			audio_bus_master_label->set_text(TTR("Master:"));
+			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+			audio_bus_master_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+			audio_bus_buttons_hb->add_child(audio_bus_master_label);
+		}
+
 		Button *bus_button = memnew(Button);
 		bus_button->set_flat(false);
 		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
 			bus_button->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
 		} else {
+			// Add "Buses:" label before first non-master bus
+			if (i == 1) {
+				audio_bus_buses_label = memnew(Label);
+				audio_bus_buses_label->set_text(TTR("Buses:"));
+				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+				audio_bus_buses_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+				audio_bus_buttons_hb->add_child(audio_bus_buses_label);
+			}
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
 		}
 
