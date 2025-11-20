@@ -6735,7 +6735,7 @@ void EditorNode::_rebuild_bus_buttons() {
 			audio_bus_master_label = memnew(MenuButton);
 			audio_bus_master_label->set_flat(true);
 			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
-			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioBarMaster"), EditorStringName(EditorIcons)));
+			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
 			audio_bus_master_label->set_disabled(true);
 			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 			audio_bus_master_label->set_focus_mode(Control::FOCUS_NONE);
@@ -6752,7 +6752,7 @@ void EditorNode::_rebuild_bus_buttons() {
 				audio_bus_buses_label = memnew(MenuButton);
 				audio_bus_buses_label->set_flat(true);
 				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
-				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("AudioBarBus"), EditorStringName(EditorIcons)));
+				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("Slot"), EditorStringName(EditorIcons)));
 				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 				audio_bus_buses_label->set_focus_mode(Control::FOCUS_NONE);
