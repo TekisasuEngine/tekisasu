@@ -7311,9 +7311,9 @@ EditorNode::EditorNode() {
 		title_bar->add_child(editor_logo_quick_menu);
 		editor_logo_quick_menu->set_tooltip_text(TTR("Tekisasu Engine"));
 		// Override icon color to use white instead of the default icon_normal_color
-		editor_logo_quick_menu->add_theme_color_override("icon_normal_color", Color(1, 1, 1, 1));
-		editor_logo_quick_menu->add_theme_color_override("icon_focus_color", Color(1, 1, 1, 1));
-		editor_logo_quick_menu->add_theme_color_override("icon_hover_color", Color(1, 1, 1, 1));
+		editor_logo_quick_menu->add_theme_color_override("icon_normal_color", Color(1, 1, 1, 0.95));
+		editor_logo_quick_menu->add_theme_color_override("icon_focus_color", Color(1, 1, 1, 0.95));
+		editor_logo_quick_menu->add_theme_color_override("icon_hover_color", Color(1, 1, 1, 0.95));
 		editor_logo_quick_menu->add_theme_color_override("icon_pressed_color", Color(1, 1, 1, 1));
 		editor_logo_quick_menu->get_popup()->add_item(TTR("About"), HELP_ABOUT);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
