@@ -7506,18 +7506,24 @@ EditorNode::EditorNode() {
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
 
+	// Transparent non-interactive label spacer 
+	Label *runbar_spacer = memnew(Label);
+	runbar_spacer->set_text("   |   ");
+	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
+	title_bar->add_child(runbar_spacer);
+
 	// Run bar section (moved before audio bus)
 	project_run_bar = memnew(EditorRunBar);
 	title_bar->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
-	// Transparent non-interactive label spacer (replacing audio_bus_spacer)
-	Label *audio_bus_spacer = memnew(Label);
-	audio_bus_spacer->set_text("     ");
-	audio_bus_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	audio_bus_spacer->add_theme_color_override("font_color", Color(0, 0, 0, 0));
-	title_bar->add_child(audio_bus_spacer);
+	// Spacer to center 2D / 3D / Script buttons and Runbar.
+	Control *right_spacer = memnew(Control);
+	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(right_spacer);
 
 	// Audio bus toggle buttons container
 	audio_bus_buttons_hb = memnew(HBoxContainer);
@@ -7603,11 +7609,7 @@ EditorNode::EditorNode() {
 		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
 	}
 
-	// Spacer to center 2D / 3D / Script buttons.
-	Control *right_spacer = memnew(Control);
-	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(right_spacer);
+
 
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
 	title_bar->add_child(right_menu_hb);
