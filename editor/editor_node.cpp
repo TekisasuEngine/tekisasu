@@ -6736,6 +6736,7 @@ void EditorNode::_rebuild_bus_buttons() {
 			audio_bus_master_label->set_flat(true);
 			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
 			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+			audio_bus_master_label->set_modulate(Color(1, 1, 1, 0.85));
 			audio_bus_master_label->set_disabled(true);
 			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 			audio_bus_master_label->set_focus_mode(Control::FOCUS_NONE);
@@ -6752,7 +6753,8 @@ void EditorNode::_rebuild_bus_buttons() {
 				audio_bus_buses_label = memnew(MenuButton);
 				audio_bus_buses_label->set_flat(true);
 				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
-				audio_bus_buses_label->set_icon(theme->get_icon(SNAME("Slot"), EditorStringName(EditorIcons)));
+				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9);
+				audio_bus_buses_label->set_text(TTR("|"));
 				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 				audio_bus_buses_label->set_focus_mode(Control::FOCUS_NONE);
@@ -6788,7 +6790,6 @@ void EditorNode::_update_bus_button_colors() {
 			Color color;
 			Color bg_color;
 			if (is_muted) {
-				// Red for muted, slightly different for master and non-master buses
 				if ((String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master") {
 					color = Color(0.94, 0.44, 0.56, 1.0); // Red for muted
 					bg_color = Color(0.94, 0.44, 0.56, 0.2); // Darker red background
@@ -6797,7 +6798,6 @@ void EditorNode::_update_bus_button_colors() {
 					bg_color = Color(0.85, 0.28, 0.44, 0.2); // Darker red background
 				}
 			} else {
-				// Green for not muted, slightly different for master and non-master buses
 				if ((String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master") {
 					color = Color(0.46, 0.85, 0.69, 1.0); // Green for not muted
 					bg_color = Color(0.46, 0.85, 0.69, 0.2); // Darker green background
@@ -6814,11 +6814,12 @@ void EditorNode::_update_bus_button_colors() {
 			button->add_theme_color_override("icon_pressed_color", color);
 			button->add_theme_color_override("icon_hover_color", color);
 			button->add_theme_color_override("icon_focus_color", color);
+			button->add_theme_font_size_override(SceneStringName(font_size), 11);
 			// Add background colors
 			button->add_theme_color_override("font_outline_color", bg_color);
 			button->add_theme_style_override("normal", _create_bg_stylebox(bg_color));
-			button->add_theme_style_override("hover", _create_bg_stylebox(bg_color * 1.2));
-			button->add_theme_style_override("pressed", _create_bg_stylebox(bg_color * 1.4));
+			button->add_theme_style_override("hover", _create_bg_stylebox(bg_color * 1.1));
+			button->add_theme_style_override("pressed", _create_bg_stylebox(bg_color));
 			button->add_theme_style_override("focus", _create_bg_stylebox(bg_color));
 		}
 	}
