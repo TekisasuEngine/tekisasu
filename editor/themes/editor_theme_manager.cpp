@@ -1882,8 +1882,19 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// Run bar.
 		p_theme->set_type_variation("RunBarButton", "FlatMenuButton");
-		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
+		p_theme->set_stylebox(CoreStringName(normal), "RunBarButton", menu_transparent_style);
+		p_theme->set_stylebox("hover", "RunBarButton", main_screen_button_hover);
+		p_theme->set_stylebox("hover_pressed", "RunBarButton", main_screen_button_hover);
 		p_theme->set_stylebox(SceneStringName(pressed), "RunBarButton", menu_transparent_style);
+		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
+		
+		// Icon colors for RunBarButton
+		p_theme->set_color("icon_normal_color", "RunBarButton", p_config.icon_normal_color);
+		p_theme->set_color("icon_hover_color", "RunBarButton", Color(1, 1, 1, 1));
+		Color icon_pressed_color_runbar = p_config.accent_color;
+		icon_pressed_color_runbar.a = 1.0;
+		p_theme->set_color("icon_pressed_color", "RunBarButton", icon_pressed_color_runbar);
+		p_theme->set_color("icon_hover_pressed_color", "RunBarButton", icon_pressed_color_runbar);
 
 		// Bottom panel.
 		Ref<StyleBoxFlat> style_bottom_panel = p_config.content_panel_style->duplicate();
