@@ -6902,7 +6902,7 @@ void EditorNode::_update_debug_target_status() {
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 1));
-			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
 			debug_target_status->set_text(ip_address);
 		} else {
 			// Disconnected state: red icon + "No Connection"
@@ -6913,7 +6913,7 @@ void EditorNode::_update_debug_target_status() {
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
-			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
 			debug_target_status->set_text("No Connection");
 		}
 	} else if (is_connected) {
@@ -7618,11 +7618,11 @@ EditorNode::EditorNode() {
 
 	// "Debug Target:" label
 	debug_target_label = memnew(Button);
-	debug_target_label->set_text("Debug Target:");
+	debug_target_label->set_text("Remote Debug Client:");
 	debug_target_label->set_flat(true);
 	debug_target_label->set_focus_mode(Control::FOCUS_NONE);
 	debug_target_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.8));
+	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.5));
 	Ref<StyleBoxEmpty> label_empty_style;
 	label_empty_style.instantiate();
 	debug_target_label->add_theme_style_override("normal", label_empty_style);
@@ -7644,7 +7644,7 @@ EditorNode::EditorNode() {
 	debug_target_status->add_theme_style_override("focus", status_empty_style);
 	// Set initial disconnected state
 	debug_target_status->set_text("No Connection");
-	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
 	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
