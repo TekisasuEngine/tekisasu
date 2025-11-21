@@ -6875,22 +6875,19 @@ void EditorNode::_update_debug_target_status() {
 	// Check if session is active
 	bool is_connected = debugger->is_session_active();
 
-	// Get the IP address (if connected)
-	String ip_address;
-	if (is_connected) {
-		ip_address = debugger->get_connected_host_ip();
-		if (ip_address.is_empty()) {
-			ip_address = "Connected";
-		}
-	}
-
 	// Only update UI if state has changed
-	if (is_connected != debug_target_last_connected_state || ip_address != debug_target_last_ip) {
+	if (is_connected != debug_target_last_connected_state) {
+		// Connection state changed, update everything
 		debug_target_last_connected_state = is_connected;
-		debug_target_last_ip = ip_address;
 
 		if (is_connected) {
 			// Connected state: green icon + IP address
+			String ip_address = debugger->get_connected_host_ip();
+			if (ip_address.is_empty()) {
+				ip_address = "Connected";
+			}
+			debug_target_last_ip = ip_address;
+
 			Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
@@ -6900,6 +6897,8 @@ void EditorNode::_update_debug_target_status() {
 			debug_target_status->set_text(ip_address);
 		} else {
 			// Disconnected state: red icon + "No Connection"
+			debug_target_last_ip = "";
+
 			Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
@@ -6907,6 +6906,16 @@ void EditorNode::_update_debug_target_status() {
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
 			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
 			debug_target_status->set_text("No Connection");
+		}
+	} else if (is_connected) {
+		// Connected state hasn't changed, but IP might have
+		String ip_address = debugger->get_connected_host_ip();
+		if (ip_address.is_empty()) {
+			ip_address = "Connected";
+		}
+		if (ip_address != debug_target_last_ip) {
+			debug_target_last_ip = ip_address;
+			debug_target_status->set_text(ip_address);
 		}
 	}
 }
