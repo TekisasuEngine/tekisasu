@@ -574,6 +574,15 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 			}
 		}
 
+		// Initialize debug target status icon
+		if (debug_target_status) {
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
+			debug_target_status->set_icon(icon);
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red for disconnected
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+		}
+
 		_update_renderer_color();
 	}
 
@@ -7633,6 +7642,9 @@ EditorNode::EditorNode() {
 	debug_target_status->add_theme_style_override("hover", status_empty_style);
 	debug_target_status->add_theme_style_override("pressed", status_empty_style);
 	debug_target_status->add_theme_style_override("focus", status_empty_style);
+	// Set initial disconnected state
+	debug_target_status->set_text("No Connection");
+	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
 	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
