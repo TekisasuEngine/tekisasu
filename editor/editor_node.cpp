@@ -578,9 +578,10 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		if (debug_target_status) {
 			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
-			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 0.8)); // Red for disconnected
-			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 0.8));
-			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 0.8));
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red for disconnected
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.8)); // 80% opacity for icon and text
 		}
 
 		_update_renderer_color();
@@ -6899,10 +6900,11 @@ void EditorNode::_update_debug_target_status() {
 
 			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
-			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 0.8)); // Green
-			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 0.8));
-			debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 0.8));
-			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 1));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 1));
+			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.8)); // 80% opacity for icon and text
 			debug_target_status->set_text(ip_address);
 		} else {
 			// Disconnected state: red icon + "No Connection"
@@ -6910,10 +6912,11 @@ void EditorNode::_update_debug_target_status() {
 
 			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
-			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 0.8)); // Red
-			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 0.8));
-			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 0.8));
-			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 1));
+			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.8)); // 80% opacity for icon and text
 			debug_target_status->set_text("No Connection");
 		}
 	} else if (is_connected) {
