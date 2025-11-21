@@ -7386,18 +7386,18 @@ EditorNode::EditorNode() {
 		title_bar->add_child(left_menu_spacer);
 	}
 
-	if (EDITOR_GET("interface/editor/use_editor_logo_quick_menu")) {
-		// Define shortcuts for quick menu items before creating the menu
-		ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About"));
-		ED_SHORTCUT_AND_COMMAND("editor/copy_system_info", TTR("Copy System Info"));
-		ED_SHORTCUT_AND_COMMAND("editor/editor_help", TTR("Search Help..."), Key::F1);
-		ED_SHORTCUT_OVERRIDE("editor/editor_help", "macos", KeyModifierMask::ALT | Key::SPACE);
-		ED_SHORTCUT_AND_COMMAND("editor/online_docs", TTR("Online Documentation"));
-		ED_SHORTCUT_AND_COMMAND("editor/export", TTR("Export..."), Key::NONE, TTR("Export"));
-		ED_SHORTCUT_AND_COMMAND("editor/quit_to_project_list", TTR("Quit to Project List"), KeyModifierMask::CTRL + KeyModifierMask::SHIFT + Key::Q);
-		ED_SHORTCUT_OVERRIDE("editor/quit_to_project_list", "macos", KeyModifierMask::META + KeyModifierMask::CTRL + KeyModifierMask::ALT + Key::Q);
-		ED_SHORTCUT_AND_COMMAND("editor/file_quit", TTR("Quit"), KeyModifierMask::CMD_OR_CTRL + Key::Q);
+	// Define shortcuts used by both quick menu and main menus
+	ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About"));
+	ED_SHORTCUT_AND_COMMAND("editor/copy_system_info", TTR("Copy System Info"));
+	ED_SHORTCUT_AND_COMMAND("editor/editor_help", TTR("Search Help..."), Key::F1);
+	ED_SHORTCUT_OVERRIDE("editor/editor_help", "macos", KeyModifierMask::ALT | Key::SPACE);
+	ED_SHORTCUT_AND_COMMAND("editor/online_docs", TTR("Online Documentation"));
+	ED_SHORTCUT_AND_COMMAND("editor/export", TTR("Export..."), Key::NONE, TTR("Export"));
+	ED_SHORTCUT_AND_COMMAND("editor/quit_to_project_list", TTR("Quit to Project List"), KeyModifierMask::CTRL + KeyModifierMask::SHIFT + Key::Q);
+	ED_SHORTCUT_OVERRIDE("editor/quit_to_project_list", "macos", KeyModifierMask::META + KeyModifierMask::CTRL + KeyModifierMask::ALT + Key::Q);
+	ED_SHORTCUT_AND_COMMAND("editor/file_quit", TTR("Quit"), KeyModifierMask::CMD_OR_CTRL + Key::Q);
 
+	if (EDITOR_GET("interface/editor/use_editor_logo_quick_menu")) {
 		editor_logo_quick_menu = memnew(MenuButton);
 		editor_logo_quick_menu->set_flat(true);
 		editor_logo_quick_menu->set_theme_type_variation("FlatMenuButton");
