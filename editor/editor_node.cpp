@@ -7626,6 +7626,7 @@ EditorNode::EditorNode() {
 	debug_target_label->set_focus_mode(Control::FOCUS_NONE);
 	debug_target_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.5));
+	debug_target_label->add_theme_font_size_override(SceneStringName(font_size), 10);
 	Ref<StyleBoxEmpty> label_empty_style;
 	label_empty_style.instantiate();
 	debug_target_label->add_theme_style_override("normal", label_empty_style);
@@ -7639,6 +7640,7 @@ EditorNode::EditorNode() {
 	debug_target_status->set_flat(true);
 	debug_target_status->set_focus_mode(Control::FOCUS_NONE);
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_status->add_theme_font_size_override(SceneStringName(font_size), 10);
 	Ref<StyleBoxEmpty> status_empty_style;
 	status_empty_style.instantiate();
 	debug_target_status->add_theme_style_override("normal", status_empty_style);
