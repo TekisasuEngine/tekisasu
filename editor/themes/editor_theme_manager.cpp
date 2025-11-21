@@ -1189,10 +1189,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
 
-		// Don't round the bottom corners to make the line look sharper.
-		text_editor_style->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
-		text_editor_style->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
-
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
 			text_editor_style->set_border_color(p_config.extra_border_color_1);
