@@ -578,9 +578,9 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		if (debug_target_status) {
 			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
-			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red for disconnected
-			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
-			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 0.8)); // Red for disconnected
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 0.8));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 0.8));
 		}
 
 		_update_renderer_color();
@@ -6899,9 +6899,9 @@ void EditorNode::_update_debug_target_status() {
 
 			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
-			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
-			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
-			debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 1));
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 0.8)); // Green
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 0.8));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 0.8));
 			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
 			debug_target_status->set_text(ip_address);
 		} else {
@@ -6910,9 +6910,9 @@ void EditorNode::_update_debug_target_status() {
 
 			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
-			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
-			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
-			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 0.8)); // Red
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 0.8));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 0.8));
 			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
 			debug_target_status->set_text("No Connection");
 		}
@@ -7616,9 +7616,9 @@ EditorNode::EditorNode() {
 	debug_target_hb = memnew(HBoxContainer);
 	title_bar->add_child(debug_target_hb);
 
-	// "Debug Target:" label
+	// "Debug Client:" label
 	debug_target_label = memnew(Button);
-	debug_target_label->set_text("Remote Debug Client:");
+	debug_target_label->set_text("Debug Client:");
 	debug_target_label->set_flat(true);
 	debug_target_label->set_focus_mode(Control::FOCUS_NONE);
 	debug_target_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
