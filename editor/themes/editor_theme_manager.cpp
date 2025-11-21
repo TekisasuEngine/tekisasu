@@ -1338,6 +1338,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			} else {
 				style_popup_menu->set_border_color(p_config.dark_color_2);
 			}
+			// Apply corner radius to match other UI elements.
+			style_popup_menu->set_corner_radius_all(p_config.corner_radius);
 			p_theme->set_stylebox(SceneStringName(panel), "PopupMenu", style_popup_menu);
 
 			Ref<StyleBoxFlat> style_menu_hover = p_config.button_style_hover->duplicate();
@@ -1787,7 +1789,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
-
 		// Tekisasu - new editor_panel_foreground stylebox.
 		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
 		editor_panel_foreground->set_corner_radius_all(0);
@@ -1850,7 +1851,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(pressed), "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover", "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "TekisasuMenuBar", filemenu_main_screen_button_hover);
-	
 
 		// Main menu.
 		Ref<StyleBoxFlat> menu_transparent_style = p_config.button_style->duplicate();
