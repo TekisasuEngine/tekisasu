@@ -576,12 +576,12 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 
 		// Initialize debug target status icon
 		if (debug_target_status) {
-			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(0.94, 0.44, 0.56, 1.0)); // Red for disconnected (matching audio bus muted Master)
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.94, 0.44, 0.56, 1.0));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.94, 0.44, 0.56, 1.0));
-			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.8)); // 80% opacity for icon and text
+			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.95)); // 95% opacity for icon and text
 		}
 
 		_update_renderer_color();
@@ -6898,25 +6898,23 @@ void EditorNode::_update_debug_target_status() {
 			}
 			debug_target_last_ip = ip_address;
 
-			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(0.46, 0.85, 0.69, 1.0)); // Green (matching audio bus not muted Master)
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.46, 0.85, 0.69, 1.0));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.46, 0.85, 0.69, 1.0));
-			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 1));
-			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.8)); // 80% opacity for icon and text
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
 			debug_target_status->set_text(ip_address);
 		} else {
 			// Disconnected state: red icon + "No Connection"
 			debug_target_last_ip = "";
 
-			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(0.94, 0.44, 0.56, 1.0)); // Red (matching audio bus muted Master)
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.94, 0.44, 0.56, 1.0));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.94, 0.44, 0.56, 1.0));
-			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 1));
-			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.8)); // 80% opacity for icon and text
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
 			debug_target_status->set_text("No Connection");
 		}
 	} else if (is_connected) {
@@ -7648,7 +7646,7 @@ EditorNode::EditorNode() {
 	debug_target_status->add_theme_style_override("focus", status_empty_style);
 	// Set initial disconnected state
 	debug_target_status->set_text("No Connection");
-	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.75));
+	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.85));
 	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
