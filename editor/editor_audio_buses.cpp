@@ -884,10 +884,6 @@ EditorAudioBus::EditorAudioBus(EditorAudioBuses *p_buses, bool p_is_master) {
 	HBoxContainer *hb = memnew(HBoxContainer);
 	vb->add_child(hb);
 
-	Control *spacer_bottom = memnew(Control);
-	spacer_bottom->set_custom_minimum_size(Size2(0, 2 * EDSCALE));
-	vb->add_child(spacer_bottom);
-
 	slider = memnew(VSlider);
 	slider->set_min(0.0);
 	slider->set_max(1.0);
