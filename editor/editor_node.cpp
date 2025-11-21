@@ -7616,10 +7616,10 @@ EditorNode::EditorNode() {
 	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.8));
 	Ref<StyleBoxEmpty> label_empty_style;
 	label_empty_style.instantiate();
-	debug_target_label->add_theme_stylebox_override("normal", label_empty_style);
-	debug_target_label->add_theme_stylebox_override("hover", label_empty_style);
-	debug_target_label->add_theme_stylebox_override("pressed", label_empty_style);
-	debug_target_label->add_theme_stylebox_override("focus", label_empty_style);
+	debug_target_label->add_theme_style_override("normal", label_empty_style);
+	debug_target_label->add_theme_style_override("hover", label_empty_style);
+	debug_target_label->add_theme_style_override("pressed", label_empty_style);
+	debug_target_label->add_theme_style_override("focus", label_empty_style);
 	debug_target_hb->add_child(debug_target_label);
 
 	// Connection status button
@@ -7629,10 +7629,10 @@ EditorNode::EditorNode() {
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	Ref<StyleBoxEmpty> status_empty_style;
 	status_empty_style.instantiate();
-	debug_target_status->add_theme_stylebox_override("normal", status_empty_style);
-	debug_target_status->add_theme_stylebox_override("hover", status_empty_style);
-	debug_target_status->add_theme_stylebox_override("pressed", status_empty_style);
-	debug_target_status->add_theme_stylebox_override("focus", status_empty_style);
+	debug_target_status->add_theme_style_override("normal", status_empty_style);
+	debug_target_status->add_theme_style_override("hover", status_empty_style);
+	debug_target_status->add_theme_style_override("pressed", status_empty_style);
+	debug_target_status->add_theme_style_override("focus", status_empty_style);
 	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
