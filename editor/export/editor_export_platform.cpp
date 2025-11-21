@@ -1901,6 +1901,61 @@ bool EditorExportPlatform::can_export(const Ref<EditorExportPreset> &p_preset, S
 	return valid;
 }
 
+static String _strip_ansi_escape_codes(const String &p_string) {
+	// Strip ANSI escape sequences using regex pattern
+	// Matches ESC[ followed by any number of parameter bytes and a command byte
+	// Pattern: \x1b\[([0-9;]*)[a-zA-Z]
+	String result = p_string;
+
+	// Remove common ANSI escape sequences
+	// ESC[...m (SGR - Select Graphic Rendition)
+	// ESC[...H (CUP - Cursor Position)
+	// ESC[...J (ED - Erase in Display)
+	// ESC[...? sequences
+	int pos = 0;
+	while ((pos = result.find("\x1b[", pos)) >= 0) {
+		int end = pos + 2;
+		// Find the end of the escape sequence (a letter or specific terminator)
+		while (end < result.length()) {
+			char32_t c = result[end];
+			if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+				// Found the command byte, remove the entire sequence
+				result = result.substr(0, pos) + result.substr(end + 1);
+				break;
+			} else if (c >= '0' && c <= '9') {
+				// Parameter byte, continue
+				end++;
+			} else if (c == ';' || c == '?') {
+				// Separator or private parameter, continue
+				end++;
+			} else {
+				// Unknown character, stop here and remove what we have
+				result = result.substr(0, pos) + result.substr(end);
+				break;
+			}
+		}
+		if (end >= result.length()) {
+			// Reached end of string without finding terminator, remove rest
+			result = result.substr(0, pos);
+			break;
+		}
+	}
+
+	// Also remove other escape sequences like ESC]...\x07 (OSC sequences)
+	pos = 0;
+	while ((pos = result.find("\x1b]", pos)) >= 0) {
+		int end = result.find("\x07", pos);
+		if (end >= 0) {
+			result = result.substr(0, pos) + result.substr(end + 1);
+		} else {
+			result = result.substr(0, pos);
+			break;
+		}
+	}
+
+	return result;
+}
+
 Error EditorExportPlatform::ssh_run_on_remote(const String &p_host, const String &p_port, const Vector<String> &p_ssh_args, const String &p_cmd_args, String *r_out, int p_port_fwd) const {
 	String ssh_path = EditorSettings::get_singleton()->get("export/ssh/ssh");
 	if (ssh_path.is_empty()) {
@@ -1945,7 +2000,9 @@ Error EditorExportPlatform::ssh_run_on_remote(const String &p_host, const String
 		print_verbose(vformat("Exit code: %d, Output: %s", exit_code, out.replace("\r\n", "\n")));
 	}
 	if (r_out) {
-		*r_out = out.replace("\r\n", "\n").get_slice("\n", 0);
+		// Clean ANSI escape codes from output before extracting the result
+		String cleaned = _strip_ansi_escape_codes(out);
+		*r_out = cleaned.replace("\r\n", "\n").strip_edges().get_slice("\n", 0);
 	}
 	if (err != OK) {
 		return err;

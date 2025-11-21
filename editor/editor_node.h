@@ -318,10 +318,9 @@ private:
 	Control *gui_base = nullptr;
 	VBoxContainer *main_vbox = nullptr;
 	OptionButton *renderer = nullptr;
-	
-	// Tekisasu 
-	MenuButton *editor_logo_quick_menu = nullptr;
 
+	// Tekisasu
+	MenuButton *editor_logo_quick_menu = nullptr;
 
 	ConfirmationDialog *video_restart_dialog = nullptr;
 
@@ -359,6 +358,11 @@ private:
 	Control *right_menu_spacer = nullptr;
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
+	HBoxContainer *debug_target_hb = nullptr;
+	Button *debug_target_label = nullptr;
+	Button *debug_target_status = nullptr;
+	bool debug_target_last_connected_state = false;
+	String debug_target_last_ip = "";
 	VBoxContainer *main_screen_vbox = nullptr;
 	MenuBar *main_menu = nullptr;
 	PopupMenu *apple_menu = nullptr;
@@ -714,6 +718,7 @@ private:
 	void _update_bus_button_colors();
 	void _on_bus_button_pressed(int p_bus_index);
 	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
+	void _update_debug_target_status();
 
 protected:
 	friend class FileSystemDock;

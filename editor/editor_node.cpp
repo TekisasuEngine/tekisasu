@@ -574,6 +574,16 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 			}
 		}
 
+		// Initialize debug target status icon
+		if (debug_target_status) {
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons));
+			debug_target_status->set_icon(icon);
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(0.94, 0.44, 0.56, 1.0)); // Red for disconnected (matching audio bus muted Master)
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.94, 0.44, 0.56, 1.0));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.94, 0.44, 0.56, 1.0));
+			debug_target_status->set_self_modulate(Color(1, 1, 1, 0.95)); // 95% opacity for icon and text
+		}
+
 		_update_renderer_color();
 	}
 
@@ -635,6 +645,9 @@ void EditorNode::_notification(int p_what) {
 			if (editor_data.is_scene_changed(-1)) {
 				scene_tabs->update_scene_tabs();
 			}
+
+			// Update debug target status
+			_update_debug_target_status();
 
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
@@ -6853,6 +6866,70 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 	}
 }
 
+void EditorNode::_update_debug_target_status() {
+	if (!debug_target_status) {
+		return;
+	}
+
+	// Get the current debugger
+	EditorDebuggerNode *debugger_node = EditorDebuggerNode::get_singleton();
+	if (!debugger_node) {
+		return;
+	}
+
+	ScriptEditorDebugger *debugger = debugger_node->get_default_debugger();
+	if (!debugger) {
+		return;
+	}
+
+	// Check if session is active
+	bool is_connected = debugger->is_session_active();
+
+	// Only update UI if state has changed
+	if (is_connected != debug_target_last_connected_state) {
+		// Connection state changed, update everything
+		debug_target_last_connected_state = is_connected;
+
+		if (is_connected) {
+			// Connected state: green icon + IP address
+			String ip_address = debugger->get_connected_host_ip();
+			if (ip_address.is_empty()) {
+				ip_address = "Connected";
+			}
+			debug_target_last_ip = ip_address;
+
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons));
+			debug_target_status->set_icon(icon);
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(0.46, 0.85, 0.69, 1.0)); // Green (matching audio bus not muted Master)
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.46, 0.85, 0.69, 1.0));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.46, 0.85, 0.69, 1.0));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+			debug_target_status->set_text(ip_address);
+		} else {
+			// Disconnected state: red icon + "No Connection"
+			debug_target_last_ip = "";
+
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons));
+			debug_target_status->set_icon(icon);
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(0.94, 0.44, 0.56, 1.0)); // Red (matching audio bus muted Master)
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.94, 0.44, 0.56, 1.0));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.94, 0.44, 0.56, 1.0));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+			debug_target_status->set_text("No Connection");
+		}
+	} else if (is_connected) {
+		// Connected state hasn't changed, but IP might have
+		String ip_address = debugger->get_connected_host_ip();
+		if (ip_address.is_empty()) {
+			ip_address = "Connected";
+		}
+		if (ip_address != debug_target_last_ip) {
+			debug_target_last_ip = ip_address;
+			debug_target_status->set_text(ip_address);
+		}
+	}
+}
+
 EditorNode::EditorNode() {
 	DEV_ASSERT(!singleton);
 	singleton = this;
@@ -7516,7 +7593,7 @@ EditorNode::EditorNode() {
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
 
-	// Transparent non-interactive label spacer 
+	// Transparent non-interactive label spacer
 	Label *runbar_spacer = memnew(Label);
 	runbar_spacer->set_text(" | ");
 	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
@@ -7528,6 +7605,49 @@ EditorNode::EditorNode() {
 	title_bar->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	// Transparent non-interactive label spacer for debug target section
+	Label *debug_target_spacer = memnew(Label);
+	debug_target_spacer->set_text(" | ");
+	debug_target_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
+	title_bar->add_child(debug_target_spacer);
+
+	// Debug target section
+	debug_target_hb = memnew(HBoxContainer);
+	title_bar->add_child(debug_target_hb);
+
+	// "Debug Client:" label
+	debug_target_label = memnew(Button);
+	debug_target_label->set_text("Debug Client:");
+	debug_target_label->set_flat(true);
+	debug_target_label->set_focus_mode(Control::FOCUS_NONE);
+	debug_target_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.5));
+	debug_target_label->add_theme_font_size_override(SceneStringName(font_size), 11);
+	Ref<StyleBoxEmpty> label_empty_style;
+	label_empty_style.instantiate();
+	debug_target_label->add_theme_style_override("normal", label_empty_style);
+	debug_target_label->add_theme_style_override("hover", label_empty_style);
+	debug_target_label->add_theme_style_override("pressed", label_empty_style);
+	debug_target_label->add_theme_style_override("focus", label_empty_style);
+	debug_target_hb->add_child(debug_target_label);
+
+	// Connection status button
+	debug_target_status = memnew(Button);
+	debug_target_status->set_flat(true);
+	debug_target_status->set_focus_mode(Control::FOCUS_NONE);
+	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	Ref<StyleBoxEmpty> status_empty_style;
+	status_empty_style.instantiate();
+	debug_target_status->add_theme_style_override("normal", status_empty_style);
+	debug_target_status->add_theme_style_override("hover", status_empty_style);
+	debug_target_status->add_theme_style_override("pressed", status_empty_style);
+	debug_target_status->add_theme_style_override("focus", status_empty_style);
+	// Set initial disconnected state
+	debug_target_status->set_text("No Connection");
+	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.85));
+	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
 	Control *right_spacer = memnew(Control);
@@ -7619,14 +7739,13 @@ EditorNode::EditorNode() {
 		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
 	}
 
-
-	// Transparent non-interactive label spacer 
+	// Transparent non-interactive label spacer
 	Label *topright_spacer = memnew(Label);
 	topright_spacer->set_text(" | ");
 	topright_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	topright_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
 	title_bar->add_child(topright_spacer);
-	
+
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
 	title_bar->add_child(right_menu_hb);
 

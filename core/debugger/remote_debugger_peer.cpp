@@ -41,6 +41,13 @@ bool RemoteDebuggerPeerTCP::is_peer_connected() {
 	return connected;
 }
 
+String RemoteDebuggerPeerTCP::get_peer_host() {
+	if (tcp_client.is_valid() && tcp_client->get_status() == StreamPeerTCP::STATUS_CONNECTED) {
+		return tcp_client->get_connected_host();
+	}
+	return "";
+}
+
 bool RemoteDebuggerPeerTCP::has_message() {
 	return in_queue.size() > 0;
 }

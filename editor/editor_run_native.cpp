@@ -67,7 +67,7 @@ void EditorRunNative::_notification(int p_what) {
 					int dc = MIN(eep->get_options_count(), 9000);
 					String error;
 					if (dc > 0 && preset->is_runnable()) {
-						popup->add_icon_item(eep->get_run_icon(), eep->get_name(), -1);
+						popup->add_icon_item(eep->get_run_icon(), preset->get_name(), -1);
 						popup->set_item_disabled(-1, true);
 						for (int j = 0; j < dc; j++) {
 							popup->add_icon_item(eep->get_option_icon(j), eep->get_option_label(j), 10000 * platform_idx + j);
