@@ -1887,7 +1887,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("hover_pressed", "RunBarButton", main_screen_button_hover);
 		p_theme->set_stylebox(SceneStringName(pressed), "RunBarButton", menu_transparent_style);
 		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
-		
 		// Icon colors for RunBarButton
 		p_theme->set_color("icon_normal_color", "RunBarButton", p_config.icon_normal_color);
 		p_theme->set_color("icon_hover_color", "RunBarButton", Color(1, 1, 1, 1));
