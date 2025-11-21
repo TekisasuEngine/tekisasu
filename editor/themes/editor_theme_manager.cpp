@@ -1882,8 +1882,18 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// Run bar.
 		p_theme->set_type_variation("RunBarButton", "FlatMenuButton");
-		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
+		p_theme->set_stylebox(CoreStringName(normal), "RunBarButton", menu_transparent_style);
+		p_theme->set_stylebox("hover", "RunBarButton", main_screen_button_hover);
+		p_theme->set_stylebox("hover_pressed", "RunBarButton", main_screen_button_hover);
 		p_theme->set_stylebox(SceneStringName(pressed), "RunBarButton", menu_transparent_style);
+		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
+		// Icon colors for RunBarButton
+		p_theme->set_color("icon_normal_color", "RunBarButton", p_config.icon_normal_color);
+		p_theme->set_color("icon_hover_color", "RunBarButton", Color(1, 1, 1, 1));
+		Color icon_pressed_color_runbar = p_config.accent_color;
+		icon_pressed_color_runbar.a = 1.0;
+		p_theme->set_color("icon_pressed_color", "RunBarButton", icon_pressed_color_runbar);
+		p_theme->set_color("icon_hover_pressed_color", "RunBarButton", icon_pressed_color_runbar);
 
 		// Bottom panel.
 		Ref<StyleBoxFlat> style_bottom_panel = p_config.content_panel_style->duplicate();
@@ -1908,7 +1918,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("label_bg", "EditorSpinSlider", editor_spin_label_bg);
 
 		// Launch Pad and Play buttons.
-		Ref<StyleBoxFlat> style_launch_pad = make_flat_stylebox(p_config.dark_color_1, 2 * EDSCALE, 0, 2 * EDSCALE, 0, p_config.corner_radius);
+		Ref<StyleBoxFlat> style_launch_pad = make_flat_stylebox(Color(0, 0, 0, 0), 2 * EDSCALE, 0, 2 * EDSCALE, 0, p_config.corner_radius);
 		style_launch_pad->set_corner_radius_all(p_config.corner_radius * EDSCALE);
 		p_theme->set_stylebox("LaunchPadNormal", EditorStringName(EditorStyles), style_launch_pad);
 		Ref<StyleBoxFlat> style_launch_pad_movie = style_launch_pad->duplicate();
