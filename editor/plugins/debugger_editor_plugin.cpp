@@ -65,9 +65,6 @@ DebuggerEditorPlugin::DebuggerEditorPlugin(PopupMenu *p_debug_menu) {
 	// Main editor debug menu.
 	debug_menu = p_debug_menu;
 	debug_menu->set_hide_on_checkable_item_selection(false);
-	//debug_menu->add_check_shortcut(ED_SHORTCUT("editor/deploy_with_remote_debug", TTR("Deploy with Remote Debug")), RUN_DEPLOY_REMOTE_DEBUG);
-	//debug_menu->set_item_tooltip(-1,
-	//		TTR("When this option is enabled, using one-click deploy will make the executable attempt to connect to this computer's IP so the running project can be debugged.\nThis option is intended to be used for remote debugging (typically with a mobile device).\nYou don't need to enable it to use the GDScript debugger locally."));
 	//debug_menu->add_check_shortcut(ED_SHORTCUT("editor/small_deploy_with_network_fs", TTR("Small Deploy with Network Filesystem")), RUN_FILE_SERVER);
 	//debug_menu->set_item_tooltip(-1,
 	//		TTR("When this option is enabled, using one-click deploy for Android will only export an executable without the project data.\nThe filesystem will be provided from the project by the editor over the network.\nOn Android, deploying will use the USB cable for faster performance. This option speeds up testing for projects with large assets."));
@@ -95,9 +92,13 @@ DebuggerEditorPlugin::DebuggerEditorPlugin(PopupMenu *p_debug_menu) {
 	debug_menu->add_check_shortcut(ED_SHORTCUT("editor/sync_script_changes", TTR("Synchronize Script Changes")), RUN_RELOAD_SCRIPTS);
 	debug_menu->set_item_tooltip(-1,
 			TTR("When this option is enabled, any script that is saved will be reloaded in the running project.\nWhen used remotely on a device, this is more efficient when the network filesystem option is enabled."));
+	debug_menu->add_separator();
 	debug_menu->add_check_shortcut(ED_SHORTCUT("editor/keep_server_open", TTR("Keep Debug Server Open")), SERVER_KEEP_OPEN);
 	debug_menu->set_item_tooltip(-1,
 			TTR("When this option is enabled, the editor debug server will stay open and listen for new sessions started outside of the editor itself."));
+	debug_menu->add_check_shortcut(ED_SHORTCUT("editor/deploy_with_remote_debug", TTR("Deploy with Remote Debug")), RUN_DEPLOY_REMOTE_DEBUG);
+	debug_menu->set_item_tooltip(-1,
+			TTR("When this option is enabled, using one-click deploy will make the executable attempt to connect to this computer's IP so the running project can be debugged.\nThis option is intended to be used for remote debugging (typically with a mobile device).\nYou don't need to enable it to use the GDScript debugger locally."));
 
 	// Multi-instance, start/stop.
 	debug_menu->add_separator();
