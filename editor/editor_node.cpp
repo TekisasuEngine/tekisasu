@@ -7387,6 +7387,17 @@ EditorNode::EditorNode() {
 	}
 
 	if (EDITOR_GET("interface/editor/use_editor_logo_quick_menu")) {
+		// Define shortcuts for quick menu items before creating the menu
+		ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About"));
+		ED_SHORTCUT_AND_COMMAND("editor/copy_system_info", TTR("Copy System Info"));
+		ED_SHORTCUT_AND_COMMAND("editor/editor_help", TTR("Search Help..."), Key::F1);
+		ED_SHORTCUT_OVERRIDE("editor/editor_help", "macos", KeyModifierMask::ALT | Key::SPACE);
+		ED_SHORTCUT_AND_COMMAND("editor/online_docs", TTR("Online Documentation"));
+		ED_SHORTCUT_AND_COMMAND("editor/export", TTR("Export..."), Key::NONE, TTR("Export"));
+		ED_SHORTCUT_AND_COMMAND("editor/quit_to_project_list", TTR("Quit to Project List"), KeyModifierMask::CTRL + KeyModifierMask::SHIFT + Key::Q);
+		ED_SHORTCUT_OVERRIDE("editor/quit_to_project_list", "macos", KeyModifierMask::META + KeyModifierMask::CTRL + KeyModifierMask::ALT + Key::Q);
+		ED_SHORTCUT_AND_COMMAND("editor/file_quit", TTR("Quit"), KeyModifierMask::CMD_OR_CTRL + Key::Q);
+
 		editor_logo_quick_menu = memnew(MenuButton);
 		editor_logo_quick_menu->set_flat(true);
 		editor_logo_quick_menu->set_theme_type_variation("FlatMenuButton");
@@ -7397,17 +7408,17 @@ EditorNode::EditorNode() {
 		editor_logo_quick_menu->add_theme_color_override("icon_focus_color", Color(1, 1, 1, 0.95));
 		editor_logo_quick_menu->add_theme_color_override("icon_hover_color", Color(1, 1, 1, 0.95));
 		editor_logo_quick_menu->add_theme_color_override("icon_pressed_color", Color(1, 1, 1, 1));
-		editor_logo_quick_menu->get_popup()->add_item(TTR("About"), HELP_ABOUT);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/about"), HELP_ABOUT);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/copy_system_info"), HELP_COPY_SYSTEM_INFO);
 		editor_logo_quick_menu->get_popup()->add_separator();
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Search Help"), HELP_SEARCH);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Online Documentation"), HELP_DOCS);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/editor_help"), HELP_SEARCH);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/online_docs"), HELP_DOCS);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Tekisasu Developer Resources"), HELP_DEVSITE);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Export Project"), FILE_EXPORT_PROJECT);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/export"), FILE_EXPORT_PROJECT);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Manage Export Templates"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
 		editor_logo_quick_menu->get_popup()->add_separator();
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/quit_to_project_list"), RUN_PROJECT_MANAGER);
+		editor_logo_quick_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("editor/file_quit"), FILE_QUIT);
 		editor_logo_quick_menu->get_popup()->connect("id_pressed", callable_mp(this, &EditorNode::_menu_option));
 	}
 
@@ -7527,7 +7538,7 @@ EditorNode::EditorNode() {
 	if (!global_menu || !OS::get_singleton()->has_feature("macos")) {
 		// On macOS  "Quit" and "About" options are in the "app" menu.
 		file_menu->add_separator();
-		file_menu->add_shortcut(ED_SHORTCUT_AND_COMMAND("editor/file_quit", TTR("Quit"), KeyModifierMask::CMD_OR_CTRL + Key::Q), FILE_QUIT, true);
+		file_menu->add_shortcut(ED_GET_SHORTCUT("editor/file_quit"), FILE_QUIT, true);
 	}
 
 	ED_SHORTCUT_AND_COMMAND("editor/editor_settings", TTR("Editor Settings..."));
@@ -7555,7 +7566,7 @@ EditorNode::EditorNode() {
 	project_menu->add_item(TTR("Version Control"), VCS_MENU);
 
 	project_menu->add_separator();
-	project_menu->add_shortcut(ED_SHORTCUT_AND_COMMAND("editor/export", TTR("Export..."), Key::NONE, TTR("Export")), FILE_EXPORT_PROJECT);
+	project_menu->add_shortcut(ED_GET_SHORTCUT("editor/export"), FILE_EXPORT_PROJECT);
 	project_menu->add_item(TTR("Open User Data Folder"), RUN_USER_DATA_FOLDER);
 	project_menu->add_separator();
 
@@ -7568,7 +7579,6 @@ EditorNode::EditorNode() {
 
 	project_menu->add_separator();
 	project_menu->add_shortcut(ED_SHORTCUT("editor/reload_current_project", TTR("Reload Current Project")), RELOAD_CURRENT_PROJECT);
-	ED_SHORTCUT_AND_COMMAND("editor/quit_to_project_list", TTR("Quit to Project List"), KeyModifierMask::CTRL + KeyModifierMask::SHIFT + Key::Q);
 	ED_SHORTCUT_OVERRIDE("editor/quit_to_project_list", "macos", KeyModifierMask::META + KeyModifierMask::CTRL + KeyModifierMask::ALT + Key::Q);
 	project_menu->add_shortcut(ED_GET_SHORTCUT("editor/quit_to_project_list"), RUN_PROJECT_MANAGER, true);
 
@@ -7725,18 +7735,17 @@ EditorNode::EditorNode() {
 
 	help_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_menu_option));
 
-	ED_SHORTCUT_AND_COMMAND("editor/editor_help", TTR("Search Help..."), Key::F1);
 	ED_SHORTCUT_OVERRIDE("editor/editor_help", "macos", KeyModifierMask::ALT | Key::SPACE);
 	help_menu->add_icon_shortcut(theme->get_icon(SNAME("HelpSearch"), EditorStringName(EditorIcons)), ED_GET_SHORTCUT("editor/editor_help"), HELP_SEARCH);
 	help_menu->add_separator();
-	help_menu->add_shortcut(ED_SHORTCUT_AND_COMMAND("editor/online_docs", TTR("Online Documentation")), HELP_DOCS);
+	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/online_docs"), HELP_DOCS);
 	help_menu->add_separator();
-	help_menu->add_icon_shortcut(theme->get_icon(SNAME("ActionCopy"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/copy_system_info", TTR("Copy System Info")), HELP_COPY_SYSTEM_INFO);
+	help_menu->add_icon_shortcut(theme->get_icon(SNAME("ActionCopy"), EditorStringName(EditorIcons)), ED_GET_SHORTCUT("editor/copy_system_info"), HELP_COPY_SYSTEM_INFO);
 	help_menu->set_item_tooltip(-1, TTR("Copies the system info as a single-line text into the clipboard."));
 	help_menu->add_separator();
 	if (!global_menu || !OS::get_singleton()->has_feature("macos")) {
 		// On macOS  "Quit" and "About" options are in the "app" menu.
-		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
+		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_GET_SHORTCUT("editor/about"), HELP_ABOUT);
 	}
 
 	// Transparent non-interactive label spacer
