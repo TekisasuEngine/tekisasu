@@ -6888,7 +6888,7 @@ void EditorNode::_update_debug_target_status() {
 			}
 			debug_target_last_ip = ip_address;
 
-			Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
@@ -6899,7 +6899,7 @@ void EditorNode::_update_debug_target_status() {
 			// Disconnected state: red icon + "No Connection"
 			debug_target_last_ip = "";
 
-			Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
+			Ref<Texture2D> icon = theme->get_icon(SNAME("GuiRadioUnchecked"), EditorStringName(EditorIcons));
 			debug_target_status->set_icon(icon);
 			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
