@@ -7565,7 +7565,7 @@ EditorNode::EditorNode() {
 	main_editor_button_hb = memnew(HBoxContainer);
 	title_bar->add_child(main_editor_button_hb);
 
-	// Transparent non-interactive label spacer 
+	// Transparent non-interactive label spacer
 	Label *runbar_spacer = memnew(Label);
 	runbar_spacer->set_text(" | ");
 	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
@@ -7705,14 +7705,13 @@ EditorNode::EditorNode() {
 		help_menu->add_icon_shortcut(theme->get_icon(SNAME("Tekisasu"), EditorStringName(EditorIcons)), ED_SHORTCUT_AND_COMMAND("editor/about", TTR("About")), HELP_ABOUT);
 	}
 
-
-	// Transparent non-interactive label spacer 
+	// Transparent non-interactive label spacer
 	Label *topright_spacer = memnew(Label);
 	topright_spacer->set_text(" | ");
 	topright_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	topright_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
 	title_bar->add_child(topright_spacer);
-	
+
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
 	title_bar->add_child(right_menu_hb);
 

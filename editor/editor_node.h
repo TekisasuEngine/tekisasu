@@ -318,10 +318,9 @@ private:
 	Control *gui_base = nullptr;
 	VBoxContainer *main_vbox = nullptr;
 	OptionButton *renderer = nullptr;
-	
-	// Tekisasu 
-	MenuButton *editor_logo_quick_menu = nullptr;
 
+	// Tekisasu
+	MenuButton *editor_logo_quick_menu = nullptr;
 
 	ConfirmationDialog *video_restart_dialog = nullptr;
 
