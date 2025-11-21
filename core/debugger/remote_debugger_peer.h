@@ -85,6 +85,7 @@ public:
 	Error connect_to_host(const String &p_host, uint16_t p_port);
 
 	bool is_peer_connected() override;
+	String get_peer_host();
 	int get_max_message_size() const override;
 	bool has_message() override;
 	Error put_message(const Array &p_arr) override;

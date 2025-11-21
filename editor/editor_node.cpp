@@ -636,6 +636,9 @@ void EditorNode::_notification(int p_what) {
 				scene_tabs->update_scene_tabs();
 			}
 
+			// Update debug target status
+			_update_debug_target_status();
+
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
 			uint64_t tick = OS::get_singleton()->get_ticks_msec();
@@ -6853,6 +6856,52 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 	}
 }
 
+void EditorNode::_update_debug_target_status() {
+	if (!debug_target_status) {
+		return;
+	}
+
+	// Get the current debugger
+	EditorDebuggerNode *debugger_node = EditorDebuggerNode::get_singleton();
+	if (!debugger_node) {
+		return;
+	}
+
+	ScriptEditorDebugger *debugger = debugger_node->get_default_debugger();
+	if (!debugger) {
+		return;
+	}
+
+	// Check if session is active
+	bool is_connected = debugger->is_session_active();
+
+	if (is_connected) {
+		// Connected state: green icon + IP address
+		Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
+		debug_target_status->set_icon(icon);
+		debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
+		debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
+		debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 1));
+		debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+
+		// Get the IP address
+		String ip_address = debugger->get_connected_host_ip();
+		if (ip_address.is_empty()) {
+			ip_address = "Connected";
+		}
+		debug_target_status->set_text(ip_address);
+	} else {
+		// Disconnected state: red icon + "No Connection"
+		Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
+		debug_target_status->set_icon(icon);
+		debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
+		debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
+		debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+		debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+		debug_target_status->set_text("No Connection");
+	}
+}
+
 EditorNode::EditorNode() {
 	DEV_ASSERT(!singleton);
 	singleton = this;
@@ -7528,6 +7577,43 @@ EditorNode::EditorNode() {
 	title_bar->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	// Transparent non-interactive label spacer for debug target section
+	Label *debug_target_spacer = memnew(Label);
+	debug_target_spacer->set_text(" | ");
+	debug_target_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
+	title_bar->add_child(debug_target_spacer);
+
+	// Debug target section
+	debug_target_hb = memnew(HBoxContainer);
+	title_bar->add_child(debug_target_hb);
+
+	// "Debug Target:" label
+	debug_target_label = memnew(Button);
+	debug_target_label->set_text("Debug Target:");
+	debug_target_label->set_flat(true);
+	debug_target_label->set_focus_mode(Control::FOCUS_NONE);
+	debug_target_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.8));
+	Ref<StyleBoxEmpty> empty_style;
+	empty_style.instantiate();
+	debug_target_label->add_theme_stylebox_override("normal", empty_style);
+	debug_target_label->add_theme_stylebox_override("hover", empty_style);
+	debug_target_label->add_theme_stylebox_override("pressed", empty_style);
+	debug_target_label->add_theme_stylebox_override("focus", empty_style);
+	debug_target_hb->add_child(debug_target_label);
+
+	// Connection status button
+	debug_target_status = memnew(Button);
+	debug_target_status->set_flat(true);
+	debug_target_status->set_focus_mode(Control::FOCUS_NONE);
+	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_status->add_theme_stylebox_override("normal", empty_style);
+	debug_target_status->add_theme_stylebox_override("hover", empty_style);
+	debug_target_status->add_theme_stylebox_override("pressed", empty_style);
+	debug_target_status->add_theme_stylebox_override("focus", empty_style);
+	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
 	Control *right_spacer = memnew(Control);
