@@ -361,6 +361,8 @@ private:
 	HBoxContainer *debug_target_hb = nullptr;
 	Button *debug_target_label = nullptr;
 	Button *debug_target_status = nullptr;
+	bool debug_target_last_connected_state = false;
+	String debug_target_last_ip = "";
 	VBoxContainer *main_screen_vbox = nullptr;
 	MenuBar *main_menu = nullptr;
 	PopupMenu *apple_menu = nullptr;

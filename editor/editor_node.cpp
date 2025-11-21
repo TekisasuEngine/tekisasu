@@ -6875,30 +6875,39 @@ void EditorNode::_update_debug_target_status() {
 	// Check if session is active
 	bool is_connected = debugger->is_session_active();
 
+	// Get the IP address (if connected)
+	String ip_address;
 	if (is_connected) {
-		// Connected state: green icon + IP address
-		Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
-		debug_target_status->set_icon(icon);
-		debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
-		debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
-		debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 1));
-		debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
-
-		// Get the IP address
-		String ip_address = debugger->get_connected_host_ip();
+		ip_address = debugger->get_connected_host_ip();
 		if (ip_address.is_empty()) {
 			ip_address = "Connected";
 		}
-		debug_target_status->set_text(ip_address);
-	} else {
-		// Disconnected state: red icon + "No Connection"
-		Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
-		debug_target_status->set_icon(icon);
-		debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
-		debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
-		debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
-		debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
-		debug_target_status->set_text("No Connection");
+	}
+
+	// Only update UI if state has changed
+	if (is_connected != debug_target_last_connected_state || ip_address != debug_target_last_ip) {
+		debug_target_last_connected_state = is_connected;
+		debug_target_last_ip = ip_address;
+
+		if (is_connected) {
+			// Connected state: green icon + IP address
+			Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
+			debug_target_status->set_icon(icon);
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(0, 1, 0, 1)); // Green
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0, 1, 0, 1));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(0, 1, 0, 1));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+			debug_target_status->set_text(ip_address);
+		} else {
+			// Disconnected state: red icon + "No Connection"
+			Ref<Texture2D> icon = get_editor_theme_icon(SNAME("GuiRadioUnchecked"));
+			debug_target_status->set_icon(icon);
+			debug_target_status->add_theme_color_override("icon_normal_color", Color(1, 0, 0, 1)); // Red
+			debug_target_status->add_theme_color_override("icon_pressed_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("icon_hover_color", Color(1, 0, 0, 1));
+			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.7));
+			debug_target_status->set_text("No Connection");
+		}
 	}
 }
 
@@ -7596,12 +7605,12 @@ EditorNode::EditorNode() {
 	debug_target_label->set_focus_mode(Control::FOCUS_NONE);
 	debug_target_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	debug_target_label->add_theme_color_override("font_color", Color(1, 1, 1, 0.8));
-	Ref<StyleBoxEmpty> empty_style;
-	empty_style.instantiate();
-	debug_target_label->add_theme_stylebox_override("normal", empty_style);
-	debug_target_label->add_theme_stylebox_override("hover", empty_style);
-	debug_target_label->add_theme_stylebox_override("pressed", empty_style);
-	debug_target_label->add_theme_stylebox_override("focus", empty_style);
+	Ref<StyleBoxEmpty> label_empty_style;
+	label_empty_style.instantiate();
+	debug_target_label->add_theme_stylebox_override("normal", label_empty_style);
+	debug_target_label->add_theme_stylebox_override("hover", label_empty_style);
+	debug_target_label->add_theme_stylebox_override("pressed", label_empty_style);
+	debug_target_label->add_theme_stylebox_override("focus", label_empty_style);
 	debug_target_hb->add_child(debug_target_label);
 
 	// Connection status button
@@ -7609,10 +7618,12 @@ EditorNode::EditorNode() {
 	debug_target_status->set_flat(true);
 	debug_target_status->set_focus_mode(Control::FOCUS_NONE);
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	debug_target_status->add_theme_stylebox_override("normal", empty_style);
-	debug_target_status->add_theme_stylebox_override("hover", empty_style);
-	debug_target_status->add_theme_stylebox_override("pressed", empty_style);
-	debug_target_status->add_theme_stylebox_override("focus", empty_style);
+	Ref<StyleBoxEmpty> status_empty_style;
+	status_empty_style.instantiate();
+	debug_target_status->add_theme_stylebox_override("normal", status_empty_style);
+	debug_target_status->add_theme_stylebox_override("hover", status_empty_style);
+	debug_target_status->add_theme_stylebox_override("pressed", status_empty_style);
+	debug_target_status->add_theme_stylebox_override("focus", status_empty_style);
 	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
