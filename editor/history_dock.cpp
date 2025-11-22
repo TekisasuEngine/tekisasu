@@ -264,6 +264,7 @@ HistoryDock::HistoryDock() {
 	action_list = memnew(ItemList);
 	action_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	action_list->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockItemListPanel", EditorStringName(EditorStyles)));
+	action_list->add_theme_style_override("focus", get_theme_stylebox("DockItemListFocus", EditorStringName(EditorStyles)));
 	add_child(action_list);
 	action_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	action_list->connect(SceneStringName(item_selected), callable_mp(this, &HistoryDock::seek_history));
