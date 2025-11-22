@@ -1781,7 +1781,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor and main screen.
 	{
 		// Editor background.
-		Color background_color_opaque = p_config.dark_color_2;
+		// Use a color 20% darker than inactive tabs (dark_color_5) for better visual separation.
+		Color background_color_opaque = p_config.dark_color_5.lerp(Color(0, 0, 0, 1), 0.2);
 		background_color_opaque.a = 1.0;
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
