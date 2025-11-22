@@ -861,6 +861,7 @@ GroupsEditor::GroupsEditor() {
 	tree->set_v_size_flags(SIZE_EXPAND_FILL);
 	tree->set_allow_rmb_select(true);
 	tree->set_select_mode(Tree::SelectMode::SELECT_SINGLE);
+	tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 	tree->connect("button_clicked", callable_mp(this, &GroupsEditor::_modify_group));
 	tree->connect("item_mouse_selected", callable_mp(this, &GroupsEditor::_item_mouse_selected));
 	tree->connect(SceneStringName(gui_input), callable_mp(this, &GroupsEditor::_groups_gui_input));

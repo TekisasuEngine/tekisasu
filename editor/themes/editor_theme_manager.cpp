@@ -683,8 +683,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			// Trees and similarly inset panels.
 
 			p_config.tree_panel_style = p_config.base_style->duplicate();
-			// Use base_color to unify with active tab and content panel colors.
-			p_config.tree_panel_style->set_bg_color(p_config.base_color);
+			// Make Trees easier to distinguish from other controls by using a darker background color.
+			//p_config.tree_panel_style->set_bg_color(p_config.dark_color_1.lerp(p_config.dark_color_2, 0.5));
+			p_config.tree_panel_style->set_bg_color(p_config.dark_color_5);
 			if (p_config.draw_extra_borders) {
 				p_config.tree_panel_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.tree_panel_style->set_border_color(p_config.extra_border_color_2);
@@ -1038,7 +1039,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		{
 			Ref<StyleBoxFlat> style_itemlist_bg = p_config.base_style->duplicate();
 			style_itemlist_bg->set_content_margin_all(p_config.separation_margin);
-			style_itemlist_bg->set_bg_color(p_config.base_color);
+			style_itemlist_bg->set_bg_color(p_config.dark_color_1);
 
 			if (p_config.draw_extra_borders) {
 				style_itemlist_bg->set_border_width_all(Math::round(EDSCALE));
@@ -1900,6 +1901,32 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(pressed), "BottomPanelButton", menu_transparent_style);
 		p_theme->set_stylebox("hover_pressed", "BottomPanelButton", main_screen_button_hover);
 		p_theme->set_stylebox("hover", "BottomPanelButton", main_screen_button_hover);
+
+		// Dock-specific styles.
+		// Tree panel style for docks (FileSystem, Scene, Inspector, Node) - unified with active tabs.
+		Ref<StyleBoxFlat> dock_tree_panel = p_config.base_style->duplicate();
+		dock_tree_panel->set_bg_color(p_config.base_color);
+		if (p_config.draw_extra_borders) {
+			dock_tree_panel->set_border_width_all(Math::round(EDSCALE));
+			dock_tree_panel->set_border_color(p_config.extra_border_color_2);
+		} else {
+			dock_tree_panel->set_border_width_all(0);
+			dock_tree_panel->set_border_color(p_config.dark_color_3);
+		}
+		p_theme->set_stylebox("DockTreePanel", EditorStringName(EditorStyles), dock_tree_panel);
+
+		// ItemList panel style for docks (History, FileSystem files) - unified with active tabs.
+		Ref<StyleBoxFlat> dock_itemlist_panel = p_config.base_style->duplicate();
+		dock_itemlist_panel->set_content_margin_all(p_config.separation_margin);
+		dock_itemlist_panel->set_bg_color(p_config.base_color);
+		if (p_config.draw_extra_borders) {
+			dock_itemlist_panel->set_border_width_all(Math::round(EDSCALE));
+			dock_itemlist_panel->set_border_color(p_config.extra_border_color_2);
+		} else {
+			dock_itemlist_panel->set_border_width_all(p_config.border_width);
+			dock_itemlist_panel->set_border_color(p_config.dark_color_3);
+		}
+		p_theme->set_stylebox("DockItemListPanel", EditorStringName(EditorStyles), dock_itemlist_panel);
 	}
 
 	// Editor GUI widgets.

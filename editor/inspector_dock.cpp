@@ -772,6 +772,7 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	unique_resources_list_tree->set_columns(1);
 	unique_resources_list_tree->set_column_title(0, TTR("Property"));
 	unique_resources_list_tree->set_custom_minimum_size(Size2(0, 200 * EDSCALE));
+	unique_resources_list_tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 	container->add_child(unique_resources_list_tree);
 
 	Label *bottom_label = memnew(Label);

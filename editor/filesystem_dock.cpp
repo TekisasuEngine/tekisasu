@@ -4032,6 +4032,7 @@ FileSystemDock::FileSystemDock() {
 	tree->set_select_mode(Tree::SELECT_MULTI);
 	tree->set_custom_minimum_size(Size2(40 * EDSCALE, 15 * EDSCALE));
 	tree->set_column_clip_content(0, true);
+	tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 	split_box->add_child(tree);
 
 	tree->connect("item_activated", callable_mp(this, &FileSystemDock::_tree_activate_file));
@@ -4075,6 +4076,7 @@ FileSystemDock::FileSystemDock() {
 	files->connect("item_edited", callable_mp(this, &FileSystemDock::_rename_operation_confirm));
 	files->set_custom_minimum_size(Size2(0, 15 * EDSCALE));
 	files->set_allow_rmb_select(true);
+	files->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockItemListPanel", EditorStringName(EditorStyles)));
 	file_list_vb->add_child(files);
 
 	scanning_vb = memnew(VBoxContainer);
