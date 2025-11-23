@@ -790,6 +790,11 @@ void EditorDockManager::update_tab_styles() {
 	for (const KeyValue<Control *, DockInfo> &dock : all_docks) {
 		_update_tab_style(dock.key);
 	}
+	
+	// Re-apply dock-specific tab styling when theme changes
+	for (int i = 0; i < DOCK_SLOT_MAX; i++) {
+		dock_slot[i]->add_theme_style_override("tab_selected", EditorNode::get_singleton()->get_editor_theme()->get_stylebox("DockTabSelected", EditorStringName(EditorStyles)));
+	}
 }
 
 void EditorDockManager::set_tab_icon_max_width(int p_max_width) {
