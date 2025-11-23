@@ -1948,6 +1948,12 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("DockTabSelected", EditorStringName(EditorStyles), dock_tab_selected);
+
+		// Dock child_bg style for EditorProperty backgrounds in Inspector - unified with active tabs.
+		Ref<StyleBoxFlat> dock_property_child_bg = p_config.base_style->duplicate();
+		dock_property_child_bg->set_bg_color(p_config.base_color);
+		dock_property_child_bg->set_border_width_all(0);
+		p_theme->set_stylebox("DockPropertyChildBg", EditorStringName(EditorStyles), dock_property_child_bg);
 	}
 
 	// Editor GUI widgets.
