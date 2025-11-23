@@ -1915,30 +1915,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		}
 		p_theme->set_stylebox("DockTreePanel", EditorStringName(EditorStyles), dock_tree_panel);
 
-		// Dock Tree focus style - respects focus_border_type setting.
-		Ref<StyleBoxFlat> dock_tree_focus = p_config.button_style->duplicate();
-		dock_tree_focus->set_draw_center(false);
-		dock_tree_focus->set_bg_color(p_config.base_color);
-		if ((int)EDITOR_GET("interface/editor/focus_border_type") == 0) { // Off
-			dock_tree_focus->set_border_width_all(0);
-			dock_tree_focus->set_border_color(p_config.accent_color);
-		} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 1) { // On
-			dock_tree_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-			dock_tree_focus->set_border_color(p_config.accent_color);
-		} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 2) { // Translucent
-			dock_tree_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-			dock_tree_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
-		} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 3) { // On - Thin
-			dock_tree_focus->set_border_width_all(Math::round(1 * MAX(1, EDSCALE)));
-			dock_tree_focus->set_border_color(p_config.accent_color);
-		} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 4) { // Translucent - Thin
-			dock_tree_focus->set_border_width_all(Math::round(1 * MAX(1, EDSCALE)));
-			dock_tree_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
-		} else { // Legacy (On)
-			dock_tree_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-			dock_tree_focus->set_border_color(p_config.accent_color);
-		}
-		p_theme->set_stylebox("DockTreeFocus", EditorStringName(EditorStyles), dock_tree_focus);
+		// Dock Tree focus style - use the same focus style as buttons (respects focus_border_type setting).
+		p_theme->set_stylebox("DockTreeFocus", EditorStringName(EditorStyles), p_config.button_style_focus);
 
 		// ItemList panel style for docks (History, FileSystem files) - unified with active tabs.
 		Ref<StyleBoxFlat> dock_itemlist_panel = p_config.base_style->duplicate();
@@ -1953,9 +1931,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		}
 		p_theme->set_stylebox("DockItemListPanel", EditorStringName(EditorStyles), dock_itemlist_panel);
 
-		// ItemList focus style for docks - respects focus_border_type setting.
-		Ref<StyleBoxFlat> dock_itemlist_focus = dock_tree_focus->duplicate();
-		p_theme->set_stylebox("DockItemListFocus", EditorStringName(EditorStyles), dock_itemlist_focus);
+		// ItemList focus style for docks - use the same focus style as buttons (respects focus_border_type setting).
+		p_theme->set_stylebox("DockItemListFocus", EditorStringName(EditorStyles), p_config.button_style_focus);
 	}
 
 	// Editor GUI widgets.
