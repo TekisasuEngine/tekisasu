@@ -785,6 +785,16 @@ void EditorNode::_notification(int p_what) {
 			/* DO NOT LOAD SCENES HERE, WAIT FOR FILE SCANNING AND REIMPORT TO COMPLETE */
 		} break;
 
+		case NOTIFICATION_THEME_CHANGED: {
+			// Apply dock-specific tab styling to all dock slot TabContainers
+			for (int i = 0; i < EditorDockManager::DOCK_SLOT_MAX; i++) {
+				TabContainer *slot = editor_dock_manager->get_dock_tab_container((EditorDockManager::DockSlot)i);
+				if (slot) {
+					slot->add_theme_style_override("tab_selected", get_theme_stylebox("DockTabSelected", EditorStringName(EditorStyles)));
+				}
+			}
+		} break;
+
 		case NOTIFICATION_APPLICATION_FOCUS_IN: {
 			// Restore the original FPS cap after focusing back on the editor.
 			OS::get_singleton()->set_low_processor_usage_mode_sleep_usec(int(EDITOR_GET("interface/editor/low_processor_mode_sleep_usec")));
@@ -7317,6 +7327,8 @@ EditorNode::EditorNode() {
 
 	for (int i = 0; i < EditorDockManager::DOCK_SLOT_MAX; i++) {
 		editor_dock_manager->register_dock_slot((EditorDockManager::DockSlot)i, dock_slot[i]);
+		// Apply dock-specific tab styling (no top border, respects corner radius)
+		dock_slot[i]->add_theme_style_override("tab_selected", get_theme_stylebox("DockTabSelected", EditorStringName(EditorStyles)));
 	}
 
 	editor_layout_save_delay_timer = memnew(Timer);

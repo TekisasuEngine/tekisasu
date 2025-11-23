@@ -1932,6 +1932,15 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		Ref<StyleBoxFlat> dock_panel = p_config.content_panel_style->duplicate();
 		dock_panel->set_border_width_all(0);
 		p_theme->set_stylebox("DockPanel", EditorStringName(EditorStyles), dock_panel);
+
+		// Dock tab selected style - no top border, respects corner_radius.
+		Ref<StyleBoxFlat> dock_tab_selected = style_tab_base->duplicate();
+		dock_tab_selected->set_bg_color(p_config.base_color);
+		dock_tab_selected->set_border_width_all(0);  // No top border for dock tabs
+		dock_tab_selected->set_corner_radius_all(p_config.corner_radius * EDSCALE);
+		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
+		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
+		p_theme->set_stylebox("DockTabSelected", EditorStringName(EditorStyles), dock_tab_selected);
 	}
 
 	// Editor GUI widgets.
