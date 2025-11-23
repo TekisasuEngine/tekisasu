@@ -425,6 +425,13 @@ Container *InspectorDock::get_addon_area() {
 
 void InspectorDock::_notification(int p_what) {
 	switch (p_what) {
+		case NOTIFICATION_READY: {
+			// EditorInspector's NOTIFICATION_READY sets its own panel override to Tree's panel.
+			// We need to override it again here to use our dock-specific background.
+			// This must be done deferred to ensure EditorInspector's NOTIFICATION_READY has completed.
+			callable_mp(this, &InspectorDock::_apply_inspector_background).call_deferred();
+		} break;
+		
 		case NOTIFICATION_THEME_CHANGED:
 		case NOTIFICATION_TRANSLATION_CHANGED:
 		case NOTIFICATION_LAYOUT_DIRECTION_CHANGED: {
@@ -460,18 +467,23 @@ void InspectorDock::_notification(int p_what) {
 				info->add_theme_color_override(SceneStringName(font_color), get_theme_color(SceneStringName(font_color), EditorStringName(Editor)));
 			}
 			
-			// Create a custom theme for the inspector to override EditorProperty styleboxes
-			Ref<Theme> inspector_theme = memnew(Theme);
-			inspector_theme->set_stylebox("child_bg", "EditorProperty", get_theme_stylebox("DockPropertyChildBg", EditorStringName(EditorStyles)));
-			inspector->set_theme(inspector_theme);
-			
-			inspector->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockInspectorBg", EditorStringName(EditorStyles)));
-			inspector->add_theme_color_override("dark_color_1", get_theme_color(SNAME("base_color"), EditorStringName(Editor)));
-			inspector->add_theme_color_override("prop_subsection", get_theme_color(SNAME("base_color"), EditorStringName(Editor)));
+			_apply_inspector_background();
 			unique_resources_list_tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 			unique_resources_list_tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 		} break;
 	}
+}
+
+void InspectorDock::_apply_inspector_background() {
+	// Create a custom theme for the inspector to override EditorProperty styleboxes
+	Ref<Theme> inspector_theme = memnew(Theme);
+	inspector_theme->set_stylebox("child_bg", "EditorProperty", get_theme_stylebox("DockPropertyChildBg", EditorStringName(EditorStyles)));
+	inspector->set_theme(inspector_theme);
+	
+	// Override the panel background (ScrollContainer background)
+	inspector->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockInspectorBg", EditorStringName(EditorStyles)));
+	inspector->add_theme_color_override("dark_color_1", get_theme_color(SNAME("base_color"), EditorStringName(Editor)));
+	inspector->add_theme_color_override("prop_subsection", get_theme_color(SNAME("base_color"), EditorStringName(Editor)));
 }
 
 void InspectorDock::_bind_methods() {

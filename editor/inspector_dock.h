@@ -135,6 +135,8 @@ class InspectorDock : public VBoxContainer {
 	void _menu_expand_revertable();
 	void _select_history(int p_idx);
 	void _prepare_history();
+	
+	void _apply_inspector_background();
 
 	virtual void shortcut_input(const Ref<InputEvent> &p_event) override;
 
