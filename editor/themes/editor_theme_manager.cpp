@@ -1933,6 +1933,11 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		dock_panel->set_border_width_all(0);
 		p_theme->set_stylebox("DockPanel", EditorStringName(EditorStyles), dock_panel);
 
+		// Inspector background panel - uses base_color for the ScrollContainer background
+		Ref<StyleBoxFlat> dock_inspector_bg = make_flat_stylebox(p_config.base_color, 0, 0, 0, 0);
+		dock_inspector_bg->set_border_width_all(0);
+		p_theme->set_stylebox("DockInspectorBg", EditorStringName(EditorStyles), dock_inspector_bg);
+
 		// Dock tab selected style - no top border, respects corner_radius.
 		Ref<StyleBoxFlat> dock_tab_selected = p_config.button_style->duplicate();
 		dock_tab_selected->set_border_width_all(0);
@@ -1949,9 +1954,10 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("DockTabSelected", EditorStringName(EditorStyles), dock_tab_selected);
 
-		// Dock child_bg style for EditorProperty backgrounds in Inspector - unified with active tabs.
+		// Dock child_bg style for EditorProperty backgrounds in Inspector - 10% darker than base_color.
 		Ref<StyleBoxFlat> dock_property_child_bg = p_config.base_style->duplicate();
-		dock_property_child_bg->set_bg_color(p_config.base_color);
+		Color property_bg_color = p_config.base_color.lerp(Color(0, 0, 0, 1), 0.1);
+		dock_property_child_bg->set_bg_color(property_bg_color);
 		dock_property_child_bg->set_border_width_all(0);
 		p_theme->set_stylebox("DockPropertyChildBg", EditorStringName(EditorStyles), dock_property_child_bg);
 	}
