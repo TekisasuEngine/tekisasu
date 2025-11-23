@@ -1934,9 +1934,17 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("DockPanel", EditorStringName(EditorStyles), dock_panel);
 
 		// Dock tab selected style - no top border, respects corner_radius.
-		Ref<StyleBoxFlat> dock_tab_selected = style_tab_base->duplicate();
+		Ref<StyleBoxFlat> dock_tab_selected = p_config.button_style->duplicate();
+		dock_tab_selected->set_border_width_all(0);
+		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
+		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
+		dock_tab_selected->set_expand_margin(SIDE_LEFT, -p_config.border_width);
+		dock_tab_selected->set_content_margin(SIDE_LEFT, p_config.widget_margin.x + 5 * EDSCALE);
+		dock_tab_selected->set_content_margin(SIDE_RIGHT, p_config.widget_margin.x + 5 * EDSCALE);
+		dock_tab_selected->set_content_margin(SIDE_BOTTOM, p_config.widget_margin.y);
+		dock_tab_selected->set_content_margin(SIDE_TOP, p_config.widget_margin.y);
 		dock_tab_selected->set_bg_color(p_config.base_color);
-		dock_tab_selected->set_border_width_all(0);  // No top border for dock tabs
+		// No top border for dock tabs (unlike regular tabs which have a 3px colored border)
 		dock_tab_selected->set_corner_radius_all(p_config.corner_radius * EDSCALE);
 		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		dock_tab_selected->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
