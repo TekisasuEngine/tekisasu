@@ -621,6 +621,11 @@ void FileSystemDock::_notification(int p_what) {
 			}
 
 			overwrite_dialog_scroll->add_theme_style_override(SceneStringName(panel), get_theme_stylebox(SceneStringName(panel), "Tree"));
+			
+			tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
+			tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
+			files->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockItemListPanel", EditorStringName(EditorStyles)));
+			files->add_theme_style_override("focus", get_theme_stylebox("DockItemListFocus", EditorStringName(EditorStyles)));
 		} break;
 
 		case EditorSettings::NOTIFICATION_EDITOR_SETTINGS_CHANGED: {
@@ -4032,8 +4037,6 @@ FileSystemDock::FileSystemDock() {
 	tree->set_select_mode(Tree::SELECT_MULTI);
 	tree->set_custom_minimum_size(Size2(40 * EDSCALE, 15 * EDSCALE));
 	tree->set_column_clip_content(0, true);
-	tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
-	tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 	split_box->add_child(tree);
 
 	tree->connect("item_activated", callable_mp(this, &FileSystemDock::_tree_activate_file));
@@ -4077,8 +4080,6 @@ FileSystemDock::FileSystemDock() {
 	files->connect("item_edited", callable_mp(this, &FileSystemDock::_rename_operation_confirm));
 	files->set_custom_minimum_size(Size2(0, 15 * EDSCALE));
 	files->set_allow_rmb_select(true);
-	files->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockItemListPanel", EditorStringName(EditorStyles)));
-	files->add_theme_style_override("focus", get_theme_stylebox("DockItemListFocus", EditorStringName(EditorStyles)));
 	file_list_vb->add_child(files);
 
 	scanning_vb = memnew(VBoxContainer);

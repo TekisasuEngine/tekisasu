@@ -496,6 +496,11 @@ void ConnectDialog::_notification(int p_what) {
 			}
 			method_search->set_right_icon(get_editor_theme_icon("Search"));
 			open_method_tree->set_icon(get_editor_theme_icon("Edit"));
+			
+			tree->get_scene_tree()->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
+			tree->get_scene_tree()->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
+			method_tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
+			method_tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 		} break;
 	}
 }
@@ -729,8 +734,6 @@ ConnectDialog::ConnectDialog() {
 	tree->set_connecting_signal(true);
 	tree->set_show_enabled_subscene(true);
 	tree->set_v_size_flags(Control::SIZE_FILL | Control::SIZE_EXPAND);
-	tree->get_scene_tree()->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
-	tree->get_scene_tree()->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 	tree->get_scene_tree()->connect("item_activated", callable_mp(this, &ConnectDialog::_item_activated));
 	tree->connect("node_selected", callable_mp(this, &ConnectDialog::_tree_node_selected));
 	tree->set_connect_to_script_mode(true);
@@ -781,8 +784,6 @@ ConnectDialog::ConnectDialog() {
 	method_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	method_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	method_tree->set_hide_root(true);
-	method_tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
-	method_tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 	method_tree->connect(SceneStringName(item_selected), callable_mp(this, &ConnectDialog::_method_selected));
 	method_tree->connect("item_activated", callable_mp((Window *)method_popup, &Window::hide));
 
