@@ -2125,6 +2125,63 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(panel), "TabContainerOdd", style_content_panel_odd);
 		}
 
+		// DockTabContainer variation.
+		{
+			// Dock-specific tab style without top borders and with corner radius.
+			p_theme->set_type_variation("DockTabContainer", "TabContainer");
+
+			// Create dock tab base style with corner radius.
+			Ref<StyleBoxFlat> style_dock_tab_base = p_config.button_style->duplicate();
+			style_dock_tab_base->set_border_width_all(0);
+			style_dock_tab_base->set_corner_radius(CORNER_TOP_LEFT, p_config.corner_radius * EDSCALE);
+			style_dock_tab_base->set_corner_radius(CORNER_TOP_RIGHT, p_config.corner_radius * EDSCALE);
+			style_dock_tab_base->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
+			style_dock_tab_base->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
+			style_dock_tab_base->set_expand_margin(SIDE_LEFT, -p_config.border_width);
+			style_dock_tab_base->set_content_margin(SIDE_LEFT, p_config.widget_margin.x + 5 * EDSCALE);
+			style_dock_tab_base->set_content_margin(SIDE_RIGHT, p_config.widget_margin.x + 5 * EDSCALE);
+			style_dock_tab_base->set_content_margin(SIDE_BOTTOM, p_config.widget_margin.y);
+			style_dock_tab_base->set_content_margin(SIDE_TOP, p_config.widget_margin.y);
+
+			// Selected tab - no top border, uses base_color.
+			Ref<StyleBoxFlat> style_dock_tab_selected = style_dock_tab_base->duplicate();
+			style_dock_tab_selected->set_bg_color(p_config.base_color);
+			style_dock_tab_selected->set_border_width_all(0); // No top border.
+
+			// Hovered tab.
+			Ref<StyleBoxFlat> style_dock_tab_hovered = style_dock_tab_base->duplicate();
+			style_dock_tab_hovered->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.4));
+
+			// Unselected tab.
+			Ref<StyleBoxFlat> style_dock_tab_unselected = style_dock_tab_base->duplicate();
+			style_dock_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
+			style_dock_tab_unselected->set_bg_color(p_config.dark_color_5);
+			style_dock_tab_unselected->set_border_color(Color(0, 0, 0, 0));
+
+			// Disabled tab.
+			Ref<StyleBoxFlat> style_dock_tab_disabled = style_dock_tab_base->duplicate();
+			style_dock_tab_disabled->set_expand_margin(SIDE_BOTTOM, 0);
+			style_dock_tab_disabled->set_bg_color(p_config.disabled_bg_color);
+			style_dock_tab_disabled->set_border_color(p_config.disabled_bg_color);
+
+			// Focus style.
+			Ref<StyleBoxFlat> style_dock_tab_focus = p_config.button_style_focus->duplicate();
+			style_dock_tab_focus->set_border_width_all(0);
+
+			// Apply dock tab styles.
+			p_theme->set_stylebox("tab_selected", "DockTabContainer", style_dock_tab_selected);
+			p_theme->set_stylebox("tab_hovered", "DockTabContainer", style_dock_tab_hovered);
+			p_theme->set_stylebox("tab_unselected", "DockTabContainer", style_dock_tab_unselected);
+			p_theme->set_stylebox("tab_disabled", "DockTabContainer", style_dock_tab_disabled);
+			p_theme->set_stylebox("tab_focus", "DockTabContainer", style_dock_tab_focus);
+
+			// Tabbar background with matching corner radius.
+			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(p_config.dark_color_5, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
+			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
+			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
+			p_theme->set_stylebox("tabbar_background", "DockTabContainer", style_dock_tabbar_background);
+		}
+
 		// EditorValidationPanel.
 		p_theme->set_stylebox(SceneStringName(panel), "EditorValidationPanel", p_config.tree_panel_style);
 
