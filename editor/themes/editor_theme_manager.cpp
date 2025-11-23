@@ -2180,6 +2180,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 			p_theme->set_stylebox("tabbar_background", "DockTabContainer", style_dock_tabbar_background);
+
+			// Content panel.
+			p_theme->set_stylebox(SceneStringName(panel), "DockTabContainer", p_config.content_panel_style);
 		}
 
 		// EditorValidationPanel.
