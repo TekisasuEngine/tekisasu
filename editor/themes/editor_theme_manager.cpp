@@ -1911,7 +1911,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			dock_tree_panel->set_border_color(p_config.extra_border_color_2);
 		} else {
 			dock_tree_panel->set_border_width_all(0);
-			dock_tree_panel->set_border_color(p_config.dark_color_3);
 		}
 		p_theme->set_stylebox("DockTreePanel", EditorStringName(EditorStyles), dock_tree_panel);
 
@@ -1926,13 +1925,18 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			dock_itemlist_panel->set_border_width_all(Math::round(EDSCALE));
 			dock_itemlist_panel->set_border_color(p_config.extra_border_color_2);
 		} else {
-			dock_itemlist_panel->set_border_width_all(p_config.border_width);
-			dock_itemlist_panel->set_border_color(p_config.dark_color_3);
+			dock_itemlist_panel->set_border_width_all(0);
 		}
 		p_theme->set_stylebox("DockItemListPanel", EditorStringName(EditorStyles), dock_itemlist_panel);
 
 		// ItemList focus style for docks - use the same focus style as buttons (respects focus_border_type setting).
 		p_theme->set_stylebox("DockItemListFocus", EditorStringName(EditorStyles), p_config.button_style_focus);
+
+		// Dock panel style - removes the border around dock content.
+		// This is used to override the default TabContainer/panel borders for docks.
+		Ref<StyleBoxFlat> dock_panel = p_config.content_panel_style->duplicate();
+		dock_panel->set_border_width_all(0);
+		p_theme->set_stylebox("DockPanel", EditorStringName(EditorStyles), dock_panel);
 	}
 
 	// Editor GUI widgets.
