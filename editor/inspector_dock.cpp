@@ -462,6 +462,7 @@ void InspectorDock::_notification(int p_what) {
 			
 			inspector->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 			inspector->add_theme_color_override("dark_color_1", get_theme_color(SNAME("base_color"), EditorStringName(Editor)));
+			inspector->add_theme_color_override("prop_subsection", get_theme_color(SNAME("base_color"), EditorStringName(Editor)));
 			unique_resources_list_tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 			unique_resources_list_tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 		} break;
