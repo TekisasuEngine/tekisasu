@@ -2143,10 +2143,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			style_dock_tab_base->set_content_margin(SIDE_BOTTOM, p_config.widget_margin.y);
 			style_dock_tab_base->set_content_margin(SIDE_TOP, p_config.widget_margin.y);
 
-			// Selected tab - no top border, uses base_color.
+			// Selected tab - uses base_color without borders.
 			Ref<StyleBoxFlat> style_dock_tab_selected = style_dock_tab_base->duplicate();
 			style_dock_tab_selected->set_bg_color(p_config.base_color);
-			style_dock_tab_selected->set_border_width_all(0); // No top border.
 
 			// Hovered tab.
 			Ref<StyleBoxFlat> style_dock_tab_hovered = style_dock_tab_base->duplicate();
