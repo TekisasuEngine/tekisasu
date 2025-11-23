@@ -1904,13 +1904,11 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// Dock-specific styles.
 		// Tree panel style for docks (FileSystem, Scene, Inspector, Node) - unified with active tabs.
-		Ref<StyleBoxFlat> dock_tree_panel = p_config.base_style->duplicate();
-		dock_tree_panel->set_bg_color(p_config.base_color);
+		Ref<StyleBoxFlat> dock_tree_panel = make_flat_stylebox(p_config.base_color, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.corner_radius);
+		dock_tree_panel->set_border_width_all(0);
 		if (p_config.draw_extra_borders) {
 			dock_tree_panel->set_border_width_all(Math::round(EDSCALE));
 			dock_tree_panel->set_border_color(p_config.extra_border_color_2);
-		} else {
-			dock_tree_panel->set_border_width_all(0);
 		}
 		p_theme->set_stylebox("DockTreePanel", EditorStringName(EditorStyles), dock_tree_panel);
 
@@ -1918,14 +1916,11 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("DockTreeFocus", EditorStringName(EditorStyles), p_config.button_style_focus);
 
 		// ItemList panel style for docks (History, FileSystem files) - unified with active tabs.
-		Ref<StyleBoxFlat> dock_itemlist_panel = p_config.base_style->duplicate();
-		dock_itemlist_panel->set_content_margin_all(p_config.separation_margin);
-		dock_itemlist_panel->set_bg_color(p_config.base_color);
+		Ref<StyleBoxFlat> dock_itemlist_panel = make_flat_stylebox(p_config.base_color, p_config.separation_margin, p_config.separation_margin, p_config.separation_margin, p_config.separation_margin, p_config.corner_radius);
+		dock_itemlist_panel->set_border_width_all(0);
 		if (p_config.draw_extra_borders) {
 			dock_itemlist_panel->set_border_width_all(Math::round(EDSCALE));
 			dock_itemlist_panel->set_border_color(p_config.extra_border_color_2);
-		} else {
-			dock_itemlist_panel->set_border_width_all(0);
 		}
 		p_theme->set_stylebox("DockItemListPanel", EditorStringName(EditorStyles), dock_itemlist_panel);
 
