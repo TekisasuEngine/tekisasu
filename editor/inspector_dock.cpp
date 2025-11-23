@@ -467,7 +467,8 @@ void InspectorDock::_notification(int p_what) {
 				info->add_theme_color_override(SceneStringName(font_color), get_theme_color(SceneStringName(font_color), EditorStringName(Editor)));
 			}
 			
-			_apply_inspector_background();
+			// Must be called deferred to ensure EditorInspector's theme change handling completes first.
+			callable_mp(this, &InspectorDock::_apply_inspector_background).call_deferred();
 			unique_resources_list_tree->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("DockTreePanel", EditorStringName(EditorStyles)));
 			unique_resources_list_tree->add_theme_style_override("focus", get_theme_stylebox("DockTreeFocus", EditorStringName(EditorStyles)));
 		} break;
