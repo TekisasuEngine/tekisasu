@@ -1982,6 +1982,13 @@ void TextEdit::gui_input(const Ref<InputEvent> &p_gui_input) {
 						}
 						Dictionary info = k;
 						Rect2 obj_rect = ldata->get_line_object_rect(wrap_i, k);
+						// For 0-span inline objects, shift position left by the object width
+						if (is_inline_info_valid(k)) {
+							Dictionary rect_info = k;
+							if (rect_info.has("column")) {
+								obj_rect.position.x -= obj_rect.size.x;
+							}
+						}
 						obj_rect.position.x += xmargin_beg + wrap_indent - first_visible_col;
 
 						if (mpos.x > obj_rect.position.x && mpos.x < obj_rect.get_end().x) {
@@ -3167,6 +3174,13 @@ Control::CursorShape TextEdit::get_cursor_shape(const Point2 &p_pos) const {
 				continue;
 			}
 			Rect2 obj_rect = ldata->get_line_object_rect(wrap_i, k);
+			// For 0-span inline objects, shift position left by the object width
+			if (is_inline_info_valid(k)) {
+				Dictionary rect_info = k;
+				if (rect_info.has("column")) {
+					obj_rect.position.x -= obj_rect.size.x;
+				}
+			}
 			obj_rect.position.x += xmargin_beg + wrap_indent - first_visible_col;
 			if (p_pos.x > obj_rect.position.x && p_pos.x < obj_rect.get_end().x) {
 				return CURSOR_POINTING_HAND;
