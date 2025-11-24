@@ -248,7 +248,8 @@ void TextEdit::Text::invalidate_cache(int p_line, int p_column, bool p_text_chan
 					float width_ratio = info["width_ratio"];
 					String left_string = text_with_ime.substr(from, start - from);
 					text.write[p_line].data_buf->add_string(left_string, font, font_size, language);
-					text.write[p_line].data_buf->add_object(info, Vector2(font_size * width_ratio, font_size), INLINE_ALIGNMENT_TOP, 0);
+					float font_height = font->get_height(font_size);
+					text.write[p_line].data_buf->add_object(info, Vector2(font_height * width_ratio, font_height), INLINE_ALIGNMENT_TOP, 0);
 					from = start;
 				}
 			}
@@ -258,6 +259,7 @@ void TextEdit::Text::invalidate_cache(int p_line, int p_column, bool p_text_chan
 
 	} else {
 		// Update inline object sizes.
+		float font_height = font->get_height(font_size);
 		for (int i = 0; i < text.write[p_line].data_buf->get_line_count(); i++) {
 			for (Variant key : text.write[p_line].data_buf->get_line_objects(i)) {
 				if (!is_inline_info_valid(key)) {
@@ -265,7 +267,7 @@ void TextEdit::Text::invalidate_cache(int p_line, int p_column, bool p_text_chan
 				}
 				Dictionary info = key;
 				float width_ratio = info["width_ratio"];
-				text.write[p_line].data_buf->resize_object(info, Vector2(font_size * width_ratio, font_size), INLINE_ALIGNMENT_TOP, 0);
+				text.write[p_line].data_buf->resize_object(info, Vector2(font_height * width_ratio, font_height), INLINE_ALIGNMENT_TOP, 0);
 			}
 		}
 	}
