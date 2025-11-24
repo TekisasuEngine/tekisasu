@@ -47,6 +47,7 @@
 #include "editor/filesystem_dock.h"
 #include "editor/gui/editor_bottom_panel.h"
 #include "editor/gui/editor_file_dialog.h"
+#include "editor/inspector_dock.h"
 #include "editor/themes/editor_scale.h"
 #include "editor/themes/editor_theme_manager.h"
 #include "scene/gui/separator.h"
@@ -1197,6 +1198,11 @@ void EditorAudioBuses::_notification(int p_what) {
 
 			if (edited) {
 				save_timer->start();
+				// Sync audio bus changes to running game when effects are edited
+				if (EditorDebuggerNode::get_singleton() != nullptr) {
+					EditorDebuggerNode::get_singleton()->sync_audio_buses();
+				}
+			}
 			}
 		} break;
 	}
