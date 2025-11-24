@@ -1240,7 +1240,8 @@ void TextEdit::_notification(int p_what) {
 							}
 
 							for (int j = 0; j < sel.size(); j++) {
-								Rect2 rect = Rect2(Math::ceil(sel[j].x) + char_margin + ofs_x, ofs_y, Math::ceil(sel[j].y) - Math::ceil(sel[j].x), row_height);
+								real_t sel_x_ceil = Math::ceil(sel[j].x);
+								Rect2 rect = Rect2(sel_x_ceil + char_margin + ofs_x, ofs_y, Math::ceil(sel[j].y) - sel_x_ceil, row_height);
 								if (rect.position.x + rect.size.x <= xmargin_beg || rect.position.x > xmargin_end) {
 									continue;
 								}
