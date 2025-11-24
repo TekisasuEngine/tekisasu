@@ -424,7 +424,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.contrast_color_1 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast, p_config.default_contrast));
 		p_config.contrast_color_2 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast * 1.5, p_config.default_contrast * 1.5));
 
-		p_config.highlight_color = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.275);
+		p_config.highlight_color = p_config.mono_color * Color(1, 1, 1, 0.11);
 		p_config.highlight_disabled_color = p_config.highlight_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.5);
 
 		p_config.success_color = Color(0.45, 0.95, 0.5);
@@ -1787,7 +1787,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
-
 		// Tekisasu - new editor_panel_foreground stylebox.
 		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
 		editor_panel_foreground->set_corner_radius_all(0);
@@ -1850,7 +1849,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(pressed), "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover", "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "TekisasuMenuBar", filemenu_main_screen_button_hover);
-	
 
 		// Main menu.
 		Ref<StyleBoxFlat> menu_transparent_style = p_config.button_style->duplicate();
