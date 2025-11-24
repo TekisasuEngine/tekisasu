@@ -36,6 +36,7 @@
 #include "core/debugger/engine_debugger.h"
 #include "core/debugger/engine_profiler.h"
 #include "core/io/marshalls.h"
+#include "core/math/math_funcs.h"
 #include "core/object/script_language.h"
 #include "core/templates/local_vector.h"
 #include "scene/main/scene_tree.h"
@@ -333,7 +334,8 @@ Error SceneDebugger::parse_message(void *p_user, const String &p_msg, const Arra
 					Ref<AudioEffect> eff = (e < final_count) ? as->get_bus_effect(i, e) : Ref<AudioEffect>();
 					if (eff.is_valid() && fx.has("params") && Variant(fx["params"]).get_type() == Variant::DICTIONARY) {
 						Dictionary params = fx["params"];
-						LocalVector<Variant> keys = params.get_key_list();
+						List<Variant> keys;
+						params.get_key_list(&keys);
 						for (const Variant &k : keys) {
 							const StringName prop = StringName(String(k));
 							const Variant &val = params[k];
