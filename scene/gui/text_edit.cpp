@@ -1366,6 +1366,13 @@ void TextEdit::_notification(int p_what) {
 					// Draw inline objects.
 					for (Dictionary k : object_keys) {
 						Rect2 col_rect = TS->shaped_text_get_object_rect(rid, k);
+						// For 0-span inline objects, shift position left by the object width
+						if (is_inline_info_valid(k)) {
+							Dictionary info = k;
+							if (info.has("column")) {
+								col_rect.position.x -= col_rect.size.x;
+							}
+						}
 						col_rect.position += Vector2(char_margin + ofs_x, ofs_y);
 						if (!clipped && (col_rect.position.x) >= xmargin_beg && (col_rect.position.x + col_rect.size.x) <= xmargin_end) {
 							inline_object_drawer.call(k, col_rect);
