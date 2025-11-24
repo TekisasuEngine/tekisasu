@@ -999,7 +999,7 @@ void EditorPropertyLayersGrid::_notification(int p_what) {
 			const int bsize = (grid_size.height * 80 / 100) / 2;
 			const int h = bsize * 2 + 1;
 
-			Color color = get_theme_color(read_only ? SNAME("highlight_disabled_color") : SNAME("highlight_color"), EditorStringName(Editor));
+			Color color = get_theme_color(read_only ? SNAME("highlight_disabled_color") : SNAME("highlight_color"), SNAME("EditorPropertyLayersGrid"));
 
 			Color text_color = get_theme_color(read_only ? SNAME("font_disabled_color") : SceneStringName(font_color), EditorStringName(Editor));
 			text_color.a *= 0.5;

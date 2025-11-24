@@ -2237,6 +2237,12 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_group_note->set_bg_color(property_group_note_color);
 		p_theme->set_stylebox("bg_group_note", "EditorProperty", style_property_group_note);
 
+		// EditorPropertyLayersGrid - use accent color for layer buttons.
+		Color layers_highlight_color = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.275);
+		Color layers_highlight_disabled_color = layers_highlight_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.5);
+		p_theme->set_color("highlight_color", "EditorPropertyLayersGrid", layers_highlight_color);
+		p_theme->set_color("highlight_disabled_color", "EditorPropertyLayersGrid", layers_highlight_disabled_color);
+
 		// EditorInspectorSection.
 
 		Color inspector_section_color = p_config.font_color.lerp(Color(0.5, 0.5, 0.5), 0.35);
