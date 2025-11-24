@@ -6854,6 +6854,11 @@ void EditorNode::_on_bus_button_pressed(int p_bus_index) {
 		ur->add_do_method(this, "_update_bus_button_colors");
 		ur->add_undo_method(this, "_update_bus_button_colors");
 		ur->commit_action();
+
+		// Sync audio bus changes to running game
+		if (EditorDebuggerNode::get_singleton() != nullptr) {
+			EditorDebuggerNode::get_singleton()->sync_audio_buses();
+		}
 	}
 }
 
