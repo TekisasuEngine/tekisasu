@@ -406,7 +406,7 @@ Array ScriptTextEditor::_inline_object_parse(const String &p_text, int p_line) {
 
 	while (i_start != -1) {
 		// Ignore words that just have "Color" in them.
-		if (i_start == 0 || !("_" + p_text.substr(i_start - 1, 1)).is_valid_ascii_identifier()) {
+		if (i_start == 0 || !("_" + p_text.substr(i_start - 1, 1)).is_valid_identifier()) {
 			int i_par_start = p_text.find_char('(', i_start + 5);
 			if (i_par_start != -1) {
 				int i_par_end = p_text.find_char(')', i_start + 5);
@@ -459,7 +459,8 @@ Array ScriptTextEditor::_inline_object_parse(const String &p_text, int p_line) {
 								color_info["color"] = Color::from_hsv(params[0], params[1], params[2], params[3]);
 								color_info["color_mode"] = MODE_HSV;
 							} else if (fn_name == ".from_rgba8") {
-								color_info["color"] = Color::from_rgba8(int(params[0]), int(params[1]), int(params[2]), int(params[3]));
+								// Tekisasu doesn't have Color::from_rgba8, construct from 8-bit values
+								color_info["color"] = Color(int(params[0]) / 255.0f, int(params[1]) / 255.0f, int(params[2]) / 255.0f, int(params[3]) / 255.0f);
 								color_info["color_mode"] = MODE_RGB8;
 							} else if (fn_name.is_empty()) {
 								color_info["color"] = Color(params[0], params[1], params[2], params[3]);
@@ -501,10 +502,6 @@ void ScriptTextEditor::_inline_object_handle_click(const Dictionary &p_info, con
 		inline_color_line = p_info["line"];
 		inline_color_start = p_info["column"];
 		inline_color_end = p_info["color_end"];
-
-		// Reset tooltip hover timer.
-		code_editor->get_text_editor()->set_symbol_tooltip_on_hover_enabled(false);
-		code_editor->get_text_editor()->set_symbol_tooltip_on_hover_enabled(true);
 
 		_update_color_constructor_options();
 		inline_color_options->select(p_info["color_mode"]);
