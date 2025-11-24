@@ -442,19 +442,23 @@ void TabBar::_notification(int p_what) {
 				if (i != current) {
 					Ref<StyleBox> sb;
 					Color col;
+					Color icon_col;
 
 					if (tabs[i].disabled) {
 						sb = theme_cache.tab_disabled_style;
 						col = theme_cache.font_disabled_color;
+						icon_col = theme_cache.icon_disabled_modulate;
 					} else if (i == hover) {
 						sb = theme_cache.tab_hovered_style;
 						col = theme_cache.font_hovered_color;
+						icon_col = theme_cache.icon_hovered_modulate;
 					} else {
 						sb = theme_cache.tab_unselected_style;
 						col = theme_cache.font_unselected_color;
+						icon_col = theme_cache.icon_unselected_modulate;
 					}
 
-					_draw_tab(sb, col, i, rtl ? size.width - ofs - tabs[i].size_cache : ofs, false);
+					_draw_tab(sb, col, icon_col, i, rtl ? size.width - ofs - tabs[i].size_cache : ofs, false);
 				}
 
 				ofs += tabs[i].size_cache;
@@ -465,7 +469,7 @@ void TabBar::_notification(int p_what) {
 				Ref<StyleBox> sb = tabs[current].disabled ? theme_cache.tab_disabled_style : theme_cache.tab_selected_style;
 				float x = rtl ? size.width - tabs[current].ofs_cache - tabs[current].size_cache : tabs[current].ofs_cache;
 
-				_draw_tab(sb, theme_cache.font_selected_color, current, x, has_focus());
+				_draw_tab(sb, theme_cache.font_selected_color, theme_cache.icon_selected_modulate, current, x, has_focus());
 			}
 
 			if (buttons_visible) {
@@ -531,7 +535,7 @@ void TabBar::_notification(int p_what) {
 	}
 }
 
-void TabBar::_draw_tab(Ref<StyleBox> &p_tab_style, Color &p_font_color, int p_index, float p_x, bool p_focus) {
+void TabBar::_draw_tab(Ref<StyleBox> &p_tab_style, Color &p_font_color, Color &p_icon_modulate, int p_index, float p_x, bool p_focus) {
 	RID ci = get_canvas_item();
 	bool rtl = is_layout_rtl();
 
@@ -557,7 +561,7 @@ void TabBar::_draw_tab(Ref<StyleBox> &p_tab_style, Color &p_font_color, int p_in
 	if (icon.is_valid()) {
 		const Size2 icon_size = _get_tab_icon_size(p_index);
 		const Point2 icon_pos = Point2i(rtl ? p_x - icon_size.width : p_x, p_tab_style->get_margin(SIDE_TOP) + ((sb_rect.size.y - sb_ms.y) - icon_size.height) / 2);
-		icon->draw_rect(ci, Rect2(icon_pos, icon_size));
+		icon->draw_rect(ci, Rect2(icon_pos, icon_size), false, p_icon_modulate);
 
 		p_x = rtl ? p_x - icon_size.width - theme_cache.h_separation : p_x + icon_size.width + theme_cache.h_separation;
 	}
@@ -1861,6 +1865,11 @@ void TabBar::_bind_methods() {
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, font_unselected_color);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, font_disabled_color);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, font_outline_color);
+
+	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, icon_selected_modulate);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, icon_hovered_modulate);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, icon_unselected_modulate);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, TabBar, icon_disabled_modulate);
 
 	BIND_THEME_ITEM(Theme::DATA_TYPE_FONT, TabBar, font);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_FONT_SIZE, TabBar, font_size);

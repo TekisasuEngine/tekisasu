@@ -387,8 +387,8 @@ protected:
 
 public:
 	static constexpr double ITEM_COLOR_SCALE = 1.75;
-	static constexpr double ITEM_ALPHA_MIN = 0.1;
-	static constexpr double ITEM_ALPHA_MAX = 0.15;
+	static constexpr double ITEM_ALPHA_MIN = 0.2;
+	static constexpr double ITEM_ALPHA_MAX = 0.25;
 	static constexpr double ITEM_BG_DARK_SCALE = 0.3;
 
 	const HashMap<String, Color> &get_folder_colors() const;

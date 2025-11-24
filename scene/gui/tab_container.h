@@ -96,6 +96,11 @@ private:
 		Color font_disabled_color;
 		Color font_outline_color;
 
+		Color icon_selected_modulate;
+		Color icon_hovered_modulate;
+		Color icon_unselected_modulate;
+		Color icon_disabled_modulate;
+
 		Ref<Font> tab_font;
 		int tab_font_size;
 	} theme_cache;

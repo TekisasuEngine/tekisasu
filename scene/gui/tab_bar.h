@@ -154,6 +154,11 @@ private:
 		Color font_disabled_color;
 		Color font_outline_color;
 
+		Color icon_selected_modulate;
+		Color icon_hovered_modulate;
+		Color icon_unselected_modulate;
+		Color icon_disabled_modulate;
+
 		Ref<Texture2D> close_icon;
 		Ref<StyleBox> button_pressed_style;
 		Ref<StyleBox> button_hl_style;
@@ -170,7 +175,7 @@ private:
 	void _on_mouse_exited();
 
 	void _shape(int p_tab);
-	void _draw_tab(Ref<StyleBox> &p_tab_style, Color &p_font_color, int p_index, float p_x, bool p_focus);
+	void _draw_tab(Ref<StyleBox> &p_tab_style, Color &p_font_color, Color &p_icon_modulate, int p_index, float p_x, bool p_focus);
 
 protected:
 	virtual void gui_input(const Ref<InputEvent> &p_event) override;

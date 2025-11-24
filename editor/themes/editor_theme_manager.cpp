@@ -424,7 +424,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.contrast_color_1 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast, p_config.default_contrast));
 		p_config.contrast_color_2 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast * 1.5, p_config.default_contrast * 1.5));
 
-		p_config.highlight_color = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.275);
+		p_config.highlight_color = p_config.mono_color * Color(1, 1, 1, 0.11);
 		p_config.highlight_disabled_color = p_config.highlight_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.5);
 
 		p_config.success_color = Color(0.45, 0.95, 0.5);
@@ -1158,6 +1158,16 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_color("drop_mark_color", "TabContainer", tab_highlight);
 		p_theme->set_color("drop_mark_color", "TabBar", tab_highlight);
 
+		// Icon modulate colors - inactive tab icons match the text opacity.
+		p_theme->set_color("icon_selected_modulate", "TabContainer", Color(1, 1, 1, 1));
+		p_theme->set_color("icon_hovered_modulate", "TabContainer", Color(1, 1, 1, 1));
+		p_theme->set_color("icon_unselected_modulate", "TabContainer", p_config.font_disabled_color);
+		p_theme->set_color("icon_disabled_modulate", "TabContainer", p_config.font_disabled_color);
+		p_theme->set_color("icon_selected_modulate", "TabBar", Color(1, 1, 1, 1));
+		p_theme->set_color("icon_hovered_modulate", "TabBar", Color(1, 1, 1, 1));
+		p_theme->set_color("icon_unselected_modulate", "TabBar", p_config.font_disabled_color);
+		p_theme->set_color("icon_disabled_modulate", "TabBar", p_config.font_disabled_color);
+
 		p_theme->set_icon("menu", "TabContainer", p_theme->get_icon(SNAME("GuiTabMenu"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("menu_highlight", "TabContainer", p_theme->get_icon(SNAME("GuiTabMenuHl"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("close", "TabBar", p_theme->get_icon(SNAME("GuiClose"), EditorStringName(EditorIcons)));
@@ -1787,7 +1797,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
-
 		// Tekisasu - new editor_panel_foreground stylebox.
 		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
 		editor_panel_foreground->set_corner_radius_all(0);
@@ -1850,7 +1859,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(pressed), "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover", "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "TekisasuMenuBar", filemenu_main_screen_button_hover);
-	
 
 		// Main menu.
 		Ref<StyleBoxFlat> menu_transparent_style = p_config.button_style->duplicate();
@@ -2238,6 +2246,12 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		property_group_note_color.a = 0.1;
 		style_property_group_note->set_bg_color(property_group_note_color);
 		p_theme->set_stylebox("bg_group_note", "EditorProperty", style_property_group_note);
+
+		// EditorPropertyLayersGrid - use accent color for layer buttons.
+		Color layers_highlight_color = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.275);
+		Color layers_highlight_disabled_color = layers_highlight_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.5);
+		p_theme->set_color("highlight_color", "EditorPropertyLayersGrid", layers_highlight_color);
+		p_theme->set_color("highlight_disabled_color", "EditorPropertyLayersGrid", layers_highlight_disabled_color);
 
 		// EditorInspectorSection.
 
