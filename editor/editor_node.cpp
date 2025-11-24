@@ -7617,6 +7617,7 @@ EditorNode::EditorNode() {
 
 	// Debug target section
 	debug_target_hb = memnew(HBoxContainer);
+	debug_target_hb->add_theme_constant_override("separation", 2);
 	title_bar->add_child(debug_target_hb);
 
 	// "Debug Client:" label
