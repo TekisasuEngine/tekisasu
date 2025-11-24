@@ -6904,6 +6904,7 @@ void EditorNode::_update_debug_target_status() {
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.46, 0.85, 0.69, 1.0));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.46, 0.85, 0.69, 1.0));
 			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+			debug_target_status->add_theme_font_override(SceneStringName(font), get_theme_font("source", EditorStringName(EditorFonts)));
 			debug_target_status->set_text(ip_address);
 		} else {
 			// Disconnected state: red icon + "No Connection"
@@ -6915,6 +6916,7 @@ void EditorNode::_update_debug_target_status() {
 			debug_target_status->add_theme_color_override("icon_pressed_color", Color(0.94, 0.44, 0.56, 1.0));
 			debug_target_status->add_theme_color_override("icon_hover_color", Color(0.94, 0.44, 0.56, 1.0));
 			debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.95));
+			debug_target_status->add_theme_font_override(SceneStringName(font), get_theme_font("source", EditorStringName(EditorFonts)));
 			debug_target_status->set_text("No Connection");
 		}
 	} else if (is_connected) {
@@ -7647,6 +7649,7 @@ EditorNode::EditorNode() {
 	// Set initial disconnected state
 	debug_target_status->set_text("No Connection");
 	debug_target_status->add_theme_color_override("font_color", Color(1, 1, 1, 0.85));
+	debug_target_status->add_theme_font_override(SceneStringName(font), get_theme_font("source", EditorStringName(EditorFonts)));
 	debug_target_hb->add_child(debug_target_status);
 
 	// Spacer to center 2D / 3D / Script buttons and Runbar.
