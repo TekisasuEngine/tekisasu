@@ -107,6 +107,12 @@ void TextEdit::Text::set_draw_control_chars(bool p_enabled) {
 	is_dirty = true;
 }
 
+void TextEdit::Text::set_inline_object_parser(const Callable &p_parser) {
+	inline_object_parser = p_parser;
+	is_dirty = true;
+	invalidate_all();
+}
+
 int TextEdit::Text::get_line_width(int p_line, int p_wrap_index) const {
 	ERR_FAIL_INDEX_V(p_line, text.size(), 0);
 	if (p_wrap_index != -1) {
@@ -190,6 +196,17 @@ void TextEdit::Text::_calculate_max_line_width() {
 	max_width = line_width;
 }
 
+inline bool is_inline_info_valid(const Variant &p_info) {
+	if (p_info.get_type() != Variant::DICTIONARY) {
+		return false;
+	}
+	Dictionary info = p_info;
+	if (!info.get_valid("column").is_num() || !info.get_valid("line").is_num() || !info.get_valid("width_ratio").is_num()) {
+		return false;
+	}
+	return true;
+}
+
 void TextEdit::Text::invalidate_cache(int p_line, int p_column, bool p_text_changed, const String &p_ime_text, const Array &p_bidi_override) {
 	ERR_FAIL_INDEX(p_line, text.size());
 
@@ -212,20 +229,48 @@ void TextEdit::Text::invalidate_cache(int p_line, int p_column, bool p_text_chan
 	text.write[p_line].data_buf->set_preserve_control(draw_control_chars);
 	text.write[p_line].data_buf->set_custom_punctuation(get_enabled_word_separators());
 
-	if (p_ime_text.length() > 0) {
-		if (p_text_changed) {
-			text.write[p_line].data_buf->add_string(p_ime_text, font, font_size, language);
+	String text_with_ime = (p_ime_text.length() > 0) ? p_ime_text : text[p_line].data;
+	const Array &bidi_override_with_ime = (p_ime_text.length() > 0) ? p_bidi_override : text[p_line].bidi_override;
+
+	if (p_text_changed) {
+		int from = 0;
+		if (inline_object_parser.is_valid()) {
+			// Insert inline object.
+			Variant parsed_result = inline_object_parser.call(text_with_ime, p_line);
+			if (parsed_result.is_array()) {
+				Array object_infos = parsed_result;
+				for (Variant val : object_infos) {
+					if (!is_inline_info_valid(val)) {
+						continue;
+					}
+					Dictionary info = val;
+					int start = info["column"];
+					float width_ratio = info["width_ratio"];
+					String left_string = text_with_ime.substr(from, start - from);
+					text.write[p_line].data_buf->add_string(left_string, font, font_size, language);
+					text.write[p_line].data_buf->add_object(info, Vector2(font_size * width_ratio, font_size), INLINE_ALIGNMENT_TOP, 0);
+					from = start;
+				}
+			}
 		}
-		if (!p_bidi_override.is_empty()) {
-			TS->shaped_text_set_bidi_override(text.write[p_line].data_buf->get_rid(), p_bidi_override);
-		}
+		String remaining_string = text_with_ime.substr(from);
+		text.write[p_line].data_buf->add_string(remaining_string, font, font_size, language);
+
 	} else {
-		if (p_text_changed) {
-			text.write[p_line].data_buf->add_string(text[p_line].data, font, font_size, language);
+		// Update inline object sizes.
+		for (int i = 0; i < text.write[p_line].data_buf->get_line_count(); i++) {
+			for (Variant key : text.write[p_line].data_buf->get_line_objects(i)) {
+				if (!is_inline_info_valid(key)) {
+					continue;
+				}
+				Dictionary info = key;
+				float width_ratio = info["width_ratio"];
+				text.write[p_line].data_buf->resize_object(info, Vector2(font_size * width_ratio, font_size), INLINE_ALIGNMENT_TOP, 0);
+			}
 		}
-		if (!text[p_line].bidi_override.is_empty()) {
-			TS->shaped_text_set_bidi_override(text.write[p_line].data_buf->get_rid(), text[p_line].bidi_override);
-		}
+	}
+	if (!bidi_override_with_ime.is_empty()) {
+		TS->shaped_text_set_bidi_override(text.write[p_line].data_buf->get_rid(), bidi_override_with_ime);
 	}
 
 	if (!p_text_changed) {
@@ -1157,6 +1202,17 @@ void TextEdit::_notification(int p_what) {
 						char_margin += wrap_indent;
 					}
 
+					// Validate inline objects.
+					Vector<Dictionary> object_keys;
+					if (inline_object_drawer.is_valid()) {
+						for (Variant k : ldata->get_line_objects(line_wrap_index)) {
+							if (!is_inline_info_valid(k)) {
+								continue;
+							}
+							object_keys.push_back(k);
+						}
+					}
+
 					// Draw selections.
 					float char_w = theme_cache.font->get_char_size(' ', theme_cache.font_size).width;
 					for (int c = 0; c < get_caret_count(); c++) {
@@ -1174,9 +1230,17 @@ void TextEdit::_notification(int p_what) {
 									sel.push_back(Vector2(line_end, line_end + char_w));
 								}
 							}
+							// Show selection for inline objects.
+							for (Dictionary info : object_keys) {
+								int info_column = info["column"];
+								if (info_column >= sel_from && info_column < sel_to) {
+									Rect2 orect = TS->shaped_text_get_object_rect(rid, info);
+									sel.push_back(Vector2(orect.position.x, orect.position.x + orect.size.x));
+								}
+							}
 
 							for (int j = 0; j < sel.size(); j++) {
-								Rect2 rect = Rect2(sel[j].x + char_margin + ofs_x, ofs_y, Math::ceil(sel[j].y) - sel[j].x, row_height);
+								Rect2 rect = Rect2(Math::ceil(sel[j].x) + char_margin + ofs_x, ofs_y, Math::ceil(sel[j].y) - Math::ceil(sel[j].x), row_height);
 								if (rect.position.x + rect.size.x <= xmargin_beg || rect.position.x > xmargin_end) {
 									continue;
 								}
@@ -1295,6 +1359,16 @@ void TextEdit::_notification(int p_what) {
 						}
 						char_ofs = 0;
 					}
+
+					// Draw inline objects.
+					for (Dictionary k : object_keys) {
+						Rect2 col_rect = TS->shaped_text_get_object_rect(rid, k);
+						col_rect.position += Vector2(char_margin + ofs_x, ofs_y);
+						if (!clipped && (col_rect.position.x) >= xmargin_beg && (col_rect.position.x + col_rect.size.x) <= xmargin_end) {
+							inline_object_drawer.call(k, col_rect);
+						}
+					}
+
 					for (int j = 0; j < gl_size; j++) {
 						int64_t color_start = -1;
 						for (const Variant *key = color_map.next(nullptr); key; key = color_map.next(key)) {
@@ -1884,6 +1958,37 @@ void TextEdit::gui_input(const Ref<InputEvent> &p_gui_input) {
 					last_dblclk = OS::get_singleton()->get_ticks_msec();
 					last_dblclk_pos = mb->get_position();
 				}
+
+				// Click inline objects.
+				if (inline_object_click_handler.is_valid()) {
+					int xmargin_beg = Math::ceil(theme_cache.style_normal->get_margin(SIDE_LEFT)) + gutters_width + gutter_padding;
+					int wrap_i = get_line_wrap_index_at_column(pos.y, pos.x);
+					int first_indent_line = 0;
+					if (text.is_indent_wrapped_lines()) {
+						_get_wrapped_indent_level(pos.y, first_indent_line);
+					}
+					float wrap_indent = wrap_i > first_indent_line ? MIN(text.get_indent_offset(pos.y, is_layout_rtl()), wrap_at_column * 0.6) : 0.0;
+
+					Ref<TextParagraph> ldata = text.get_line_data(line);
+					for (Variant k : ldata->get_line_objects(wrap_i)) {
+						if (!is_inline_info_valid(k)) {
+							continue;
+						}
+						Dictionary info = k;
+						Rect2 obj_rect = ldata->get_line_object_rect(wrap_i, k);
+						obj_rect.position.x += xmargin_beg + wrap_indent - first_visible_col;
+
+						if (mpos.x > obj_rect.position.x && mpos.x < obj_rect.get_end().x) {
+							Rect2 col_rect = get_rect_at_line_column(line, col);
+							col_rect.position += get_screen_position() + Vector2(col_rect.size.x, 0);
+							col_rect.size = obj_rect.size;
+							set_selection_mode(TextEdit::SelectionMode::SELECTION_MODE_NONE);
+							inline_object_click_handler.call(info, col_rect);
+							break;
+						}
+					}
+				}
+
 				queue_redraw();
 			}
 
@@ -3042,6 +3147,31 @@ Control::CursorShape TextEdit::get_cursor_shape(const Point2 &p_pos) const {
 	if (draw_minimap && p_pos.x > xmargin_end - minimap_width && p_pos.x <= xmargin_end) {
 		return CURSOR_ARROW;
 	}
+
+	// Hover inline objects.
+	if (inline_object_click_handler.is_valid()) {
+		Point2i pos = get_line_column_at_pos(p_pos);
+		int xmargin_beg = Math::ceil(theme_cache.style_normal->get_margin(SIDE_LEFT)) + gutters_width + gutter_padding;
+		int wrap_i = get_line_wrap_index_at_column(pos.y, pos.x);
+		int first_indent_line = 0;
+		if (text.is_indent_wrapped_lines()) {
+			_get_wrapped_indent_level(pos.y, first_indent_line);
+		}
+		float wrap_indent = wrap_i > first_indent_line ? MIN(text.get_indent_offset(pos.y, is_layout_rtl()), wrap_at_column * 0.6) : 0.0;
+
+		Ref<TextParagraph> ldata = text.get_line_data(pos.y);
+		for (Variant k : ldata->get_line_objects(wrap_i)) {
+			if (!is_inline_info_valid(k)) {
+				continue;
+			}
+			Rect2 obj_rect = ldata->get_line_object_rect(wrap_i, k);
+			obj_rect.position.x += xmargin_beg + wrap_indent - first_visible_col;
+			if (p_pos.x > obj_rect.position.x && p_pos.x < obj_rect.get_end().x) {
+				return CURSOR_POINTING_HAND;
+			}
+		}
+	}
+
 	return get_default_cursor_shape();
 }
 
@@ -3737,6 +3867,12 @@ Point2i TextEdit::get_next_visible_line_index_offset_from(int p_line_from, int p
 	}
 	wrap_index = MAX(wrap_index, 0);
 	return Point2i(num_total, wrap_index);
+}
+
+void TextEdit::set_inline_object_handlers(const Callable &p_parser, const Callable &p_drawer, const Callable &p_click_handler) {
+	inline_object_drawer = p_drawer;
+	inline_object_click_handler = p_click_handler;
+	text.set_inline_object_parser(p_parser);
 }
 
 // Overridable actions
