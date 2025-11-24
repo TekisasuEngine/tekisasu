@@ -1203,7 +1203,6 @@ void EditorAudioBuses::_notification(int p_what) {
 					EditorDebuggerNode::get_singleton()->sync_audio_buses();
 				}
 			}
-			}
 		} break;
 	}
 }
