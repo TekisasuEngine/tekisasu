@@ -1316,9 +1316,9 @@ void SceneDebugger::_send_audio_peaks() {
 	if (!EngineDebugger::is_active()) {
 		return;
 	}
-	// Skip while scene is suspended to avoid stale peak snapshots.
+	// Skip while scene is paused to avoid stale peak snapshots.
 	SceneTree *st = SceneTree::get_singleton();
-	if (st && st->is_suspended()) {
+	if (st && st->is_paused()) {
 		return;
 	}
 
