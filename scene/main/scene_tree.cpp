@@ -546,6 +546,11 @@ bool SceneTree::process(double p_time) {
 
 	_call_idle_callbacks();
 
+#ifdef DEBUG_ENABLED
+	// Stream audio peaks to the editor UI at low frequency.
+	SceneDebugger::send_audio_peaks();
+#endif
+
 #ifdef TOOLS_ENABLED
 #ifndef _3D_DISABLED
 	if (Engine::get_singleton()->is_editor_hint()) {
