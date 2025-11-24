@@ -1964,11 +1964,7 @@ void TextEdit::gui_input(const Ref<InputEvent> &p_gui_input) {
 				if (inline_object_click_handler.is_valid()) {
 					int xmargin_beg = Math::ceil(theme_cache.style_normal->get_margin(SIDE_LEFT)) + gutters_width + gutter_padding;
 					int wrap_i = get_line_wrap_index_at_column(pos.y, pos.x);
-					int first_indent_line = 0;
-					if (text.is_indent_wrapped_lines()) {
-						_get_wrapped_indent_level(pos.y, first_indent_line);
-					}
-					float wrap_indent = wrap_i > first_indent_line ? MIN(text.get_indent_offset(pos.y, is_layout_rtl()), wrap_at_column * 0.6) : 0.0;
+					float wrap_indent = (text.is_indent_wrapped_lines() && wrap_i > 0) ? get_indent_level(line) * theme_cache.font->get_char_size(' ', theme_cache.font_size).width : 0.0;
 
 					Ref<TextParagraph> ldata = text.get_line_data(line);
 					for (Variant k : ldata->get_line_objects(wrap_i)) {
@@ -3154,11 +3150,7 @@ Control::CursorShape TextEdit::get_cursor_shape(const Point2 &p_pos) const {
 		Point2i pos = get_line_column_at_pos(p_pos);
 		int xmargin_beg = Math::ceil(theme_cache.style_normal->get_margin(SIDE_LEFT)) + gutters_width + gutter_padding;
 		int wrap_i = get_line_wrap_index_at_column(pos.y, pos.x);
-		int first_indent_line = 0;
-		if (text.is_indent_wrapped_lines()) {
-			_get_wrapped_indent_level(pos.y, first_indent_line);
-		}
-		float wrap_indent = wrap_i > first_indent_line ? MIN(text.get_indent_offset(pos.y, is_layout_rtl()), wrap_at_column * 0.6) : 0.0;
+		float wrap_indent = (text.is_indent_wrapped_lines() && wrap_i > 0) ? get_indent_level(pos.y) * theme_cache.font->get_char_size(' ', theme_cache.font_size).width : 0.0;
 
 		Ref<TextParagraph> ldata = text.get_line_data(pos.y);
 		for (Variant k : ldata->get_line_objects(wrap_i)) {
