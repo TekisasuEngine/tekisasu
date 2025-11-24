@@ -37,6 +37,8 @@
 #include "core/input/input.h"
 #include "core/io/resource_saver.h"
 #include "core/os/keyboard.h"
+#include "editor/debugger/editor_debugger_node.h"
+#include "editor/debugger/script_editor_debugger.h"
 #include "editor/editor_command_palette.h"
 #include "editor/editor_node.h"
 #include "editor/editor_settings.h"
@@ -159,10 +161,34 @@ void EditorAudioBus::_notification(int p_what) {
 				float real_peak[2] = { -100, -100 };
 				bool activity_found = false;
 
-				if (AudioServer::get_singleton()->is_bus_channel_active(get_index(), i)) {
-					activity_found = true;
-					real_peak[0] = MAX(real_peak[0], AudioServer::get_singleton()->get_bus_peak_volume_left_db(get_index(), i));
-					real_peak[1] = MAX(real_peak[1], AudioServer::get_singleton()->get_bus_peak_volume_right_db(get_index(), i));
+				bool used_remote = false;
+				if (EditorDebuggerNode::get_singleton() != nullptr) {
+					if (ScriptEditorDebugger *dbg = EditorDebuggerNode::get_singleton()->get_current_debugger()) {
+						if (dbg->is_session_active()) {
+							Vector<float> lvals;
+							Vector<float> rvals;
+							Vector<bool> actives;
+							if (dbg->get_remote_audio_bus_peaks(get_index(), lvals, rvals, actives) && i < lvals.size()) {
+								used_remote = true;
+								real_peak[0] = MAX(lvals[i], -80.0f);
+								real_peak[1] = MAX(rvals[i], -80.0f);
+								// Derive activity from current levels to avoid sticky state.
+								activity_found = (real_peak[0] > -75.0f) || (real_peak[1] > -75.0f);
+							}
+						}
+					}
+				}
+
+				if (!used_remote) {
+					if (AudioServer::get_singleton()->is_bus_channel_active(get_index(), i)) {
+						activity_found = true;
+						real_peak[0] = MAX(real_peak[0], AudioServer::get_singleton()->get_bus_peak_volume_left_db(get_index(), i));
+						real_peak[1] = MAX(real_peak[1], AudioServer::get_singleton()->get_bus_peak_volume_right_db(get_index(), i));
+					}
+					// Also derive activity from levels to turn off reliably when near silence.
+					if (!activity_found) {
+						activity_found = (real_peak[0] > -75.0f) || (real_peak[1] > -75.0f);
+					}
 				}
 
 				if (real_peak[0] > channel[i].peak_l) {
@@ -337,6 +363,11 @@ void EditorAudioBus::_name_changed(const String &p_new_name) {
 
 	ur->commit_action();
 
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
+
 	updating_bus = false;
 }
 
@@ -362,6 +393,11 @@ void EditorAudioBus::_volume_changed(float p_normalized) {
 	ur->add_do_method(buses, "_update_bus", get_index());
 	ur->add_undo_method(buses, "_update_bus", get_index());
 	ur->commit_action();
+
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
 
 	updating_bus = false;
 }
@@ -457,6 +493,11 @@ void EditorAudioBus::_solo_toggled() {
 	ur->add_undo_method(buses, "_update_bus", get_index());
 	ur->commit_action();
 
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
+
 	updating_bus = false;
 }
 
@@ -476,6 +517,11 @@ void EditorAudioBus::_mute_toggled() {
 	}
 	ur->commit_action();
 
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
+
 	updating_bus = false;
 }
 
@@ -490,6 +536,11 @@ void EditorAudioBus::_bypass_toggled() {
 	ur->add_undo_method(buses, "_update_bus", get_index());
 	ur->commit_action();
 
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
+
 	updating_bus = false;
 }
 
@@ -503,6 +554,11 @@ void EditorAudioBus::_send_selected(int p_which) {
 	ur->add_do_method(buses, "_update_bus", get_index());
 	ur->add_undo_method(buses, "_update_bus", get_index());
 	ur->commit_action();
+
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
 
 	updating_bus = false;
 }
@@ -554,6 +610,11 @@ void EditorAudioBus::_effect_edited() {
 		ur->add_undo_method(buses, "_update_bus", get_index());
 		ur->commit_action();
 
+		// Sync audio bus changes to running game
+		if (EditorDebuggerNode::get_singleton() != nullptr) {
+			EditorDebuggerNode::get_singleton()->sync_audio_buses();
+		}
+
 		updating_bus = false;
 	}
 }
@@ -580,6 +641,11 @@ void EditorAudioBus::_effect_add(int p_which) {
 	ur->add_do_method(buses, "_update_bus", get_index());
 	ur->add_undo_method(buses, "_update_bus", get_index());
 	ur->commit_action();
+
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
 }
 
 void EditorAudioBus::gui_input(const Ref<InputEvent> &p_event) {
@@ -777,6 +843,11 @@ void EditorAudioBus::_delete_effect_pressed(int p_option) {
 	ur->add_do_method(buses, "_update_bus", get_index());
 	ur->add_undo_method(buses, "_update_bus", get_index());
 	ur->commit_action();
+
+	// Sync audio bus changes to running game
+	if (EditorDebuggerNode::get_singleton() != nullptr) {
+		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
 }
 
 void EditorAudioBus::_effect_rmb(const Vector2 &p_pos, MouseButton p_button) {
