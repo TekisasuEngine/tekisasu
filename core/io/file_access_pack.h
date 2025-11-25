@@ -41,8 +41,8 @@
 #include "core/templates/list.h"
 #include "core/templates/rb_map.h"
 
-// Godot's packed file magic header ("GDPC" in ASCII).
-#define PACK_HEADER_MAGIC 0x43504447
+// Tekisasu Engine's packed file magic header ("TEK4" in ASCII).
+#define PACK_HEADER_MAGIC 0x54454B34
 // The current packed file format version number.
 #define PACK_FORMAT_VERSION 2
 
