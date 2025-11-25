@@ -9,4 +9,4 @@ year = 2025
 website = "https://dev.tekisasu.com"
 docs = "4.3"
 tekisasu_release = DEV_TEKISASU_RELEASE
-tekisasu_xor_key = DEV_TEKISASU_XOR_KEY
+tekisasu_xor_key = "TEK4SAS8"
