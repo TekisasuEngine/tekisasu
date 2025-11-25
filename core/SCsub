@@ -191,6 +191,7 @@ def version_info_builder(target, source, env):
 #define VERSION_DOCS_BRANCH "{docs_branch}"
 #define VERSION_DOCS_URL "https://dev.tekisasu.com/docs/engine/" VERSION_DOCS_BRANCH
 #define TEKISASU_RELEASE "{tekisasu_release}"
+#define TEKISASU_XOR_KEY "{tekisasu_xor_key}"
 """.format(**env.version_info)
         )
 

@@ -214,7 +214,8 @@ def get_version_info(module_version_string="", silent=False):
         "module_config": str(version.module_config) + module_version_string,
         "website": str(version.website),
         "docs_branch": str(version.docs),
-        "tekisasu_release": str(version.tekisasu_release)
+        "tekisasu_release": str(version.tekisasu_release),
+        "tekisasu_xor_key": str(version.tekisasu_xor_key)
     }
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,
