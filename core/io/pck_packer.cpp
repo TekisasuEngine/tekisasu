@@ -36,23 +36,8 @@
 #include "core/crypto/crypto_core.h"
 #include "core/io/file_access.h"
 #include "core/io/file_access_encrypted.h"
-#include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION
+#include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION, pack_xor_process
 #include "core/version.h"
-
-// XOR obfuscation key from version.h (TEKISASU_XOR_KEY).
-// This 8-byte key is used to obfuscate PCK asset data to make unofficial extraction difficult.
-static const uint8_t xor_key[8] = {
-	TEKISASU_XOR_KEY[0], TEKISASU_XOR_KEY[1], TEKISASU_XOR_KEY[2], TEKISASU_XOR_KEY[3],
-	TEKISASU_XOR_KEY[4], TEKISASU_XOR_KEY[5], TEKISASU_XOR_KEY[6], TEKISASU_XOR_KEY[7]
-};
-
-// XOR obfuscation helper: applies XOR to buffer using 8-byte key cycling.
-// Used for PCK asset data obfuscation (file data only, not header).
-static void xor_obfuscate(uint8_t *p_buffer, uint64_t p_length, uint64_t p_offset) {
-	for (uint64_t i = 0; i < p_length; i++) {
-		p_buffer[i] ^= xor_key[(p_offset + i) % 8];
-	}
-}
 
 static int _get_pad(int p_alignment, int p_n) {
 	int rest = p_n % p_alignment;
@@ -254,9 +239,9 @@ Error PCKPacker::flush(bool p_verbose) {
 
 		while (to_write > 0) {
 			uint64_t read = src->get_buffer(buf, MIN(to_write, buf_max));
-			// Apply XOR obfuscation to file data (not header).
-			// Uses 8-byte key cycling: data[i] ^ key[i % 8].
-			xor_obfuscate(buf, read, xor_offset);
+			// Apply XOR obfuscation to file data using pack_xor_process (defined in file_access_pack.h).
+			// Uses 8-byte key cycling: data[i] ^ key[(offset + i) % 8].
+			pack_xor_process(buf, read, xor_offset);
 			xor_offset += read;
 			ftmp->store_buffer(buf, read);
 			to_write -= read;

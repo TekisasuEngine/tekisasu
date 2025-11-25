@@ -36,25 +36,8 @@
 #include "core/io/file_access_encrypted.h"
 #include "core/object/script_language.h"
 #include "core/os/os.h"
-#include "core/version.h"
 
 #include <stdio.h>
-
-// XOR obfuscation key from version.h (TEKISASU_XOR_KEY).
-// This 8-byte key is used to de-obfuscate PCK asset data.
-static const uint8_t xor_key[8] = {
-	TEKISASU_XOR_KEY[0], TEKISASU_XOR_KEY[1], TEKISASU_XOR_KEY[2], TEKISASU_XOR_KEY[3],
-	TEKISASU_XOR_KEY[4], TEKISASU_XOR_KEY[5], TEKISASU_XOR_KEY[6], TEKISASU_XOR_KEY[7]
-};
-
-// XOR de-obfuscation helper: applies XOR to buffer using 8-byte key cycling.
-// Used for PCK asset data de-obfuscation (file data only, not header).
-// XOR is symmetric, so the same function is used for both obfuscation and de-obfuscation.
-static void xor_deobfuscate(uint8_t *p_buffer, uint64_t p_length, uint64_t p_offset) {
-	for (uint64_t i = 0; i < p_length; i++) {
-		p_buffer[i] ^= xor_key[(p_offset + i) % 8];
-	}
-}
 
 Error PackedData::add_pack(const String &p_path, bool p_replace_files, uint64_t p_offset) {
 	for (int i = 0; i < sources.size(); i++) {
@@ -342,8 +325,8 @@ uint8_t FileAccessPack::get_8() const {
 	uint64_t current_pos = pos;
 	pos++;
 	uint8_t byte = f->get_8();
-	// Apply XOR de-obfuscation using 8-byte key cycling.
-	byte ^= xor_key[current_pos % 8];
+	// Apply XOR de-obfuscation using pack_xor_process (defined in file_access_pack.h).
+	pack_xor_process(&byte, 1, current_pos);
 	return byte;
 }
 
@@ -369,8 +352,8 @@ uint64_t FileAccessPack::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 	}
 	f->get_buffer(p_dst, to_read);
 
-	// Apply XOR de-obfuscation to file data using 8-byte key cycling.
-	xor_deobfuscate(p_dst, to_read, xor_offset);
+	// Apply XOR de-obfuscation to file data using pack_xor_process (defined in file_access_pack.h).
+	pack_xor_process(p_dst, to_read, xor_offset);
 
 	return to_read;
 }

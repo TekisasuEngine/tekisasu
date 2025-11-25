@@ -40,11 +40,35 @@
 #include "core/templates/hash_set.h"
 #include "core/templates/list.h"
 #include "core/templates/rb_map.h"
+#include "core/version.h"
 
 // Tekisasu Engine's packed file magic header ("TEK4" in ASCII).
 #define PACK_HEADER_MAGIC 0x54454B34
 // The current packed file format version number.
 #define PACK_FORMAT_VERSION 2
+
+// XOR obfuscation key size (8 bytes).
+#define PACK_XOR_KEY_SIZE 8
+
+// XOR obfuscation key from TEKISASU_XOR_KEY.
+// Used to obfuscate/de-obfuscate PCK asset data (file data only, not header).
+// This makes extraction by unofficial PCK unpackers more difficult.
+static const uint8_t pack_xor_key[PACK_XOR_KEY_SIZE] = {
+	TEKISASU_XOR_KEY[0], TEKISASU_XOR_KEY[1], TEKISASU_XOR_KEY[2], TEKISASU_XOR_KEY[3],
+	TEKISASU_XOR_KEY[4], TEKISASU_XOR_KEY[5], TEKISASU_XOR_KEY[6], TEKISASU_XOR_KEY[7]
+};
+
+// XOR obfuscation/de-obfuscation helper function.
+// Applies XOR to buffer using 8-byte key cycling: data[i] ^ key[(offset + i) % 8].
+// XOR is symmetric, so the same function works for both obfuscation and de-obfuscation.
+// p_buffer: Buffer to process (modified in place).
+// p_length: Number of bytes to process.
+// p_offset: Offset for key cycling (typically the position within the file).
+static _FORCE_INLINE_ void pack_xor_process(uint8_t *p_buffer, uint64_t p_length, uint64_t p_offset) {
+	for (uint64_t i = 0; i < p_length; i++) {
+		p_buffer[i] ^= pack_xor_key[(p_offset + i) % PACK_XOR_KEY_SIZE];
+	}
+}
 
 enum PackFlags {
 	PACK_DIR_ENCRYPTED = 1 << 0,
