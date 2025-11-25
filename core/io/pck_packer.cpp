@@ -240,7 +240,6 @@ Error PCKPacker::flush(bool p_verbose) {
 		while (to_write > 0) {
 			uint64_t read = src->get_buffer(buf, MIN(to_write, buf_max));
 			// Apply XOR obfuscation to file data using pack_xor_process (defined in file_access_pack.h).
-			// Uses 8-byte key cycling: data[i] ^ key[(offset + i) % 8].
 			pack_xor_process(buf, read, xor_offset);
 			xor_offset += read;
 			ftmp->store_buffer(buf, read);
