@@ -205,9 +205,11 @@ EditorAbout::EditorAbout() {
 	if (hash.length() != 0) {
 		hash = " " + vformat("[%s]", hash.left(9));
 	}
+	// Use external version for user-facing display
 	version_btn->set_text(VERSION_FULL_NAME + hash);
 	// Set the text to copy in metadata as it slightly differs from the button's text.
-	version_btn->set_meta(META_TEXT_TO_COPY, "v" VERSION_FULL_BUILD + hash);
+	// Use external version for clipboard copy
+	version_btn->set_meta(META_TEXT_TO_COPY, "v" EXTERNAL_VERSION_FULL_BUILD + hash);
 	version_btn->set_underline_mode(LinkButton::UNDERLINE_MODE_ON_HOVER);
 	String build_date;
 	if (VERSION_TIMESTAMP > 0) {

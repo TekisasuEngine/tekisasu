@@ -44,6 +44,14 @@
 #define _MKSTR(m_x) _STR(m_x)
 #endif
 
+// ============================================================================
+// INTERNAL VERSION (Godot-compatible)
+// ============================================================================
+// Tekisasu maintains internal version numbers that track compatibility with
+// the underlying Godot engine. These VERSION_* macros are used for internal
+// engine purposes, compatibility checks, and features that depend on Godot
+// version compatibility.
+
 // Tekisasu versions are of the form <major>.<minor> for the initial release,
 // and then <major>.<minor>.<patch> for subsequent bugfix releases where <patch> != 0
 // That's arbitrary, but we find it pretty and it's the current policy.
@@ -65,8 +73,9 @@
 // Example: 3.1.4 will be 0x030104, making comparison easy from script.
 #define VERSION_HEX 0x10000 * VERSION_MAJOR + 0x100 * VERSION_MINOR + VERSION_PATCH
 
-// Describes the full configuration of that Tekisasu version, including the version number,
-// the status (beta, stable, etc.) and potential module-specific features (e.g. mono).
+// Describes the full configuration of the internal Godot-compatible version,
+// including the version number, the status (beta, stable, etc.) and potential
+// module-specific features (e.g. mono).
 // Example: "3.1.4.stable.mono"
 #define VERSION_FULL_CONFIG VERSION_NUMBER "." VERSION_STATUS VERSION_MODULE_CONFIG
 
@@ -75,13 +84,48 @@
 // Example: "3.1.4.stable.mono.official"
 #define VERSION_FULL_BUILD VERSION_FULL_CONFIG "." VERSION_BUILD
 
-// Same as above, but prepended with Tekisasu's name and a cosmetic "v" for "version".
-// Example: "Tekisasu v3.1.4.stable.official.mono"
-#define VERSION_FULL_NAME VERSION_NAME " v" VERSION_FULL_BUILD
+// ============================================================================
+// EXTERNAL VERSION (Tekisasu public-facing)
+// ============================================================================
+// The external version represents Tekisasu's own versioning, independent of
+// the underlying Godot version. This is used for user-facing UI elements,
+// asset fetching (e.g., export templates from mirrorlist), and anywhere the
+// public Tekisasu version should be displayed.
 
+// External version number as a string.
+// Example: "1.0.0"
+#define EXTERNAL_VERSION_NUMBER _MKSTR(EXTERNAL_VERSION_MAJOR) "." _MKSTR(EXTERNAL_VERSION_MINOR) "." _MKSTR(EXTERNAL_VERSION_PATCH)
+
+// External version number encoded as hexadecimal int with one byte for each number,
+// for easy comparison from code.
+#define EXTERNAL_VERSION_HEX 0x10000 * EXTERNAL_VERSION_MAJOR + 0x100 * EXTERNAL_VERSION_MINOR + EXTERNAL_VERSION_PATCH
+
+// Describes the full configuration of that Tekisasu version, including the version number,
+// the status (dev, stable, etc.) and potential module-specific features (e.g. mono).
+// Example: "1.0.0.dev.mono"
+#define EXTERNAL_VERSION_FULL_CONFIG EXTERNAL_VERSION_NUMBER "." EXTERNAL_VERSION_STATUS VERSION_MODULE_CONFIG
+
+// Similar to EXTERNAL_VERSION_FULL_CONFIG, but also includes the internal VERSION_FULL_BUILD
+// description for reference.
+// Example: "1.0.0.dev.mono (4.3.1.stable.mono.official)"
+#define EXTERNAL_VERSION_FULL_BUILD EXTERNAL_VERSION_FULL_CONFIG " (" VERSION_FULL_BUILD ")"
+
+// ============================================================================
+// COMBINED VERSION STRINGS
+// ============================================================================
+
+// Full name with external version, prepended with Tekisasu's name and a cosmetic "v" for "version".
+// Example: "Tekisasu Engine v1.0.0.dev.mono (4.3.1.stable.official.mono)"
+#define VERSION_FULL_NAME VERSION_NAME " v" EXTERNAL_VERSION_FULL_BUILD
+
+// Legacy macro: Full name with internal version and Tekisasu release.
+// Example: "Tekisasu Engine v4.3.1.stable.official.DEV"
 #define TEKISASU_FULL_NAME VERSION_NAME " v" VERSION_FULL_BUILD "." TEKISASU_RELEASE
 
-#define VERSION_TEKISASU_DISTRIBUTION VERSION_FULL_BUILD "." TEKISASU_RELEASE
+// Distribution version string used for export templates and asset fetching.
+// Uses the external version for user-facing consistency.
+// Example: "1.0.0.dev.tx"
+#define VERSION_TEKISASU_DISTRIBUTION EXTERNAL_VERSION_FULL_CONFIG "." VERSION_BUILD
 
 // Tekisasu release is used simultaneously across the entire Tekisasu Toolchain build
 // which includes this project and Tekisasu Graphics.  New builds will be made for every

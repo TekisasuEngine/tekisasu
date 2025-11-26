@@ -8,8 +8,9 @@ TEKISASU_ICON ICON platform/windows/tekisasu.ico
 1 RT_MANIFEST "platform/windows/tekisasu.manifest"
 
 1 VERSIONINFO
-FILEVERSION     VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,0
-PRODUCTVERSION  VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,0
+// Using external version for user-facing Windows properties
+FILEVERSION     EXTERNAL_VERSION_MAJOR,EXTERNAL_VERSION_MINOR,EXTERNAL_VERSION_PATCH,0
+PRODUCTVERSION  EXTERNAL_VERSION_MAJOR,EXTERNAL_VERSION_MINOR,EXTERNAL_VERSION_PATCH,0
 FILEOS          4
 FILETYPE        1
 BEGIN
@@ -19,12 +20,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName",            "Tekisasu Engine"
             VALUE "FileDescription",        VERSION_NAME
-            VALUE "FileVersion",            VERSION_NUMBER
+            VALUE "FileVersion",            EXTERNAL_VERSION_NUMBER
             VALUE "ProductName",            VERSION_NAME
             VALUE "Licence",                "MIT"
             VALUE "LegalCopyright",         "(c) 2021-present Tekisasu. (c) 2024-present Blazium Engine contributors, 2007-present Juan Linietsky, Ariel Manzur and Godot Engine contributors, (c) 2024-present Redot Engine contributors."
             VALUE "Info",                   "https://dev.tekisasu.com"
-            VALUE "ProductVersion",         VERSION_FULL_BUILD
+            VALUE "ProductVersion",         EXTERNAL_VERSION_FULL_CONFIG
             VALUE "TekisasuRelease",        TEKISASU_RELEASE
         END
     END

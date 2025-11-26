@@ -555,7 +555,8 @@ EditorLog::EditorLog() {
 	vb_right->add_child(editor_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_EDITOR, editor_filter);
 
-	add_message(TEKISASU_FULL_NAME "\n(c) 2021-present Tekisasu\n(c) 2024-present Blazium Contributors. (c) 2007-present Juan Linietsky, Ariel Manzur & Godot Contributors. (c) 2024-present Redot Contributors.");
+	// Use VERSION_FULL_NAME which shows the external (user-facing) version
+	add_message(VERSION_FULL_NAME "\n(c) 2021-present Tekisasu\n(c) 2024-present Blazium Contributors. (c) 2007-present Juan Linietsky, Ariel Manzur & Godot Contributors. (c) 2024-present Redot Contributors.");
 
 	eh.errfunc = _error_handler;
 	eh.userdata = this;
