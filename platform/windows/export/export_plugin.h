@@ -73,7 +73,9 @@ class EditorExportPlatformWindows : public EditorExportPlatformPC {
 	int menu_options = 0;
 
 	Error _process_icon(const Ref<EditorExportPreset> &p_preset, const String &p_src_path, const String &p_dst_path);
-	Error _rcedit_add_data(const Ref<EditorExportPreset> &p_preset, const String &p_path, bool p_console_icon);
+	// NOTE: Backport from Godot PR #75950 - replaces _rcedit_add_data
+	// with native PE resource modification via TemplateModifier.
+	Error _add_data(const Ref<EditorExportPreset> &p_preset, const String &p_path, bool p_console_icon);
 	Error _code_sign(const Ref<EditorExportPreset> &p_preset, const String &p_path);
 
 public:
