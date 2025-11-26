@@ -125,7 +125,7 @@
 // Distribution version string used for export templates and asset fetching.
 // Uses the external version combined with the internal VERSION_BUILD identifier.
 // This hybrid approach ensures assets are fetched based on Tekisasu's public version
-// while retaining the build type (e.g., "tx" for official, "custom_build" for custom).
+// while retaining the build type (e.g., "stable" for official, "custom_build" for custom).
 // Example: "1.0.0.dev.tx"
 #define VERSION_TEKISASU_DISTRIBUTION EXTERNAL_VERSION_FULL_CONFIG "." VERSION_BUILD
 
