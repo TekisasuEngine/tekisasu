@@ -9,7 +9,6 @@ module_config = ""
 year = 2025
 website = "https://dev.tekisasu.com"
 docs = "4.3"
-tekisasu_release = DEV_TEKISASU_RELEASE
 # External version: Tekisasu's public-facing version (used for user-visible UI and asset fetching)
 external_major = 1
 external_minor = 0
