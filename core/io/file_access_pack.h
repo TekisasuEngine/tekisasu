@@ -51,16 +51,13 @@
 // This allows disabling XOR obfuscation by setting tekisasu_xor_key to None or "" in version.py.
 #ifdef TEKISASU_XOR_KEY
 
-// XOR obfuscation key size (8 bytes).
-#define PACK_XOR_KEY_SIZE 8
+// XOR obfuscation key size (1024 bytes).
+#define PACK_XOR_KEY_SIZE 1024
 
 // XOR obfuscation key from TEKISASU_XOR_KEY.
 // Used to obfuscate/de-obfuscate PCK asset data (file data only, not header).
 // This makes extraction by unofficial PCK unpackers more difficult.
-static const uint8_t pack_xor_key[PACK_XOR_KEY_SIZE] = {
-	TEKISASU_XOR_KEY[0], TEKISASU_XOR_KEY[1], TEKISASU_XOR_KEY[2], TEKISASU_XOR_KEY[3],
-	TEKISASU_XOR_KEY[4], TEKISASU_XOR_KEY[5], TEKISASU_XOR_KEY[6], TEKISASU_XOR_KEY[7]
-};
+static const char *pack_xor_key = TEKISASU_XOR_KEY;
 
 // XOR obfuscation/de-obfuscation helper function.
 // Applies XOR to buffer using key cycling: data[i] ^ key[(offset + i) % key_size].
@@ -70,7 +67,7 @@ static const uint8_t pack_xor_key[PACK_XOR_KEY_SIZE] = {
 // p_offset: Offset for key cycling (typically the position within the file).
 static _FORCE_INLINE_ void pack_xor_process(uint8_t *p_buffer, uint64_t p_length, uint64_t p_offset) {
 	for (uint64_t i = 0; i < p_length; i++) {
-		p_buffer[i] ^= pack_xor_key[(p_offset + i) % sizeof(pack_xor_key)];
+		p_buffer[i] ^= (uint8_t)pack_xor_key[(p_offset + i) % PACK_XOR_KEY_SIZE];
 	}
 }
 
