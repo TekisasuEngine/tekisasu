@@ -64,3 +64,14 @@ for folder in $(ls -d */ | grep -v pycache | grep -v thirdparty); do
     done
     echo " "
 done
+
+# *.inc files
+for folder in $(ls -d */ | grep -v pycache | grep -v thirdparty); do 
+    echo $folder
+    echo "---------------------------------------------"
+    for file in $(find $folder -type f -name "*.inc"); do 
+        echo "  $file"
+        $HEADER_SCRIPT $file
+    done
+    echo " "
+done

@@ -8,7 +8,6 @@
 /* Copyright (c) 2021-present Tekisasu (see AUTHORS.md).                  */
 /* Copyright (c) 2024-present Blazium (see BLAZIUM.md).                   */
 /* Copyright (c) 2014-present Godot Engine contributors (see GODOT.md).   */
-/* Copyright (c) 2024-present Redot Engine contributors (see REDOT.md).   */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -556,7 +555,7 @@ EditorLog::EditorLog() {
 	type_filter_map.insert(MSG_TYPE_EDITOR, editor_filter);
 
 	// Use VERSION_FULL_NAME which shows the external (user-facing) version
-	add_message(VERSION_FULL_NAME "\n(c) 2021-present Tekisasu\n(c) 2024-present Blazium Contributors. (c) 2007-present Juan Linietsky, Ariel Manzur & Godot Contributors. (c) 2024-present Redot Contributors.");
+	add_message(VERSION_FULL_NAME "\n(c) 2021-present Tekisasu\n(c) 2024-present Blazium Contributors. (c) 2007-present Juan Linietsky, Ariel Manzur & Godot Contributors.");
 
 	eh.errfunc = _error_handler;
 	eh.userdata = this;
