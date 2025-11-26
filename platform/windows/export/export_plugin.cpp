@@ -493,10 +493,15 @@ Error EditorExportPlatformWindows::_add_data(const Ref<EditorExportPreset> &p_pr
 
 	// NOTE: Backport from Godot PR #75950 - uses TemplateModifier for native
 	// PE resource modification instead of rcedit external process.
-	TemplateModifier::modify(p_preset, p_path, tmp_icon_path);
+	Error err = TemplateModifier::modify(p_preset, p_path, tmp_icon_path);
 
 	if (FileAccess::exists(tmp_icon_path)) {
 		DirAccess::remove_file_or_error(tmp_icon_path);
+	}
+
+	if (err != OK) {
+		add_message(EXPORT_MESSAGE_WARNING, TTR("Resources Modification"), vformat(TTR("Failed to modify Windows executable resources for \"%s\". Error code: %d"), p_path, err));
+		return err;
 	}
 
 	return OK;

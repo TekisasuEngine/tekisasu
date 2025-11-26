@@ -262,8 +262,9 @@ Vector<uint8_t> TemplateModifier::GroupIcon::save() const {
 }
 
 void TemplateModifier::GroupIcon::load(Ref<FileAccess> p_icon_file) {
-	if (p_icon_file->get_32() != 0x10000) { // Wrong reserved bytes
-		ERR_FAIL_MSG("Wrong icon file type.");
+	uint32_t header = p_icon_file->get_32();
+	if (header != 0x10000) { // Wrong reserved bytes - expected ICO file header
+		ERR_FAIL_MSG(vformat("Invalid icon file format: expected header 0x10000, got 0x%x.", header));
 	}
 
 	image_count = p_icon_file->get_16();
@@ -325,6 +326,8 @@ Vector<uint8_t> TemplateModifier::SectionEntry::save() const {
 void TemplateModifier::SectionEntry::load(Ref<FileAccess> p_file) {
 	uint8_t section_name[8];
 	p_file->get_buffer(section_name, 8);
+	// PE section names are null-padded to 8 bytes. String::utf8 stops at null bytes,
+	// so this correctly handles names like ".rsrc\0\0\0" as ".rsrc".
 	name = String::utf8((char *)section_name, 8);
 	virtual_size = p_file->get_32();
 	virtual_address = p_file->get_32();
@@ -538,10 +541,13 @@ Error TemplateModifier::_truncate(const String &p_path, uint32_t p_size) const {
 	file->close();
 	truncated->close();
 
-	DirAccess::remove_absolute(p_path);
-	DirAccess::rename_absolute(truncated_path, p_path);
+	error = DirAccess::remove_absolute(p_path);
+	ERR_FAIL_COND_V(error != OK, error);
 
-	return error;
+	error = DirAccess::rename_absolute(truncated_path, p_path);
+	ERR_FAIL_COND_V(error != OK, error);
+
+	return OK;
 }
 
 // NOTE: Backport deviation from Godot 4.5:
