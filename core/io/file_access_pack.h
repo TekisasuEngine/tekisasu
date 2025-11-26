@@ -79,6 +79,9 @@ static _FORCE_INLINE_ void pack_xor_process(uint8_t *p_buffer, uint64_t p_length
 // XOR obfuscation disabled - pack_xor_process is a no-op.
 static _FORCE_INLINE_ void pack_xor_process(uint8_t *p_buffer, uint64_t p_length, uint64_t p_offset) {
 	// No-op: XOR obfuscation is disabled (tekisasu_xor_key not set in version.py)
+	(void)p_buffer;
+	(void)p_length;
+	(void)p_offset;
 }
 
 #endif // TEKISASU_XOR_KEY
