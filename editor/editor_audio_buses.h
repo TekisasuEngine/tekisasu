@@ -50,6 +50,8 @@
 
 class EditorAudioBuses;
 class EditorFileDialog;
+class ScreenSelect;
+class WindowWrapper;
 
 class EditorAudioBus : public PanelContainer {
 	GDCLASS(EditorAudioBus, PanelContainer);
@@ -174,6 +176,10 @@ class EditorAudioBuses : public VBoxContainer {
 	Timer *save_timer = nullptr;
 	String edited_path;
 
+	ScreenSelect *make_floating = nullptr;
+	bool is_floating = false;
+	WindowWrapper *window_wrapper = nullptr;
+
 	void _rebuild_buses();
 	void _update_bus(int p_index);
 	void _update_sends();
@@ -198,6 +204,7 @@ class EditorAudioBuses : public VBoxContainer {
 	bool new_layout = false;
 
 	void _file_dialog_callback(const String &p_string);
+	void _window_changed(bool p_visible);
 
 protected:
 	static void _bind_methods();
@@ -206,9 +213,11 @@ protected:
 public:
 	void open_layout(const String &p_path);
 
+	WindowWrapper *get_window_wrapper() const { return window_wrapper; }
+
 	static EditorAudioBuses *register_editor();
 
-	EditorAudioBuses();
+	EditorAudioBuses(WindowWrapper *p_wrapper);
 };
 
 class EditorAudioMeterNotches : public Control {
@@ -274,6 +283,7 @@ class AudioBusesEditorPlugin : public EditorPlugin {
 	GDCLASS(AudioBusesEditorPlugin, EditorPlugin);
 
 	EditorAudioBuses *audio_bus_editor = nullptr;
+	WindowWrapper *window_wrapper = nullptr;
 
 public:
 	virtual String get_name() const override { return "SampleLibrary"; }
@@ -282,7 +292,10 @@ public:
 	virtual bool handles(Object *p_node) const override;
 	virtual void make_visible(bool p_visible) override;
 
-	AudioBusesEditorPlugin(EditorAudioBuses *p_node);
+	virtual void set_window_layout(Ref<ConfigFile> p_layout) override;
+	virtual void get_window_layout(Ref<ConfigFile> p_layout) override;
+
+	AudioBusesEditorPlugin(EditorAudioBuses *p_node, WindowWrapper *p_wrapper);
 	~AudioBusesEditorPlugin();
 };
 

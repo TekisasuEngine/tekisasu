@@ -8055,7 +8055,7 @@ EditorNode::EditorNode() {
 	vcs_actions_menu->add_item(TTR("Version Control Settings..."), RUN_VCS_SETTINGS);
 	project_menu->set_item_submenu_node(project_menu->get_item_index(VCS_MENU), vcs_actions_menu);
 
-	add_editor_plugin(memnew(AudioBusesEditorPlugin(audio_bus_editor)));
+	add_editor_plugin(memnew(AudioBusesEditorPlugin(audio_bus_editor, audio_bus_editor->get_window_wrapper())));
 
 	for (int i = 0; i < EditorPlugins::get_plugin_count(); i++) {
 		add_editor_plugin(EditorPlugins::create(i));
