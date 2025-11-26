@@ -8,7 +8,6 @@ TEKISASU_ICON ICON platform/windows/tekisasu_console.ico
 1 RT_MANIFEST "platform/windows/tekisasu.manifest"
 
 1 VERSIONINFO
-// Using external version for user-facing Windows properties
 FILEVERSION     EXTERNAL_VERSION_MAJOR,EXTERNAL_VERSION_MINOR,EXTERNAL_VERSION_PATCH,0
 PRODUCTVERSION  EXTERNAL_VERSION_MAJOR,EXTERNAL_VERSION_MINOR,EXTERNAL_VERSION_PATCH,0
 FILEOS          4
