@@ -89,7 +89,8 @@ Vector<uint8_t> &TemplateModifier::Structure::add_length(Vector<uint8_t> &r_byte
 
 Vector<uint8_t> TemplateModifier::ResourceDirectoryTable::save() const {
 	Vector<uint8_t> bytes;
-	bytes.resize_initialized(12);
+	// NOTE: Backport deviation - Tekisasu 4.3.x uses resize_zeroed instead of resize_initialized
+	bytes.resize_zeroed(12);
 	ByteStream::save(name_entry_count, bytes);
 	ByteStream::save(id_entry_count, bytes);
 	return bytes;
@@ -611,7 +612,8 @@ Error TemplateModifier::_modify_template(const Ref<EditorExportPreset> &p_preset
 	uint32_t old_resources_size_of_raw_data = resources_section_entry.size_of_raw_data;
 	Vector<uint8_t> resources = _create_resources(resources_section_entry.virtual_address, group_icon, version_info);
 	resources_section_entry.virtual_size = resources.size();
-	resources.resize_initialized(_snap(resources.size(), BLOCK_SIZE));
+	// NOTE: Backport deviation - Tekisasu 4.3.x uses resize_zeroed instead of resize_initialized
+	resources.resize_zeroed(_snap(resources.size(), BLOCK_SIZE));
 	resources_section_entry.size_of_raw_data = resources.size();
 
 	SectionEntry relocations_section_entry = section_entries.get(section_entries.size() - 1);
