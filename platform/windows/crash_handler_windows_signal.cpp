@@ -151,10 +151,11 @@ extern void CrashHandlerException(int signal) {
 	print_error(vformat("%s: Program crashed with signal %d", __FUNCTION__, signal));
 
 	// Print the engine version just before, so that people are reminded to include the version in backtrace reports.
+	// Use VERSION_FULL_NAME which shows the external (user-facing) version
 	if (String(VERSION_HASH).is_empty()) {
-		print_error(vformat("Engine version: %s", TEKISASU_FULL_NAME));
+		print_error(vformat("Engine version: %s", VERSION_FULL_NAME));
 	} else {
-		print_error(vformat("Engine version: %s (%s)", TEKISASU_FULL_NAME, VERSION_HASH));
+		print_error(vformat("Engine version: %s (%s)", VERSION_FULL_NAME, VERSION_HASH));
 	}
 	print_error(vformat("Dumping the backtrace. %s", msg));
 

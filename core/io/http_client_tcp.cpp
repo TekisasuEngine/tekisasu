@@ -199,7 +199,8 @@ Error HTTPClientTCP::request(Method p_method, const String &p_url, const Vector<
 		// Should it add utf8 encoding?
 	}
 	if (add_uagent) {
-		request += "User-Agent: TekisasuEngine/" + String(VERSION_FULL_BUILD) + "." + String(TEKISASU_RELEASE) + " (" + OS::get_singleton()->get_name() + ")\r\n";
+		// Use external version for user-agent string
+		request += "User-Agent: TekisasuEngine/" + String(EXTERNAL_VERSION_FULL_CONFIG) + " (" + OS::get_singleton()->get_name() + ")\r\n";
 	}
 	if (add_accept) {
 		request += "Accept: */*\r\n";
