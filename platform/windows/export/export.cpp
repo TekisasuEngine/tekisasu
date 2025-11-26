@@ -42,19 +42,15 @@ void register_windows_exporter_types() {
 }
 
 void register_windows_exporter() {
-#ifndef ANDROID_ENABLED
-	EDITOR_DEF("export/windows/rcedit", "");
-	EditorSettings::get_singleton()->add_property_hint(PropertyInfo(Variant::STRING, "export/windows/rcedit", PROPERTY_HINT_GLOBAL_FILE, "*.exe"));
+	// NOTE: Backport from Godot PR #75950 - removed rcedit and wine editor settings.
+	// Native PE resource modification via TemplateModifier no longer requires
+	// external tools like rcedit or wine.
 #ifdef WINDOWS_ENABLED
 	EDITOR_DEF("export/windows/signtool", "");
 	EditorSettings::get_singleton()->add_property_hint(PropertyInfo(Variant::STRING, "export/windows/signtool", PROPERTY_HINT_GLOBAL_FILE, "*.exe"));
 #else
 	EDITOR_DEF("export/windows/osslsigncode", "");
 	EditorSettings::get_singleton()->add_property_hint(PropertyInfo(Variant::STRING, "export/windows/osslsigncode", PROPERTY_HINT_GLOBAL_FILE));
-	// On non-Windows we need WINE to run rcedit
-	EDITOR_DEF("export/windows/wine", "");
-	EditorSettings::get_singleton()->add_property_hint(PropertyInfo(Variant::STRING, "export/windows/wine", PROPERTY_HINT_GLOBAL_FILE));
-#endif
 #endif
 
 	Ref<EditorExportPlatformWindows> platform;

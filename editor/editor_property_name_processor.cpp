@@ -260,7 +260,8 @@ EditorPropertyNameProcessor::EditorPropertyNameProcessor() {
 	capitalize_string_remaps["ppc64"] = "ppc64";
 	capitalize_string_remaps["pvrtc"] = "PVRTC";
 	capitalize_string_remaps["pvs"] = "PVS";
-	capitalize_string_remaps["rcedit"] = "rcedit";
+	// NOTE: Backport from Godot PR #75950 - removed "rcedit" string remap
+	// since rcedit is no longer used for Windows exports.
 	capitalize_string_remaps["rcodesign"] = "rcodesign";
 	capitalize_string_remaps["rgb"] = "RGB";
 	capitalize_string_remaps["rid"] = "RID";
@@ -310,7 +311,8 @@ EditorPropertyNameProcessor::EditorPropertyNameProcessor() {
 	capitalize_string_remaps["webp"] = "WebP";
 	capitalize_string_remaps["webrtc"] = "WebRTC";
 	capitalize_string_remaps["websocket"] = "WebSocket";
-	capitalize_string_remaps["wine"] = "wine";
+	// NOTE: Backport from Godot PR #75950 - removed "wine" string remap
+	// since wine is no longer required for running rcedit.
 	capitalize_string_remaps["wifi"] = "Wi-Fi";
 	capitalize_string_remaps["x86"] = "x86";
 	capitalize_string_remaps["x86_32"] = "x86_32";
