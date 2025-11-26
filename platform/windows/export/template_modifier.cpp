@@ -551,14 +551,11 @@ Error TemplateModifier::_truncate(const String &p_path, uint32_t p_size) const {
 	return OK;
 }
 
-// NOTE: Backport deviation from Godot 4.5:
-// In Godot 4.5, this uses p_preset->get_version() which formats the version.
-// In Tekisasu 4.3.x, we use p_preset->get() directly for simple string retrieval.
-// The get_version() method exists in Tekisasu but we keep the upstream behavior
-// of using simple get() here since get_version() is used elsewhere in the export flow.
+// NOTE: Backport from Godot PR #108472 - use get_version() to enable
+// fallback to project version when version fields are empty.
 HashMap<String, String> TemplateModifier::_get_strings(const Ref<EditorExportPreset> &p_preset) const {
-	String file_version = p_preset->get("application/file_version");
-	String product_version = p_preset->get("application/product_version");
+	String file_version = p_preset->get_version("application/file_version", true);
+	String product_version = p_preset->get_version("application/product_version", true);
 	String company_name = p_preset->get("application/company_name");
 	String product_name = p_preset->get("application/product_name");
 	String file_description = p_preset->get("application/file_description");
