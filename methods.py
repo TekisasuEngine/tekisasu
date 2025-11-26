@@ -215,7 +215,8 @@ def get_version_info(module_version_string="", silent=False):
         "website": str(version.website),
         "docs_branch": str(version.docs),
         "tekisasu_release": str(version.tekisasu_release),
-        "tekisasu_xor_key": str(version.tekisasu_xor_key)
+        # XOR key: only include if set and non-empty, otherwise set to empty string
+        "tekisasu_xor_key": str(version.tekisasu_xor_key) if hasattr(version, 'tekisasu_xor_key') and version.tekisasu_xor_key else ""
     }
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,

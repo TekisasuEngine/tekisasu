@@ -47,6 +47,10 @@
 // The current packed file format version number.
 #define PACK_FORMAT_VERSION 2
 
+// XOR obfuscation is only enabled if TEKISASU_XOR_KEY is defined and non-empty.
+// This allows disabling XOR obfuscation by setting tekisasu_xor_key to None or "" in version.py.
+#ifdef TEKISASU_XOR_KEY
+
 // XOR obfuscation key size (8 bytes).
 #define PACK_XOR_KEY_SIZE 8
 
@@ -69,6 +73,15 @@ static _FORCE_INLINE_ void pack_xor_process(uint8_t *p_buffer, uint64_t p_length
 		p_buffer[i] ^= pack_xor_key[(p_offset + i) % sizeof(pack_xor_key)];
 	}
 }
+
+#else
+
+// XOR obfuscation disabled - pack_xor_process is a no-op.
+static _FORCE_INLINE_ void pack_xor_process(uint8_t *p_buffer, uint64_t p_length, uint64_t p_offset) {
+	// No-op: XOR obfuscation is disabled (tekisasu_xor_key not set in version.py)
+}
+
+#endif // TEKISASU_XOR_KEY
 
 enum PackFlags {
 	PACK_DIR_ENCRYPTED = 1 << 0,
