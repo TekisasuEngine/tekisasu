@@ -42,6 +42,7 @@
 #include "editor/engine_update_label.h"
 #include "editor/gui/editor_toaster.h"
 #include "editor/themes/editor_scale.h"
+#include "editor/window_wrapper.h"
 #include "scene/gui/box_container.h"
 #include "scene/gui/button.h"
 #include "scene/gui/link_button.h"
@@ -60,6 +61,16 @@ void EditorBottomPanel::_notification(int p_what) {
 void EditorBottomPanel::_switch_by_control(bool p_visible, Control *p_control) {
 	for (int i = 0; i < items.size(); i++) {
 		if (items[i].control == p_control) {
+			// Check if the control is a WindowWrapper with an enabled floating window.
+			WindowWrapper *wrapper = Object::cast_to<WindowWrapper>(p_control);
+			if (wrapper && wrapper->get_window_enabled()) {
+				// If the window is floating, bring focus to it instead of showing the panel.
+				// Note: set_window_enabled(true) on an already-enabled window will grab focus.
+				wrapper->set_window_enabled(true);
+				// Keep the button unpressed since the panel is not shown.
+				items[i].button->set_pressed_no_signal(false);
+				return;
+			}
 			_switch_to_item(p_visible, i);
 			return;
 		}
