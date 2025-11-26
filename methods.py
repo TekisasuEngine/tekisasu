@@ -227,7 +227,6 @@ def get_version_info(module_version_string="", silent=False):
         "module_config": str(version.module_config) + module_version_string,
         "website": str(version.website),
         "docs_branch": str(version.docs),
-        "tekisasu_release": str(version.tekisasu_release),
         # XOR key: only include if set and non-empty (validated above to be 1024 bytes)
         "tekisasu_xor_key": tekisasu_xor_key,
         # External version: Tekisasu's public-facing version (used for user-visible UI and asset fetching)
