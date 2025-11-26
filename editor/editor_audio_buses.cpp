@@ -34,6 +34,7 @@
 
 #include "core/config/project_settings.h"
 #include "core/input/input.h"
+#include "core/io/config_file.h"
 #include "core/io/resource_saver.h"
 #include "core/os/keyboard.h"
 #include "editor/debugger/editor_debugger_node.h"
@@ -49,6 +50,7 @@
 #include "editor/inspector_dock.h"
 #include "editor/themes/editor_scale.h"
 #include "editor/themes/editor_theme_manager.h"
+#include "editor/window_wrapper.h"
 #include "scene/gui/separator.h"
 #include "scene/resources/font.h"
 #include "servers/audio_server.h"
@@ -1156,8 +1158,15 @@ void EditorAudioBuses::_rebuild_buses() {
 }
 
 EditorAudioBuses *EditorAudioBuses::register_editor() {
-	EditorAudioBuses *audio_buses = memnew(EditorAudioBuses);
-	EditorNode::get_bottom_panel()->add_item(TTR("Audio"), audio_buses, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_audio_bottom_panel", TTR("Toggle Audio Bottom Panel"), KeyModifierMask::ALT | Key::A));
+	WindowWrapper *window_wrapper = memnew(WindowWrapper);
+	window_wrapper->set_window_title(vformat(TTR("%s - Tekisasu Engine"), TTR("Audio")));
+	window_wrapper->set_margins_enabled(true);
+
+	EditorAudioBuses *audio_buses = memnew(EditorAudioBuses(window_wrapper));
+	Ref<Shortcut> make_floating_shortcut = ED_SHORTCUT_AND_COMMAND("audio_bus_editor/make_floating", TTR("Make Floating"));
+	window_wrapper->set_wrapped_control(audio_buses, make_floating_shortcut);
+
+	EditorNode::get_bottom_panel()->add_item(TTR("Audio"), window_wrapper, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_audio_bottom_panel", TTR("Toggle Audio Bottom Panel"), KeyModifierMask::ALT | Key::A));
 	return audio_buses;
 }
 
@@ -1400,12 +1409,18 @@ void EditorAudioBuses::_file_dialog_callback(const String &p_string) {
 	}
 }
 
+void EditorAudioBuses::_window_changed(bool p_visible) {
+	make_floating->set_visible(!p_visible);
+	is_floating = p_visible;
+}
+
 void EditorAudioBuses::_bind_methods() {
 	ClassDB::bind_method("_update_bus", &EditorAudioBuses::_update_bus);
 	ClassDB::bind_method("_update_sends", &EditorAudioBuses::_update_sends);
 }
 
-EditorAudioBuses::EditorAudioBuses() {
+EditorAudioBuses::EditorAudioBuses(WindowWrapper *p_wrapper) {
+	window_wrapper = p_wrapper;
 	top_hb = memnew(HBoxContainer);
 	add_child(top_hb);
 
@@ -1449,6 +1464,19 @@ EditorAudioBuses::EditorAudioBuses() {
 	top_hb->add_child(_new);
 	_new->connect(SceneStringName(pressed), callable_mp(this, &EditorAudioBuses::_new_layout));
 
+	VSeparator *separator2 = memnew(VSeparator);
+	top_hb->add_child(separator2);
+
+	make_floating = memnew(ScreenSelect);
+	make_floating->set_flat(true);
+	make_floating->connect("request_open_in_screen", callable_mp(window_wrapper, &WindowWrapper::enable_window_on_screen).bind(true));
+	if (!make_floating->is_disabled()) {
+		// Override default ScreenSelect tooltip if multi-window support is available.
+		make_floating->set_tooltip_text(TTR("Make the audio panel floating."));
+	}
+	top_hb->add_child(make_floating);
+	p_wrapper->connect("window_visibility_changed", callable_mp(this, &EditorAudioBuses::_window_changed));
+
 	bus_scroll = memnew(ScrollContainer);
 	bus_scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	bus_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
@@ -1482,7 +1510,7 @@ EditorAudioBuses::EditorAudioBuses() {
 }
 
 void EditorAudioBuses::open_layout(const String &p_path) {
-	EditorNode::get_bottom_panel()->make_item_visible(this);
+	EditorNode::get_bottom_panel()->make_item_visible(window_wrapper);
 
 	Ref<AudioBusLayout> state = ResourceLoader::load(p_path, "", ResourceFormatLoader::CACHE_MODE_IGNORE);
 	if (state.is_null()) {
@@ -1496,6 +1524,30 @@ void EditorAudioBuses::open_layout(const String &p_path) {
 	_rebuild_buses();
 	EditorUndoRedoManager::get_singleton()->clear_history(true, EditorUndoRedoManager::GLOBAL_HISTORY);
 	callable_mp(this, &EditorAudioBuses::_select_layout).call_deferred();
+}
+
+void EditorAudioBuses::save_layout_to_config(Ref<ConfigFile> p_layout) {
+	if (window_wrapper->get_window_enabled()) {
+		p_layout->set_value("AudioBusEditor", "window_rect", window_wrapper->get_window_rect());
+		int screen = window_wrapper->get_window_screen();
+		p_layout->set_value("AudioBusEditor", "window_screen", screen);
+		p_layout->set_value("AudioBusEditor", "window_screen_rect", DisplayServer::get_singleton()->screen_get_usable_rect(screen));
+	} else {
+		if (p_layout->has_section("AudioBusEditor")) {
+			p_layout->erase_section("AudioBusEditor");
+		}
+	}
+}
+
+void EditorAudioBuses::load_layout_from_config(Ref<ConfigFile> p_layout) {
+	if (EDITOR_GET("interface/multi_window/restore_windows_on_load") && window_wrapper->is_window_available() && p_layout->has_section_key("AudioBusEditor", "window_rect")) {
+		window_wrapper->restore_window_from_saved_position(
+				p_layout->get_value("AudioBusEditor", "window_rect"),
+				p_layout->get_value("AudioBusEditor", "window_screen"),
+				p_layout->get_value("AudioBusEditor", "window_screen_rect"));
+	} else {
+		window_wrapper->set_window_enabled(false);
+	}
 }
 
 void AudioBusesEditorPlugin::edit(Object *p_node) {
@@ -1514,8 +1566,21 @@ bool AudioBusesEditorPlugin::handles(Object *p_node) const {
 void AudioBusesEditorPlugin::make_visible(bool p_visible) {
 }
 
-AudioBusesEditorPlugin::AudioBusesEditorPlugin(EditorAudioBuses *p_node) {
+void AudioBusesEditorPlugin::_window_visibility_changed(bool p_visible) {
+}
+
+void AudioBusesEditorPlugin::set_window_layout(Ref<ConfigFile> p_layout) {
+	audio_bus_editor->load_layout_from_config(p_layout);
+}
+
+void AudioBusesEditorPlugin::get_window_layout(Ref<ConfigFile> p_layout) {
+	audio_bus_editor->save_layout_to_config(p_layout);
+}
+
+AudioBusesEditorPlugin::AudioBusesEditorPlugin(EditorAudioBuses *p_node, WindowWrapper *p_wrapper) {
 	audio_bus_editor = p_node;
+	window_wrapper = p_wrapper;
+	window_wrapper->connect("window_visibility_changed", callable_mp(this, &AudioBusesEditorPlugin::_window_visibility_changed));
 }
 
 AudioBusesEditorPlugin::~AudioBusesEditorPlugin() {
