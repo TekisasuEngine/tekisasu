@@ -177,6 +177,7 @@ env.CommandNoCache("disabled_classes.gen.h", env.Value(env.disabled_classes), en
 # Generate version info
 def version_info_builder(target, source, env):
     with methods.generated_wrapper(target) as file:
+        # Base version defines
         file.write(
             """\
 #define VERSION_SHORT_NAME "{short_name}"
@@ -193,6 +194,9 @@ def version_info_builder(target, source, env):
 #define TEKISASU_RELEASE "{tekisasu_release}"
 """.format(**env.version_info)
         )
+        # Only define TEKISASU_XOR_KEY if it's set and non-empty (enables XOR obfuscation)
+        if env.version_info.get("tekisasu_xor_key"):
+            file.write('#define TEKISASU_XOR_KEY "{}"\n'.format(env.version_info["tekisasu_xor_key"]))
 
 
 env.CommandNoCache("version_generated.gen.h", env.Value(env.version_info), env.Run(version_info_builder))

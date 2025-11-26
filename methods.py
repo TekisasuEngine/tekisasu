@@ -203,6 +203,18 @@ def get_version_info(module_version_string="", silent=False):
 
     import version
 
+    # Validate tekisasu_xor_key if it exists and has a value
+    tekisasu_xor_key = ""
+    if hasattr(version, 'tekisasu_xor_key') and version.tekisasu_xor_key:
+        key_value = str(version.tekisasu_xor_key)
+        if len(key_value) != 1024:
+            print_error(
+                f"Invalid tekisasu_xor_key usage: Key must be exactly 1024 bytes, but got {len(key_value)} bytes.\n"
+                "Either provide a valid 1024-byte key or set tekisasu_xor_key to None/empty string to disable XOR obfuscation."
+            )
+            sys.exit(255)
+        tekisasu_xor_key = key_value
+
     version_info = {
         "short_name": str(version.short_name),
         "name": str(version.name),
@@ -214,7 +226,9 @@ def get_version_info(module_version_string="", silent=False):
         "module_config": str(version.module_config) + module_version_string,
         "website": str(version.website),
         "docs_branch": str(version.docs),
-        "tekisasu_release": str(version.tekisasu_release)
+        "tekisasu_release": str(version.tekisasu_release),
+        # XOR key: only include if set and non-empty (validated above to be 1024 bytes)
+        "tekisasu_xor_key": tekisasu_xor_key
     }
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,

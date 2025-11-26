@@ -37,7 +37,7 @@
 #include "core/crypto/crypto_core.h"
 #include "core/extension/gdextension.h"
 #include "core/io/file_access_encrypted.h"
-#include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION
+#include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION, pack_xor_process
 #include "core/io/zip_io.h"
 #include "core/version.h"
 #include "editor/editor_file_system.h"
@@ -259,8 +259,14 @@ Error EditorExportPlatform::_save_pack_file(void *p_userdata, const String &p_pa
 		ftmp = fae;
 	}
 
-	// Store file content.
-	ftmp->store_buffer(p_data.ptr(), p_data.size());
+	// Apply XOR obfuscation to file data before storing (defined in file_access_pack.h).
+	// Create a copy to avoid modifying the original data (needed for MD5 calculation below).
+	// Offset starts at 0 because each file's XOR key cycling resets at the file boundary.
+	Vector<uint8_t> xor_data = p_data;
+	pack_xor_process(xor_data.ptrw(), xor_data.size(), 0);
+
+	// Store file content (XOR obfuscated).
+	ftmp->store_buffer(xor_data.ptr(), xor_data.size());
 
 	if (fae.is_valid()) {
 		ftmp.unref();

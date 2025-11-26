@@ -36,7 +36,7 @@
 #include "core/crypto/crypto_core.h"
 #include "core/io/file_access.h"
 #include "core/io/file_access_encrypted.h"
-#include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION
+#include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION, pack_xor_process
 #include "core/version.h"
 
 static int _get_pad(int p_alignment, int p_n) {
@@ -234,8 +234,14 @@ Error PCKPacker::flush(bool p_verbose) {
 			ftmp = fae;
 		}
 
+		// XOR obfuscation: track position relative to file start for key cycling.
+		uint64_t xor_offset = 0;
+
 		while (to_write > 0) {
 			uint64_t read = src->get_buffer(buf, MIN(to_write, buf_max));
+			// Apply XOR obfuscation to file data using pack_xor_process (defined in file_access_pack.h).
+			pack_xor_process(buf, read, xor_offset);
+			xor_offset += read;
 			ftmp->store_buffer(buf, read);
 			to_write -= read;
 		}

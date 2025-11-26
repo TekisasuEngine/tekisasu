@@ -36,7 +36,6 @@
 #include "core/io/file_access_encrypted.h"
 #include "core/object/script_language.h"
 #include "core/os/os.h"
-#include "core/version.h"
 
 #include <stdio.h>
 
@@ -323,8 +322,12 @@ uint8_t FileAccessPack::get_8() const {
 		return 0;
 	}
 
+	uint64_t current_pos = pos;
 	pos++;
-	return f->get_8();
+	uint8_t byte = f->get_8();
+	// Apply XOR de-obfuscation using pack_xor_process (defined in file_access_pack.h).
+	pack_xor_process(&byte, 1, current_pos);
+	return byte;
 }
 
 uint64_t FileAccessPack::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
@@ -341,12 +344,16 @@ uint64_t FileAccessPack::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 		to_read = (int64_t)pf.size - (int64_t)pos;
 	}
 
+	uint64_t xor_offset = pos;
 	pos += to_read;
 
 	if (to_read <= 0) {
 		return 0;
 	}
 	f->get_buffer(p_dst, to_read);
+
+	// Apply XOR de-obfuscation to file data using pack_xor_process (defined in file_access_pack.h).
+	pack_xor_process(p_dst, to_read, xor_offset);
 
 	return to_read;
 }
