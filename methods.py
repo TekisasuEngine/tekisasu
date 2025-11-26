@@ -195,7 +195,7 @@ def add_module_version_string(self, s):
 
 
 def get_version_info(module_version_string="", silent=False):
-    build_name = "tx"
+    build_name = "d1dd264"
     if os.getenv("BUILD_NAME") is not None:
         build_name = str(os.getenv("BUILD_NAME"))
         if not silent:
@@ -218,6 +218,7 @@ def get_version_info(module_version_string="", silent=False):
     version_info = {
         "short_name": str(version.short_name),
         "name": str(version.name),
+        # Internal version: Tracks underlying Godot compatibility (used for internal/engine purposes)
         "major": int(version.major),
         "minor": int(version.minor),
         "patch": int(version.patch),
@@ -226,9 +227,13 @@ def get_version_info(module_version_string="", silent=False):
         "module_config": str(version.module_config) + module_version_string,
         "website": str(version.website),
         "docs_branch": str(version.docs),
-        "tekisasu_release": str(version.tekisasu_release),
         # XOR key: only include if set and non-empty (validated above to be 1024 bytes)
-        "tekisasu_xor_key": tekisasu_xor_key
+        "tekisasu_xor_key": tekisasu_xor_key,
+        # External version: Tekisasu's public-facing version (used for user-visible UI and asset fetching)
+        "external_major": int(os.getenv("EXTERNAL_MAJOR", version.external_major)),
+        "external_minor": int(os.getenv("EXTERNAL_MINOR", version.external_minor)),
+        "external_patch": int(os.getenv("EXTERNAL_PATCH", version.external_patch)),
+        "external_status": os.getenv("EXTERNAL_STATUS", version.external_status),
     }
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,

@@ -1397,9 +1397,10 @@ ProjectManager::ProjectManager() {
 		version_btn = memnew(LinkButton);
 		String hash = String(VERSION_HASH);
 		if (hash.length() != 0) {
-			hash = " " + vformat("[%s]", hash.left(9));
+			hash = " (" + hash.left(9) + ")";
 		}
-		version_btn->set_text("v" VERSION_FULL_BUILD + hash);
+		// Use external version for user-facing display in project manager
+		version_btn->set_text(EXTERNAL_VERSION_FULL_CONFIG + hash);
 		// Fade the version label to be less prominent, but still readable.
 		version_btn->set_self_modulate(Color(1, 1, 1, 0.6));
 		version_btn->set_underline_mode(LinkButton::UNDERLINE_MODE_ON_HOVER);

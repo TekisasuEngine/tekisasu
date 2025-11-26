@@ -5018,7 +5018,8 @@ String EditorNode::_get_system_info() const {
 	}
 	const String distribution_version = OS::get_singleton()->get_version();
 
-	String tekisasu_version = "Tekisasu v" + String(VERSION_FULL_CONFIG + String(".tx.") + TEKISASU_RELEASE);
+	// Use external version for user-facing system info display
+	String tekisasu_version = "Tekisasu v" + String(EXTERNAL_VERSION_FULL_BUILD);
 	if (String(VERSION_BUILD) != "official") {
 		String hash = String(VERSION_HASH);
 		hash = hash.is_empty() ? String("unknown") : vformat("(%s)", hash.left(9));

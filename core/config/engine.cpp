@@ -117,6 +117,7 @@ double Engine::get_time_scale() const {
 
 Dictionary Engine::get_version_info() const {
 	Dictionary dict;
+	// Internal version (Godot compatibility)
 	dict["major"] = VERSION_MAJOR;
 	dict["minor"] = VERSION_MINOR;
 	dict["patch"] = VERSION_PATCH;
@@ -135,6 +136,17 @@ Dictionary Engine::get_version_info() const {
 	}
 	stringver += "-" + String(dict["status"]) + " (" + String(dict["build"]) + ")";
 	dict["string"] = stringver;
+
+	// External version (Tekisasu public-facing version)
+	dict["external_major"] = EXTERNAL_VERSION_MAJOR;
+	dict["external_minor"] = EXTERNAL_VERSION_MINOR;
+	dict["external_patch"] = EXTERNAL_VERSION_PATCH;
+	dict["external_hex"] = EXTERNAL_VERSION_HEX;
+	dict["external_status"] = EXTERNAL_VERSION_STATUS;
+
+	String external_stringver = String(dict["external_major"]) + "." + String(dict["external_minor"]) + "." + String(dict["external_patch"]);
+	external_stringver += "." + String(dict["external_status"]);
+	dict["external_string"] = external_stringver;
 
 	return dict;
 }

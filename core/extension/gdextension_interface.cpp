@@ -244,10 +244,11 @@ GDExtensionInterfaceFunctionPtr gdextension_get_proc_address(const char *p_name)
 }
 
 static void gdextension_get_tekisasu_version(GDExtensionTekisasuVersion *r_tekisasu_version) {
-	r_tekisasu_version->major = VERSION_MAJOR;
-	r_tekisasu_version->minor = VERSION_MINOR;
-	r_tekisasu_version->patch = VERSION_PATCH;
-	r_tekisasu_version->string = TEKISASU_FULL_NAME;
+	// Use external version for user-facing API version information
+	r_tekisasu_version->major = EXTERNAL_VERSION_MAJOR;
+	r_tekisasu_version->minor = EXTERNAL_VERSION_MINOR;
+	r_tekisasu_version->patch = EXTERNAL_VERSION_PATCH;
+	r_tekisasu_version->string = VERSION_FULL_NAME;
 }
 
 // Memory Functions

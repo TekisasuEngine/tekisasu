@@ -172,32 +172,48 @@
 			<return type="Dictionary" />
 			<description>
 				Returns the current engine version information as a [Dictionary] containing the following entries:
+				[b]Internal version (Legacy version of which Tekisasu Engine was forked):[/b]
 				- [code]major[/code] - Major version number as an int;
 				- [code]minor[/code] - Minor version number as an int;
 				- [code]patch[/code] - Patch version number as an int;
-				- [code]hex[/code] - Full version encoded as a hexadecimal int with one byte (2 hex digits) per number (see example below);
+				- [code]hex[/code] - Full internal version encoded as a hexadecimal int with one byte (2 hex digits) per number;
 				- [code]status[/code] - Status (such as "beta", "rc1", "rc2", "stable", etc.) as a String;
 				- [code]build[/code] - Build name (e.g. "custom_build") as a String;
-				- [code]hash[/code] - Full Git commit hash as a String;
-				- [code]timestamp[/code] - Holds the Git commit date UNIX timestamp in seconds as an int, or [code]0[/code] if unavailable;
 				- [code]string[/code] - [code]major[/code], [code]minor[/code], [code]patch[/code], [code]status[/code], and [code]build[/code] in a single String.
-				The [code]hex[/code] value is encoded as follows, from left to right: one byte for the major, one byte for the minor, one byte for the patch version. For example, "3.1.12" would be [code]0x03010C[/code].
-				[b]Note:[/b] The [code]hex[/code] value is still an [int] internally, and printing it will give you its decimal representation, which is not particularly meaningful. Use hexadecimal literals for quick version comparisons from code:
+				[b]External version (Tekisasu public-facing):[/b]
+				- [code]external_major[/code] - External major version number as an int;
+				- [code]external_minor[/code] - External minor version number as an int;
+				- [code]external_patch[/code] - External patch version number as an int;
+				- [code]external_hex[/code] - Full external version encoded as a hexadecimal int;
+				- [code]external_status[/code] - External status (such as "dev", "stable", etc.) as a String;
+				- [code]external_string[/code] - External version as a single String (e.g., "2025.0.1.dev").
+				[b]Common:[/b]
+				- [code]hash[/code] - Full Git commit hash as a String;
+				- [code]timestamp[/code] - Holds the Git commit date UNIX timestamp in seconds as an int, or [code]0[/code] if unavailable.
+				[b]Note:[/b] Tekisasu Engine uses a dual versioning system. The internal version tracks the last legacy upstream's version that Tekisasu Engine was forked or rebased from (e.g., 4.3.1), while the external version represents Tekisasu's public release version (e.g., 2025.0.1.dev). The external version is displayed in the editor UI, Project Manager, CLI output, and when fetching export templates.
+				The [code]hex[/code] values are encoded as follows, from left to right: one byte for the major, one byte for the minor, one byte for the patch version. For example, "3.1.12" would be [code]0x03010C[/code].
+				[b]Note:[/b] The [code]hex[/code] values are still [int] internally, and printing them will give you their decimal representation, which is not particularly meaningful. Use hexadecimal literals for quick version comparisons from code:
 				[codeblocks]
 				[gdscript]
+				# Check original internal Godot version
 				if Engine.get_version_info().hex &gt;= 0x040100:
-				    pass # Do things specific to version 4.1 or later.
-				else:
-				    pass # Do things specific to versions before 4.1.
+				    pass # Do things specific to internal version 4.1 or later.
+
+				# Check external Tekisasu version
+				if Engine.get_version_info().external_hex &gt;= 0x07D90001:
+				    pass # Do things specific to external version 2025.0.1 or later.
 				[/gdscript]
 				[csharp]
+				// Check original internal Godot-compatible version
 				if ((int)Engine.GetVersionInfo()["hex"] &gt;= 0x040100)
 				{
-				    // Do things specific to version 4.1 or later.
+				    // Do things specific to internal version 4.1 or later.
 				}
-				else
+
+				// Check external Tekisasu version
+				if ((int)Engine.GetVersionInfo()["external_hex"] &gt;= 0x07D90001)
 				{
-				    // Do things specific to versions before 4.1.
+				    // Do things specific to external version 2025.0.1 or later.
 				}
 				[/csharp]
 				[/codeblocks]
