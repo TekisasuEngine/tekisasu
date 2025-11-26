@@ -1412,6 +1412,10 @@ void EditorAudioBuses::_file_dialog_callback(const String &p_string) {
 void EditorAudioBuses::_window_changed(bool p_visible) {
 	make_floating->set_visible(!p_visible);
 	is_floating = p_visible;
+	if (p_visible) {
+		// When the audio panel becomes floating, collapse the bottom panel space.
+		EditorNode::get_bottom_panel()->hide_bottom_panel();
+	}
 }
 
 void EditorAudioBuses::_bind_methods() {
