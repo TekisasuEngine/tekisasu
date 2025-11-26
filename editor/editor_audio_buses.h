@@ -48,7 +48,6 @@
 #include "scene/gui/texture_rect.h"
 #include "scene/gui/tree.h"
 
-class ConfigFile;
 class EditorAudioBuses;
 class EditorFileDialog;
 class ScreenSelect;
@@ -213,9 +212,6 @@ protected:
 
 public:
 	void open_layout(const String &p_path);
-
-	void save_layout_to_config(Ref<ConfigFile> p_layout);
-	void load_layout_from_config(Ref<ConfigFile> p_layout);
 
 	WindowWrapper *get_window_wrapper() const { return window_wrapper; }
 

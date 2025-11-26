@@ -34,7 +34,6 @@
 
 #include "core/config/project_settings.h"
 #include "core/input/input.h"
-#include "core/io/config_file.h"
 #include "core/io/resource_saver.h"
 #include "core/os/keyboard.h"
 #include "editor/debugger/editor_debugger_node.h"
@@ -1530,30 +1529,6 @@ void EditorAudioBuses::open_layout(const String &p_path) {
 	callable_mp(this, &EditorAudioBuses::_select_layout).call_deferred();
 }
 
-void EditorAudioBuses::save_layout_to_config(Ref<ConfigFile> p_layout) {
-	if (window_wrapper->get_window_enabled()) {
-		p_layout->set_value("AudioBusEditor", "window_rect", window_wrapper->get_window_rect());
-		int screen = window_wrapper->get_window_screen();
-		p_layout->set_value("AudioBusEditor", "window_screen", screen);
-		p_layout->set_value("AudioBusEditor", "window_screen_rect", DisplayServer::get_singleton()->screen_get_usable_rect(screen));
-	} else {
-		if (p_layout->has_section("AudioBusEditor")) {
-			p_layout->erase_section("AudioBusEditor");
-		}
-	}
-}
-
-void EditorAudioBuses::load_layout_from_config(Ref<ConfigFile> p_layout) {
-	if (EDITOR_GET("interface/multi_window/restore_windows_on_load") && window_wrapper->is_window_available() && p_layout->has_section_key("AudioBusEditor", "window_rect")) {
-		window_wrapper->restore_window_from_saved_position(
-				p_layout->get_value("AudioBusEditor", "window_rect"),
-				p_layout->get_value("AudioBusEditor", "window_screen"),
-				p_layout->get_value("AudioBusEditor", "window_screen_rect"));
-	} else {
-		window_wrapper->set_window_enabled(false);
-	}
-}
-
 void AudioBusesEditorPlugin::edit(Object *p_node) {
 	if (Object::cast_to<AudioBusLayout>(p_node)) {
 		String path = Object::cast_to<AudioBusLayout>(p_node)->get_path();
@@ -1571,11 +1546,11 @@ void AudioBusesEditorPlugin::make_visible(bool p_visible) {
 }
 
 void AudioBusesEditorPlugin::set_window_layout(Ref<ConfigFile> p_layout) {
-	audio_bus_editor->load_layout_from_config(p_layout);
+	// Window layout restoration disabled due to transient window issues.
 }
 
 void AudioBusesEditorPlugin::get_window_layout(Ref<ConfigFile> p_layout) {
-	audio_bus_editor->save_layout_to_config(p_layout);
+	// Window layout saving disabled due to transient window issues.
 }
 
 AudioBusesEditorPlugin::AudioBusesEditorPlugin(EditorAudioBuses *p_node, WindowWrapper *p_wrapper) {
