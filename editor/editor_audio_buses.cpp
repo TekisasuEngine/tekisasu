@@ -1566,9 +1566,6 @@ bool AudioBusesEditorPlugin::handles(Object *p_node) const {
 void AudioBusesEditorPlugin::make_visible(bool p_visible) {
 }
 
-void AudioBusesEditorPlugin::_window_visibility_changed(bool p_visible) {
-}
-
 void AudioBusesEditorPlugin::set_window_layout(Ref<ConfigFile> p_layout) {
 	audio_bus_editor->load_layout_from_config(p_layout);
 }
@@ -1580,7 +1577,6 @@ void AudioBusesEditorPlugin::get_window_layout(Ref<ConfigFile> p_layout) {
 AudioBusesEditorPlugin::AudioBusesEditorPlugin(EditorAudioBuses *p_node, WindowWrapper *p_wrapper) {
 	audio_bus_editor = p_node;
 	window_wrapper = p_wrapper;
-	window_wrapper->connect("window_visibility_changed", callable_mp(this, &AudioBusesEditorPlugin::_window_visibility_changed));
 }
 
 AudioBusesEditorPlugin::~AudioBusesEditorPlugin() {

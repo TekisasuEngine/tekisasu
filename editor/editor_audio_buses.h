@@ -289,8 +289,6 @@ class AudioBusesEditorPlugin : public EditorPlugin {
 	EditorAudioBuses *audio_bus_editor = nullptr;
 	WindowWrapper *window_wrapper = nullptr;
 
-	void _window_visibility_changed(bool p_visible);
-
 public:
 	virtual String get_name() const override { return "SampleLibrary"; }
 	bool has_main_screen() const override { return false; }
