@@ -57,7 +57,8 @@
 // XOR obfuscation key from TEKISASU_XOR_KEY.
 // Used to obfuscate/de-obfuscate PCK asset data (file data only, not header).
 // This makes extraction by unofficial PCK unpackers more difficult.
-static const char *pack_xor_key = TEKISASU_XOR_KEY;
+// Using fixed-size array ensures compile-time validation of key size.
+static const char pack_xor_key[PACK_XOR_KEY_SIZE + 1] = TEKISASU_XOR_KEY;
 
 // XOR obfuscation/de-obfuscation helper function.
 // Applies XOR to buffer using key cycling: data[i] ^ key[(offset + i) % key_size].
