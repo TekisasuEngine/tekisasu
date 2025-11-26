@@ -267,7 +267,7 @@ EditorBottomPanel::EditorBottomPanel() {
 
 	version_btn = memnew(LinkButton);
 	// Use external version for user-facing display, combined with build type identifier.
-	// This shows the Tekisasu public version (e.g., "1.0.0.dev") with build info (e.g., "tx").
+	// This shows the Tekisasu public version (e.g., "1.0.0.dev") with build info (e.g., "dev").
 	version_btn->set_text(EXTERNAL_VERSION_FULL_CONFIG "." VERSION_BUILD);
 	String hash = String(VERSION_HASH);
 	if (hash.length() != 0) {
