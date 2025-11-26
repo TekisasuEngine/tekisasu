@@ -238,8 +238,8 @@ void ExportTemplateManager::_refresh_mirrors() {
 	}
 	is_refreshing_mirrors = true;
 
-	String current_version = VERSION_TEKISASU_DISTRIBUTION;
-	const String mirrors_metadata_url = "https://dev.tekisasu.com/mirrorlist/" + current_version + ".json";
+	// Use EXTERNAL_VERSION_FULL_CONFIG for mirrorlist URL (without VERSION_BUILD suffix or git hash)
+	const String mirrors_metadata_url = "https://dev.tekisasu.com/mirrorlist/" EXTERNAL_VERSION_FULL_CONFIG ".json";
 	request_mirrors->request(mirrors_metadata_url);
 }
 
