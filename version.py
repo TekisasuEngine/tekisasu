@@ -10,7 +10,7 @@ year = 2025
 website = "https://dev.tekisasu.com"
 docs = "4.3"
 # External version: Tekisasu's public-facing version (used for user-visible UI and asset fetching)
-external_major = 1
+external_major = 2025
 external_minor = 0
-external_patch = 0
+external_patch = 1
 external_status = "dev"
