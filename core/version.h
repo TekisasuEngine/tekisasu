@@ -123,7 +123,9 @@
 #define TEKISASU_FULL_NAME VERSION_NAME " v" VERSION_FULL_BUILD "." TEKISASU_RELEASE
 
 // Distribution version string used for export templates and asset fetching.
-// Uses the external version for user-facing consistency.
+// Uses the external version combined with the internal VERSION_BUILD identifier.
+// This hybrid approach ensures assets are fetched based on Tekisasu's public version
+// while retaining the build type (e.g., "tx" for official, "custom_build" for custom).
 // Example: "1.0.0.dev.tx"
 #define VERSION_TEKISASU_DISTRIBUTION EXTERNAL_VERSION_FULL_CONFIG "." VERSION_BUILD
 
