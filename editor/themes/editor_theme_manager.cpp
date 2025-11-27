@@ -511,11 +511,14 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.disabled_border_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.7);
 		p_config.disabled_bg_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.9);
 		p_config.separator_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.1);
+		// Centralized widget background color for input widgets (dropdowns, text fields, etc.)
+		p_config.widget_bg_color = p_config.base_color * Color(0.7, 0.7, 0.7, 0.6);
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
 		p_theme->set_color("disabled_border_color", EditorStringName(Editor), p_config.disabled_border_color);
 		p_theme->set_color("disabled_bg_color", EditorStringName(Editor), p_config.disabled_bg_color);
 		p_theme->set_color("separator_color", EditorStringName(Editor), p_config.separator_color);
+		p_theme->set_color("widget_bg_color", EditorStringName(Editor), p_config.widget_bg_color);
 
 		// Additional editor colors.
 
@@ -802,8 +805,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_pressed->duplicate();
 			Ref<StyleBoxFlat> option_button_disabled_style = p_config.button_style_disabled->duplicate();
 
-			// Use a lighter background for dropdown menus to improve visibility.
-			option_button_normal_style->set_bg_color(p_config.base_color * Color(0.7, 0.7, 0.7, 0.6));
+			// Use centralized widget background color for dropdown menus.
+			option_button_normal_style->set_bg_color(p_config.widget_bg_color);
 
 			option_button_focus_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_normal_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
@@ -1199,8 +1202,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// The original button_style style has an extra 1 pixel offset that makes LineEdits not align with Buttons,
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
-		// Use a lighter background for text inputs to improve visibility against dark panels.
-		text_editor_style->set_bg_color(p_config.base_color * Color(0.7, 0.7, 0.7, 0.6));  //tekisasu
+		// Use centralized widget background color for text inputs.
+		text_editor_style->set_bg_color(p_config.widget_bg_color);
 
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));

@@ -128,6 +128,7 @@ class EditorThemeManager {
 		Color disabled_border_color;
 		Color disabled_bg_color;
 		Color separator_color;
+		Color widget_bg_color; // Centralized color for input widget backgrounds.
 
 		Ref<StyleBoxFlat> base_style;
 		Ref<StyleBoxEmpty> base_empty_style;
