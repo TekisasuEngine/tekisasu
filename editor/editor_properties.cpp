@@ -1345,7 +1345,7 @@ void EditorPropertyInteger::setup(int64_t p_min, int64_t p_max, int64_t p_step, 
 
 EditorPropertyInteger::EditorPropertyInteger() {
 	spin = memnew(EditorSpinSlider);
-	spin->set_flat(true);
+
 	add_child(spin);
 	add_focusable(spin);
 	spin->connect(SceneStringName(value_changed), callable_mp(this, &EditorPropertyInteger::_value_changed));
@@ -1482,7 +1482,7 @@ void EditorPropertyFloat::setup(double p_min, double p_max, double p_step, bool 
 
 EditorPropertyFloat::EditorPropertyFloat() {
 	spin = memnew(EditorSpinSlider);
-	spin->set_flat(true);
+
 	add_child(spin);
 	add_focusable(spin);
 	spin->connect(SceneStringName(value_changed), callable_mp(this, &EditorPropertyFloat::_value_changed));
@@ -1690,7 +1690,7 @@ EditorPropertyEasing::EditorPropertyEasing() {
 	preset->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyEasing::_set_preset));
 
 	spin = memnew(EditorSpinSlider);
-	spin->set_flat(true);
+
 	spin->set_min(-100);
 	spin->set_max(100);
 	spin->set_step(0);
@@ -1780,7 +1780,7 @@ EditorPropertyRect2::EditorPropertyRect2(bool p_force_wide) {
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 
 		if (grid) {
 			bc->get_child(i / 2)->add_child(spin[i]);
@@ -1876,7 +1876,7 @@ EditorPropertyRect2i::EditorPropertyRect2i(bool p_force_wide) {
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 
 		if (grid) {
 			bc->get_child(i / 2)->add_child(spin[i]);
@@ -1968,7 +1968,7 @@ EditorPropertyPlane::EditorPropertyPlane(bool p_force_wide) {
 	static const char *desc[4] = { "x", "y", "z", "d" };
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
-		spin[i]->set_flat(true);
+
 		spin[i]->set_label(desc[i]);
 		bc->add_child(spin[i]);
 		add_focusable(spin[i]);
@@ -2141,7 +2141,7 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 	static const char *desc[4] = { "x", "y", "z", "w" };
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
-		spin[i]->set_flat(true);
+
 		spin[i]->set_label(desc[i]);
 		default_layout->add_child(spin[i]);
 		add_focusable(spin[i]);
@@ -2168,7 +2168,6 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 
 	for (int i = 0; i < 3; i++) {
 		euler[i] = memnew(EditorSpinSlider);
-		euler[i]->set_flat(true);
 		euler[i]->set_label(desc[i]);
 		edit_custom_layout->add_child(euler[i]);
 		add_focusable(euler[i]);
@@ -2256,7 +2255,7 @@ EditorPropertyAABB::EditorPropertyAABB() {
 	for (int i = 0; i < 6; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 
 		g->add_child(spin[i]);
 		spin[i]->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -2339,7 +2338,7 @@ EditorPropertyTransform2D::EditorPropertyTransform2D(bool p_include_origin) {
 	for (int i = 0; i < 6; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 		if (p_include_origin || i % 3 != 2) {
 			g->add_child(spin[i]);
 		}
@@ -2424,7 +2423,7 @@ EditorPropertyBasis::EditorPropertyBasis() {
 	for (int i = 0; i < 9; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 		g->add_child(spin[i]);
 		spin[i]->set_h_size_flags(SIZE_EXPAND_FILL);
 		add_focusable(spin[i]);
@@ -2516,7 +2515,7 @@ EditorPropertyTransform3D::EditorPropertyTransform3D() {
 	for (int i = 0; i < 12; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 		g->add_child(spin[i]);
 		spin[i]->set_h_size_flags(SIZE_EXPAND_FILL);
 		add_focusable(spin[i]);
@@ -2616,7 +2615,7 @@ EditorPropertyProjection::EditorPropertyProjection() {
 	for (int i = 0; i < 16; i++) {
 		spin[i] = memnew(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
-		spin[i]->set_flat(true);
+
 		g->add_child(spin[i]);
 		spin[i]->set_h_size_flags(SIZE_EXPAND_FILL);
 		add_focusable(spin[i]);
@@ -2901,10 +2900,8 @@ void EditorPropertyNodePath::update_property() {
 	if (p.is_empty()) {
 		assign->set_icon(Ref<Texture2D>());
 		assign->set_text(TTR("Assign..."));
-		assign->set_flat(false);
 		return;
 	}
-	assign->set_flat(true);
 
 	if (!base_node || !base_node->has_node(p)) {
 		assign->set_icon(Ref<Texture2D>());
@@ -2975,7 +2972,6 @@ EditorPropertyNodePath::EditorPropertyNodePath() {
 	hbc->add_theme_constant_override("separation", 0);
 	add_child(hbc);
 	assign = memnew(Button);
-	assign->set_flat(true);
 	assign->set_h_size_flags(SIZE_EXPAND_FILL);
 	assign->set_clip_text(true);
 	assign->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -2985,7 +2981,6 @@ EditorPropertyNodePath::EditorPropertyNodePath() {
 	hbc->add_child(assign);
 
 	menu = memnew(MenuButton);
-	menu->set_flat(true);
 	menu->connect(SNAME("about_to_popup"), callable_mp(this, &EditorPropertyNodePath::_update_menu));
 	hbc->add_child(menu);
 
