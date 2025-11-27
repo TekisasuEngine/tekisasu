@@ -1,7 +1,8 @@
-# Catalan translation of the Godot Engine editor interface.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Catalan translation of the Tekisasu Engine editor interface.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # BennyBeat <bennybeat@gmail.com>, 2017.
 # Javier Ocampos <xavier.ocampos@gmail.com>, 2018.
 # Roger Blanco Ribera <roger.blancoribera@gmail.com>, 2016-2018, 2020.
@@ -30,13 +31,13 @@
 # Lukas Tenbrink <lukas.tenbrink@gmail.com>, 2025.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine editor interface\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-01-09 13:44+0000\n"
 "Last-Translator: Lukas Tenbrink <lukas.tenbrink@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/godot-engine/"
-"godot/ca/>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/tekisasu-engine/"
+"tekisasu/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1613,11 +1614,11 @@ msgstr "No s'ha pogut crear el directori."
 msgid "Create Folder"
 msgstr "Crea un Directori"
 
-msgid "Thanks from the Godot community!"
-msgstr "Gràcies de la part de la Comunitat del Godot!"
+msgid "Thanks from the Tekisasu community!"
+msgstr "Gràcies de la part de la Comunitat del Tekisasu!"
 
-msgid "Godot Engine contributors"
-msgstr "Col·laboradors de Godot Engine"
+msgid "Tekisasu Engine contributors"
+msgstr "Col·laboradors de Tekisasu Engine"
 
 msgid "Project Founders"
 msgstr "Fundadors del Projecte"
@@ -1654,12 +1655,12 @@ msgid "Third-party Licenses"
 msgstr "Llicències de Tercers"
 
 msgid ""
-"Godot Engine relies on a number of third-party free and open source "
+"Tekisasu Engine relies on a number of third-party free and open source "
 "libraries, all compatible with the terms of its MIT license. The following is "
 "an exhaustive list of all such third-party components with their respective "
 "copyright statements and license terms."
 msgstr ""
-"Godot Engine compta amb diverses biblioteques gratuïtes i de codi obert de "
+"Tekisasu Engine compta amb diverses biblioteques gratuïtes i de codi obert de "
 "tercers, totes compatibles amb els termes de la seva llicència MIT. A "
 "continuació, es mostra una llista exhaustiva de tots aquests components de "
 "tercers amb les seves respectives declaracions de copyright i termes de "
@@ -2008,8 +2009,8 @@ msgstr ""
 msgid "New profile name:"
 msgstr "Nom del nou perfil:"
 
-msgid "Godot Feature Profile"
-msgstr "Perfil de les funcionalitats del Godot"
+msgid "Tekisasu Feature Profile"
+msgstr "Perfil de les funcionalitats del Tekisasu"
 
 msgid "Import Profile(s)"
 msgstr "Importar Perfil(s)"
@@ -2531,8 +2532,8 @@ msgstr "Suggerir una Característica"
 msgid "Send Docs Feedback"
 msgstr "Enviar suggeriments sobre la Documentació"
 
-msgid "Support Godot Development"
-msgstr "Contribueix al Desenvolupament de Godot"
+msgid "Support Tekisasu Development"
+msgstr "Contribueix al Desenvolupament de Tekisasu"
 
 msgid "Update Continuously"
 msgstr "Actualitzar contínuament"
@@ -4950,8 +4951,8 @@ msgstr "Desa el Tema com a..."
 msgid "Online Docs"
 msgstr "Documentació en línia"
 
-msgid "Open Godot online documentation."
-msgstr "Obrir la documentació en línia de Godot."
+msgid "Open Tekisasu online documentation."
+msgstr "Obrir la documentació en línia de Tekisasu."
 
 msgid "%s Class Reference"
 msgstr "Referència de Classe %s"
@@ -5717,11 +5718,11 @@ msgstr ""
 "Retorna 0,0 si 'x' és menor que'edge0 ' o 1.0 en cas contrari."
 
 msgid ""
-"Custom Godot Shader Language expression, with custom amount of input and "
+"Custom Tekisasu Shader Language expression, with custom amount of input and "
 "output ports. This is a direct injection of code into the vertex/fragment/"
 "light function, do not use it to write the function declarations inside."
 msgstr ""
-"Expressió personalitzada del llenguatge de Shader de Godot, amb una quantitat "
+"Expressió personalitzada del llenguatge de Shader de Tekisasu, amb una quantitat "
 "de ports d'entrada i sortida personalitzats. Això es una injecció de codi "
 "directa en la funció vertex/fragment/light, no lo utilitzau per a escriure "
 "les declaracions de la funció dins seu."
@@ -5768,8 +5769,8 @@ msgstr "Fóra bo anomenar el projecte."
 msgid "New Game Project"
 msgstr "Nou Projecte de Joc"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "No es pot crear el fitxer 'project.godot' en el camí del projecte."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "No es pot crear el fitxer 'project.tekisasu' en el camí del projecte."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr ""
@@ -5817,8 +5818,8 @@ msgstr "Canviar zona morta de l'acció"
 msgid "Erase Input Action"
 msgstr "Elimina l'Acció d'Entrada"
 
-msgid "Project Settings (project.godot)"
-msgstr "Configuració del Projecte (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Configuració del Projecte (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Mapa d'Entrades"

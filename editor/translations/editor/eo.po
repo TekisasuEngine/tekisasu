@@ -1,7 +1,8 @@
-# Esperanto translation of the Godot Engine editor interface.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Esperanto translation of the Tekisasu Engine editor interface.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # Scott Starkey <yekrats@gmail.com>, 2019.
 # AlexHoratio <yukithetupper@gmail.com>, 2019.
 # Teashrock <kajitsu22@gmail.com>, 2019.
@@ -25,12 +26,12 @@
 # programutox <programutox@disroot.org>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine editor interface\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "PO-Revision-Date: 2024-09-27 03:18+0000\n"
 "Last-Translator: programutox <programutox@disroot.org>\n"
-"Language-Team: Esperanto <https://hosted.weblate.org/projects/godot-engine/"
-"godot/eo/>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/tekisasu-engine/"
+"tekisasu/eo/>\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -1284,11 +1285,11 @@ msgstr "Ne povis krei dosierujon."
 msgid "Create Folder"
 msgstr "Krei dosierujon"
 
-msgid "Thanks from the Godot community!"
-msgstr "Dankon de la komunumo de Godot!"
+msgid "Thanks from the Tekisasu community!"
+msgstr "Dankon de la komunumo de Tekisasu!"
 
-msgid "Godot Engine contributors"
-msgstr "Kontribuantoj de Godot Engine"
+msgid "Tekisasu Engine contributors"
+msgstr "Kontribuantoj de Tekisasu Engine"
 
 msgid "Project Founders"
 msgstr "Fondintoj de la Projekto"
@@ -1321,12 +1322,12 @@ msgid "Third-party Licenses"
 msgstr "Permesiloj de eksteraj liverantoj"
 
 msgid ""
-"Godot Engine relies on a number of third-party free and open source "
+"Tekisasu Engine relies on a number of third-party free and open source "
 "libraries, all compatible with the terms of its MIT license. The following is "
 "an exhaustive list of all such third-party components with their respective "
 "copyright statements and license terms."
 msgstr ""
-"Godot Engine fidas al multe liberaj kaj malfermitkodaj bibliotekoj de ekstera "
+"Tekisasu Engine fidas al multe liberaj kaj malfermitkodaj bibliotekoj de ekstera "
 "liveranto, ĉio kongruas kun la kondiĉoj de ĝia MIT-permesilo. La jenoj estas "
 "elĉerpa listo de ĉiom tiaj komponantoj de ekstera liveranto kun iliaj "
 "kopirajtaj atentigoj kaj permesilaj kondiĉoj respektive."
@@ -1685,8 +1686,8 @@ msgstr ""
 msgid "New profile name:"
 msgstr "Nomo de nova profilo:"
 
-msgid "Godot Feature Profile"
-msgstr "Profilo de funkciaro de Godot"
+msgid "Tekisasu Feature Profile"
+msgstr "Profilo de funkciaro de Tekisasu"
 
 msgid "Import Profile(s)"
 msgstr "Enporti profilo(j)n"
@@ -2181,8 +2182,8 @@ msgstr "Raporti cimon"
 msgid "Send Docs Feedback"
 msgstr "Sendi rimarkojn pri la dokumentaro"
 
-msgid "Support Godot Development"
-msgstr "Subteni Godot ellaboradon"
+msgid "Support Tekisasu Development"
+msgstr "Subteni Tekisasu ellaboradon"
 
 msgid "Update Continuously"
 msgstr "Ĝisdatigi kontinue"
@@ -2455,8 +2456,8 @@ msgstr "Oficaj eksportaj ŝablonoj estas ne haveblaj por programistaj muntoj."
 msgid "Select Template File"
 msgstr "Elekti ŝablonan dosieron"
 
-msgid "Godot Export Templates"
-msgstr "Eksportajn ŝablonojn de Godot"
+msgid "Tekisasu Export Templates"
+msgstr "Eksportajn ŝablonojn de Tekisasu"
 
 msgid "Duplicate"
 msgstr "Duobligi"
@@ -3905,8 +3906,8 @@ msgstr "Konservi etoson kiel..."
 msgid "Online Docs"
 msgstr "Enreta Dokumentaro"
 
-msgid "Open Godot online documentation."
-msgstr "Malfermi enretan dokumentaron de Godot."
+msgid "Open Tekisasu online documentation."
+msgstr "Malfermi enretan dokumentaron de Tekisasu."
 
 msgid "Find Next"
 msgstr "Trovu Sekva"
@@ -4110,9 +4111,9 @@ msgid "It would be a good idea to name your project."
 msgstr "Nomi vian projekton estus konsilinde."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
 msgstr ""
-"Nevalida projekta \".zip\" dosiero; ĝi ne enhavas dosieron \"project.godot\"."
+"Nevalida projekta \".zip\" dosiero; ĝi ne enhavas dosieron \"project.tekisasu\"."
 
 msgid "The path specified doesn't exist."
 msgstr "La provizinta dosierindiko ne ekzistas."
@@ -4120,8 +4121,8 @@ msgstr "La provizinta dosierindiko ne ekzistas."
 msgid "New Game Project"
 msgstr "Nova luda projekto"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "Ne eblas krei project.godot en projekta dosierindiko."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "Ne eblas krei project.tekisasu en projekta dosierindiko."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Eraro dum malfermi la pakaĵan dosieron, ne de ZIP formato."
@@ -4174,8 +4175,8 @@ msgstr "Ŝanĝi mortzonon de faro"
 msgid "Erase Input Action"
 msgstr "Forigi enigan faron"
 
-msgid "Project Settings (project.godot)"
-msgstr "Projektaj agordoj (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Projektaj agordoj (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Eniga mapo"

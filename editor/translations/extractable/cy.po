@@ -1,14 +1,15 @@
-# Welsh translation of the Godot Engine extractable strings.
-# Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md).
+# Welsh translation of the Tekisasu Engine extractable strings.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors (see AUTHORS.md).
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine extractable strings\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine extractable strings\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "PO-Revision-Date: 2024-01-31 03:16+0000\n"
 "Last-Translator: L Howells <Bycanir@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Welsh <https://hosted.weblate.org/projects/godot-engine/godot/"
+"Language-Team: Welsh <https://hosted.weblate.org/projects/tekisasu-engine/tekisasu/"
 "cy/>\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"

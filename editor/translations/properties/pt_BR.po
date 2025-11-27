@@ -1,7 +1,8 @@
-# Portuguese (Brazil) translation of the Godot Engine properties.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Portuguese (Brazil) translation of the Tekisasu Engine properties.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # Allyson Souza <allyson_as@outlook.com>, 2017.
 # Anderson Araujo <anderson.araujoprog@gmail.com>, 2018.
 # António Sarmento <antonio.luis.sarmento@gmail.com>, 2016.
@@ -170,13 +171,13 @@
 # dweob <dweob@c0de.wtf>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine properties\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine properties\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: 2016-05-30\n"
 "PO-Revision-Date: 2024-12-14 01:25+0000\n"
 "Last-Translator: dweob <dweob@c0de.wtf>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/godot-"
-"engine/godot-properties/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tekisasu-"
+"engine/tekisasu-properties/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3091,8 +3092,8 @@ msgstr "Pontos"
 msgid "Roots"
 msgstr "Raízes"
 
-msgid "Godot Bone Node"
-msgstr "Nó de Osso Godot"
+msgid "Tekisasu Bone Node"
+msgstr "Nó de Osso Tekisasu"
 
 msgid "Skin Root"
 msgstr "Raiz da Skin"
@@ -3103,8 +3104,8 @@ msgstr "Pontos Originais"
 msgid "Non Joints"
 msgstr "Não-Juntas"
 
-msgid "Godot Skin"
-msgstr "Skin Godot"
+msgid "Tekisasu Skin"
+msgstr "Skin Tekisasu"
 
 msgid "Src Image"
 msgstr "Imagem fonte"

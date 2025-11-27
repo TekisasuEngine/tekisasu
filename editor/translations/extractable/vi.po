@@ -1,16 +1,17 @@
-# Vietnamese translation of the Godot Engine extractable strings.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Vietnamese translation of the Tekisasu Engine extractable strings.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine extractable strings\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine extractable strings\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-02-14 08:02+0000\n"
 "Last-Translator: Trần Đức Minh Nhật <mncc8327@gmail.com>\n"
-"Language-Team: Vietnamese <https://hosted.weblate.org/projects/godot-engine/"
-"godot/vi/>\n"
+"Language-Team: Vietnamese <https://hosted.weblate.org/projects/tekisasu-engine/"
+"tekisasu/vi/>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

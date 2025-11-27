@@ -1,7 +1,8 @@
-# Korean translation of the Godot Engine properties.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Korean translation of the Tekisasu Engine properties.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # Ch <ccwpc@hanmail.net>, 2017.
 # paijai 송 (fivejobi) <xotjq237@gmail.com>, 2018.
 # pgyage3263 <pgyage3263@naver.com>, 2018.
@@ -55,12 +56,12 @@
 # Amdid <changwha.com@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine properties\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine properties\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-11-26 19:03+0000\n"
 "Last-Translator: Amdid <changwha.com@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/godot-engine/godot-"
+"Language-Team: Korean <https://hosted.weblate.org/projects/tekisasu-engine/tekisasu-"
 "properties/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -3111,8 +3112,8 @@ msgstr "관절"
 msgid "Roots"
 msgstr "루트"
 
-msgid "Godot Bone Node"
-msgstr "Godot 본 노드"
+msgid "Tekisasu Bone Node"
+msgstr "Tekisasu 본 노드"
 
 msgid "Skin Root"
 msgstr "스킨 루트"
@@ -3123,8 +3124,8 @@ msgstr "관절 원본"
 msgid "Non Joints"
 msgstr "비 관절"
 
-msgid "Godot Skin"
-msgstr "Godot 스킨"
+msgid "Tekisasu Skin"
+msgstr "Tekisasu 스킨"
 
 msgid "Src Image"
 msgstr "SRC 이미지"

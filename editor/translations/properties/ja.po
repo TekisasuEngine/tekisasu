@@ -1,7 +1,8 @@
-# Japanese translation of the Godot Engine properties.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Japanese translation of the Tekisasu Engine properties.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # akirakido <achts.y@gmail.com>, 2016-2017, 2018, 2019.
 # D_first <dntk.daisei@gmail.com>, 2017, 2018.
 # Daisuke Saito <d.saito@coriginate.com>, 2017, 2018.
@@ -58,13 +59,13 @@
 # Binnaga <polycharacter@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine properties\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine properties\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-12-22 21:02+0000\n"
 "Last-Translator: Binnaga <polycharacter@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/godot-engine/"
-"godot-properties/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/tekisasu-engine/"
+"tekisasu-properties/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2934,7 +2935,7 @@ msgstr "ジョイント"
 msgid "Roots"
 msgstr "ルート"
 
-msgid "Godot Bone Node"
+msgid "Tekisasu Bone Node"
 msgstr "ボーンノード"
 
 msgid "Skin Root"

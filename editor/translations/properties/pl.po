@@ -1,7 +1,8 @@
-# Polish translation of the Godot Engine properties.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Polish translation of the Tekisasu Engine properties.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # 8-bit Pixel <dawdejw@gmail.com>, 2016, 2023.
 # Adam Wolanski <adam.wolanski94@gmail.com>, 2017.
 # Adrian Węcławski <weclawskiadrian@gmail.com>, 2016.
@@ -59,7 +60,7 @@
 # Katarzyna Twardowska <katarina.twardowska@gmail.com>, 2022.
 # Mateusz Zdrzałek <matjozohd@gmail.com>, 2022.
 # Konrad <kobe-interactive@protonmail.com>, 2022.
-# Pixel Zone - Godot Engine Tutorials <karoltomaszewskimusic@gmail.com>, 2022.
+# Pixel Zone - Tekisasu Engine Tutorials <karoltomaszewskimusic@gmail.com>, 2022.
 # DK0492 <doriankaczmarek28@gmail.com>, 2022, 2023.
 # Dawid Skubij <davidsd@tlen.pl>, 2022.
 # kingofsponges <q.patex.q@gmail.com>, 2022, 2023.
@@ -97,12 +98,12 @@
 # Cyprian Klimaszewski <cyprian.klimaszewski@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine properties\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine properties\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-01-16 14:00+0000\n"
 "Last-Translator: Tomek <kobewi4e@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/godot-engine/godot-"
+"Language-Team: Polish <https://hosted.weblate.org/projects/tekisasu-engine/tekisasu-"
 "properties/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -3252,8 +3253,8 @@ msgstr "Światło"
 msgid "Roots"
 msgstr "Korzenie"
 
-msgid "Godot Skin"
-msgstr "Skórka Godot"
+msgid "Tekisasu Skin"
+msgstr "Skórka Tekisasu"
 
 msgid "Src Image"
 msgstr "Obraz źródłowy"

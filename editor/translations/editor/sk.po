@@ -1,7 +1,8 @@
-# Slovak translation of the Godot Engine editor interface.
-# Copyright (c) 2014-present Godot Engine contributors.
+# Slovak translation of the Tekisasu Engine editor interface.
+# Copyright (c) 2021-present Tekisasu
+# Copyright (c) 2014-present Tekisasu Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # J08nY <johnenter@gmail.com>, 2016.
 # MineGame 159 <minegame459@gmail.com>, 2018.
 # Zuzana Palenikova <sousana.is@gmail.com>, 2019.
@@ -25,12 +26,12 @@
 # David Chorváth <dadulo33@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine editor interface\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-10-28 14:43+0000\n"
 "Last-Translator: David Chorváth <dadulo33@gmail.com>\n"
-"Language-Team: Slovak <https://hosted.weblate.org/projects/godot-engine/godot/"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/tekisasu-engine/tekisasu/"
 "sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -1545,11 +1546,11 @@ msgstr "Vytvoriť adresár"
 msgid "Folder name is valid."
 msgstr "Názov priečinku je platný."
 
-msgid "Thanks from the Godot community!"
-msgstr "Vďaka z Godot komunity!"
+msgid "Thanks from the Tekisasu community!"
+msgstr "Vďaka z Tekisasu komunity!"
 
-msgid "Godot Engine contributors"
-msgstr "Godot Engine prispievatelia"
+msgid "Tekisasu Engine contributors"
+msgstr "Tekisasu Engine prispievatelia"
 
 msgid "Project Founders"
 msgstr "Zakladatelia Projektu"
@@ -1586,12 +1587,12 @@ msgid "Third-party Licenses"
 msgstr "Thirdparty Licencie"
 
 msgid ""
-"Godot Engine relies on a number of third-party free and open source "
+"Tekisasu Engine relies on a number of third-party free and open source "
 "libraries, all compatible with the terms of its MIT license. The following is "
 "an exhaustive list of all such third-party components with their respective "
 "copyright statements and license terms."
 msgstr ""
-"Godot Engine sa spolieha na množstvo bezplatných a otvorených knižníc tretích "
+"Tekisasu Engine sa spolieha na množstvo bezplatných a otvorených knižníc tretích "
 "strán, ktoré sú kompatibilné s podmienkami licencie MIT. Nasleduje "
 "vyčerpávajúci zoznam všetkých takýchto komponentov tretích strán s ich "
 "príslušnými prehláseniami o autorských právach a licenčnými podmienkami."
@@ -1956,8 +1957,8 @@ msgstr "[prázdne]"
 msgid "[unsaved]"
 msgstr "[neuložené]"
 
-msgid "%s - Godot Engine"
-msgstr "%s - Godot Engine"
+msgid "%s - Tekisasu Engine"
+msgstr "%s - Tekisasu Engine"
 
 msgid "Dock Position"
 msgstr "Pozícia Dock-u"
@@ -2094,8 +2095,8 @@ msgstr ""
 msgid "New profile name:"
 msgstr "Meno nového profilu:"
 
-msgid "Godot Feature Profile"
-msgstr "Godot Feature Profil"
+msgid "Tekisasu Feature Profile"
+msgstr "Tekisasu Feature Profil"
 
 msgid "Import Profile(s)"
 msgstr "Importovať Profil(y)"
@@ -2938,8 +2939,8 @@ msgstr "Navrhnúť funkcionalitu"
 msgid "Send Docs Feedback"
 msgstr "Poslať spätnú väzbu Dokumentácie"
 
-msgid "Support Godot Development"
-msgstr "Podporte vývoj Godot"
+msgid "Support Tekisasu Development"
+msgstr "Podporte vývoj Tekisasu"
 
 msgid "Update Continuously"
 msgstr "Aktualizovať priebežne"
@@ -3371,8 +3372,8 @@ msgstr "Inštalácia šablón z lokálneho súboru."
 msgid "Select Template File"
 msgstr "Vybrať Súbor Šablóny"
 
-msgid "Godot Export Templates"
-msgstr "Godot Exportovanie Šablón"
+msgid "Tekisasu Export Templates"
+msgstr "Tekisasu Exportovanie Šablón"
 
 msgid ""
 "The templates will continue to download.\n"
@@ -6024,7 +6025,7 @@ msgstr "Uložiť súbor ako..."
 msgid "Online Docs"
 msgstr "Online Dokumentácie"
 
-msgid "Open Godot online documentation."
+msgid "Open Tekisasu online documentation."
 msgstr "Otvoriť online dokumentáciu Godotu."
 
 msgid "Open..."
@@ -7006,10 +7007,10 @@ msgstr ""
 
 msgid ""
 "This node is marked as deprecated and will be removed in future versions.\n"
-"Please check the Godot documentation for information about migration."
+"Please check the Tekisasu documentation for information about migration."
 msgstr ""
 "Tento node je označený ako zastaralý a bude vymazaný v budúcich verziách.\n"
-"Prosím skontrolujte Godot dokumentáciu pre informácie o migrácii."
+"Prosím skontrolujte Tekisasu dokumentáciu pre informácie o migrácii."
 
 msgid ""
 "This node is marked as experimental and may be subject to removal or major "
