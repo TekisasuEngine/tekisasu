@@ -729,14 +729,16 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 	{
 		// Button.
 
-		// Use hover color as normal state, with a slightly lighter hover.
+		// Use hover color as normal state, with a slightly lighter hover and darker pressed.
 		Ref<StyleBoxFlat> button_normal_style = p_config.button_style_hover->duplicate();
 		Ref<StyleBoxFlat> button_hover_style = p_config.button_style_hover->duplicate();
 		button_hover_style->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.16));
+		Ref<StyleBoxFlat> button_pressed_style = p_config.button_style_hover->duplicate();
+		button_pressed_style->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.06));
 
 		p_theme->set_stylebox(CoreStringName(normal), "Button", button_normal_style);
 		p_theme->set_stylebox("hover", "Button", button_hover_style);
-		p_theme->set_stylebox(SceneStringName(pressed), "Button", p_config.button_style_pressed);
+		p_theme->set_stylebox(SceneStringName(pressed), "Button", button_pressed_style);
 		p_theme->set_stylebox("focus", "Button", p_config.button_style_focus);
 		p_theme->set_stylebox("disabled", "Button", p_config.button_style_disabled);
 
@@ -803,13 +805,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// OptionButton.
 		{
 			Ref<StyleBoxFlat> option_button_focus_style = p_config.button_style_focus->duplicate();
-			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_pressed->duplicate();
 			Ref<StyleBoxFlat> option_button_disabled_style = p_config.button_style_disabled->duplicate();
 
-			// Use hover color as normal state, with a slightly lighter hover.
+			// Use hover color as normal state, with a slightly lighter hover and darker pressed.
 			Ref<StyleBoxFlat> option_button_normal_style = p_config.button_style_hover->duplicate();
 			Ref<StyleBoxFlat> option_button_hover_style = p_config.button_style_hover->duplicate();
 			option_button_hover_style->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.16));
+			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_hover->duplicate();
+			option_button_pressed_style->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.06));
 
 			option_button_focus_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_normal_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
@@ -820,7 +823,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_stylebox("focus", "OptionButton", option_button_focus_style);
 			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", option_button_normal_style);
 			p_theme->set_stylebox("hover", "OptionButton", option_button_hover_style);
-			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", p_config.button_style_pressed);
+			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", option_button_pressed_style);
 			p_theme->set_stylebox("disabled", "OptionButton", p_config.button_style_disabled);
 
 			p_theme->set_stylebox("normal_mirrored", "OptionButton", option_button_normal_style);
