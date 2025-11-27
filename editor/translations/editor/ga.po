@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "PO-Revision-Date: 2024-09-18 19:41+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <https://hosted.weblate.org/projects/godot-engine/godot/"

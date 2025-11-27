@@ -202,7 +202,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "POT-Creation-Date: 2016-05-30\n"
 "PO-Revision-Date: 2025-01-22 04:17+0000\n"
 "Last-Translator: DX_studios1 <biel.escarabichi@gmail.com>\n"

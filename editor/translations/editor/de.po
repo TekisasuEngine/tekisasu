@@ -120,7 +120,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-01-09 02:15+0000\n"
 "Last-Translator: Deleted User <noreply+102345@weblate.org>\n"

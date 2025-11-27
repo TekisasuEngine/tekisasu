@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine class reference\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "PO-Revision-Date: 2024-08-02 04:03+0000\n"
 "Last-Translator: STENYIN lee <stenyin@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"

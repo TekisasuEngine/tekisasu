@@ -109,7 +109,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine class reference\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-07-16 05:13+0000\n"
 "Last-Translator: zefdzeqf <azrzrezfafe@users.noreply.hosted.weblate.org>\n"

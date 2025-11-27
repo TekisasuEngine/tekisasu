@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine extractable strings\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "PO-Revision-Date: 2023-09-16 22:13+0000\n"
 "Last-Translator: Andrea Toska <toskaandrea@gmail.com>\n"
 "Language-Team: Albanian <https://hosted.weblate.org/projects/godot-engine/"
