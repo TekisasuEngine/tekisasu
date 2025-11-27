@@ -460,7 +460,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Font colors.
 
-		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.45);
+		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.25);
 		p_config.font_focus_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
 		p_config.font_hover_color = Color(1, 1, 1, 1);
 		p_config.font_pressed_color = Color(1, 1, 1, 1);
@@ -536,10 +536,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_theme->set_color("property_color_w", EditorStringName(Editor), Color().from_hsv(1.5 / 3.0 + 0.05, prop_color_saturation, prop_color_value));
 
 		// Special colors for rendering methods.
-
-		p_theme->set_color("forward_plus_color", EditorStringName(Editor), Color::hex(0x5d8c3fff));
-		p_theme->set_color("mobile_color", EditorStringName(Editor), Color::hex(0xa5557dff));
-		p_theme->set_color("gl_compatibility_color", EditorStringName(Editor), Color::hex(0x5586a4ff));
+		p_theme->set_color("forward_plus_color", EditorStringName(Editor), Color(0.25, 0.55, 0.37, 1.0));
+		p_theme->set_color("mobile_color", EditorStringName(Editor), Color(0.79, 0.43, 0.61, 1.0));
+		p_theme->set_color("gl_compatibility_color", EditorStringName(Editor), Color(0.45, 0.66, 0.8, 1.0));
 
 		if (p_config.dark_theme) {
 			p_theme->set_color("highend_color", EditorStringName(Editor), Color(1.0, 0.0, 0.0));
@@ -683,8 +682,8 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.tree_panel_style = p_config.base_style->duplicate();
 			// Make Trees easier to distinguish from other controls by using a darker background color.
-			//p_config.tree_panel_style->set_bg_color(p_config.dark_color_1.lerp(p_config.dark_color_2, 0.5));
-			p_config.tree_panel_style->set_bg_color(p_config.dark_color_5);
+			p_config.tree_panel_style->set_bg_color(p_config.base_color);
+			//p_config.tree_panel_style->set_bg_color(p_config.dark_color_5); // Tekisasu dark grey variant maybe?
 			if (p_config.draw_extra_borders) {
 				p_config.tree_panel_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.tree_panel_style->set_border_color(p_config.extra_border_color_2);
@@ -716,7 +715,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> style_tooltip = p_config.popup_style->duplicate();
 			style_tooltip->set_shadow_size(0);
 			style_tooltip->set_content_margin_all(p_config.base_margin * EDSCALE * 0.5);
-			style_tooltip->set_bg_color(p_config.dark_color_3 * Color(0.8, 0.8, 0.8, 0.9));
+			style_tooltip->set_bg_color(p_config.dark_color_3 * Color(0.8, 0.8, 0.8, 0.7));
 			style_tooltip->set_border_width_all(0);
 			p_theme->set_stylebox(SceneStringName(panel), "TooltipPanel", style_tooltip);
 		}
@@ -1791,7 +1790,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor and main screen.
 	{
 		// Editor background.
-		Color background_color_opaque = p_config.dark_color_2;
+		Color background_color_opaque = p_config.base_color.lerp(Color(0.0,0.0,0.0), 0.5); // tekisasu todo 
 		background_color_opaque.a = 1.0;
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
