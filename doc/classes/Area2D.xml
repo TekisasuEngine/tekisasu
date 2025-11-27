@@ -8,6 +8,9 @@
 		This node can also locally alter or override physics parameters (gravity, damping) and route audio to custom audio buses.
 		[b]Note:[/b] Areas and bodies created with [PhysicsServer2D] might not interact as expected with [Area2D]s, and might not emit signals or track objects correctly.
 	</description>
+	<tutorials>
+		<link title="Using Area2D">$DOCS_URL/tutorials/physics/using_area_2d.html</link>
+	</tutorials>
 <methods>
 		<method name="get_overlapping_areas" qualifiers="const">
 			<return type="Area2D[]" />

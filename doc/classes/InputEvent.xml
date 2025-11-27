@@ -6,6 +6,10 @@
 	<description>
 		Abstract base class of all types of input events. See [method Node._input].
 	</description>
+	<tutorials>
+		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
+		<link title="Viewport and canvas transforms">$DOCS_URL/tutorials/2d/2d_transforms.html</link>
+	</tutorials>
 <methods>
 		<method name="accumulate">
 			<return type="bool" />

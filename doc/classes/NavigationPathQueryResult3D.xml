@@ -6,6 +6,9 @@
 	<description>
 		This class stores the result of a 3D navigation path query from the [NavigationServer3D].
 	</description>
+	<tutorials>
+		<link title="Using NavigationPathQueryObjects">$DOCS_URL/tutorials/navigation/navigation_using_navigationpathqueryobjects.html</link>
+	</tutorials>
 <methods>
 		<method name="reset">
 			<return type="void" />

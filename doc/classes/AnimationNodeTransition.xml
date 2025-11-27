@@ -36,6 +36,9 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
+	<tutorials>
+		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
+	</tutorials>
 <methods>
 		<method name="is_input_loop_broken_at_end" qualifiers="const">
 			<return type="bool" />

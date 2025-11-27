@@ -8,6 +8,9 @@
 		While WOFF and especially WOFF2 tend to result in smaller file sizes, there is no universally "better" font format. In most situations, it's recommended to use the font format that was shipped on the font developer's website.
 		See also [ResourceImporterBMFont] and [ResourceImporterImageFont].
 	</description>
+	<tutorials>
+		<link title="Dynamic fonts - Using fonts">$DOCS_URL/tutorials/ui/gui_using_fonts.html#dynamic-fonts</link>
+	</tutorials>
 <members>
 		<member name="allow_system_fallback" type="bool" setter="" getter="" default="true">
 			If [code]true[/code], automatically use system fonts as a fallback if a glyph isn't found in this dynamic font. This makes supporting CJK characters or emoji more straightforward, as you don't need to include a CJK/emoji font in your project. See also [member fallbacks].

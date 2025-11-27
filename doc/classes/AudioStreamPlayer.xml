@@ -8,6 +8,9 @@
 		To use this node, [member stream] needs to be set to a valid [AudioStream] resource. Playing more than one sound at the same time is also supported, see [member max_polyphony].
 		If you need to play audio at a specific position, use [AudioStreamPlayer2D] or [AudioStreamPlayer3D] instead.
 	</description>
+	<tutorials>
+		<link title="Audio streams">$DOCS_URL/tutorials/audio/audio_streams.html</link>
+	</tutorials>
 <methods>
 		<method name="get_playback_position">
 			<return type="float" />

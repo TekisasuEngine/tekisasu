@@ -6,6 +6,9 @@
 	<description>
 		A navigation mesh is a collection of polygons that define which areas of an environment are traversable to aid agents in pathfinding through complicated spaces.
 	</description>
+	<tutorials>
+		<link title="Using NavigationMeshes">$DOCS_URL/tutorials/navigation/navigation_using_navigationmeshes.html</link>
+	</tutorials>
 <methods>
 		<method name="add_polygon">
 			<return type="void" />

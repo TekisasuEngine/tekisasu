@@ -6,6 +6,9 @@
 	<description>
 		Class that has everything pertaining to a 2D world: A physics space, a canvas, and a sound space. 2D nodes register their resources into the current 2D world.
 	</description>
+	<tutorials>
+		<link title="Ray-casting">$DOCS_URL/tutorials/physics/ray-casting.html</link>
+	</tutorials>
 <members>
 		<member name="canvas" type="RID" setter="" getter="get_canvas">
 			The [RID] of this world's canvas resource. Used by the [RenderingServer] for 2D drawing.

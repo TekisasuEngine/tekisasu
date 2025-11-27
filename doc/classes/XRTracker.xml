@@ -6,6 +6,9 @@
 	<description>
 		This object is the base of all XR trackers.
 	</description>
+	<tutorials>
+		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
+	</tutorials>
 <members>
 		<member name="description" type="String" setter="set_tracker_desc" getter="get_tracker_desc" default="&quot;&quot;">
 			The description of this tracker.

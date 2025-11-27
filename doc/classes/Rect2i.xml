@@ -9,6 +9,10 @@
 		[b]Note:[/b] Negative values for [member size] are not supported. With negative size, most [Rect2i] methods do not work correctly. Use [method abs] to get an equivalent [Rect2i] with a non-negative size.
 		[b]Note:[/b] In a boolean context, a [Rect2i] evaluates to [code]false[/code] if both [member position] and [member size] are zero (equal to [constant Vector2i.ZERO]). Otherwise, it always evaluates to [code]true[/code].
 	</description>
+	<tutorials>
+		<link title="Math documentation index">$DOCS_URL/tutorials/math/index.html</link>
+		<link title="Vector math">$DOCS_URL/tutorials/math/vector_math.html</link>
+	</tutorials>
 <constructors>
 		<constructor name="Rect2i">
 			<return type="Rect2i" />

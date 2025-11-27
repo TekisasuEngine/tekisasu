@@ -6,6 +6,9 @@
 	<description>
 		Casts light in a 2D environment. A light is defined as a color, an energy value, a mode (see constants), and various other parameters (range and shadows-related).
 	</description>
+	<tutorials>
+		<link title="2D lights and shadows">$DOCS_URL/tutorials/2d/2d_lights_and_shadows.html</link>
+	</tutorials>
 <methods>
 		<method name="get_height" qualifiers="const">
 			<return type="float" />

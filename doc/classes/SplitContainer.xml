@@ -6,6 +6,9 @@
 	<description>
 		A container that accepts only two child controls, then arranges them horizontally or vertically and creates a divisor between them. The divisor can be dragged around to change the size relation between the child controls.
 	</description>
+	<tutorials>
+		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
+	</tutorials>
 <methods>
 		<method name="clamp_split_offset">
 			<return type="void" />

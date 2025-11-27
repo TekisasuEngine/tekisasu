@@ -6,6 +6,9 @@
 	<description>
 		A container that keeps its child controls within the area of a [StyleBox]. Useful for giving controls an outline.
 	</description>
+	<tutorials>
+		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
+	</tutorials>
 <members>
 		<member name="mouse_filter" type="int" setter="set_mouse_filter" getter="get_mouse_filter" overrides="Control" enum="Control.MouseFilter" default="0" />
 	</members>

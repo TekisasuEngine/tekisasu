@@ -9,6 +9,10 @@
 		For a general introduction, see the [url=$DOCS_URL/tutorials/math/matrices_and_transforms.html]Matrices and transforms[/url] tutorial.
 		[b]Note:[/b] Unlike [Transform3D], there is no 2D equivalent to the [Basis] type. All mentions of "basis" refer to the [member x] and [member y] components of [Transform2D].
 	</description>
+	<tutorials>
+		<link title="Math documentation index">$DOCS_URL/tutorials/math/index.html</link>
+		<link title="Matrices and transforms">$DOCS_URL/tutorials/math/matrices_and_transforms.html</link>
+	</tutorials>
 <constructors>
 		<constructor name="Transform2D">
 			<return type="Transform2D" />

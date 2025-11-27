@@ -6,6 +6,9 @@
 	<description>
 		A node that provides a [Shape2D] to a [CollisionObject2D] parent and allows to edit it. This can give a detection shape to an [Area2D] or turn a [PhysicsBody2D] into a solid object.
 	</description>
+	<tutorials>
+		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
+	</tutorials>
 <members>
 		<member name="debug_color" type="Color" setter="set_debug_color" getter="get_debug_color" default="Color(0, 0, 0, 1)">
 			The collision shape debug color.

@@ -9,6 +9,10 @@
 		The engine keeps a global cache of all loaded resources, referenced by paths (see [method ResourceLoader.has_cached]). A resource will be cached when loaded for the first time and removed from cache once all references are released. When a resource is cached, subsequent loads using its path will return the cached reference.
 		[b]Note:[/b] In C#, resources will not be freed instantly after they are no longer in use. Instead, garbage collection will run periodically and will free resources that are no longer in use. This means that unused resources will remain in memory for a while before being removed.
 	</description>
+	<tutorials>
+		<link title="Resources">$DOCS_URL/tutorials/scripting/resources.html</link>
+		<link title="When and how to avoid using nodes for everything">$DOCS_URL/tutorials/best_practices/node_alternatives.html</link>
+	</tutorials>
 <methods>
 		<method name="_get_rid" qualifiers="virtual">
 			<return type="RID" />

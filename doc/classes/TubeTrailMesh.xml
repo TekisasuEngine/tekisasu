@@ -7,6 +7,10 @@
 		[TubeTrailMesh] represents a straight tube-shaped mesh with variable width. The tube is composed of a number of cylindrical sections, each with the same [member section_length] and number of [member section_rings]. A [member curve] is sampled along the total length of the tube, meaning that the curve determines the radius of the tube along its length.
 		This primitive mesh is usually used for particle trails.
 	</description>
+	<tutorials>
+		<link title="3D Particle trails">$DOCS_URL/tutorials/3d/particles/trails.html</link>
+		<link title="Particle systems (3D)">$DOCS_URL/tutorials/3d/particles/index.html</link>
+	</tutorials>
 <members>
 		<member name="cap_bottom" type="bool" setter="set_cap_bottom" getter="is_cap_bottom" default="true">
 			If [code]true[/code], generates a cap at the bottom of the tube. This can be set to [code]false[/code] to speed up generation and rendering when the cap is never seen by the camera.

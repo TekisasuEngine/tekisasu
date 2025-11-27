@@ -6,6 +6,9 @@
 	<description>
 		Base class for all GUI containers. A [Container] automatically arranges its child controls in a certain way. This class can be inherited to make custom container types.
 	</description>
+	<tutorials>
+		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
+	</tutorials>
 <methods>
 		<method name="_get_allowed_size_flags_horizontal" qualifiers="virtual const">
 			<return type="PackedInt32Array" />

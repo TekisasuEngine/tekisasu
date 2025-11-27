@@ -25,6 +25,9 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
+	<tutorials>
+		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
+	</tutorials>
 <theme_items>
 		<theme_item name="margin_bottom" data_type="constant" type="int" default="0">
 			Offsets towards the inside direct children of the container by this amount of pixels from the bottom.

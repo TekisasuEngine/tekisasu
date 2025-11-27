@@ -7,6 +7,9 @@
 		[Occluder3D] stores an occluder shape that can be used by the engine's occlusion culling system.
 		See [OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
 	</description>
+	<tutorials>
+		<link title="Occlusion culling">$DOCS_URL/tutorials/3d/occlusion_culling.html</link>
+	</tutorials>
 <methods>
 		<method name="get_indices" qualifiers="const">
 			<return type="PackedInt32Array" />

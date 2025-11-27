@@ -7,6 +7,9 @@
 		Abstract base class for all 3D shapes, intended for use in physics.
 		[b]Performance:[/b] Primitive shapes, especially [SphereShape3D], are fast to check collisions against. [ConvexPolygonShape3D] and [HeightMapShape3D] are slower, and [ConcavePolygonShape3D] is the slowest.
 	</description>
+	<tutorials>
+		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
+	</tutorials>
 <methods>
 		<method name="get_debug_mesh">
 			<return type="ArrayMesh" />

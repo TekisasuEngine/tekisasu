@@ -7,6 +7,9 @@
 		This image-based workflow can be easier to use than [ResourceImporterBMFont], but it requires all glyphs to have the same width and height, glyph advances and drawing offsets can be customized. This makes [ResourceImporterImageFont] most suited to fixed-width fonts.
 		See also [ResourceImporterDynamicFont].
 	</description>
+	<tutorials>
+		<link title="Bitmap fonts - Using fonts">$DOCS_URL/tutorials/ui/gui_using_fonts.html#bitmap-fonts</link>
+	</tutorials>
 <members>
 		<member name="ascent" type="int" setter="" getter="" default="0">
 			Font ascent (number of pixels above the baseline). If set to [code]0[/code], half of the character height is used.

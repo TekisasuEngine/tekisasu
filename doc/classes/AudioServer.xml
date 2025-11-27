@@ -6,6 +6,9 @@
 	<description>
 		[AudioServer] is a low-level server interface for audio access. It is in charge of creating sample data (playable audio) as well as its playback via a voice interface.
 	</description>
+	<tutorials>
+		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
+	</tutorials>
 <methods>
 		<method name="add_bus">
 			<return type="void" />

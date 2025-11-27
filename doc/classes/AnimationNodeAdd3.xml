@@ -11,4 +11,7 @@
 		- A "+add" animation to blend with when the blend amount is positive
 		If the absolute value of the amount is greater than [code]1.0[/code], the animation connected to "in" port is blended with the amplified animation connected to "-add"/"+add" port.
 	</description>
+	<tutorials>
+		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
+	</tutorials>
 </class>

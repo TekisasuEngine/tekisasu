@@ -10,6 +10,10 @@
 		- Tonemap (Auto Exposure)
 		- Adjustments
 	</description>
+	<tutorials>
+		<link title="Environment and post-processing">$DOCS_URL/tutorials/3d/environment_and_post_processing.html</link>
+		<link title="High dynamic range lighting">$DOCS_URL/tutorials/3d/high_dynamic_range.html</link>
+	</tutorials>
 <methods>
 		<method name="get_glow_level" qualifiers="const">
 			<return type="float" />

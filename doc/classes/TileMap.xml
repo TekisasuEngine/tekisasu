@@ -8,6 +8,9 @@
 		For performance reasons, all TileMap updates are batched at the end of a frame. Notably, this means that scene tiles from a [TileSetScenesCollectionSource] may be initialized after their parent. This is only queued when inside the scene tree.
 		To force an update earlier on, call [method update_internals].
 	</description>
+	<tutorials>
+		<link title="Using Tilemaps">$DOCS_URL/tutorials/2d/using_tilemaps.html</link>
+	</tutorials>
 <methods>
 		<method name="_tile_data_runtime_update" qualifiers="virtual">
 			<return type="void" />

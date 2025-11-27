@@ -12,6 +12,9 @@
 		On each of these calls, the "add" functions can be called.
 		To use [EditorInspectorPlugin], register it using the [method EditorPlugin.add_inspector_plugin] method first.
 	</description>
+	<tutorials>
+		<link title="Inspector plugins">$DOCS_URL/tutorials/plugins/editor/inspector_plugins.html</link>
+	</tutorials>
 <methods>
 		<method name="_can_handle" qualifiers="virtual const">
 			<return type="bool" />

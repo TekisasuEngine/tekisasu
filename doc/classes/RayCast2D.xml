@@ -9,6 +9,9 @@
 		[RayCast2D] calculates intersection every physics frame, and it holds the result until the next physics frame. For an immediate raycast, or if you want to configure a [RayCast2D] multiple times within the same physics frame, use [method force_raycast_update].
 		To sweep over a region of 2D space, you can approximate the region with multiple [RayCast2D]s or use [ShapeCast2D].
 	</description>
+	<tutorials>
+		<link title="Ray-casting">$DOCS_URL/tutorials/physics/ray-casting.html</link>
+	</tutorials>
 <methods>
 		<method name="add_exception">
 			<return type="void" />

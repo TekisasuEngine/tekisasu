@@ -6,6 +6,9 @@
 	<description>
 		[BitMap] resources are typically used as click masks in [TextureButton] and [TouchScreenButton].
 	</description>
+	<tutorials>
+		<link title="Importing images">$DOCS_URL/tutorials/assets_pipeline/importing_images.html</link>
+	</tutorials>
 <members>
 		<member name="create_from" type="int" setter="" getter="" default="0">
 			The data source to use for generating the bitmap.

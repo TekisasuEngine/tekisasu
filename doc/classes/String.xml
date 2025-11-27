@@ -8,6 +8,9 @@
 		Some string methods have corresponding variations. Variations suffixed with [code]n[/code] ([method countn], [method findn], [method replacen], etc.) are [b]case-insensitive[/b] (they make no distinction between uppercase and lowercase letters). Method variations prefixed with [code]r[/code] ([method rfind], [method rsplit], etc.) are reversed, and start from the end of the string, instead of the beginning.
 		[b]Note:[/b] In a boolean context, a string will evaluate to [code]false[/code] if it is empty ([code]""[/code]). Otherwise, a string will always evaluate to [code]true[/code]. The [code]not[/code] operator cannot be used. Instead, [method is_empty] should be used to check for empty strings.
 	</description>
+	<tutorials>
+		<link title="GDScript format strings">$DOCS_URL/tutorials/scripting/gdscript/gdscript_format_string.html</link>
+	</tutorials>
 <constructors>
 		<constructor name="String">
 			<return type="String" />

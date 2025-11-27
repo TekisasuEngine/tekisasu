@@ -8,6 +8,9 @@
 		Performance of [FogVolume]s is directly related to their relative size on the screen and the complexity of their attached [FogMaterial]. It is best to keep [FogVolume]s relatively small and simple where possible.
 		[b]Note:[/b] [FogVolume]s only have a visible effect if [member Environment.volumetric_fog_enabled] is [code]true[/code]. If you don't want fog to be globally visible (but only within [FogVolume] nodes), set [member Environment.volumetric_fog_density] to [code]0.0[/code].
 	</description>
+	<tutorials>
+		<link title="Volumetric fog and fog volumes">$DOCS_URL/tutorials/3d/volumetric_fog.html</link>
+	</tutorials>
 <members>
 		<member name="material" type="Material" setter="set_material" getter="get_material">
 			The [Material] used by the [FogVolume]. Can be either a built-in [FogMaterial] or a custom [ShaderMaterial].

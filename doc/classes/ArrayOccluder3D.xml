@@ -7,6 +7,9 @@
 		[ArrayOccluder3D] stores an arbitrary 3D polygon shape that can be used by the engine's occlusion culling system. This is analogous to [ArrayMesh], but for occluders.
 		See [OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
 	</description>
+	<tutorials>
+		<link title="Occlusion culling">$DOCS_URL/tutorials/3d/occlusion_culling.html</link>
+	</tutorials>
 <methods>
 		<method name="set_arrays">
 			<return type="void" />

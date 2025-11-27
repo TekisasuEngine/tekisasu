@@ -10,6 +10,9 @@
 		[b]Note:[/b] Quaternions must be normalized before being used for rotation (see [method normalized]).
 		[b]Note:[/b] Similarly to [Vector2] and [Vector3], the components of a quaternion use 32-bit precision by default, unlike [float] which is always 64-bit. If double precision is needed, compile the engine with the option [code]precision=double[/code].
 	</description>
+	<tutorials>
+		<link title="Using 3D transforms">$DOCS_URL/tutorials/3d/using_transforms.html#interpolating-with-quaternions</link>
+	</tutorials>
 <constructors>
 		<constructor name="Quaternion">
 			<return type="Quaternion" />

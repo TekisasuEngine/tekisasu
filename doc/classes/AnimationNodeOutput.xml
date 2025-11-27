@@ -6,4 +6,7 @@
 	<description>
 		A node created automatically in an [AnimationNodeBlendTree] that outputs the final animation.
 	</description>
+	<tutorials>
+		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
+	</tutorials>
 </class>

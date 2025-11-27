@@ -10,6 +10,10 @@
 		Also, viewports can be assigned to different screens in case the devices have multiple screens.
 		Finally, viewports can also behave as render targets, in which case they will not be visible unless the associated texture is used to draw.
 	</description>
+	<tutorials>
+		<link title="Using Viewports">$DOCS_URL/tutorials/rendering/viewports.html</link>
+		<link title="Viewport and canvas transforms">$DOCS_URL/tutorials/2d/2d_transforms.html</link>
+	</tutorials>
 <methods>
 		<method name="find_world_2d" qualifiers="const">
 			<return type="World2D" />

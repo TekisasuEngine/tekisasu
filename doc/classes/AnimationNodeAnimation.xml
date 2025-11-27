@@ -6,6 +6,9 @@
 	<description>
 		A resource to add to an [AnimationNodeBlendTree]. Only has one output port using the [member animation] property. Used as an input for [AnimationNode]s that blend animations together.
 	</description>
+	<tutorials>
+		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
+	</tutorials>
 <members>
 		<member name="animation" type="StringName" setter="set_animation" getter="get_animation" default="&amp;&quot;&quot;">
 			Animation to use as an output. It is one of the animations provided by [member AnimationTree.anim_player].

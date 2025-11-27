@@ -8,6 +8,10 @@
 		Use [member ProjectSettings.gui/theme/custom] to set up a project-scope theme that will be available to every control in your project.
 		Use [member Control.theme] of any control node to set up a theme that will be available to that control and all of its direct and indirect children.
 	</description>
+	<tutorials>
+		<link title="GUI skinning">$DOCS_URL/tutorials/ui/gui_skinning.html</link>
+		<link title="Using the theme editor">$DOCS_URL/tutorials/ui/gui_using_theme_editor.html</link>
+	</tutorials>
 <methods>
 		<method name="add_type">
 			<return type="void" />

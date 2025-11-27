@@ -7,6 +7,9 @@
 		[EditorExportPlugin]s are automatically invoked whenever the user exports the project. Their most common use is to determine what files are being included in the exported project. For each plugin, [method _export_begin] is called at the beginning of the export process and then [method _export_file] is called for each exported file.
 		To use [EditorExportPlugin], register it using the [method EditorPlugin.add_export_plugin] method first.
 	</description>
+	<tutorials>
+		<link title="Export Android plugins">$DOCS_URL/tutorials/platform/android/android_plugin.html</link>
+	</tutorials>
 <methods>
 		<method name="_begin_customize_resources" qualifiers="virtual const">
 			<return type="bool" />

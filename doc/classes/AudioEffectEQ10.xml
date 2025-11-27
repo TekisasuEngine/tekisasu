@@ -18,4 +18,7 @@
 		Band 10: 16000 Hz
 		See also [AudioEffectEQ], [AudioEffectEQ6], [AudioEffectEQ21].
 	</description>
+	<tutorials>
+		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
+	</tutorials>
 </class>

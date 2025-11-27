@@ -136,6 +136,9 @@
 		[b]Note:[/b] Dictionaries are always passed by reference. To get a copy of a dictionary which can be modified independently of the original dictionary, use [method duplicate].
 		[b]Note:[/b] Erasing elements while iterating over dictionaries is [b]not[/b] supported and will result in unpredictable behavior.
 	</description>
+	<tutorials>
+		<link title="GDScript basics: Dictionary">$DOCS_URL/tutorials/scripting/gdscript/gdscript_basics.html#dictionary</link>
+	</tutorials>
 <constructors>
 		<constructor name="Dictionary">
 			<return type="Dictionary" />

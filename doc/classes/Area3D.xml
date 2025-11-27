@@ -9,6 +9,9 @@
 		[b]Note:[/b] Areas and bodies created with [PhysicsServer3D] might not interact as expected with [Area3D]s, and might not emit signals or track objects correctly.
 		[b]Warning:[/b] Using a [ConcavePolygonShape3D] inside a [CollisionShape3D] child of this node (created e.g. by using the [b]Create Trimesh Collision Sibling[/b] option in the [b]Mesh[/b] menu that appears when selecting a [MeshInstance3D] node) may give unexpected results, since this collision shape is hollow. If this is not desired, it has to be split into multiple [ConvexPolygonShape3D]s or primitive shapes like [BoxShape3D], or in some cases it may be replaceable by a [CollisionPolygon3D].
 	</description>
+	<tutorials>
+		<link title="Using Area2D">$DOCS_URL/tutorials/physics/using_area_2d.html</link>
+	</tutorials>
 <methods>
 		<method name="get_overlapping_areas" qualifiers="const">
 			<return type="Area3D[]" />

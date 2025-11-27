@@ -61,6 +61,9 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
+	<tutorials>
+		<link title="File system">$DOCS_URL/tutorials/scripting/filesystem.html</link>
+	</tutorials>
 <methods>
 		<method name="change_dir">
 			<return type="int" enum="Error" />

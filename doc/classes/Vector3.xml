@@ -9,6 +9,11 @@
 		See [Vector3i] for its integer counterpart.
 		[b]Note:[/b] In a boolean context, a Vector3 will evaluate to [code]false[/code] if it's equal to [code]Vector3(0, 0, 0)[/code]. Otherwise, a Vector3 will always evaluate to [code]true[/code].
 	</description>
+	<tutorials>
+		<link title="Math documentation index">$DOCS_URL/tutorials/math/index.html</link>
+		<link title="Vector math">$DOCS_URL/tutorials/math/vector_math.html</link>
+		<link title="Advanced vector math">$DOCS_URL/tutorials/math/vectors_advanced.html</link>
+	</tutorials>
 <constructors>
 		<constructor name="Vector3">
 			<return type="Vector3" />

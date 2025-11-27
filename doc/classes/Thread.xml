@@ -11,6 +11,10 @@
 		- It must not be waiting on any [Semaphore] objects.
 		- [method wait_to_finish] should have been called on it.
 	</description>
+	<tutorials>
+		<link title="Using multiple threads">$DOCS_URL/tutorials/performance/using_multiple_threads.html</link>
+		<link title="Thread-safe APIs">$DOCS_URL/tutorials/performance/thread_safe_apis.html</link>
+	</tutorials>
 <methods>
 		<method name="get_id" qualifiers="const">
 			<return type="String" />

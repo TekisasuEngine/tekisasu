@@ -6,6 +6,10 @@
 	<description>
 		The server that manages all language translations. Translations can be added to or removed from it.
 	</description>
+	<tutorials>
+		<link title="Internationalizing games">$DOCS_URL/tutorials/i18n/internationalizing_games.html</link>
+		<link title="Locales">$DOCS_URL/tutorials/i18n/locales.html</link>
+	</tutorials>
 <methods>
 		<method name="add_translation">
 			<return type="void" />

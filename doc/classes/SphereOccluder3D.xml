@@ -7,6 +7,9 @@
 		[SphereOccluder3D] stores a sphere shape that can be used by the engine's occlusion culling system.
 		See [OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
 	</description>
+	<tutorials>
+		<link title="Occlusion culling">$DOCS_URL/tutorials/3d/occlusion_culling.html</link>
+	</tutorials>
 <members>
 		<member name="radius" type="float" setter="set_radius" getter="get_radius" default="1.0">
 			The sphere's radius in 3D units.
