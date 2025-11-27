@@ -729,8 +729,13 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 	{
 		// Button.
 
-		p_theme->set_stylebox(CoreStringName(normal), "Button", p_config.button_style);
-		p_theme->set_stylebox("hover", "Button", p_config.button_style_hover);
+		// Use hover color as normal state, with a slightly lighter hover.
+		Ref<StyleBoxFlat> button_normal_style = p_config.button_style_hover->duplicate();
+		Ref<StyleBoxFlat> button_hover_style = p_config.button_style_hover->duplicate();
+		button_hover_style->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.16));
+
+		p_theme->set_stylebox(CoreStringName(normal), "Button", button_normal_style);
+		p_theme->set_stylebox("hover", "Button", button_hover_style);
 		p_theme->set_stylebox(SceneStringName(pressed), "Button", p_config.button_style_pressed);
 		p_theme->set_stylebox("focus", "Button", p_config.button_style_focus);
 		p_theme->set_stylebox("disabled", "Button", p_config.button_style_disabled);
