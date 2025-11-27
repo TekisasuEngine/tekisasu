@@ -25,7 +25,7 @@
 		            iterate(child)
 		[/gdscript]
 		[csharp]
-		using Godot;
+		using Tekisasu;
 
 		// This sample changes all node names.
 		// Called right after the scene is imported and gets the root node.

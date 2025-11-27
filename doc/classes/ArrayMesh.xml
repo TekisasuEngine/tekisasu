@@ -34,7 +34,7 @@
 
 		// Initialize the ArrayMesh.
 		var arrMesh = new ArrayMesh();
-		var arrays = new Godot.Collections.Array();
+		var arrays = new Tekisasu.Collections.Array();
 		arrays.Resize((int)Mesh.ArrayType.Max);
 		arrays[(int)Mesh.ArrayType.Vertex] = vertices;
 

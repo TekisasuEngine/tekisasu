@@ -62,7 +62,7 @@
 		    score_data[player_name] = player_score
 		[/gdscript]
 		[csharp]
-		var score_data = new Godot.Collections.Dictionary();
+		var score_data = new Tekisasu.Collections.Dictionary();
 		var config = new ConfigFile();
 
 		// Load data from a file.
