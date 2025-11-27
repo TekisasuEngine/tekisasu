@@ -2257,7 +2257,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_bg->set_border_width_all(0);
 
 		Ref<StyleBoxFlat> style_property_child_bg = p_config.base_style->duplicate();
-		style_property_child_bg->set_bg_color(p_config.dark_color_2);
+		// Use transparent background for child_bg so vector editors show their own widget_bg_color styling.
+		style_property_child_bg->set_bg_color(Color(0, 0, 0, 0));
 		style_property_child_bg->set_border_width_all(0);
 
 		p_theme->set_stylebox("bg", "EditorProperty", memnew(StyleBoxEmpty));
