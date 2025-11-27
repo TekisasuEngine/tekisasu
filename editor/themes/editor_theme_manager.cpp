@@ -847,12 +847,17 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		}
 
 		// CheckButton.
+		{
+			// Create a stylebox with widget_bg_color for CheckButton toggle switches.
+			Ref<StyleBoxFlat> check_button_style = p_config.button_style->duplicate();
+			check_button_style->set_bg_color(p_config.widget_bg_color);
 
-		p_theme->set_stylebox(CoreStringName(normal), "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox("hover", "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox("hover_pressed", "CheckButton", p_config.panel_container_style);
+			p_theme->set_stylebox(CoreStringName(normal), "CheckButton", check_button_style);
+			p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", check_button_style);
+			p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
+			p_theme->set_stylebox("hover", "CheckButton", check_button_style);
+			p_theme->set_stylebox("hover_pressed", "CheckButton", check_button_style);
+		}
 
 		p_theme->set_icon("checked", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOn"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("checked_disabled", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOnDisabled"), EditorStringName(EditorIcons)));
@@ -1457,7 +1462,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// HSlider.
 		p_theme->set_icon("grabber_highlight", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
-		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.dark_color_3, 0, background_margin, 0, background_margin, p_config.corner_radius));
+		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.widget_bg_color, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin));
 		p_theme->set_constant("center_grabber", "HSlider", 0);
@@ -1466,7 +1471,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// VSlider.
 		p_theme->set_icon("grabber", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber_highlight", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
-		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.dark_color_3, background_margin, 0, background_margin, 0, p_config.corner_radius));
+		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.widget_bg_color, background_margin, 0, background_margin, 0, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0));
 		p_theme->set_constant("center_grabber", "VSlider", 0);
@@ -1750,6 +1755,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_icon("picker_cursor", "ColorPicker", p_theme->get_icon(SNAME("PickerCursor"), EditorStringName(EditorIcons)));
 
 		// ColorPickerButton.
+		{
+			Ref<StyleBoxFlat> color_picker_button_style = p_config.button_style->duplicate();
+			color_picker_button_style->set_bg_color(p_config.widget_bg_color);
+			p_theme->set_stylebox(CoreStringName(normal), "ColorPickerButton", color_picker_button_style);
+			p_theme->set_stylebox("hover", "ColorPickerButton", p_config.button_style_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "ColorPickerButton", p_config.button_style_pressed);
+			p_theme->set_stylebox("disabled", "ColorPickerButton", p_config.button_style_disabled);
+		}
 		p_theme->set_icon("bg", "ColorPickerButton", p_theme->get_icon(SNAME("GuiMiniCheckerboard"), EditorStringName(EditorIcons)));
 
 		// ColorPresetButton.
