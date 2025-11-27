@@ -6,9 +6,7 @@
 	<description>
 		A rectangle box that displays only a colored border around its rectangle. It is used to visualize the extents of a [Control].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="border_color" type="Color" setter="set_border_color" getter="get_border_color" default="Color(1, 0, 0, 1)">
 			Sets the border color of the [ReferenceRect].
 		</member>

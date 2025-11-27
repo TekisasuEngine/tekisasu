@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_modifiers_mask" qualifiers="const">
 			<return type="int" enum="KeyModifierMask" is_bitfield="true" />
 			<description>

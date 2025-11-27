@@ -9,9 +9,7 @@
 		[b]Note:[/b] Tekisasu Engine uses [CubemapArray]s internally for many effects, including the [Sky] if you set [member ProjectSettings.rendering/reflections/sky_reflections/texture_array_reflections] to [code]true[/code]. To create such a texture file yourself, reimport your image files using the import presets of the File System dock.
 		[b]Note:[/b] [CubemapArray] is not supported in the OpenGL 3 rendering backend.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="create_placeholder" qualifiers="const">
 			<return type="Resource" />
 			<description>

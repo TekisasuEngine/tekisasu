@@ -27,7 +27,7 @@
 		    if (parser.GetNodeType() == XmlParser.NodeType.Element)
 		    {
 		        var nodeName = parser.GetNodeName();
-		        var attributesDict = new Godot.Collections.Dictionary();
+		        var attributesDict = new Tekisasu.Collections.Dictionary();
 		        for (int idx = 0; idx &lt; parser.GetAttributeCount(); idx++)
 		        {
 		            attributesDict[parser.GetAttributeName(idx)] = parser.GetAttributeValue(idx);
@@ -38,9 +38,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_attribute_count" qualifiers="const">
 			<return type="int" />
 			<description>

@@ -5,7 +5,7 @@
 	</brief_description>
 	<description>
 		Controls how blending between source and destination fragments is performed when using [RenderingDevice].
-		For reference, this is how common user-facing blend modes are implemented in Godot's 2D renderer:
+		For reference, this is how common user-facing blend modes are implemented in Tekisasu's 2D renderer:
 		[b]Mix:[/b]
 		[codeblock]
 		var attachment = RDPipelineColorBlendStateAttachment.new()
@@ -62,9 +62,7 @@
 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="set_as_mix">
 			<return type="void" />
 			<description>

@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="_end_frame" qualifiers="virtual">
 			<return type="void" />
 			<description>

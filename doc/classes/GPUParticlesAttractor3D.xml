@@ -9,9 +9,7 @@
 		Attractors can be temporarily disabled by hiding them, or by setting their [member strength] to [code]0.0[/code].
 		[b]Note:[/b] Particle attractors only affect [GPUParticles3D], not [CPUParticles3D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="attenuation" type="float" setter="set_attenuation" getter="get_attenuation" default="1.0">
 			The particle attractor's attenuation. Higher values result in more gradual pushing of particles as they come closer to the attractor's origin. Zero or negative values will cause particles to be pushed very fast as soon as the touch the attractor's edges.
 		</member>

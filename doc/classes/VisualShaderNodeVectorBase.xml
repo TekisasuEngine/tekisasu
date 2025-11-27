@@ -6,9 +6,7 @@
 	<description>
 		This is an abstract class. See the derived types for descriptions of the possible operations.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="op_type" type="int" setter="set_op_type" getter="get_op_type" enum="VisualShaderNodeVectorBase.OpType" default="1">
 			A vector type that this operation is performed on.
 		</member>

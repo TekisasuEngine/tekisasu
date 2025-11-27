@@ -6,9 +6,7 @@
 	<description>
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="cull_mode" type="int" setter="set_cull_mode" getter="get_cull_mode" enum="RenderingDevice.PolygonCullMode" default="0">
 			The cull mode to use when drawing polygons, which determines whether front faces or backfaces are hidden.
 		</member>

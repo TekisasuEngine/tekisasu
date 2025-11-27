@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="TLS certificates">$DOCS_URL/tutorials/networking/ssl_certificates.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="accept_stream">
 			<return type="int" enum="Error" />
 			<param index="0" name="stream" type="StreamPeer" />

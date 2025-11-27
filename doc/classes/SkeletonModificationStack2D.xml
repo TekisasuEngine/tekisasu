@@ -8,9 +8,7 @@
 		This controls the order of the modifications and how they are applied. Modification order is especially important for full-body IK setups, as you need to execute the modifications in the correct order to get the desired results. For example, you want to execute a modification on the spine [i]before[/i] the arms on a humanoid skeleton.
 		This resource also controls how strongly all of the modifications are applied to the [Skeleton2D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_modification">
 			<return type="void" />
 			<param index="0" name="modification" type="SkeletonModification2D" />

@@ -9,9 +9,8 @@
 	</description>
 	<tutorials>
 		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
-		<link title="Operating System Testing Demo">https://godotengine.org/asset-library/asset/2789</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="columns" type="int" setter="set_columns" getter="get_columns" default="1">
 			The number of columns in the [GridContainer]. If modified, [GridContainer] reorders its Control-derived children to accommodate the new layout.
 		</member>

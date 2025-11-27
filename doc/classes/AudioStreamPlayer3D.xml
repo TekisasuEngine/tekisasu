@@ -12,7 +12,7 @@
 	<tutorials>
 		<link title="Audio streams">$DOCS_URL/tutorials/audio/audio_streams.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_playback_position">
 			<return type="float" />
 			<description>

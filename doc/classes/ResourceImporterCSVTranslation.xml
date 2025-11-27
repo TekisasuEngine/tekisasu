@@ -17,7 +17,7 @@
 	<tutorials>
 		<link title="Importing translations">$DOCS_URL/tutorials/assets_pipeline/importing_translations.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="compress" type="bool" setter="" getter="" default="true">
 			If [code]true[/code], creates an [OptimizedTranslation] instead of a [Translation]. This makes the resulting file smaller at the cost of a small CPU overhead.
 		</member>

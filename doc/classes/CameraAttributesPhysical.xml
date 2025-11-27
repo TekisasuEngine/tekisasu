@@ -12,7 +12,7 @@
 	<tutorials>
 		<link title="Physical light and camera units">$DOCS_URL/tutorials/3d/physical_light_and_camera_units.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_fov" qualifiers="const">
 			<return type="float" />
 			<description>

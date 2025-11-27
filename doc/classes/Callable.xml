@@ -63,9 +63,7 @@
 		tween.tween_callback(Callable.create(dictionary, "clear"))
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Callable">
 			<return type="Callable" />
 			<description>

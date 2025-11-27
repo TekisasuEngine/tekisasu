@@ -6,9 +6,7 @@
 	<description>
 		A physics joint that restricts the movement of a 3D physics body along an axis relative to another physics body. For example, Body A could be a [StaticBody3D] representing a piston base, while Body B could be a [RigidBody3D] representing the piston head, moving up and down.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_param" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="param" type="int" enum="SliderJoint3D.Param" />

@@ -8,9 +8,8 @@
 	</description>
 	<tutorials>
 		<link title="Custom drawing in 2D">$DOCS_URL/tutorials/2d/custom_drawing_in_2d.html</link>
-		<link title="All 2D Demos">https://github.com/godotengine/godot-demo-projects/tree/master/2d</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="apply_scale">
 			<return type="void" />
 			<param index="0" name="ratio" type="Vector2" />
@@ -124,7 +123,7 @@
 		</member>
 		<member name="scale" type="Vector2" setter="set_scale" getter="get_scale" default="Vector2(1, 1)">
 			The node's scale. Unscaled value: [code](1, 1)[/code].
-			[b]Note:[/b] Negative X scales in 2D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Godot, negative scales on the X axis will be changed to negative scales on the Y axis and a rotation of 180 degrees when decomposed.
+			[b]Note:[/b] Negative X scales in 2D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Tekisasu, negative scales on the X axis will be changed to negative scales on the Y axis and a rotation of 180 degrees when decomposed.
 		</member>
 		<member name="skew" type="float" setter="set_skew" getter="get_skew" default="0.0">
 			Slants the node.

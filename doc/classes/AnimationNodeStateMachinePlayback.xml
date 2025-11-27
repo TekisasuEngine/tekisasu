@@ -20,7 +20,7 @@
 	<tutorials>
 		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_current_length" qualifiers="const">
 			<return type="float" />
 			<description>

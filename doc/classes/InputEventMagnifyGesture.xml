@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="factor" type="float" setter="set_factor" getter="get_factor" default="1.0">
 			The amount (or delta) of the event. This value is closer to [code]1.0[/code] the slower the gesture is performed.
 		</member>

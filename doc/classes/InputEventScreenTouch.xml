@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="canceled" type="bool" setter="set_canceled" getter="is_canceled" default="false">
 			If [code]true[/code], the touch event has been canceled.
 		</member>

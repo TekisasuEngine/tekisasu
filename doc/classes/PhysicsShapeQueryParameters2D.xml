@@ -6,9 +6,7 @@
 	<description>
 		By changing various properties of this object, such as the shape, you can configure the parameters for [method PhysicsDirectSpaceState2D.intersect_shape].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="collide_with_areas" type="bool" setter="set_collide_with_areas" getter="is_collide_with_areas_enabled" default="false">
 			If [code]true[/code], the query will take [Area2D]s into account.
 		</member>

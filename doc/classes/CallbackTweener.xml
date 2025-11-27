@@ -8,9 +8,7 @@
 		The tweener will finish automatically if the callback's target object is freed.
 		[b]Note:[/b] [method Tween.tween_callback] is the only correct way to create [CallbackTweener]. Any [CallbackTweener] created manually will not function correctly.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="set_delay">
 			<return type="CallbackTweener" />
 			<param index="0" name="delay" type="float" />

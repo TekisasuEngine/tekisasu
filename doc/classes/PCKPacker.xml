@@ -21,9 +21,7 @@
 		[/codeblocks]
 		The above [PCKPacker] creates package [code]test.pck[/code], then adds a file named [code]text.txt[/code] at the root of the package.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_file">
 			<return type="int" enum="Error" />
 			<param index="0" name="pck_path" type="String" />

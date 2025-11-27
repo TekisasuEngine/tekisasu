@@ -6,9 +6,7 @@
 	<description>
 		This configuration object is created and populated by the render engine on a viewport change and used to (re)configure a [RenderSceneBuffers] object.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="fsr_sharpness" type="float" setter="set_fsr_sharpness" getter="get_fsr_sharpness" default="0.0">
 			FSR Sharpness applicable if FSR upscaling is used.
 		</member>

@@ -25,7 +25,7 @@
 
 		[/gdscript]
 		[csharp]
-		using Godot;
+		using Tekisasu;
 		using System.Diagnostics;
 
 		public partial class MyNode : Node
@@ -50,9 +50,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="finish">
 			<return type="PackedByteArray" />
 			<description>

@@ -6,9 +6,7 @@
 	<description>
 		Creating a reference to a [VisualShaderNodeParameter] allows you to reuse this parameter in different shaders or shader stages easily.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="parameter_name" type="String" setter="set_parameter_name" getter="get_parameter_name" default="&quot;[None]&quot;">
 			The name of the parameter which this reference points to.
 		</member>

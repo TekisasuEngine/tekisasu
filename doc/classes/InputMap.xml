@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using InputEvent: InputMap">$DOCS_URL/tutorials/inputs/inputevent.html#inputmap</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="action_add_event">
 			<return type="void" />
 			<param index="0" name="action" type="StringName" />

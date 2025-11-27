@@ -19,9 +19,7 @@
 		[/gdscript]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="client" qualifiers="static">
 			<return type="TLSOptions" />
 			<param index="0" name="trusted_chain" type="X509Certificate" default="null" />

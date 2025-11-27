@@ -13,11 +13,8 @@
 		<link title="Math documentation index">$DOCS_URL/tutorials/math/index.html</link>
 		<link title="Vector math">$DOCS_URL/tutorials/math/vector_math.html</link>
 		<link title="Advanced vector math">$DOCS_URL/tutorials/math/vectors_advanced.html</link>
-		<link title="3Blue1Brown Essence of Linear Algebra">https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab</link>
-		<link title="Matrix Transform Demo">https://godotengine.org/asset-library/asset/2787</link>
-		<link title="All 2D Demos">https://github.com/godotengine/godot-demo-projects/tree/master/2d</link>
 	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Vector2">
 			<return type="Vector2" />
 			<description>
@@ -361,7 +358,7 @@
 			<param index="0" name="line" type="Vector2" />
 			<description>
 				Returns the result of reflecting the vector from a line defined by the given direction vector [param line].
-				[b]Note:[/b] [method reflect] differs from what other engines and frameworks call [code skip-lint]reflect()[/code]. In other engines, [code skip-lint]reflect()[/code] takes a normal direction which is a direction perpendicular to the line. In Godot, you specify the direction of the line directly. See also [method bounce] which does what most engines call [code skip-lint]reflect()[/code].
+				[b]Note:[/b] [method reflect] differs from what other engines and frameworks call [code skip-lint]reflect()[/code]. In other engines, [code skip-lint]reflect()[/code] takes a normal direction which is a direction perpendicular to the line. In Tekisasu, you specify the direction of the line directly. See also [method bounce] which does what most engines call [code skip-lint]reflect()[/code].
 			</description>
 		</method>
 		<method name="rotated" qualifiers="const">

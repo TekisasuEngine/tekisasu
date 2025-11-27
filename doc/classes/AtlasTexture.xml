@@ -8,9 +8,7 @@
 		Multiple [AtlasTexture] resources can be cropped from the same [member atlas]. Packing many smaller textures into a singular large texture helps to optimize video memory costs and render calls.
 		[b]Note:[/b] [AtlasTexture] cannot be used in an [AnimatedTexture], and may not tile properly in nodes such as [TextureRect], when inside other [AtlasTexture] resources.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="atlas" type="Texture2D" setter="set_atlas" getter="get_atlas">
 			The texture that contains the atlas. Can be any type inheriting from [Texture2D], including another [AtlasTexture].
 		</member>

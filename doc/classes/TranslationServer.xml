@@ -10,7 +10,7 @@
 		<link title="Internationalizing games">$DOCS_URL/tutorials/i18n/internationalizing_games.html</link>
 		<link title="Locales">$DOCS_URL/tutorials/i18n/locales.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_translation">
 			<return type="void" />
 			<param index="0" name="translation" type="Translation" />

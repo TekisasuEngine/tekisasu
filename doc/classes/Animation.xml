@@ -33,7 +33,7 @@
 	<tutorials>
 		<link title="Animation documentation index">$DOCS_URL/tutorials/animation/index.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_track">
 			<return type="int" />
 			<param index="0" name="type" type="int" enum="Animation.TrackType" />

@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="ensure_control_visible">
 			<return type="void" />
 			<param index="0" name="control" type="Control" />

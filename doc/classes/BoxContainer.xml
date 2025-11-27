@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_spacer">
 			<return type="Control" />
 			<param index="0" name="begin" type="bool" />

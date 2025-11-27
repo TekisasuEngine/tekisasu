@@ -8,11 +8,8 @@
 	</description>
 	<tutorials>
 		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
-		<link title="Audio Device Changer Demo">https://godotengine.org/asset-library/asset/2758</link>
-		<link title="Audio Microphone Record Demo">https://godotengine.org/asset-library/asset/2760</link>
-		<link title="Audio Spectrum Visualizer Demo">https://godotengine.org/asset-library/asset/2762</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_bus">
 			<return type="void" />
 			<param index="0" name="at_position" type="int" default="-1" />

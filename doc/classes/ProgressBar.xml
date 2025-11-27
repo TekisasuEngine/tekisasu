@@ -6,9 +6,7 @@
 	<description>
 		A control used for visual representation of a percentage. Shows fill percentage from right to left.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="editor_preview_indeterminate" type="bool" setter="set_editor_preview_indeterminate" getter="is_editor_preview_indeterminate_enabled">
 			If [code]false[/code], the [member indeterminate] animation will be paused in the editor.
 		</member>

@@ -8,11 +8,9 @@
 		Data is set on a per-layer basis. For [Texture2DArray]s, the layer specifies the array layer.
 		All images need to have the same width, height and number of mipmap levels.
 		A [TextureLayered] can be loaded with [method ResourceLoader.load].
-		Internally, Godot maps these files to their respective counterparts in the target rendering driver (Vulkan, OpenGL3).
+		Internally, Tekisasu maps these files to their respective counterparts in the target rendering driver (Vulkan, OpenGL3).
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_format" qualifiers="virtual const">
 			<return type="int" enum="Image.Format" />
 			<description>

@@ -4,9 +4,7 @@
 	</brief_description>
 	<description>
 	</description>
-	<tutorials>
-	</tutorials>
-	<constants>
+<constants>
 		<constant name="SCRIPT_NAME_CASING_AUTO" value="0" enum="ScriptNameCasing">
 		</constant>
 		<constant name="SCRIPT_NAME_CASING_PASCAL_CASE" value="1" enum="ScriptNameCasing">

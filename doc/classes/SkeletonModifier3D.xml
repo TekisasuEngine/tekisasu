@@ -8,10 +8,7 @@
 		If there is [AnimationMixer], modification always performs after playback process of the [AnimationMixer].
 		This node should be used to implement custom IK solvers, constraints, or skeleton physics.
 	</description>
-	<tutorials>
-		<link title="Design of the Skeleton Modifier 3D">https://godotengine.org/article/design-of-the-skeleton-modifier-3d/</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_process_modification" qualifiers="virtual">
 			<return type="void" />
 			<description>

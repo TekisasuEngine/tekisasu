@@ -10,7 +10,7 @@
 		<link title="Internationalizing games">$DOCS_URL/tutorials/i18n/internationalizing_games.html</link>
 		<link title="Locales">$DOCS_URL/tutorials/i18n/locales.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_message" qualifiers="virtual const">
 			<return type="StringName" />
 			<param index="0" name="src_message" type="StringName" />

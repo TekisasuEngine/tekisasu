@@ -6,9 +6,7 @@
 	<description>
 		A virtual class, use the descendants instead.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="source" type="int" setter="set_source" getter="get_source" enum="VisualShaderNodeSample3D.Source" default="0">
 			An input source type.
 		</member>

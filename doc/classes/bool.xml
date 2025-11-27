@@ -45,9 +45,7 @@
 		[b]Note:[/b] In modern programming languages, logical operators are evaluated in order. All remaining conditions are skipped if their result would have no effect on the final value. This concept is known as [url=https://en.wikipedia.org/wiki/Short-circuit_evaluation]short-circuit evaluation[/url] and can be useful to avoid evaluating expensive conditions in some performance-critical cases.
 		[b]Note:[/b] By convention, built-in methods and properties that return booleans are usually defined as yes-no questions, single adjectives, or similar ([method String.is_empty], [method Node.can_process], [member Camera2D.enabled], etc.).
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="bool">
 			<return type="bool" />
 			<description>

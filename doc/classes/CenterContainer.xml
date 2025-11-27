@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="use_top_left" type="bool" setter="set_use_top_left" getter="is_using_top_left" default="false">
 			If [code]true[/code], centers children relative to the [CenterContainer]'s top left corner.
 		</member>

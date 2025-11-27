@@ -6,9 +6,7 @@
 	<description>
 		External [TextServer] implementations should inherit from this class.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_cleanup" qualifiers="virtual">
 			<return type="void" />
 			<description>

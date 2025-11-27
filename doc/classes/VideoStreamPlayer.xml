@@ -11,12 +11,12 @@
 	<tutorials>
 		<link title="Playing videos">$DOCS_URL/tutorials/animation/playing_videos.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_stream_length" qualifiers="const">
 			<return type="float" />
 			<description>
 				The length of the current stream, in seconds.
-				[b]Note:[/b] For [VideoStreamTheora] streams (the built-in format supported by Godot), this value will always be zero, as getting the stream length is not implemented yet. The feature may be supported by video formats implemented by a GDExtension add-on.
+				[b]Note:[/b] For [VideoStreamTheora] streams (the built-in format supported by Tekisasu), this value will always be zero, as getting the stream length is not implemented yet. The feature may be supported by video formats implemented by a GDExtension add-on.
 			</description>
 		</method>
 		<method name="get_stream_name" qualifiers="const">

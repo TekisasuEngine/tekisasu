@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="2D lights and shadows">$DOCS_URL/tutorials/2d/2d_lights_and_shadows.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="occluder" type="OccluderPolygon2D" setter="set_occluder_polygon" getter="get_occluder_polygon">
 			The [OccluderPolygon2D] used to compute the shadow.
 		</member>

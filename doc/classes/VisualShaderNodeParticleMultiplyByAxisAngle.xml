@@ -6,9 +6,7 @@
 	<description>
 		This node helps to multiply a position input vector by rotation using specific axis. Intended to work with emitters.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="degrees_mode" type="bool" setter="set_degrees_mode" getter="is_degrees_mode" default="true">
 			If [code]true[/code], the angle will be interpreted in degrees instead of radians.
 		</member>

@@ -10,9 +10,7 @@
 		For portable, self contained 3D textures that work on both desktop and mobile, Basis Universal is recommended (although it has a small quality cost and longer compression time as a tradeoff).
 		This resource is intended to be created from code.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="create_from_image">
 			<return type="void" />
 			<param index="0" name="image" type="Image" />

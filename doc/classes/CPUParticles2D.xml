@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Particle systems (2D)">$DOCS_URL/tutorials/2d/particle_systems_2d.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="convert_from_particles">
 			<return type="void" />
 			<param index="0" name="particles" type="Node" />

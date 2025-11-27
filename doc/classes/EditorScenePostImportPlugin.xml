@@ -6,9 +6,7 @@
 	<description>
 		This plugin type exists to modify the process of importing scenes, allowing to change the content as well as add importer options at every stage of the process.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_import_options" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="path" type="String" />

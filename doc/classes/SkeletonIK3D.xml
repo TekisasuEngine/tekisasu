@@ -25,9 +25,7 @@
 		skeleton_ik_node.set_influence(0.0)
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_parent_skeleton" qualifiers="const">
 			<return type="Skeleton3D" />
 			<description>

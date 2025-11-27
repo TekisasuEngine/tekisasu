@@ -8,9 +8,7 @@
 		A low-level resource may correspond to a high-level [Resource], such as [Texture] or [Mesh].
 		[b]Note:[/b] RIDs are only useful during the current session. It won't correspond to a similar resource if sent over a network, or loaded from a file at a later time.
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="RID">
 			<return type="RID" />
 			<description>

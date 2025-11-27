@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="2D Lights and Shadows">$DOCS_URL/tutorials/2d/2d_lights_and_shadows.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="diffuse_texture" type="Texture2D" setter="set_diffuse_texture" getter="get_diffuse_texture">
 			The diffuse (color) texture to use. This is the main texture you want to set in most cases.
 		</member>

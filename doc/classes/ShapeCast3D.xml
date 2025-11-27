@@ -8,9 +8,7 @@
 		Immediate collision overlaps can be done with the [member target_position] set to [code]Vector3(0, 0, 0)[/code] and by calling [method force_shapecast_update] within the same physics frame. This helps to overcome some limitations of [Area3D] when used as an instantaneous detection area, as collision information isn't immediately available to it.
 		[b]Note:[/b] Shape casting is more computationally expensive than ray casting.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_exception">
 			<return type="void" />
 			<param index="0" name="node" type="CollisionObject3D" />

@@ -14,7 +14,7 @@
 		<link title="Using multiple threads">$DOCS_URL/tutorials/performance/using_multiple_threads.html</link>
 		<link title="Thread-safe APIs">$DOCS_URL/tutorials/performance/thread_safe_apis.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="post">
 			<return type="void" />
 			<description>

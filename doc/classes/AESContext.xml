@@ -38,7 +38,7 @@
 		    assert(decrypted == data.to_utf8_buffer())
 		[/gdscript]
 		[csharp]
-		using Godot;
+		using Tekisasu;
 		using System.Diagnostics;
 
 		public partial class MyNode : Node
@@ -76,9 +76,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="finish">
 			<return type="void" />
 			<description>

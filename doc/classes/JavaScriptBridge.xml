@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Exporting for the Web: Calling JavaScript from script">$DOCS_URL/tutorials/export/exporting_for_web.html#calling-javascript-from-script</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="create_callback">
 			<return type="JavaScriptObject" />
 			<param index="0" name="callable" type="Callable" />

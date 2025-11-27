@@ -15,9 +15,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_cancel_button">
 			<return type="Button" />
 			<description>

@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="axis" type="int" setter="set_axis" getter="get_axis" enum="JoyAxis" default="0">
 			Axis identifier. Use one of the [enum JoyAxis] axis constants.
 		</member>

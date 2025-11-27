@@ -6,9 +6,7 @@
 	<description>
 		Translated to [code]texture(cubemap, vec3)[/code] in the shader language. Returns a color vector and alpha channel as scalar.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="cube_map" type="Cubemap" setter="set_cube_map" getter="get_cube_map">
 			The [Cubemap] texture to sample when using [constant SOURCE_TEXTURE] as [member source].
 		</member>

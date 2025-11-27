@@ -6,9 +6,7 @@
 	<description>
 		Abstract base class for scrollbars, typically used to navigate through content that extends beyond the visible area of a control. Scrollbars are [Range]-based controls.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="custom_step" type="float" setter="set_custom_step" getter="get_custom_step" default="-1.0">
 			Overrides the step used when clicking increment and decrement buttons or when using arrow keys when the [ScrollBar] is focused.
 		</member>

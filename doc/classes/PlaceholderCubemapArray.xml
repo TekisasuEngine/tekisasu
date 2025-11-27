@@ -9,6 +9,4 @@
 		- When the [CubemapArray]-derived class is missing, for example when using a different engine version.
 		[b]Note:[/b] This class is not intended for rendering or for use in shaders. Operations like calculating UV are not guaranteed to work.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

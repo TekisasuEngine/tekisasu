@@ -10,7 +10,7 @@
 		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
 		<link title="Ray-casting">$DOCS_URL/tutorials/physics/ray-casting.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="cast_motion">
 			<return type="PackedFloat32Array" />
 			<param index="0" name="parameters" type="PhysicsShapeQueryParameters2D" />

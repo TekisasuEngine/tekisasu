@@ -6,9 +6,7 @@
 	<description>
 		Abstract base class for all joints in 2D physics. 2D joints bind together two physics bodies ([member node_a] and [member node_b]) and apply a constraint.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_rid" qualifiers="const">
 			<return type="RID" />
 			<description>

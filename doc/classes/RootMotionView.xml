@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Using AnimationTree - Root motion">$DOCS_URL/tutorials/animation/animation_tree.html#root-motion</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="animation_path" type="NodePath" setter="set_animation_path" getter="get_animation_path" default="NodePath(&quot;&quot;)">
 			Path to an [AnimationMixer] node to use as a basis for root motion.
 		</member>

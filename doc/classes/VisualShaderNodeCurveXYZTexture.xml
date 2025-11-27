@@ -6,9 +6,7 @@
 	<description>
 		Comes with a built-in editor for texture's curves.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="texture" type="CurveXYZTexture" setter="set_texture" getter="get_texture">
 			The source texture.
 		</member>

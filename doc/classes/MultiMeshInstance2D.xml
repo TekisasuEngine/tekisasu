@@ -7,9 +7,7 @@
 		[MultiMeshInstance2D] is a specialized node to instance a [MultiMesh] resource in 2D.
 		Usage is the same as [MultiMeshInstance3D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="multimesh" type="MultiMesh" setter="set_multimesh" getter="get_multimesh">
 			The [MultiMesh] that will be drawn by the [MultiMeshInstance2D].
 		</member>

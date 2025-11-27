@@ -38,7 +38,7 @@
 		assert(data.to_utf8_buffer() == decrypted)
 		[/gdscript]
 		[csharp]
-		using Godot;
+		using Tekisasu;
 		using System.Diagnostics;
 
 		Crypto crypto = new Crypto();
@@ -72,9 +72,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="constant_time_compare">
 			<return type="bool" />
 			<param index="0" name="trusted" type="PackedByteArray" />

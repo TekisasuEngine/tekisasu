@@ -12,7 +12,7 @@
 	<tutorials>
 		<link title="Ray-casting">$DOCS_URL/tutorials/physics/ray-casting.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_exception">
 			<return type="void" />
 			<param index="0" name="node" type="CollisionObject2D" />

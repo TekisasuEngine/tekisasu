@@ -19,7 +19,7 @@
 		<link title="HTTP client class">$DOCS_URL/tutorials/networking/http_client_class.html</link>
 		<link title="TLS certificates">$DOCS_URL/tutorials/networking/ssl_certificates.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="close">
 			<return type="void" />
 			<description>
@@ -105,7 +105,7 @@
 				# Returns "username=user&amp;password=pass"
 				[/gdscript]
 				[csharp]
-				var fields = new Godot.Collections.Dictionary { { "username", "user" }, { "password", "pass" } };
+				var fields = new Tekisasu.Collections.Dictionary { { "username", "user" }, { "password", "pass" } };
 				string queryString = httpClient.QueryStringFromDict(fields);
 				// Returns "username=user&amp;password=pass"
 				[/csharp]
@@ -118,11 +118,11 @@
 				# Returns "single=123&amp;not_valued&amp;multiple=22&amp;multiple=33&amp;multiple=44"
 				[/gdscript]
 				[csharp]
-				var fields = new Godot.Collections.Dictionary
+				var fields = new Tekisasu.Collections.Dictionary
 				{
 				    { "single", 123 },
 				    { "notValued", default },
-				    { "multiple", new Godot.Collections.Array { 22, 33, 44 } },
+				    { "multiple", new Tekisasu.Collections.Array { 22, 33, 44 } },
 				};
 				string queryString = httpClient.QueryStringFromDict(fields);
 				// Returns "single=123&amp;not_valued&amp;multiple=22&amp;multiple=33&amp;multiple=44"
@@ -155,7 +155,7 @@
 				var result = http_client.request(http_client.METHOD_POST, "/index.php", headers, query_string)
 				[/gdscript]
 				[csharp]
-				var fields = new Godot.Collections.Dictionary { { "username", "user" }, { "password", "pass" } };
+				var fields = new Tekisasu.Collections.Dictionary { { "username", "user" }, { "password", "pass" } };
 				string queryString = new HttpClient().QueryStringFromDict(fields);
 				string[] headers = { "Content-Type: application/x-www-form-urlencoded", $"Content-Length: {queryString.Length}" };
 				var result = new HttpClient().Request(HttpClient.Method.Post, "index.php", headers, queryString);

@@ -6,9 +6,7 @@
 	<description>
 		Base class for all primitive meshes. Handles applying a [Material] to a primitive mesh. Examples include [BoxMesh], [CapsuleMesh], [CylinderMesh], [PlaneMesh], [PrismMesh], and [SphereMesh].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_create_mesh_array" qualifiers="virtual const">
 			<return type="Array" />
 			<description>

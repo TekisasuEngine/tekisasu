@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_blend_shape" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="blend_shape" type="int" enum="XRFaceTracker.BlendShapeEntry" />

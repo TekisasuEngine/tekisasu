@@ -8,9 +8,7 @@
 		For purely linear transformations (translation, rotation, and scale), it is recommended to use [Transform3D], as it is more performant and requires less memory.
 		Used internally as [Camera3D]'s projection matrix.
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Projection">
 			<return type="Projection" />
 			<description>
@@ -308,7 +306,7 @@
 			<param index="0" name="right" type="Projection" />
 			<description>
 				Returns [code]true[/code] if the projections are not equal.
-				[b]Note:[/b] Due to floating-point precision errors, this may return [code]true[/code], even if the projections are virtually equal. An [code]is_equal_approx[/code] method may be added in a future version of Godot.
+				[b]Note:[/b] Due to floating-point precision errors, this may return [code]true[/code], even if the projections are virtually equal. An [code]is_equal_approx[/code] method may be added in a future version of Tekisasu.
 			</description>
 		</operator>
 		<operator name="operator *">
@@ -330,7 +328,7 @@
 			<param index="0" name="right" type="Projection" />
 			<description>
 				Returns [code]true[/code] if the projections are equal.
-				[b]Note:[/b] Due to floating-point precision errors, this may return [code]false[/code], even if the projections are virtually equal. An [code]is_equal_approx[/code] method may be added in a future version of Godot.
+				[b]Note:[/b] Due to floating-point precision errors, this may return [code]false[/code], even if the projections are virtually equal. An [code]is_equal_approx[/code] method may be added in a future version of Tekisasu.
 			</description>
 		</operator>
 		<operator name="operator []">

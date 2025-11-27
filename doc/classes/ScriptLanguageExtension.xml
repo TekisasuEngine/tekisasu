@@ -4,9 +4,7 @@
 	</brief_description>
 	<description>
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_add_global_constant" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="name" type="StringName" />

@@ -6,9 +6,7 @@
 	<description>
 		Randomness node will output pseudo-random values of the given type based on the specified minimum and maximum values.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="op_type" type="int" setter="set_op_type" getter="get_op_type" enum="VisualShaderNodeParticleRandomness.OpType" default="0">
 			A type of operands and returned value.
 		</member>

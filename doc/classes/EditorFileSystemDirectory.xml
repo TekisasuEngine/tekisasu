@@ -6,9 +6,7 @@
 	<description>
 		A more generalized, low-level variation of the directory concept.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="find_dir_index" qualifiers="const">
 			<return type="int" />
 			<param index="0" name="name" type="String" />

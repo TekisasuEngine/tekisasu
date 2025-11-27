@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_voice_cutoff_hz" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="voice_idx" type="int" />

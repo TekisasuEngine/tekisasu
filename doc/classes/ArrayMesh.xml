@@ -34,7 +34,7 @@
 
 		// Initialize the ArrayMesh.
 		var arrMesh = new ArrayMesh();
-		var arrays = new Godot.Collections.Array();
+		var arrays = new Tekisasu.Collections.Array();
 		arrays.Resize((int)Mesh.ArrayType.Max);
 		arrays[(int)Mesh.ArrayType.Vertex] = vertices;
 
@@ -51,7 +51,7 @@
 	<tutorials>
 		<link title="Procedural geometry using the ArrayMesh">$DOCS_URL/tutorials/3d/procedural_geometry/arraymesh.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_blend_shape">
 			<return type="void" />
 			<param index="0" name="name" type="StringName" />

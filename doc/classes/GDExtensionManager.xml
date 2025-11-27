@@ -11,7 +11,7 @@
 		<link title="GDExtension overview">$DOCS_URL/tutorials/scripting/gdextension/what_is_gdextension.html</link>
 		<link title="GDExtension example in C++">$DOCS_URL/tutorials/scripting/gdextension/gdextension_cpp_example.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_extension">
 			<return type="GDExtension" />
 			<param index="0" name="path" type="String" />

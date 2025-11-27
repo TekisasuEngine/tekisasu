@@ -12,7 +12,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="current" type="bool" setter="set_current" getter="is_current" default="false">
 			If [code]true[/code], this origin node is currently being used by the [XRServer]. Only one origin point can be used at a time.
 		</member>

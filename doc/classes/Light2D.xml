@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="2D lights and shadows">$DOCS_URL/tutorials/2d/2d_lights_and_shadows.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_height" qualifiers="const">
 			<return type="float" />
 			<description>

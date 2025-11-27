@@ -27,9 +27,7 @@
 		# 6
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="size" qualifiers="const">
 			<return type="int" />
 			<description>

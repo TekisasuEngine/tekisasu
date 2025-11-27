@@ -6,9 +6,7 @@
 	<description>
 		Base editor for editing scripts in the [ScriptEditor]. This does not include documentation items.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_syntax_highlighter">
 			<return type="void" />
 			<param index="0" name="highlighter" type="EditorSyntaxHighlighter" />

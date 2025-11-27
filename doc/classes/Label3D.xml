@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="3D text">$DOCS_URL/tutorials/3d/3d_text.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="generate_triangle_mesh" qualifiers="const">
 			<return type="TriangleMesh" />
 			<description>

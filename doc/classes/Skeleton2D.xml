@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="2D skeletons">$DOCS_URL/tutorials/animation/2d_skeletons.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="execute_modifications">
 			<return type="void" />
 			<param index="0" name="delta" type="float" />

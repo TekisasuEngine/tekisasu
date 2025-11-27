@@ -8,10 +8,7 @@
 		The overall transform of a bone with respect to the skeleton is determined by bone pose. Bone rest defines the initial transform of the bone pose.
 		Note that "global pose" below refers to the overall transform of the bone with respect to skeleton, so it is not the actual global/world transform of the bone.
 	</description>
-	<tutorials>
-		<link title="Third Person Shooter (TPS) Demo">https://godotengine.org/asset-library/asset/2710</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_bone">
 			<return type="int" />
 			<param index="0" name="name" type="String" />

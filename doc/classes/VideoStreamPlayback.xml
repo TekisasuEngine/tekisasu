@@ -6,9 +6,7 @@
 	<description>
 		This class is intended to be overridden by video decoder extensions with custom implementations of [VideoStream].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_channels" qualifiers="virtual const">
 			<return type="int" />
 			<description>

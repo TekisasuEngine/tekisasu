@@ -6,9 +6,7 @@
 	<description>
 		This node is only available in [code]Fragment[/code] and [code]Light[/code] visual shaders.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="function" type="int" setter="set_function" getter="get_function" enum="VisualShaderNodeDerivativeFunc.Function" default="0">
 			A derivative function type. See [enum Function] for options.
 		</member>

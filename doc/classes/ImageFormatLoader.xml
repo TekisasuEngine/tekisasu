@@ -6,9 +6,7 @@
 	<description>
 		The engine supports multiple image formats out of the box (PNG, SVG, JPEG, WebP to name a few), but you can choose to implement support for additional image formats by extending [ImageFormatLoaderExtension].
 	</description>
-	<tutorials>
-	</tutorials>
-	<constants>
+<constants>
 		<constant name="FLAG_NONE" value="0" enum="LoaderFlags" is_bitfield="true">
 		</constant>
 		<constant name="FLAG_FORCE_LINEAR" value="1" enum="LoaderFlags" is_bitfield="true">

@@ -15,9 +15,8 @@
 	</description>
 	<tutorials>
 		<link title="Using NavigationServer">$DOCS_URL/tutorials/navigation/navigation_using_navigationservers.html</link>
-		<link title="3D Navigation Demo">https://godotengine.org/asset-library/asset/2743</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="agent_create">
 			<return type="RID" />
 			<description>

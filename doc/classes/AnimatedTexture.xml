@@ -10,9 +10,7 @@
 		[b]Note:[/b] AnimatedTexture doesn't support using [AtlasTexture]s. Each frame needs to be a separate [Texture2D].
 		[b]Warning:[/b] The current implementation is not efficient for the modern renderers.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_frame_duration" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="frame" type="int" />

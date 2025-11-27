@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="Scripting documentation index">$DOCS_URL/tutorials/scripting/index.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="can_instantiate" qualifiers="const">
 			<return type="bool" />
 			<description>
@@ -35,7 +35,7 @@
 				extends Node
 				[/gdscript]
 				[csharp]
-				using Godot;
+				using Tekisasu;
 
 				[GlobalClass]
 				public partial class MyNode : Node

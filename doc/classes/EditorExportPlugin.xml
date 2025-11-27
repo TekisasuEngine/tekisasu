@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Export Android plugins">$DOCS_URL/tutorials/platform/android/android_plugin.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="_begin_customize_resources" qualifiers="virtual const">
 			<return type="bool" />
 			<param index="0" name="platform" type="EditorExportPlatform" />
@@ -91,7 +91,7 @@
 			<param index="0" name="platform" type="EditorExportPlatform" />
 			<param index="1" name="debug" type="bool" />
 			<description>
-				Virtual method to be overridden by the user. This is called to retrieve the set of Android dependencies provided by this plugin. Each returned Android dependency should have the format of an Android remote binary dependency: [code]org.godot.example:my-plugin:0.0.0[/code]
+				Virtual method to be overridden by the user. This is called to retrieve the set of Android dependencies provided by this plugin. Each returned Android dependency should have the format of an Android remote binary dependency: [code]org.tekisasu.example:my-plugin:0.0.0[/code]
 				For more information see [url=https://developer.android.com/build/dependencies?agpversion=4.1#dependency-types]Android documentation on dependencies[/url].
 				[b]Note:[/b] Only supported on Android and requires [member EditorExportPlatformAndroid.gradle_build/use_gradle_build] to be enabled.
 			</description>

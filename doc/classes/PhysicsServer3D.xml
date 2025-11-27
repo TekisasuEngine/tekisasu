@@ -13,9 +13,7 @@
 		Physics objects in [PhysicsServer3D] may be created and manipulated independently; they do not have to be tied to nodes in the scene tree.
 		[b]Note:[/b] All the 3D physics nodes use the physics server internally. Adding a physics node to the scene tree will cause a corresponding physics object to be created in the physics server. A rigid body node registers a callback that updates the node's transform with the transform of the respective body object in the physics server (every physics update). An area node registers a callback to inform the area node about overlaps with the respective area object in the physics server. The raycast node queries the direct state of the relevant space in the physics server.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="area_add_shape">
 			<return type="void" />
 			<param index="0" name="area" type="RID" />
@@ -1006,7 +1004,7 @@
 			<param index="0" name="shape" type="RID" />
 			<description>
 				Returns the collision margin for the shape.
-				[b]Note:[/b] This is not used in Godot Physics, so will always return [code]0[/code].
+				[b]Note:[/b] This is not used in Tekisasu Physics, so will always return [code]0[/code].
 			</description>
 		</method>
 		<method name="shape_get_type" qualifiers="const">
@@ -1030,7 +1028,7 @@
 			<param index="1" name="margin" type="float" />
 			<description>
 				Sets the collision margin for the shape.
-				[b]Note:[/b] This is not used in Godot Physics.
+				[b]Note:[/b] This is not used in Tekisasu Physics.
 			</description>
 		</method>
 		<method name="slider_joint_get_param" qualifiers="const">
@@ -1141,7 +1139,7 @@
 			<param index="1" name="state" type="int" enum="PhysicsServer3D.BodyState" />
 			<description>
 				Returns the given soft body state (see [enum BodyState] constants).
-				[b]Note:[/b] Godot's default physics implementation does not support [constant BODY_STATE_LINEAR_VELOCITY], [constant BODY_STATE_ANGULAR_VELOCITY], [constant BODY_STATE_SLEEPING], or [constant BODY_STATE_CAN_SLEEP].
+				[b]Note:[/b] Tekisasu's default physics implementation does not support [constant BODY_STATE_LINEAR_VELOCITY], [constant BODY_STATE_ANGULAR_VELOCITY], [constant BODY_STATE_SLEEPING], or [constant BODY_STATE_CAN_SLEEP].
 			</description>
 		</method>
 		<method name="soft_body_get_total_mass" qualifiers="const">
@@ -1223,7 +1221,7 @@
 			<param index="1" name="drag_coefficient" type="float" />
 			<description>
 				Sets the drag coefficient of the given soft body. Higher values increase this body's air resistance.
-				[b]Note:[/b] This value is currently unused by Godot's default physics implementation.
+				[b]Note:[/b] This value is currently unused by Tekisasu's default physics implementation.
 			</description>
 		</method>
 		<method name="soft_body_set_linear_stiffness">
@@ -1281,7 +1279,7 @@
 			<param index="2" name="variant" type="Variant" />
 			<description>
 				Sets the given body state for the given body (see [enum BodyState] constants).
-				[b]Note:[/b] Godot's default physics implementation does not support [constant BODY_STATE_LINEAR_VELOCITY], [constant BODY_STATE_ANGULAR_VELOCITY], [constant BODY_STATE_SLEEPING], or [constant BODY_STATE_CAN_SLEEP].
+				[b]Note:[/b] Tekisasu's default physics implementation does not support [constant BODY_STATE_LINEAR_VELOCITY], [constant BODY_STATE_ANGULAR_VELOCITY], [constant BODY_STATE_SLEEPING], or [constant BODY_STATE_CAN_SLEEP].
 			</description>
 		</method>
 		<method name="soft_body_set_total_mass">

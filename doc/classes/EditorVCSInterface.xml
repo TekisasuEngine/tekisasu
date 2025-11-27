@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Version control systems">$DOCS_URL/tutorials/best_practices/version_control_systems.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="_checkout_branch" qualifiers="virtual">
 			<return type="bool" />
 			<param index="0" name="branch_name" type="String" />

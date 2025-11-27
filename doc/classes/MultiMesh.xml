@@ -16,7 +16,7 @@
 		<link title="Optimization using MultiMeshes">$DOCS_URL/tutorials/performance/using_multimesh.html</link>
 		<link title="Animating thousands of fish with MultiMeshInstance">$DOCS_URL/tutorials/performance/vertex_animation/animating_thousands_of_fish.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_aabb" qualifiers="const">
 			<return type="AABB" />
 			<description>

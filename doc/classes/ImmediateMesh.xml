@@ -29,7 +29,7 @@
 	<tutorials>
 		<link title="Using ImmediateMesh">$DOCS_URL/tutorials/3d/procedural_geometry/immediatemesh.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="clear_surfaces">
 			<return type="void" />
 			<description>

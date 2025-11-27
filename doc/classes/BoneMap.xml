@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Retargeting 3D Skeletons">$DOCS_URL/tutorials/assets_pipeline/retargeting_3d_skeletons.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="find_profile_bone_name" qualifiers="const">
 			<return type="StringName" />
 			<param index="0" name="skeleton_bone_name" type="StringName" />

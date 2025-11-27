@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_plane" qualifiers="const">
 			<return type="Plane" />
 			<description>

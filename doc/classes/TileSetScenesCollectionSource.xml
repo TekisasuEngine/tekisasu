@@ -33,9 +33,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="create_scene_tile">
 			<return type="int" />
 			<param index="0" name="packed_scene" type="PackedScene" />

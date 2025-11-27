@@ -24,9 +24,7 @@
 		[/codeblock]
 		Nested containers will be packed recursively. While iterating, they will be returned as [PackedDataContainerRef].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="pack">
 			<return type="int" enum="Error" />
 			<returns_error number="0"/>

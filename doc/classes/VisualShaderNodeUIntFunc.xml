@@ -6,9 +6,7 @@
 	<description>
 		Accept an unsigned integer scalar ([code]x[/code]) to the input port and transform it according to [member function].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="function" type="int" setter="set_function" getter="get_function" enum="VisualShaderNodeUIntFunc.Function" default="0">
 			A function to be applied to the scalar. See [enum Function] for options.
 		</member>
@@ -18,7 +16,7 @@
 			Negates the [code]x[/code] using [code]-(x)[/code].
 		</constant>
 		<constant name="FUNC_BITWISE_NOT" value="1" enum="Function">
-			Returns the result of bitwise [code]NOT[/code] operation on the integer. Translates to [code]~a[/code] in the Godot Shader Language.
+			Returns the result of bitwise [code]NOT[/code] operation on the integer. Translates to [code]~a[/code] in the Tekisasu Shader Language.
 		</constant>
 		<constant name="FUNC_MAX" value="2" enum="Function">
 			Represents the size of the [enum Function] enum.

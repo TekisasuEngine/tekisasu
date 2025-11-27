@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="Using NavigationObstacles">$DOCS_URL/tutorials/navigation/navigation_using_navigationobstacles.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_avoidance_layer_value" qualifiers="const">
 			<return type="bool" />
 			<param index="0" name="layer_number" type="int" />

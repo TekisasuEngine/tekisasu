@@ -7,9 +7,7 @@
 		Holds collision data from the movement of a [PhysicsBody2D], usually from [method PhysicsBody2D.move_and_collide]. When a [PhysicsBody2D] is moved, it stops if it detects a collision with another body. If a collision is detected, a [KinematicCollision2D] object is returned.
 		The collision data includes the colliding object, the remaining motion, and the collision position. This data can be used to determine a custom response to the collision.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_angle" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="up_direction" type="Vector2" default="Vector2(0, -1)" />

@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="SSL certificates">$DOCS_URL/tutorials/networking/ssl_certificates.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="is_public_only" qualifiers="const">
 			<return type="bool" />
 			<description>

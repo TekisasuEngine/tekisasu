@@ -6,9 +6,7 @@
 	</brief_description>
 	<description>
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_rect" qualifiers="const">
 			<return type="Rect2" />
 			<description>

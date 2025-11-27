@@ -7,9 +7,7 @@
 		Translates to [code]smoothstep(edge0, edge1, x)[/code] in the shader language.
 		Returns [code]0.0[/code] if [code]x[/code] is smaller than [code]edge0[/code] and [code]1.0[/code] if [code]x[/code] is larger than [code]edge1[/code]. Otherwise, the return value is interpolated between [code]0.0[/code] and [code]1.0[/code] using Hermite polynomials.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="op_type" type="int" setter="set_op_type" getter="get_op_type" enum="VisualShaderNodeSmoothStep.OpType" default="0">
 			A type of operands and returned value.
 		</member>

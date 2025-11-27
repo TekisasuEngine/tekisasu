@@ -7,9 +7,7 @@
 		A 2D circle shape, intended for use in physics. Usually used to provide a shape for a [CollisionShape2D].
 		[b]Performance:[/b] [CircleShape2D] is fast to check collisions against. It is faster than [RectangleShape2D] and [CapsuleShape2D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="radius" type="float" setter="set_radius" getter="get_radius" default="10.0">
 			The circle's radius.
 		</member>

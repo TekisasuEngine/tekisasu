@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using VisualShaders">$DOCS_URL/tutorials/shaders/visual_shaders.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_node">
 			<return type="void" />
 			<param index="0" name="type" type="int" enum="VisualShader.Type" />

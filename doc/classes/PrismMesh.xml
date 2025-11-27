@@ -6,9 +6,7 @@
 	<description>
 		Class representing a prism-shaped [PrimitiveMesh].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="left_to_right" type="float" setter="set_left_to_right" getter="get_left_to_right" default="0.5">
 			Displacement of the upper edge along the X axis. 0.0 positions edge straight above the bottom-left edge.
 		</member>

@@ -10,9 +10,8 @@
 	<tutorials>
 		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
 		<link title="Mouse and input coordinates">$DOCS_URL/tutorials/inputs/mouse_and_input_coordinates.html</link>
-		<link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/2755</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="pen_inverted" type="bool" setter="set_pen_inverted" getter="get_pen_inverted" default="false">
 			Returns [code]true[/code] when using the eraser end of a stylus pen.
 			[b]Note:[/b] This property is implemented on Linux, macOS and Windows.

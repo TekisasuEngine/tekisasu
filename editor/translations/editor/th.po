@@ -1,7 +1,8 @@
-# Thai translation of the Godot Engine editor interface.
+# Thai translation of the Tekisasu Engine editor interface.
+# Copyright (c) 2021-present Tekisasu
 # Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # Kaveeta Vivatchai <goodytong@gmail.com>, 2017.
 # Poommetee Ketson (Noshyaar) <poommetee@protonmail.com>, 2017-2018.
 # Thanachart Monpassorn <nunf_2539@hotmail.com>, 2020, 2021.
@@ -23,8 +24,8 @@
 # Suvijak Nopparatcharoensuk <guy.suvijak@hotmail.com>, 2025.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine editor interface\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-01-29 20:50+0000\n"
 "Last-Translator: Suvijak Nopparatcharoensuk <guy.suvijak@hotmail.com>\n"
@@ -1432,8 +1433,8 @@ msgstr "สร้างโฟลเดอร์"
 msgid "Double-click to open in browser."
 msgstr "ดับเบิลคลิกเพื่อเปิดในเบราว์เซอร์"
 
-msgid "Thanks from the Godot community!"
-msgstr "ขอขอบคุณจากชุมชนผู้ใช้ Godot!"
+msgid "Thanks from the Tekisasu community!"
+msgstr "ขอขอบคุณจากชุมชนผู้ใช้ Tekisasu!"
 
 msgid "(unknown)"
 msgstr "(ไม่ทราบ)"
@@ -1445,8 +1446,8 @@ msgstr ""
 "วันที่คอมมิต Git: %s\n"
 "คลิกเพื่อคัดลอกหมายเลขเวอร์ชัน"
 
-msgid "Godot Engine contributors"
-msgstr "ผู้ช่วยพัฒนา Godot Engine"
+msgid "Tekisasu Engine contributors"
+msgstr "ผู้ช่วยพัฒนา Tekisasu Engine"
 
 msgid "Project Founders"
 msgstr "ผู้ริเริ่มโครงการ"
@@ -1488,12 +1489,12 @@ msgid "Third-party Licenses"
 msgstr "สัญญาอนุญาตจากบุคคลที่สาม"
 
 msgid ""
-"Godot Engine relies on a number of third-party free and open source "
+"Tekisasu Engine relies on a number of third-party free and open source "
 "libraries, all compatible with the terms of its MIT license. The following is "
 "an exhaustive list of all such third-party components with their respective "
 "copyright statements and license terms."
 msgstr ""
-"Godot Engine อาศัยไลบรารีต่าง ๆ ที่นำมาใช้ได้อย่างเสรีและเปิดเผยโค้ดเป็นจำนวนมาก "
+"Tekisasu Engine อาศัยไลบรารีต่าง ๆ ที่นำมาใช้ได้อย่างเสรีและเปิดเผยโค้ดเป็นจำนวนมาก "
 "ซึ่งเข้ากันได้กับสัญญาอนุญาต MIT ต่อไปนี้เป็นรายชื่อของไลบรารีทั้งหมดของบุคคลที่สาม "
 "รวมถึงข้อความลิขสิทธิ์ และข้อกำหนดการใช้งานของแต่ละไลบรารี"
 
@@ -1822,8 +1823,8 @@ msgstr "[ว่างเปล่า]"
 msgid "[unsaved]"
 msgstr "[ไฟล์ใหม่]"
 
-msgid "%s - Godot Engine"
-msgstr "%s - Godot Engine"
+msgid "%s - Tekisasu Engine"
+msgstr "%s - Tekisasu Engine"
 
 msgid "Dock Position"
 msgstr "ตำแหน่งแผง"
@@ -1939,8 +1940,8 @@ msgstr "สร้าง หรือนำเข้าโปรไฟล์ก�
 msgid "New profile name:"
 msgstr "ชื่อโปรไฟล์ใหม่:"
 
-msgid "Godot Feature Profile"
-msgstr "รายละเอียดคุณสมบัติ Godot"
+msgid "Tekisasu Feature Profile"
+msgstr "รายละเอียดคุณสมบัติ Tekisasu"
 
 msgid "Import Profile(s)"
 msgstr "นำเข้าโปรไฟล์"
@@ -2713,8 +2714,8 @@ msgstr "ไม่มีเทมเพลตการส่งออกอย่
 msgid "Select Template File"
 msgstr "เลือกไฟล์เทมเพลต"
 
-msgid "Godot Export Templates"
-msgstr "เทมเพลตการส่งออก Godot"
+msgid "Tekisasu Export Templates"
+msgstr "เทมเพลตการส่งออก Tekisasu"
 
 msgid "Runnable"
 msgstr "สามารถรันได้"
@@ -4956,7 +4957,7 @@ msgstr "บันทึกธีมเป็น"
 msgid "Online Docs"
 msgstr "คู่มือ"
 
-msgid "Open Godot online documentation."
+msgid "Open Tekisasu online documentation."
 msgstr "เปิดคู่มือออนไลน์"
 
 msgid "%s Class Reference"
@@ -5943,11 +5944,11 @@ msgid ""
 msgstr "(โหมดแฟรกเมนต์/แสง เท่านั้น) (เวกเตอร์) ผลรวมของอนุพันธ์สัมบูรณ์ใน 'x' และ 'y'"
 
 msgid ""
-"Custom Godot Shader Language expression, with custom amount of input and "
+"Custom Tekisasu Shader Language expression, with custom amount of input and "
 "output ports. This is a direct injection of code into the vertex/fragment/"
 "light function, do not use it to write the function declarations inside."
 msgstr ""
-"นิพจน์ภาษาเชดเดอร์ Godot แบบกำหนดเอง พร้อมจำนวนพอร์ตอินพุตและเอาต์พุตที่กำหนดเอง "
+"นิพจน์ภาษาเชดเดอร์ Tekisasu แบบกำหนดเอง พร้อมจำนวนพอร์ตอินพุตและเอาต์พุตที่กำหนดเอง "
 "จำทำการแทรกโค้ดลงในฟังก์ชันเวอร์เทก / แฟรกเมนต์ / แสง "
 "ห้ามใช้เพื่อเขียนการประกาศฟังก์ชันภายใน"
 
@@ -5961,19 +5962,19 @@ msgid "Are you sure to run %d projects at once?"
 msgstr "ยืนยันการรันโปรเจกต์ %d โปรเจกต์ทีเดียว?"
 
 msgid ""
-"The selected project \"%s\" does not specify its supported Godot version in "
-"its configuration file (\"project.godot\").\n"
+"The selected project \"%s\" does not specify its supported Tekisasu version in "
+"its configuration file (\"project.tekisasu\").\n"
 "\n"
 "Project path: %s\n"
 "\n"
-"If you proceed with opening it, it will be converted to Godot's current "
+"If you proceed with opening it, it will be converted to Tekisasu's current "
 "configuration file format.\n"
 "\n"
 "Warning: You won't be able to open the project with previous versions of the "
 "engine anymore."
 msgstr ""
-"โปรเจกต์ที่เลือก \"%s\" ไม่ได้ระบุเวอร์ชั่น Godot ที่ซัพพอร์ตเอาไว้ในไฟล์การตั้งค่า (\"project."
-"godot\")\n"
+"โปรเจกต์ที่เลือก \"%s\" ไม่ได้ระบุเวอร์ชั่น Tekisasu ที่ซัพพอร์ตเอาไว้ในไฟล์การตั้งค่า (\"project."
+"tekisasu\")\n"
 "\n"
 "ตำแหน่งโปรเจกต์: %s\n"
 "\n"
@@ -6048,8 +6049,8 @@ msgid "It would be a good idea to name your project."
 msgstr "ควรตั้งชื่อโปรเจกต์"
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
-msgstr "ไฟล์โปรเจกต์ \".zip\" ผิดพลาด เนื่องจากไม่มีไฟล์ \"project.godot\""
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+msgstr "ไฟล์โปรเจกต์ \".zip\" ผิดพลาด เนื่องจากไม่มีไฟล์ \"project.tekisasu\""
 
 msgid "The path specified doesn't exist."
 msgstr "ไม่พบที่อยู่ที่ระบุเอาไว้"
@@ -6057,8 +6058,8 @@ msgstr "ไม่พบที่อยู่ที่ระบุเอาไว
 msgid "New Game Project"
 msgstr "โปรเจกต์เกมใหม่"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "สร้างไฟล์ project.godot ไม่ได้"
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "สร้างไฟล์ project.tekisasu ไม่ได้"
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "ผิดพลาดขณะเปิดไฟล์แพคเกจ, ไม่ใช่รูปแบบ zip"
@@ -6111,8 +6112,8 @@ msgstr "เปลี่ยน Action deadzone"
 msgid "Erase Input Action"
 msgstr "ลบการกระทำ"
 
-msgid "Project Settings (project.godot)"
-msgstr "ตัวเลือกโปรเจกต์ (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "ตัวเลือกโปรเจกต์ (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "ปุ่มกด"

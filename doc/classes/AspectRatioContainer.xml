@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="alignment_horizontal" type="int" setter="set_alignment_horizontal" getter="get_alignment_horizontal" enum="AspectRatioContainer.AlignmentMode" default="1">
 			Specifies the horizontal relative position of child controls.
 		</member>

@@ -5,11 +5,9 @@
 	</brief_description>
 	<description>
 		Shader source code in text form.
-		See also [RDShaderFile]. [RDShaderSource] is only meant to be used with the [RenderingDevice] API. It should not be confused with Godot's own [Shader] resource, which is what Godot's various nodes use for high-level shader programming.
+		See also [RDShaderFile]. [RDShaderSource] is only meant to be used with the [RenderingDevice] API. It should not be confused with Tekisasu's own [Shader] resource, which is what Tekisasu's various nodes use for high-level shader programming.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_stage_source" qualifiers="const">
 			<return type="String" />
 			<param index="0" name="stage" type="int" enum="RenderingDevice.ShaderStage" />

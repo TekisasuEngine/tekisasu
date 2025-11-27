@@ -6,9 +6,7 @@
 	<description>
 		A custom control for editing properties that can be added to the [EditorInspector]. It is added via [EditorInspectorPlugin].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_set_read_only" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="read_only" type="bool" />

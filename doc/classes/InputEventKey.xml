@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="as_text_key_label" qualifiers="const">
 			<return type="String" />
 			<description>

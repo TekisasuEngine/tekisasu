@@ -1,11 +1,12 @@
-# Basque translation of the Godot Engine extractable strings.
+# Basque translation of the Tekisasu Engine extractable strings.
+# Copyright (c) 2021-present Tekisasu
 # Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine extractable strings\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine extractable strings\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "PO-Revision-Date: 2023-11-06 00:35+0000\n"
 "Last-Translator: Pablo Mori <pablomcando2008@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/godot-engine/godot/"

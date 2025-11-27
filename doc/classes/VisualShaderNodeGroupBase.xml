@@ -6,9 +6,7 @@
 	<description>
 		Currently, has no direct usage, use the derived classes instead.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_input_port">
 			<return type="void" />
 			<param index="0" name="id" type="int" />

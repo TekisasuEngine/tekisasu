@@ -7,9 +7,7 @@
 		A 1D texture where pixel brightness corresponds to points on a [Curve] resource, either in grayscale or in red. This visual representation simplifies the task of saving curves as image files.
 		If you need to store up to 3 curves within a single texture, use [CurveXYZTexture] instead. See also [GradientTexture1D] and [GradientTexture2D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="curve" type="Curve" setter="set_curve" getter="get_curve">
 			The [Curve] that is rendered onto the texture.
 		</member>

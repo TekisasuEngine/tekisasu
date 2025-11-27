@@ -6,9 +6,7 @@
 	<description>
 		Class representing a capsule-shaped [PrimitiveMesh].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="height" type="float" setter="set_height" getter="get_height" default="2.0">
 			Total height of the capsule mesh (including the hemispherical ends).
 		</member>

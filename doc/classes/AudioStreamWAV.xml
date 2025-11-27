@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Runtime file loading and saving">$DOCS_URL/tutorials/io/runtime_file_loading_and_saving.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="save_to_wav">
 			<return type="int" enum="Error" />
 			<param index="0" name="path" type="String" />

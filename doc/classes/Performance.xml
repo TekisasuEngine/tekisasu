@@ -10,9 +10,7 @@
 		[b]Note:[/b] Some of the built-in monitors are not updated in real-time for performance reasons, so there may be a delay of up to 1 second between changes.
 		[b]Note:[/b] Custom monitors do not support negative values. Negative values are clamped to 0.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_custom_monitor">
 			<return type="void" />
 			<param index="0" name="id" type="StringName" />

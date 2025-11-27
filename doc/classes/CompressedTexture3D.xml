@@ -8,9 +8,7 @@
 		[CompressedTexture3D] uses VRAM compression, which allows to reduce memory usage on the GPU when rendering the texture. This also improves loading times, as VRAM-compressed textures are faster to load compared to textures using lossless compression. VRAM compression can exhibit noticeable artifacts and is intended to be used for 3D rendering, not 2D.
 		See [Texture3D] for a general description of 3D textures.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="load">
 			<return type="int" enum="Error" />
 			<param index="0" name="path" type="String" />

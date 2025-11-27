@@ -40,9 +40,8 @@
 	<tutorials>
 		<link title="File system">$DOCS_URL/tutorials/scripting/filesystem.html</link>
 		<link title="Runtime file loading and saving">$DOCS_URL/tutorials/io/runtime_file_loading_and_saving.html</link>
-		<link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/2755</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="close">
 			<return type="void" />
 			<description>
@@ -299,7 +298,7 @@
 			<param index="2" name="compression_mode" type="int" enum="FileAccess.CompressionMode" default="0" />
 			<description>
 				Creates a new [FileAccess] object and opens a compressed file for reading or writing.
-				[b]Note:[/b] [method open_compressed] can only read files that were saved by Godot, not third-party compression formats. See [url=https://github.com/godotengine/godot/issues/28999]GitHub issue #28999[/url] for a workaround.
+				[b]Note:[/b] [method open_compressed] can only read files that were saved by Tekisasu, not third-party compression formats. See [url=https://github.com/godotengine/godot/issues/28999]GitHub issue #28999[/url] for a workaround.
 				Returns [code]null[/code] if opening the file failed. You can use [method get_open_error] to check the error that occurred.
 			</description>
 		</method>

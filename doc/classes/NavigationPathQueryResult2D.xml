@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using NavigationPathQueryObjects">$DOCS_URL/tutorials/navigation/navigation_using_navigationpathqueryobjects.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="reset">
 			<return type="void" />
 			<description>

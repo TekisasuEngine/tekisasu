@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Shader preprocessor">$DOCS_URL/tutorials/shaders/shader_reference/shader_preprocessor.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="code" type="String" setter="set_code" getter="get_code" default="&quot;&quot;">
 			Returns the code of the shader include file. The returned text is what the user has written, not the full generated code used internally.
 		</member>

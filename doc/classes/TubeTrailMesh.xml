@@ -11,7 +11,7 @@
 		<link title="3D Particle trails">$DOCS_URL/tutorials/3d/particles/trails.html</link>
 		<link title="Particle systems (3D)">$DOCS_URL/tutorials/3d/particles/index.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="cap_bottom" type="bool" setter="set_cap_bottom" getter="is_cap_bottom" default="true">
 			If [code]true[/code], generates a cap at the bottom of the tube. This can be set to [code]false[/code] to speed up generation and rendering when the cap is never seen by the camera.
 		</member>

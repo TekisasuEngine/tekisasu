@@ -8,9 +8,7 @@
 		See [VisibleOnScreenNotifier3D] if you only want to be notified when the region is visible on screen.
 		[b]Note:[/b] [VisibleOnScreenEnabler3D] uses an approximate heuristic that doesn't take walls and other occlusion into account, unless occlusion culling is used. It also won't function unless [member Node3D.visible] is set to [code]true[/code].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="enable_mode" type="int" setter="set_enable_mode" getter="get_enable_mode" enum="VisibleOnScreenEnabler3D.EnableMode" default="0">
 			Determines how the target node is enabled. Corresponds to [enum Node.ProcessMode]. When the node is disabled, it always uses [constant Node.PROCESS_MODE_DISABLED].
 		</member>

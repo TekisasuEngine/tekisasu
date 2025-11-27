@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using NavigationPathQueryObjects">$DOCS_URL/tutorials/navigation/navigation_using_navigationpathqueryobjects.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="map" type="RID" setter="set_map" getter="get_map" default="RID()">
 			The navigation map [RID] used in the path query.
 		</member>

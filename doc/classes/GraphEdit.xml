@@ -9,9 +9,7 @@
 		[b]Performance:[/b] It is greatly advised to enable low-processor usage mode (see [member OS.low_processor_usage_mode]) when using GraphEdits.
 		[b]Note:[/b] Keep in mind that [method Node.get_children] will also return the connection layer node named [code]_connection_layer[/code] due to technical limitations. This behavior may change in future releases.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_connection_line" qualifiers="virtual const">
 			<return type="PackedVector2Array" />
 			<param index="0" name="from_position" type="Vector2" />

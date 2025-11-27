@@ -6,9 +6,7 @@
 	<description>
 		A horizontal menu bar that creates a [MenuButton] for each [PopupMenu] child. New items are created by adding [PopupMenu]s to this node.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_menu_count" qualifiers="const">
 			<return type="int" />
 			<description>

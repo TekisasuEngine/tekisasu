@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="Using NavigationLinks">$DOCS_URL/tutorials/navigation/navigation_using_navigationlinks.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="get_global_end_position" qualifiers="const">
 			<return type="Vector3" />
 			<description>

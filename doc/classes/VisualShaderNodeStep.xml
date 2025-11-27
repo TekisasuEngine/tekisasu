@@ -7,9 +7,7 @@
 		Translates to [code]step(edge, x)[/code] in the shader language.
 		Returns [code]0.0[/code] if [code]x[/code] is smaller than [code]edge[/code] and [code]1.0[/code] otherwise.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="op_type" type="int" setter="set_op_type" getter="get_op_type" enum="VisualShaderNodeStep.OpType" default="0">
 			A type of operands and returned value.
 		</member>

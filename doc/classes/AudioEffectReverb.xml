@@ -8,9 +8,8 @@
 	</description>
 	<tutorials>
 		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
-		<link title="Third Person Shooter (TPS) Demo">https://godotengine.org/asset-library/asset/2710</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="damping" type="float" setter="set_damping" getter="get_damping" default="0.5">
 			Defines how reflective the imaginary room's walls are. Value can range from 0 to 1.
 		</member>

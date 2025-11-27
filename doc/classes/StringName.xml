@@ -11,9 +11,7 @@
 		[b]Note:[/b] In C#, an explicit conversion to [code]System.String[/code] is required to use the methods listed on this page. Use the [code]ToString()[/code] method to cast a [StringName] to a string, and then use the equivalent methods in [code]System.String[/code] or [code]StringExtensions[/code].
 		[b]Note:[/b] In a boolean context, a [StringName] will evaluate to [code]false[/code] if it is empty ([code]StringName("")[/code]). Otherwise, a [StringName] will always evaluate to [code]true[/code]. The [code]not[/code] operator cannot be used. Instead, [method is_empty] should be used to check for empty [StringName]s.
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="StringName">
 			<return type="StringName" />
 			<description>
@@ -233,18 +231,18 @@
 				Formats the string by replacing all occurrences of [param placeholder] with the elements of [param values].
 				[param values] can be a [Dictionary] or an [Array]. Any underscores in [param placeholder] will be replaced with the corresponding keys in advance. Array elements use their index as keys.
 				[codeblock]
-				# Prints "Waiting for Godot is a play by Samuel Beckett, and Godot Engine is named after it."
+				# Prints "Waiting for Tekisasu is a play by Samuel Beckett, and Tekisasu Engine is named after it."
 				var use_array_values = "Waiting for {0} is a play by {1}, and {0} Engine is named after it."
-				print(use_array_values.format(["Godot", "Samuel Beckett"]))
+				print(use_array_values.format(["Tekisasu", "Samuel Beckett"]))
 
-				# Prints "User 42 is Godot."
-				print("User {id} is {name}.".format({"id": 42, "name": "Godot"}))
+				# Prints "User 42 is Tekisasu."
+				print("User {id} is {name}.".format({"id": 42, "name": "Tekisasu"}))
 				[/codeblock]
 				Some additional handling is performed when [param values] is an [Array]. If [param placeholder] does not contain an underscore, the elements of the [param values] array will be used to replace one occurrence of the placeholder in order; If an element of [param values] is another 2-element array, it'll be interpreted as a key-value pair.
 				[codeblock]
-				# Prints "User 42 is Godot."
-				print("User {} is {}.".format([42, "Godot"], "{}"))
-				print("User {id} is {name}.".format([["id", 42], ["name", "Godot"]]))
+				# Prints "User 42 is Tekisasu."
+				print("User {} is {}.".format([42, "Tekisasu"], "{}"))
+				print("User {id} is {name}.".format([["id", 42], ["name", "Tekisasu"]]))
 				[/codeblock]
 				See also the [url=$DOCS_URL/tutorials/scripting/gdscript/gdscript_format_string.html]GDScript format string[/url] tutorial.
 				[b]Note:[/b] In C#, it's recommended to [url=https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated]interpolate strings with "$"[/url], instead.
@@ -967,12 +965,12 @@
 				Decodes the string from its URL-encoded format. This method is meant to properly decode the parameters in a URL when receiving an HTTP request.
 				[codeblocks]
 				[gdscript]
-				var url = "$DOCS_URL/?highlight=Godot%20Engine%3%docs"
-				print(url.uri_decode()) # Prints "$DOCS_URL/?highlight=Godot Engine:docs"
+				var url = "$DOCS_URL/?highlight=Tekisasu%20Engine%3%docs"
+				print(url.uri_decode()) # Prints "$DOCS_URL/?highlight=Tekisasu Engine:docs"
 				[/gdscript]
 				[csharp]
-				var url = "$DOCS_URL/?highlight=Godot%20Engine%3%docs"
-				GD.Print(url.URIDecode()) // Prints "$DOCS_URL/?highlight=Godot Engine:docs"
+				var url = "$DOCS_URL/?highlight=Tekisasu%20Engine%3%docs"
+				GD.Print(url.URIDecode()) // Prints "$DOCS_URL/?highlight=Tekisasu Engine:docs"
 				[/csharp]
 				[/codeblocks]
 			</description>
@@ -984,15 +982,15 @@
 				[codeblocks]
 				[gdscript]
 				var prefix = "$DOCS_URL/?highlight="
-				var url = prefix + "Godot Engine:docs".uri_encode()
+				var url = prefix + "Tekisasu Engine:docs".uri_encode()
 
-				print(url) # Prints "$DOCS_URL/?highlight=Godot%20Engine%3%docs"
+				print(url) # Prints "$DOCS_URL/?highlight=Tekisasu%20Engine%3%docs"
 				[/gdscript]
 				[csharp]
 				var prefix = "$DOCS_URL/?highlight=";
-				var url = prefix + "Godot Engine:docs".URIEncode();
+				var url = prefix + "Tekisasu Engine:docs".URIEncode();
 
-				GD.Print(url); // Prints "$DOCS_URL/?highlight=Godot%20Engine%3%docs"
+				GD.Print(url); // Prints "$DOCS_URL/?highlight=Tekisasu%20Engine%3%docs"
 				[/csharp]
 				[/codeblocks]
 			</description>

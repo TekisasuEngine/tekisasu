@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="bone_update" type="int" setter="set_bone_update" getter="get_bone_update" enum="XRHandModifier3D.BoneUpdate" default="0">
 			Specifies the type of updates to perform on the bones.
 		</member>

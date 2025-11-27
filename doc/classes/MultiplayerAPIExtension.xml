@@ -74,9 +74,7 @@
 		[/codeblocks]
 		Native extensions can alternatively use the [method MultiplayerAPI.set_default_interface] method during initialization to configure themselves as the default implementation.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_multiplayer_peer" qualifiers="virtual">
 			<return type="MultiplayerPeer" />
 			<description>

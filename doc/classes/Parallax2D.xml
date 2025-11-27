@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="2D Parallax">$DOCS_URL/tutorials/2d/2d_parallax.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="autoscroll" type="Vector2" setter="set_autoscroll" getter="get_autoscroll" default="Vector2(0, 0)">
 			Velocity at which the offset scrolls automatically, in pixels per second.
 		</member>

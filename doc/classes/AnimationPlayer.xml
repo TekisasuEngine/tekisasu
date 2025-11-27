@@ -12,9 +12,8 @@
 	<tutorials>
 		<link title="2D Sprite animation">$DOCS_URL/tutorials/2d/2d_sprite_animation.html</link>
 		<link title="Animation documentation index">$DOCS_URL/tutorials/animation/index.html</link>
-		<link title="Third Person Shooter (TPS) Demo">https://godotengine.org/asset-library/asset/2710</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="animation_get_next" qualifiers="const">
 			<return type="StringName" />
 			<param index="0" name="animation_from" type="StringName" />

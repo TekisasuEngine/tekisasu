@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="Using NavigationAgents">$DOCS_URL/tutorials/navigation/navigation_using_navigationagents.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="distance_to_target" qualifiers="const">
 			<return type="float" />
 			<description>

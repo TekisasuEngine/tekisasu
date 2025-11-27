@@ -6,9 +6,7 @@
 	<description>
 		Container for parsed source geometry data used in navigation mesh baking.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_obstruction_outline">
 			<return type="void" />
 			<param index="0" name="shape_outline" type="PackedVector2Array" />

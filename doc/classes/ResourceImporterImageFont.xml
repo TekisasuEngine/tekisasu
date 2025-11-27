@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Bitmap fonts - Using fonts">$DOCS_URL/tutorials/ui/gui_using_fonts.html#bitmap-fonts</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="ascent" type="int" setter="" getter="" default="0">
 			Font ascent (number of pixels above the baseline). If set to [code]0[/code], half of the character height is used.
 		</member>

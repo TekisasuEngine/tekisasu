@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="2D meshes">$DOCS_URL/tutorials/2d/2d_meshes.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="mesh" type="Mesh" setter="set_mesh" getter="get_mesh">
 			The [Mesh] that will be drawn by the [MeshInstance2D].
 		</member>

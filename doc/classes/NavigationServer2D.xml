@@ -15,9 +15,8 @@
 	</description>
 	<tutorials>
 		<link title="Using NavigationServer">$DOCS_URL/tutorials/navigation/navigation_using_navigationservers.html</link>
-		<link title="Navigation Polygon 2D Demo">https://godotengine.org/asset-library/asset/2722</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="agent_create">
 			<return type="RID" />
 			<description>

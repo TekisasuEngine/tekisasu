@@ -18,6 +18,4 @@
 		[/codeblock]
 		The command line argument [code]--text-driver Dummy[/code] (case-sensitive) can be used to force the "Dummy" [TextServer] on any project.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

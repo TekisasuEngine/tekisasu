@@ -8,9 +8,7 @@
 		[PackedByteArray] also provides methods to encode/decode various types to/from bytes. The way values are encoded is an implementation detail and shouldn't be relied upon when interacting with external apps.
 		[b]Note:[/b] Packed arrays are always passed by reference. To get a copy of an array that can be modified independently of the original array, use [method duplicate]. This is [i]not[/i] the case for built-in properties and methods. The returned packed array of these are a copies, and changing it will [i]not[/i] affect the original value. To update a built-in property you need to modify the returned array, and then assign it to the property again.
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="PackedByteArray">
 			<return type="PackedByteArray" />
 			<description>
@@ -175,7 +173,7 @@
 			<param index="1" name="compression_mode" type="int" default="0" />
 			<description>
 				Returns a new [PackedByteArray] with the data decompressed. Set [param buffer_size] to the size of the uncompressed data. Set the compression mode using one of [enum FileAccess.CompressionMode]'s constants.
-				[b]Note:[/b] Decompression is not guaranteed to work with data not compressed by Godot, for example if data compressed with the deflate compression mode lacks a checksum or header.
+				[b]Note:[/b] Decompression is not guaranteed to work with data not compressed by Tekisasu, for example if data compressed with the deflate compression mode lacks a checksum or header.
 			</description>
 		</method>
 		<method name="decompress_dynamic" qualifiers="const">
@@ -186,7 +184,7 @@
 				Returns a new [PackedByteArray] with the data decompressed. Set the compression mode using one of [enum FileAccess.CompressionMode]'s constants. [b]This method only accepts brotli, gzip, and deflate compression modes.[/b]
 				This method is potentially slower than [method decompress], as it may have to re-allocate its output buffer multiple times while decompressing, whereas [method decompress] knows it's output buffer size from the beginning.
 				GZIP has a maximal compression ratio of 1032:1, meaning it's very possible for a small compressed payload to decompress to a potentially very large output. To guard against this, you may provide a maximum size this function is allowed to allocate in bytes via [param max_output_size]. Passing -1 will allow for unbounded output. If any positive value is passed, and the decompression exceeds that amount in bytes, then an error will be returned.
-				[b]Note:[/b] Decompression is not guaranteed to work with data not compressed by Godot, for example if data compressed with the deflate compression mode lacks a checksum or header.
+				[b]Note:[/b] Decompression is not guaranteed to work with data not compressed by Tekisasu, for example if data compressed with the deflate compression mode lacks a checksum or header.
 			</description>
 		</method>
 		<method name="duplicate">
@@ -458,7 +456,7 @@
 		<method name="to_float64_array" qualifiers="const">
 			<return type="PackedFloat64Array" />
 			<description>
-				Returns a copy of the data converted to a [PackedFloat64Array], where each block of 8 bytes has been converted to a 64-bit float (C++ [code]double[/code], Godot [float]).
+				Returns a copy of the data converted to a [PackedFloat64Array], where each block of 8 bytes has been converted to a 64-bit float (C++ [code]double[/code], Tekisasu [float]).
 				The size of the input array must be a multiple of 8 (size of 64-bit double). The size of the new array will be [code]byte_array.size() / 8[/code].
 				If the original data can't be converted to 64-bit floats, the resulting data is undefined.
 			</description>
@@ -474,7 +472,7 @@
 		<method name="to_int64_array" qualifiers="const">
 			<return type="PackedInt64Array" />
 			<description>
-				Returns a copy of the data converted to a [PackedInt64Array], where each block of 8 bytes has been converted to a signed 64-bit integer (C++ [code]int64_t[/code], Godot [int]).
+				Returns a copy of the data converted to a [PackedInt64Array], where each block of 8 bytes has been converted to a signed 64-bit integer (C++ [code]int64_t[/code], Tekisasu [int]).
 				The size of the input array must be a multiple of 8 (size of 64-bit integer). The size of the new array will be [code]byte_array.size() / 8[/code].
 				If the original data can't be converted to signed 64-bit integers, the resulting data is undefined.
 			</description>

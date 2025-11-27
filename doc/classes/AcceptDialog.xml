@@ -6,9 +6,7 @@
 	<description>
 		The default use of [AcceptDialog] is to allow it to only be accepted or closed, with the same result. However, the [signal confirmed] and [signal canceled] signals allow to make the two actions different, and the [method add_button] method allows to add custom buttons and actions.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_button">
 			<return type="Button" />
 			<param index="0" name="text" type="String" />

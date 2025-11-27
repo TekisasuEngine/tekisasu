@@ -51,7 +51,7 @@
 	<tutorials>
 		<link title="Evaluating Expressions">$DOCS_URL/tutorials/scripting/evaluating_expressions.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="execute">
 			<return type="Variant" />
 			<param index="0" name="inputs" type="Array" default="[]" />

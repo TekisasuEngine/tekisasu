@@ -1,7 +1,8 @@
-# Greek translation of the Godot Engine editor interface.
+# Greek translation of the Tekisasu Engine editor interface.
+# Copyright (c) 2021-present Tekisasu
 # Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-# This file is distributed under the same license as the Godot source code.
+# This file is distributed under the same license as the Tekisasu source code.
 # George Tsiamasiotis <gtsiam@windowslive.com>, 2017-2018, 2019, 2020, 2021.
 # Georgios Katsanakis <geo.elgeo@gmail.com>, 2019.
 # Overloaded <manoschool@yahoo.gr>, 2019.
@@ -33,8 +34,8 @@
 # Giannis Krommydas <john1052004@gmail.com>, 2025.
 msgid ""
 msgstr ""
-"Project-Id-Version: Godot Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
+"Project-Id-Version: Tekisasu Engine editor interface\n"
+"Report-Msgid-Bugs-To: https://github.com/TekisasuEngine/tekisasu\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-01-11 17:09+0000\n"
 "Last-Translator: Giannis Krommydas <john1052004@gmail.com>\n"
@@ -1551,11 +1552,11 @@ msgstr "Δημιουργία νέου φακέλου στο %s:"
 msgid "Create Folder"
 msgstr "Δημιουργία φακέλου"
 
-msgid "Thanks from the Godot community!"
-msgstr "Ευχαριστίες από την κοινότητα της Godot!"
+msgid "Thanks from the Tekisasu community!"
+msgstr "Ευχαριστίες από την κοινότητα της Tekisasu!"
 
-msgid "Godot Engine contributors"
-msgstr "Συνεισφέροντες στην Godot Engine"
+msgid "Tekisasu Engine contributors"
+msgstr "Συνεισφέροντες στην Tekisasu Engine"
 
 msgid "Project Founders"
 msgstr "Ιδρυτές του έργου"
@@ -1588,12 +1589,12 @@ msgid "Third-party Licenses"
 msgstr "Άδειες τρίτων κατασκευαστών"
 
 msgid ""
-"Godot Engine relies on a number of third-party free and open source "
+"Tekisasu Engine relies on a number of third-party free and open source "
 "libraries, all compatible with the terms of its MIT license. The following is "
 "an exhaustive list of all such third-party components with their respective "
 "copyright statements and license terms."
 msgstr ""
-"Η μηχανή Godot βασίζεται σε μια σειρά από δωρεάν και ανοιχτού κώδικα "
+"Η μηχανή Tekisasu βασίζεται σε μια σειρά από δωρεάν και ανοιχτού κώδικα "
 "βιβλιοθήκες τρίτων κατασκευαστών, όλες συμβατές με τους όρους της άδειας MIT. "
 "Ακολουθεί μία εκτενής λίστα με όλα τα σχετικά συστατικά της μηχανής μαζί με "
 "όλες τις αντοίστοιχες δηλώσεις προστασίας πνευματικών δικαιωμάτων και τους "
@@ -1930,8 +1931,8 @@ msgstr "Επιπλέον Επιλογές:"
 msgid "New profile name:"
 msgstr "Νέο όνομα προφίλ:"
 
-msgid "Godot Feature Profile"
-msgstr "Προφίλ Χαρακτηριστικών του Godot"
+msgid "Tekisasu Feature Profile"
+msgstr "Προφίλ Χαρακτηριστικών του Tekisasu"
 
 msgid "Import Profile(s)"
 msgstr "Εισαγωγή Προφίλ"
@@ -2566,8 +2567,8 @@ msgstr "Αναφορά Σφάλματος"
 msgid "Send Docs Feedback"
 msgstr "Αποστολή Σχολίων Τεκμηρίωσης"
 
-msgid "Support Godot Development"
-msgstr "Υποστηρίξτε την ανάπτυξη του Godot"
+msgid "Support Tekisasu Development"
+msgstr "Υποστηρίξτε την ανάπτυξη του Tekisasu"
 
 msgid "Update Continuously"
 msgstr "Συνεχόμενη Ανανέωση"
@@ -2923,8 +2924,8 @@ msgstr "Τα επίσημα πρότυπα εξαγωγής δεν είναι δ
 msgid "Select Template File"
 msgstr "Επιλογή Αρχείου Προτύπων"
 
-msgid "Godot Export Templates"
-msgstr "Προτύπων Εξαγωγής Godot"
+msgid "Tekisasu Export Templates"
+msgstr "Προτύπων Εξαγωγής Tekisasu"
 
 msgid "Runnable"
 msgstr "Εκτελέσιμο"
@@ -5302,8 +5303,8 @@ msgstr "Αποθήκευση θέματος ως..."
 msgid "Online Docs"
 msgstr "Ηλεκτρονική τεκμηρίωση"
 
-msgid "Open Godot online documentation."
-msgstr "Άνοιγμα ηλεκτρονικής τεκμηρίωσης της Godot."
+msgid "Open Tekisasu online documentation."
+msgstr "Άνοιγμα ηλεκτρονικής τεκμηρίωσης της Tekisasu."
 
 msgid "%s Class Reference"
 msgstr "Αναφορά Κλάσης %s"
@@ -6460,11 +6461,11 @@ msgstr ""
 "«x» και «y»."
 
 msgid ""
-"Custom Godot Shader Language expression, with custom amount of input and "
+"Custom Tekisasu Shader Language expression, with custom amount of input and "
 "output ports. This is a direct injection of code into the vertex/fragment/"
 "light function, do not use it to write the function declarations inside."
 msgstr ""
-"Προσαρμοσμένη έκφραση γλώσσας σκίασης της Godot, με προσαρμοσμένο αριθμό "
+"Προσαρμοσμένη έκφραση γλώσσας σκίασης της Tekisasu, με προσαρμοσμένο αριθμό "
 "εισόδων και εξόδων. Αυτό είναι μία άμεση παρεμβολή κώδικα στην συνάρτηση "
 "κορυφής/τμήματος/φωτός, μην γράψετε μέσα ορισμούς συναρτήσεων."
 
@@ -6515,8 +6516,8 @@ msgid "It would be a good idea to name your project."
 msgstr "Είναι καλή ιδέα να ονομάσετε το έργο σας."
 
 msgid ""
-"Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."
-msgstr "Άκυρο αρχείο έργου «.zip»: Δεν περιέχει αρχείο «project.godot»."
+"Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."
+msgstr "Άκυρο αρχείο έργου «.zip»: Δεν περιέχει αρχείο «project.tekisasu»."
 
 msgid "The path specified doesn't exist."
 msgstr "Η ορισμένη διαδρομή δεν υπάρχει."
@@ -6524,8 +6525,8 @@ msgstr "Η ορισμένη διαδρομή δεν υπάρχει."
 msgid "New Game Project"
 msgstr "Νέο έργο παιχνιδιού"
 
-msgid "Couldn't create project.godot in project path."
-msgstr "Δεν ήταν δυνατή η δημιουργία του project.godot στη διαδρομή έργου."
+msgid "Couldn't create project.tekisasu in project path."
+msgstr "Δεν ήταν δυνατή η δημιουργία του project.tekisasu στη διαδρομή έργου."
 
 msgid "Error opening package file, not in ZIP format."
 msgstr "Σφάλμα ανοίγματος αρχείου πακέτου, δεν είναι σε μορφή ZIP."
@@ -6578,8 +6579,8 @@ msgstr "Αλλαγή Νεκρής Ζώνης Ενέργειας"
 msgid "Erase Input Action"
 msgstr "Διαγραφή ενέργειας εισόδου"
 
-msgid "Project Settings (project.godot)"
-msgstr "Ρυθμίσεις έργου (project.godot)"
+msgid "Project Settings (project.tekisasu)"
+msgstr "Ρυθμίσεις έργου (project.tekisasu)"
 
 msgid "Input Map"
 msgstr "Χάρτης εισόδου"

@@ -9,7 +9,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_interface">
 			<return type="void" />
 			<param index="0" name="interface" type="XRInterface" />

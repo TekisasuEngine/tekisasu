@@ -9,9 +9,7 @@
 		[Texture2D] is a base for other resources. It cannot be used directly.
 		[b]Note:[/b] The maximum texture size is 16384×16384 pixels due to graphics hardware limitations. Larger textures may fail to import.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_draw" qualifiers="virtual const">
 			<return type="void" />
 			<param index="0" name="to_canvas_item" type="RID" />

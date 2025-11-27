@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="drive" type="float" setter="set_drive" getter="get_drive" default="0.0">
 			Distortion power. Value can range from 0 to 1.
 		</member>

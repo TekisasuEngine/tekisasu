@@ -16,7 +16,7 @@
 	<tutorials>
 		<link title="Random number generation">$DOCS_URL/tutorials/math/random_number_generation.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="rand_weighted">
 			<return type="int" />
 			<param index="0" name="weights" type="PackedFloat32Array" />
@@ -88,7 +88,7 @@
 			[b]Note:[/b] The default value of this property is pseudo-random, and changes when calling [method randomize]. The [code]0[/code] value documented here is a placeholder, and not the actual default seed.
 			[codeblock]
 			var rng = RandomNumberGenerator.new()
-			rng.seed = hash("Godot")
+			rng.seed = hash("Tekisasu")
 			rng.state = 100 # Restore to some previously saved state.
 			[/codeblock]
 		</member>

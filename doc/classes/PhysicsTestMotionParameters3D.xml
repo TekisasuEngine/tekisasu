@@ -6,9 +6,7 @@
 	<description>
 		By changing various properties of this object, such as the motion, you can configure the parameters for [method PhysicsServer3D.body_test_motion].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="collide_separation_ray" type="bool" setter="set_collide_separation_ray_enabled" getter="is_collide_separation_ray_enabled" default="false">
 			If set to [code]true[/code], shapes of type [constant PhysicsServer3D.SHAPE_SEPARATION_RAY] are used to detect collisions and can stop the motion. Can be useful when snapping to the ground.
 			If set to [code]false[/code], shapes of type [constant PhysicsServer3D.SHAPE_SEPARATION_RAY] are only used for separation when overlapping with other bodies. That's the main use for separation ray shapes.

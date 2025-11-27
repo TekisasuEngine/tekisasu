@@ -12,7 +12,7 @@
 		<link title="GUI skinning">$DOCS_URL/tutorials/ui/gui_skinning.html</link>
 		<link title="Using the theme editor">$DOCS_URL/tutorials/ui/gui_using_theme_editor.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_type">
 			<return type="void" />
 			<param index="0" name="theme_type" type="StringName" />

@@ -6,6 +6,4 @@
 	<description>
 		[VisualShaderNodeParticleEmitter] that makes the particles emitted in box shape with the specified extents.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

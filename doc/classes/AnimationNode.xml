@@ -17,7 +17,7 @@
 	<tutorials>
 		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_caption" qualifiers="virtual const">
 			<return type="String" />
 			<description>

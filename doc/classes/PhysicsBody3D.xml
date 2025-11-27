@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="add_collision_exception_with">
 			<return type="void" />
 			<param index="0" name="body" type="Node" />

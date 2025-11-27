@@ -7,9 +7,7 @@
 		This class extends [PhysicsServer2D] by providing additional virtual methods that can be overridden. When these methods are overridden, they will be called instead of the internal methods of the physics server.
 		Intended for use with GDExtension to create custom implementations of [PhysicsServer2D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_area_add_shape" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="area" type="RID" />
@@ -423,7 +421,7 @@
 			<param index="0" name="body" type="RID" />
 			<description>
 				Overridable version of [PhysicsServer2D]'s internal [code]body_get_contacts_reported_depth_threshold[/code] method.
-				[b]Note:[/b] This method is currently unused by Godot's default physics implementation.
+				[b]Note:[/b] This method is currently unused by Tekisasu's default physics implementation.
 			</description>
 		</method>
 		<method name="_body_get_continuous_collision_detection_mode" qualifiers="virtual const">
@@ -591,7 +589,7 @@
 			<param index="1" name="threshold" type="float" />
 			<description>
 				Overridable version of [PhysicsServer2D]'s internal [code]body_set_contacts_reported_depth_threshold[/code] method.
-				[b]Note:[/b] This method is currently unused by Godot's default physics implementation.
+				[b]Note:[/b] This method is currently unused by Tekisasu's default physics implementation.
 			</description>
 		</method>
 		<method name="_body_set_continuous_collision_detection_mode" qualifiers="virtual">

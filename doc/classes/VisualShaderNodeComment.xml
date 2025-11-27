@@ -6,11 +6,9 @@
 	<description>
 		This node was replaced by [VisualShaderNodeFrame] and only exists to preserve compatibility. In the [VisualShader] editor it behaves exactly like [VisualShaderNodeFrame].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="description" type="String" setter="set_description" getter="get_description" default="&quot;&quot;">
-			This property only exists to preserve data authored in earlier versions of Godot. It has currently no function.
+			This property only exists to preserve data authored in earlier versions of Tekisasu. It has currently no function.
 		</member>
 	</members>
 </class>

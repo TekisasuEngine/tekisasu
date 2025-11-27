@@ -8,10 +8,7 @@
 		This resource configures an [AudioEffectSpectrumAnalyzerInstance], which performs the actual analysis at runtime. An instance can be acquired with [method AudioServer.get_bus_effect_instance].
 		See also [AudioStreamGenerator] for procedurally generating sounds.
 	</description>
-	<tutorials>
-		<link title="Audio Spectrum Visualizer Demo">https://godotengine.org/asset-library/asset/2762</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="buffer_length" type="float" setter="set_buffer_length" getter="get_buffer_length" default="2.0">
 			The length of the buffer to keep (in seconds). Higher values keep data around for longer, but require more memory.
 		</member>

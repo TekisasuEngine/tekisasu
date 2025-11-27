@@ -12,7 +12,7 @@
 		<link title="Optimization using MultiMeshes">$DOCS_URL/tutorials/performance/using_multimesh.html</link>
 		<link title="Animating thousands of fish with MultiMeshInstance">$DOCS_URL/tutorials/performance/vertex_animation/animating_thousands_of_fish.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="multimesh" type="MultiMesh" setter="set_multimesh" getter="get_multimesh">
 			The [MultiMesh] resource that will be used and shared among all instances of the [MultiMeshInstance3D].
 		</member>

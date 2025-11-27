@@ -13,9 +13,7 @@
 		Physics objects in [PhysicsServer2D] may be created and manipulated independently; they do not have to be tied to nodes in the scene tree.
 		[b]Note:[/b] All the 2D physics nodes use the physics server internally. Adding a physics node to the scene tree will cause a corresponding physics object to be created in the physics server. A rigid body node registers a callback that updates the node's transform with the transform of the respective body object in the physics server (every physics update). An area node registers a callback to inform the area node about overlaps with the respective area object in the physics server. The raycast node queries the direct state of the relevant space in the physics server.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="area_add_shape">
 			<return type="void" />
 			<param index="0" name="area" type="RID" />
@@ -1179,15 +1177,15 @@
 		</constant>
 		<constant name="JOINT_PARAM_BIAS" value="0" enum="JointParam">
 			Constant to set/get how fast the joint pulls the bodies back to satisfy the joint constraint. The lower the value, the more the two bodies can pull on the joint. The default value of this parameter is [code]0.0[/code].
-			[b]Note:[/b] In Godot Physics, this parameter is only used for pin joints and groove joints.
+			[b]Note:[/b] In Tekisasu Physics, this parameter is only used for pin joints and groove joints.
 		</constant>
 		<constant name="JOINT_PARAM_MAX_BIAS" value="1" enum="JointParam">
 			Constant to set/get the maximum speed with which the joint can apply corrections. The default value of this parameter is [code]3.40282e+38[/code].
-			[b]Note:[/b] In Godot Physics, this parameter is only used for groove joints.
+			[b]Note:[/b] In Tekisasu Physics, this parameter is only used for groove joints.
 		</constant>
 		<constant name="JOINT_PARAM_MAX_FORCE" value="2" enum="JointParam">
 			Constant to set/get the maximum force that the joint can use to act on the two bodies. The default value of this parameter is [code]3.40282e+38[/code].
-			[b]Note:[/b] In Godot Physics, this parameter is only used for groove joints.
+			[b]Note:[/b] In Tekisasu Physics, this parameter is only used for groove joints.
 		</constant>
 		<constant name="PIN_JOINT_SOFTNESS" value="0" enum="PinJointParam">
 			Constant to set/get a how much the bond of the pin joint can flex. The default value of this parameter is [code]0.0[/code].

@@ -6,9 +6,7 @@
 	<description>
 		Translated to [code]uniform mat4[/code] in the shader language.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="default_value" type="Transform3D" setter="set_default_value" getter="get_default_value" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">
 			A default value to be assigned within the shader.
 		</member>

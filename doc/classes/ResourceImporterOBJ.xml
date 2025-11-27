@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Importing 3D scenes">$DOCS_URL/tutorials/assets_pipeline/importing_3d_scenes/index.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="force_disable_mesh_compression" type="bool" setter="" getter="" default="false">
 			If [code]true[/code], mesh compression will not be used. Consider enabling if you notice blocky artifacts in your mesh normals or UVs, or if you have meshes that are larger than a few thousand meters in each direction.
 		</member>

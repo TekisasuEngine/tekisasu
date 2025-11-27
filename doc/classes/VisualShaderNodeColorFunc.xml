@@ -6,9 +6,7 @@
 	<description>
 		Accept a [Color] to the input port and transform it according to [member function].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="function" type="int" setter="set_function" getter="get_function" enum="VisualShaderNodeColorFunc.Function" default="0">
 			A function to be applied to the input color. See [enum Function] for options.
 		</member>

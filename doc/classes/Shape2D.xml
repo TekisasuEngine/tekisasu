@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="collide">
 			<return type="bool" />
 			<param index="0" name="local_xform" type="Transform2D" />

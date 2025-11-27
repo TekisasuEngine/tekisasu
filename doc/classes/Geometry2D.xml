@@ -6,9 +6,7 @@
 	<description>
 		Provides a set of helper functions to create geometric shapes, compute intersections between shapes, and process various other geometric operations in 2D.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="clip_polygons">
 			<return type="PackedVector2Array[]" />
 			<param index="0" name="polygon_a" type="PackedVector2Array" />

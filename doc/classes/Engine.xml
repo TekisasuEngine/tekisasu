@@ -6,9 +6,7 @@
 	<description>
 		The [Engine] singleton allows you to query and modify the project's run-time parameters, such as frames per second, time scale, and others. It also stores information about the current build of Tekisasu Engine, such as the current version.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_teksec" qualifiers="const">
 			<return type="String" />
 			<description>
@@ -195,7 +193,7 @@
 				[b]Note:[/b] The [code]hex[/code] values are still [int] internally, and printing them will give you their decimal representation, which is not particularly meaningful. Use hexadecimal literals for quick version comparisons from code:
 				[codeblocks]
 				[gdscript]
-				# Check original internal Godot version
+				# Check original internal Tekisasu version
 				if Engine.get_version_info().hex &gt;= 0x040100:
 				    pass # Do things specific to internal version 4.1 or later.
 
@@ -204,7 +202,7 @@
 				    pass # Do things specific to external version 2025.0.1 or later.
 				[/gdscript]
 				[csharp]
-				// Check original internal Godot-compatible version
+				// Check original internal Tekisasu-compatible version
 				if ((int)Engine.GetVersionInfo()["hex"] &gt;= 0x040100)
 				{
 				    // Do things specific to internal version 4.1 or later.

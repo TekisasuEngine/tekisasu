@@ -6,9 +6,7 @@
 	<description>
 		[ParticleProcessMaterial] defines particle properties and behavior. It is used in the [code]process_material[/code] of the [GPUParticles2D] and [GPUParticles3D] nodes. Some of this material's properties are applied to each particle when emitted, while others can have a [CurveTexture] or a [GradientTexture1D] applied to vary numerical or color values over the lifetime of the particle.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_param" qualifiers="const">
 			<return type="Vector2" />
 			<param index="0" name="param" type="int" enum="ParticleProcessMaterial.Parameter" />

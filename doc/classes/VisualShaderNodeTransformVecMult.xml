@@ -6,9 +6,7 @@
 	<description>
 		A multiplication operation on a transform (4×4 matrix) and a vector, with support for different multiplication operators.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="operator" type="int" setter="set_operator" getter="get_operator" enum="VisualShaderNodeTransformVecMult.Operator" default="0">
 			The multiplication type to be performed. See [enum Operator] for options.
 		</member>

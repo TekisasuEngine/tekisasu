@@ -6,9 +6,7 @@
 	<description>
 		Performs a lookup operation on the provided texture, with support for multiple texture sources to choose from.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="texture" type="Texture3D" setter="set_texture" getter="get_texture">
 			A source texture. Used if [member VisualShaderNodeSample3D.source] is set to [constant VisualShaderNodeSample3D.SOURCE_TEXTURE].
 		</member>

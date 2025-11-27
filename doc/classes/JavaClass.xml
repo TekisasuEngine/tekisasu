@@ -8,6 +8,4 @@
 		[b]Note:[/b] This class only works on Android. For any other build, this class does nothing.
 		[b]Note:[/b] This class is not to be confused with [JavaScriptObject].
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

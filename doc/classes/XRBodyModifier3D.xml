@@ -11,7 +11,7 @@
 	<tutorials>
 		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="body_tracker" type="StringName" setter="set_body_tracker" getter="get_body_tracker" default="&amp;&quot;/user/body_tracker&quot;">
 			The name of the [XRBodyTracker] registered with [XRServer] to obtain the body tracking data from.
 		</member>

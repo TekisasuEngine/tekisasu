@@ -10,7 +10,7 @@
 	<tutorials>
 		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
 	</tutorials>
-	<members>
+<members>
 		<member name="depth" type="float" setter="set_depth" getter="get_depth" default="1.0">
 			Governs how high the filter frequencies sweep. Low value will primarily affect bass frequencies. High value can sweep high into the treble. Value can range from 0.1 to 4.
 		</member>

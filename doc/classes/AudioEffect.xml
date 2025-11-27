@@ -9,9 +9,8 @@
 	</description>
 	<tutorials>
 		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
-		<link title="Audio Microphone Record Demo">https://godotengine.org/asset-library/asset/2760</link>
 	</tutorials>
-	<methods>
+<methods>
 		<method name="_instantiate" qualifiers="virtual">
 			<return type="AudioEffectInstance" />
 			<description>
