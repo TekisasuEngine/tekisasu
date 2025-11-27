@@ -6026,7 +6026,7 @@ msgid "Online Docs"
 msgstr "Online Dokumentácie"
 
 msgid "Open Tekisasu online documentation."
-msgstr "Otvoriť online dokumentáciu Godotu."
+msgstr "Otvoriť online dokumentáciu Tekisasu."
 
 msgid "Open..."
 msgstr "Otvoriť..."

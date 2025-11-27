@@ -1910,7 +1910,7 @@ msgid "Roots"
 msgstr "ریشه‌ها"
 
 msgid "Tekisasu Bone Node"
-msgstr "گرهٔ استخوان گودوت"
+msgstr "گرهٔ استخوان Tekisasu"
 
 msgid "Min Filter"
 msgstr "کمینهٔ پالایه"

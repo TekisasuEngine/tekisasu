@@ -1474,7 +1474,7 @@ msgid "New profile name:"
 msgstr "Uus profiilinimi:"
 
 msgid "Tekisasu Feature Profile"
-msgstr "Godoti funktsiooniprofiil"
+msgstr "Tekisasu funktsiooniprofiil"
 
 msgid "Import Profile(s)"
 msgstr "Impordi profiil(id)"
@@ -2854,7 +2854,7 @@ msgid "Select Template File"
 msgstr "Valige Malli Fail"
 
 msgid "Tekisasu Export Templates"
-msgstr "Godoti Ekspordi mallid"
+msgstr "Tekisasu Ekspordi mallid"
 
 msgid ""
 "The templates will continue to download.\n"
@@ -3013,7 +3013,7 @@ msgid "ZIP File"
 msgstr "ZIP Fail"
 
 msgid "Tekisasu Project Pack"
-msgstr "Godoti Projekti Pakk"
+msgstr "Tekisasu Projekti Pakk"
 
 msgid "Export templates for this platform are missing:"
 msgstr "Selle platvormi ekspordimallid puuduvad:"

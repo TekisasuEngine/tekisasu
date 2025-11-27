@@ -13219,7 +13219,7 @@ msgid "Boolean parameter."
 msgstr "Boolean-Parameter."
 
 msgid "Translated to '%s' in Tekisasu Shading Language."
-msgstr "Zu ‚%s‘ übersetzt in Godots Shadersprache."
+msgstr "Zu ‚%s‘ übersetzt in Tekisasus Shadersprache."
 
 msgid "'%s' input parameter for all shader modes."
 msgstr "‚%s‘-Eingabeparameter für alle Shadermodi."

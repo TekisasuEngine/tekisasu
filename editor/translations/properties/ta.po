@@ -3550,7 +3550,7 @@ msgid "Roots"
 msgstr "வேர்கள்"
 
 msgid "Tekisasu Bone Node"
-msgstr "கோடோட் எலும்பு முனை"
+msgstr "Tekisasu எலும்பு முனை"
 
 msgid "Skin Root"
 msgstr "தோல் வேர்"
@@ -3562,7 +3562,7 @@ msgid "Non Joints"
 msgstr "அல்லாத மூட்டுகள்"
 
 msgid "Tekisasu Skin"
-msgstr "கோடோட் தோல்"
+msgstr "Tekisasu தோல்"
 
 msgid "Src Image"
 msgstr "எச்.ஆர்.சி படம்"
