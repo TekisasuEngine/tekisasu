@@ -339,10 +339,17 @@ void EditorSpinSlider::_draw_spin_slider() {
 
 	if (flat && !label.is_empty()) {
 		Ref<StyleBox> label_bg = get_theme_stylebox(SNAME("label_bg"), SNAME("EditorSpinSlider"));
+		// Draw label background (e.g., x, y, z labels).
 		if (rtl) {
 			draw_style_box(label_bg, Rect2(Vector2(size.width - (sb->get_offset().x * 2 + label_width), 0), Vector2(sb->get_offset().x * 2 + label_width, size.height)));
 		} else {
 			draw_style_box(label_bg, Rect2(Vector2(), Vector2(sb->get_offset().x * 2 + label_width, size.height)));
+		}
+		// Draw value field background.
+		if (rtl) {
+			draw_style_box(sb, Rect2(Vector2(), Vector2(size.width - (sb->get_offset().x * 2 + label_width), size.height)));
+		} else {
+			draw_style_box(sb, Rect2(Vector2(sb->get_offset().x * 2 + label_width, 0), Vector2(size.width - (sb->get_offset().x * 2 + label_width), size.height)));
 		}
 	}
 

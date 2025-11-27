@@ -1943,8 +1943,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("read_only_label_color", "EditorSpinSlider", p_config.font_readonly_color);
 
 		Ref<StyleBoxFlat> editor_spin_label_bg = p_config.base_style->duplicate();
-		// Use a lighter background for the label to improve visibility.
-		editor_spin_label_bg->set_bg_color(p_config.dark_color_1);
+		// Use a dark background for the label area (x, y, z labels in vector editors).
+		editor_spin_label_bg->set_bg_color(p_config.dark_color_3);
 		editor_spin_label_bg->set_border_width_all(0);
 		p_theme->set_stylebox("label_bg", "EditorSpinSlider", editor_spin_label_bg);
 

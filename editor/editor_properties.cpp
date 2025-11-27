@@ -1345,7 +1345,7 @@ void EditorPropertyInteger::setup(int64_t p_min, int64_t p_max, int64_t p_step, 
 
 EditorPropertyInteger::EditorPropertyInteger() {
 	spin = memnew(EditorSpinSlider);
-
+	spin->set_flat(true);
 	add_child(spin);
 	add_focusable(spin);
 	spin->connect(SceneStringName(value_changed), callable_mp(this, &EditorPropertyInteger::_value_changed));
@@ -1779,6 +1779,7 @@ EditorPropertyRect2::EditorPropertyRect2(bool p_force_wide) {
 	static const char *desc[4] = { "x", "y", "w", "h" };
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 
@@ -1875,6 +1876,7 @@ EditorPropertyRect2i::EditorPropertyRect2i(bool p_force_wide) {
 	static const char *desc[4] = { "x", "y", "w", "h" };
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 
@@ -1968,6 +1970,7 @@ EditorPropertyPlane::EditorPropertyPlane(bool p_force_wide) {
 	static const char *desc[4] = { "x", "y", "z", "d" };
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 
 		spin[i]->set_label(desc[i]);
 		bc->add_child(spin[i]);
@@ -2141,6 +2144,7 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 	static const char *desc[4] = { "x", "y", "z", "w" };
 	for (int i = 0; i < 4; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 
 		spin[i]->set_label(desc[i]);
 		default_layout->add_child(spin[i]);
@@ -2254,6 +2258,7 @@ EditorPropertyAABB::EditorPropertyAABB() {
 	static const char *desc[6] = { "x", "y", "z", "w", "h", "d" };
 	for (int i = 0; i < 6; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 
@@ -2337,6 +2342,7 @@ EditorPropertyTransform2D::EditorPropertyTransform2D(bool p_include_origin) {
 	static const char *desc[6] = { "xx", "xy", "xo", "yx", "yy", "yo" };
 	for (int i = 0; i < 6; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 		if (p_include_origin || i % 3 != 2) {
@@ -2422,6 +2428,7 @@ EditorPropertyBasis::EditorPropertyBasis() {
 	static const char *desc[9] = { "xx", "xy", "xz", "yx", "yy", "yz", "zx", "zy", "zz" };
 	for (int i = 0; i < 9; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 		g->add_child(spin[i]);
@@ -2514,6 +2521,7 @@ EditorPropertyTransform3D::EditorPropertyTransform3D() {
 	static const char *desc[12] = { "xx", "xy", "xz", "xo", "yx", "yy", "yz", "yo", "zx", "zy", "zz", "zo" };
 	for (int i = 0; i < 12; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 		g->add_child(spin[i]);
@@ -2614,6 +2622,7 @@ EditorPropertyProjection::EditorPropertyProjection() {
 	static const char *desc[16] = { "xx", "xy", "xz", "xw", "yx", "yy", "yz", "yw", "zx", "zy", "zz", "zw", "wx", "wy", "wz", "ww" };
 	for (int i = 0; i < 16; i++) {
 		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 
 		g->add_child(spin[i]);
