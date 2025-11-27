@@ -798,10 +798,13 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// OptionButton.
 		{
 			Ref<StyleBoxFlat> option_button_focus_style = p_config.button_style_focus->duplicate();
-			Ref<StyleBoxFlat> option_button_normal_style = p_config.button_style->duplicate();
-			Ref<StyleBoxFlat> option_button_hover_style = p_config.button_style_hover->duplicate();
 			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_pressed->duplicate();
 			Ref<StyleBoxFlat> option_button_disabled_style = p_config.button_style_disabled->duplicate();
+
+			// Use hover color as normal state, with a slightly lighter hover.
+			Ref<StyleBoxFlat> option_button_normal_style = p_config.button_style_hover->duplicate();
+			Ref<StyleBoxFlat> option_button_hover_style = p_config.button_style_hover->duplicate();
+			option_button_hover_style->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.16));
 
 			option_button_focus_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_normal_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
@@ -810,8 +813,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			option_button_disabled_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 
 			p_theme->set_stylebox("focus", "OptionButton", option_button_focus_style);
-			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", p_config.button_style);
-			p_theme->set_stylebox("hover", "OptionButton", p_config.button_style_hover);
+			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", option_button_normal_style);
+			p_theme->set_stylebox("hover", "OptionButton", option_button_hover_style);
 			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", p_config.button_style_pressed);
 			p_theme->set_stylebox("disabled", "OptionButton", p_config.button_style_disabled);
 
@@ -1198,9 +1201,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
 
-		// Use a lighter background color for text edit fields.
-		text_editor_style->set_bg_color(p_config.contrast_color_1);
-
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
 			text_editor_style->set_border_color(p_config.extra_border_color_1);
@@ -1215,11 +1215,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		text_editor_disabled_style->set_border_color(p_config.disabled_border_color);
 		text_editor_disabled_style->set_bg_color(p_config.disabled_bg_color);
 
-		// Use darker text color for text edit fields (inverse of mono_color).
-		const Color text_editor_font_color = p_config.mono_color.inverted();
-		const Color text_editor_font_readonly_color = Color(text_editor_font_color.r, text_editor_font_color.g, text_editor_font_color.b, 0.65);
-		const Color text_editor_font_placeholder_color = Color(text_editor_font_color.r, text_editor_font_color.g, text_editor_font_color.b, 0.6);
-
 		// LineEdit.
 
 		p_theme->set_stylebox(CoreStringName(normal), "LineEdit", text_editor_style);
@@ -1228,14 +1223,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		p_theme->set_icon("clear", "LineEdit", p_theme->get_icon(SNAME("GuiClose"), EditorStringName(EditorIcons)));
 
-		p_theme->set_color(SceneStringName(font_color), "LineEdit", text_editor_font_color);
+		p_theme->set_color(SceneStringName(font_color), "LineEdit", p_config.font_color);
 		p_theme->set_color("font_selected_color", "LineEdit", p_config.mono_color);
-		p_theme->set_color("font_uneditable_color", "LineEdit", text_editor_font_readonly_color);
-		p_theme->set_color("font_placeholder_color", "LineEdit", text_editor_font_placeholder_color);
+		p_theme->set_color("font_uneditable_color", "LineEdit", p_config.font_readonly_color);
+		p_theme->set_color("font_placeholder_color", "LineEdit", p_config.font_placeholder_color);
 		p_theme->set_color("font_outline_color", "LineEdit", p_config.font_outline_color);
-		p_theme->set_color("caret_color", "LineEdit", text_editor_font_color);
+		p_theme->set_color("caret_color", "LineEdit", p_config.font_color);
 		p_theme->set_color("selection_color", "LineEdit", p_config.selection_color);
-		p_theme->set_color("clear_button_color", "LineEdit", text_editor_font_color);
+		p_theme->set_color("clear_button_color", "LineEdit", p_config.font_color);
 		p_theme->set_color("clear_button_color_pressed", "LineEdit", p_config.accent_color);
 
 		p_theme->set_constant("minimum_character_width", "LineEdit", 4);
@@ -1251,11 +1246,11 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_icon("tab", "TextEdit", p_theme->get_icon(SNAME("GuiTab"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("space", "TextEdit", p_theme->get_icon(SNAME("GuiSpace"), EditorStringName(EditorIcons)));
 
-		p_theme->set_color(SceneStringName(font_color), "TextEdit", text_editor_font_color);
-		p_theme->set_color("font_readonly_color", "TextEdit", text_editor_font_readonly_color);
-		p_theme->set_color("font_placeholder_color", "TextEdit", text_editor_font_placeholder_color);
+		p_theme->set_color(SceneStringName(font_color), "TextEdit", p_config.font_color);
+		p_theme->set_color("font_readonly_color", "TextEdit", p_config.font_readonly_color);
+		p_theme->set_color("font_placeholder_color", "TextEdit", p_config.font_placeholder_color);
 		p_theme->set_color("font_outline_color", "TextEdit", p_config.font_outline_color);
-		p_theme->set_color("caret_color", "TextEdit", text_editor_font_color);
+		p_theme->set_color("caret_color", "TextEdit", p_config.font_color);
 		p_theme->set_color("selection_color", "TextEdit", p_config.selection_color);
 		p_theme->set_color("background_color", "TextEdit", Color(0, 0, 0, 0));
 
