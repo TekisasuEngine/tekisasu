@@ -240,7 +240,6 @@
 		</member>
 		<member name="heightmap_flip_texture" type="bool" setter="set_flag" getter="get_flag" default="false">
 			If [code]true[/code], interprets the height map texture as a depth map, with brighter values appearing to be "lower" in altitude compared to darker values.
-			This can be enabled for compatibility with some materials authored for Tekisasu 3.x. This is not necessary if the Invert import option was used to invert the depth map in Tekisasu 3.x, in which case [member heightmap_flip_texture] should remain [code]false[/code].
 		</member>
 		<member name="heightmap_max_layers" type="int" setter="set_heightmap_deep_parallax_max_layers" getter="get_heightmap_deep_parallax_max_layers">
 			The number of layers to use for parallax occlusion mapping when the camera is up close to the material. Higher values result in a more convincing depth effect, especially in materials that have steep height changes. Higher values have a significant cost on the GPU, so it should only be increased on materials where it makes a significant visual difference.
