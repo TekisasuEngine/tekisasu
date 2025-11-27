@@ -758,12 +758,17 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("align_to_largest_stylebox", "Button", 1); // Enabled.
 
 		// MenuButton.
+		{
+			// Create a stylebox with widget_bg_color for MenuButton.
+			Ref<StyleBoxFlat> menu_button_style = p_config.button_style->duplicate();
+			menu_button_style->set_bg_color(p_config.widget_bg_color);
 
-		p_theme->set_stylebox(CoreStringName(normal), "MenuButton", p_config.panel_container_style);
-		p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
-		p_theme->set_stylebox(SceneStringName(pressed), "MenuButton", p_config.panel_container_style);
-		p_theme->set_stylebox("focus", "MenuButton", p_config.panel_container_style);
-		p_theme->set_stylebox("disabled", "MenuButton", p_config.panel_container_style);
+			p_theme->set_stylebox(CoreStringName(normal), "MenuButton", menu_button_style);
+			p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "MenuButton", menu_button_style);
+			p_theme->set_stylebox("focus", "MenuButton", menu_button_style);
+			p_theme->set_stylebox("disabled", "MenuButton", p_config.panel_container_style);
+		}
 
 		p_theme->set_color(SceneStringName(font_color), "MenuButton", p_config.font_color);
 		p_theme->set_color("font_hover_color", "MenuButton", p_config.font_hover_color);
@@ -889,12 +894,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		// CheckBox.
 		{
-			Ref<StyleBoxFlat> checkbox_style = p_config.panel_container_style->duplicate();
+			// Create a stylebox with widget_bg_color for CheckBox toggle indicators.
+			Ref<StyleBoxFlat> checkbox_style = p_config.button_style->duplicate();
+			checkbox_style->set_bg_color(p_config.widget_bg_color);
 			checkbox_style->set_content_margin_all(p_config.base_margin * EDSCALE);
 
 			p_theme->set_stylebox(CoreStringName(normal), "CheckBox", checkbox_style);
 			p_theme->set_stylebox(SceneStringName(pressed), "CheckBox", checkbox_style);
-			p_theme->set_stylebox("disabled", "CheckBox", checkbox_style);
+			p_theme->set_stylebox("disabled", "CheckBox", p_config.panel_container_style);
 			p_theme->set_stylebox("hover", "CheckBox", checkbox_style);
 			p_theme->set_stylebox("hover_pressed", "CheckBox", checkbox_style);
 			p_theme->set_icon("checked", "CheckBox", p_theme->get_icon(SNAME("GuiChecked"), EditorStringName(EditorIcons)));
