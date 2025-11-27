@@ -417,8 +417,8 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.dark_color_1 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast).clamp();
 		p_config.dark_color_2 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 1.5).clamp();
 		p_config.dark_color_3 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 2).clamp();
-		p_config.dark_color_4 = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.675);
-		p_config.dark_color_5 = p_config.dark_color_2.lerp(p_config.base_color, 0.5);
+		p_config.dark_color_4 = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.675).clamp();
+		p_config.dark_color_5 = p_config.dark_color_2.lerp(p_config.base_color, 0.5).clamp();
 
 		p_config.contrast_color_1 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast, p_config.default_contrast));
 		p_config.contrast_color_2 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast * 1.5, p_config.default_contrast * 1.5));
