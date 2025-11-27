@@ -1196,6 +1196,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// The original button_style style has an extra 1 pixel offset that makes LineEdits not align with Buttons,
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
+		// Use a lighter background for text inputs to improve visibility against dark panels.
+		text_editor_style->set_bg_color(p_config.base_color);
 
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
@@ -1915,9 +1917,17 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("read_only_label_color", "EditorSpinSlider", p_config.font_readonly_color);
 
 		Ref<StyleBoxFlat> editor_spin_label_bg = p_config.base_style->duplicate();
-		editor_spin_label_bg->set_bg_color(p_config.dark_color_3);
+		// Use a lighter background for the label to improve visibility.
+		editor_spin_label_bg->set_bg_color(p_config.dark_color_1);
 		editor_spin_label_bg->set_border_width_all(0);
 		p_theme->set_stylebox("label_bg", "EditorSpinSlider", editor_spin_label_bg);
+
+		// EditorAudioBus - use a lighter background to stand out from the Tree panel background.
+		Ref<StyleBoxFlat> style_audio_bus = p_config.content_panel_style->duplicate();
+		style_audio_bus->set_bg_color(p_config.dark_color_1);
+		style_audio_bus->set_border_width_all(Math::round(EDSCALE));
+		style_audio_bus->set_border_color(p_config.dark_color_2);
+		p_theme->set_stylebox(SceneStringName(panel), "EditorAudioBus", style_audio_bus);
 
 		// Launch Pad and Play buttons.
 		Ref<StyleBoxFlat> style_launch_pad = make_flat_stylebox(Color(0, 0, 0, 0), 2 * EDSCALE, 0, 2 * EDSCALE, 0, p_config.corner_radius);
