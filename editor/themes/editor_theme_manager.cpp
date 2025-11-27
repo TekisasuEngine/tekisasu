@@ -1197,7 +1197,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
 		// Use a lighter background for text inputs to improve visibility against dark panels.
-		text_editor_style->set_bg_color(p_config.base_color);
+		text_editor_style->set_bg_color(p_config.base_color * Color(0.7, 0.7, 0.7, 0.6));  //tekisasu
 
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
@@ -1924,7 +1924,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// EditorAudioBus - use a lighter background to stand out from the Tree panel background.
 		Ref<StyleBoxFlat> style_audio_bus = p_config.content_panel_style->duplicate();
-		style_audio_bus->set_bg_color(p_config.dark_color_1);
+		style_audio_bus->set_bg_color(Color(p_config.dark_color_1, 0.2));
 		style_audio_bus->set_border_width_all(Math::round(EDSCALE));
 		style_audio_bus->set_border_color(p_config.dark_color_2);
 		p_theme->set_stylebox(SceneStringName(panel), "EditorAudioBus", style_audio_bus);
