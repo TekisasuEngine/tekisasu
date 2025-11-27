@@ -11,10 +11,7 @@
 		[b]Note:[/b] Lightmap baking on [CSGShape3D]s and [PrimitiveMesh]es is not supported, as these cannot store UV2 data required for baking.
 		[b]Note:[/b] If no custom lightmappers are installed, [LightmapGI] can only be baked from devices that support the Forward+ or Mobile rendering backends.
 	</description>
-	<tutorials>
-		<link title="Using Lightmap global illumination">$DOCS_URL/tutorials/3d/global_illumination/using_lightmap_gi.html</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="bias" type="float" setter="set_bias" getter="get_bias" default="0.0005">
 			The bias to use when computing shadows. Increasing [member bias] can fix shadow acne on the resulting baked lightmap, but can introduce peter-panning (shadows not connecting to their casters). Real-time [Light3D] shadows are not affected by this [member bias] property.
 		</member>

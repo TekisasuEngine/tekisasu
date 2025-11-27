@@ -8,6 +8,4 @@
 		PointMeshes, must be used with a material that has a point size. Point size can be accessed in a shader with [code]POINT_SIZE[/code], or in a [BaseMaterial3D] by setting [member BaseMaterial3D.use_point_size] and the variable [member BaseMaterial3D.point_size].
 		When using PointMeshes, properties that normally alter vertices will be ignored, including billboard mode, grow, and cull face.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

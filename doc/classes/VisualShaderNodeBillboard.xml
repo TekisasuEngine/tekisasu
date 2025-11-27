@@ -6,9 +6,7 @@
 	<description>
 		The output port of this node needs to be connected to [code]Model View Matrix[/code] port of [VisualShaderNodeOutput].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="billboard_type" type="int" setter="set_billboard_type" getter="get_billboard_type" enum="VisualShaderNodeBillboard.BillboardType" default="1">
 			Controls how the object faces the camera. See [enum BillboardType].
 		</member>

@@ -16,9 +16,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="edit_node">
 			<return type="void" />
 			<param index="0" name="node" type="Node" />

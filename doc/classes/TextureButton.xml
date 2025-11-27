@@ -8,10 +8,7 @@
 		The "normal" state must contain a texture ([member texture_normal]); other textures are optional.
 		See also [BaseButton] which contains common properties and methods associated with this node.
 	</description>
-	<tutorials>
-		<link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/2755</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="flip_h" type="bool" setter="set_flip_h" getter="is_flipped_h" default="false">
 			If [code]true[/code], texture is flipped horizontally.
 		</member>

@@ -6,9 +6,7 @@
 	<description>
 		A physics joint that restricts the movement of two 2D physics bodies to a fixed axis. For example, a [StaticBody2D] representing a piston base can be attached to a [RigidBody2D] representing the piston head, moving up and down.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="initial_offset" type="float" setter="set_initial_offset" getter="get_initial_offset" default="25.0">
 			The body B's initial anchor position defined by the joint's origin and a local offset [member initial_offset] along the joint's Y axis (along the groove).
 		</member>

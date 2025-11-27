@@ -9,9 +9,7 @@
 		See also [Environment] for general 3D environment settings.
 		This is a pure virtual class that is inherited by [CameraAttributesPhysical] and [CameraAttributesPractical].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="auto_exposure_enabled" type="bool" setter="set_auto_exposure_enabled" getter="is_auto_exposure_enabled" default="false">
 			If [code]true[/code], enables the tonemapping auto exposure mode of the scene renderer. If [code]true[/code], the renderer will automatically determine the exposure setting to adapt to the scene's illumination and the observed light.
 		</member>

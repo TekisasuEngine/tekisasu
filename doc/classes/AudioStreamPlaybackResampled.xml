@@ -4,9 +4,7 @@
 	</brief_description>
 	<description>
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_stream_sampling_rate" qualifiers="virtual const">
 			<return type="float" />
 			<description>

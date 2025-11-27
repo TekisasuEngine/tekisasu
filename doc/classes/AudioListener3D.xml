@@ -6,9 +6,7 @@
 	<description>
 		Once added to the scene tree and enabled using [method make_current], this node will override the location sounds are heard from. This can be used to listen from a location different from the [Camera3D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="clear_current">
 			<return type="void" />
 			<description>

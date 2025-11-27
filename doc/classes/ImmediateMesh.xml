@@ -26,10 +26,7 @@
 		[/codeblocks]
 		[b]Note:[/b] Generating complex geometries with [ImmediateMesh] is highly inefficient. Instead, it is designed to generate simple geometry that changes often.
 	</description>
-	<tutorials>
-		<link title="Using ImmediateMesh">$DOCS_URL/tutorials/3d/procedural_geometry/immediatemesh.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="clear_surfaces">
 			<return type="void" />
 			<description>

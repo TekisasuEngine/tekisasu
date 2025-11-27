@@ -9,9 +9,7 @@
 		- When this subclass is missing due to using a different engine version or build (e.g. modules disabled).
 		[b]Note:[/b] This is not intended to be used as an actual texture for rendering. It is not guaranteed to work like one in shaders or materials (for example when calculating UV).
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="size" type="Vector3i" setter="set_size" getter="get_size" default="Vector3i(1, 1, 1)">
 			The texture's size (in pixels).
 		</member>

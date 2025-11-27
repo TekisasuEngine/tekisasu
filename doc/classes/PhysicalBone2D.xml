@@ -8,9 +8,7 @@
 		[b]Note:[/b] To make the [Bone2D]s visually follow the [PhysicalBone2D] node, use a [SkeletonModification2DPhysicalBones] modification on the [Skeleton2D] parent.
 		[b]Note:[/b] The [PhysicalBone2D] node does not automatically create a [Joint2D] node to keep [PhysicalBone2D] nodes together. They must be created manually. For most cases, you want to use a [PinJoint2D] node. The [PhysicalBone2D] node will automatically configure the [Joint2D] node once it's been added as a child node.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_joint" qualifiers="const">
 			<return type="Joint2D" />
 			<description>

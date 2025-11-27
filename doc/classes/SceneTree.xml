@@ -8,11 +8,7 @@
 		You can also use the [SceneTree] to organize your nodes into [b]groups[/b]: every node can be added to as many groups as you want to create, e.g. an "enemy" group. You can then iterate these groups or even call methods and set properties on all the nodes belonging to any given group.
 		[SceneTree] is the default [MainLoop] implementation used by the engine, and is thus in charge of the game loop.
 	</description>
-	<tutorials>
-		<link title="SceneTree">$DOCS_URL/tutorials/scripting/scene_tree.html</link>
-		<link title="Multiple resolutions">$DOCS_URL/tutorials/rendering/multiple_resolutions.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="call_group" qualifiers="vararg">
 			<return type="void" />
 			<param index="0" name="group" type="StringName" />

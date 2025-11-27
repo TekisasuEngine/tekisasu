@@ -35,9 +35,7 @@
 		    NativeMenu.free_menu(menu)
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_check_item">
 			<return type="int" />
 			<param index="0" name="rid" type="RID" />

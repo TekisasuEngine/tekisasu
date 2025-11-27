@@ -6,9 +6,7 @@
 	<description>
 		An optimized translation, used by default for CSV Translations. Uses real-time compressed translations, which results in very small dictionaries.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="generate">
 			<return type="void" />
 			<param index="0" name="from" type="Translation" />

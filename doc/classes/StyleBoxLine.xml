@@ -6,9 +6,7 @@
 	<description>
 		A [StyleBox] that displays a single line of a given color and thickness. The line can be either horizontal or vertical. Useful for separators.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="color" type="Color" setter="set_color" getter="get_color" default="Color(0, 0, 0, 1)" keywords="colour">
 			The line's color.
 		</member>

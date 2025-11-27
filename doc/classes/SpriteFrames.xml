@@ -6,9 +6,7 @@
 	<description>
 		Sprite frame library for an [AnimatedSprite2D] or [AnimatedSprite3D] node. Contains frames and animation data for playback.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_animation">
 			<return type="void" />
 			<param index="0" name="anim" type="StringName" />

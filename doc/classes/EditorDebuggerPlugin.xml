@@ -44,9 +44,7 @@
 		[/gdscript]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_breakpoint_set_in_tree" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="script" type="Script" />

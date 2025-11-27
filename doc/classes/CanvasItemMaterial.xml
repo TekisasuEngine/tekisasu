@@ -6,9 +6,7 @@
 	<description>
 		[CanvasItemMaterial]s provide a means of modifying the textures associated with a CanvasItem. They specialize in describing blend and lighting behaviors for textures. Use a [ShaderMaterial] to more fully customize a material's interactions with a [CanvasItem].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="blend_mode" type="int" setter="set_blend_mode" getter="get_blend_mode" enum="CanvasItemMaterial.BlendMode" default="0">
 			The manner in which a material's rendering is applied to underlying textures.
 		</member>

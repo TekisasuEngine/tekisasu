@@ -6,9 +6,7 @@
 	<description>
 		Base class for [CompressedTexture2DArray] and [CompressedTexture3D]. Cannot be used directly, but contains all the functions necessary for accessing the derived resource types. See also [TextureLayered].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="load">
 			<return type="int" enum="Error" />
 			<param index="0" name="path" type="String" />

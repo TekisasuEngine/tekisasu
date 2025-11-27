@@ -6,9 +6,7 @@
 	<description>
 		Provides access to metadata stored for every available class.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="can_instantiate" qualifiers="const">
 			<return type="bool" />
 			<param index="0" name="class" type="StringName" />

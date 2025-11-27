@@ -9,13 +9,7 @@
 		For a general introduction, see the [url=$DOCS_URL/tutorials/math/matrices_and_transforms.html]Matrices and transforms[/url] tutorial.
 		[b]Note:[/b] Unlike [Transform3D], there is no 2D equivalent to the [Basis] type. All mentions of "basis" refer to the [member x] and [member y] components of [Transform2D].
 	</description>
-	<tutorials>
-		<link title="Math documentation index">$DOCS_URL/tutorials/math/index.html</link>
-		<link title="Matrices and transforms">$DOCS_URL/tutorials/math/matrices_and_transforms.html</link>
-		<link title="Matrix Transform Demo">https://godotengine.org/asset-library/asset/2787</link>
-		<link title="2.5D Game Demo">https://godotengine.org/asset-library/asset/2783</link>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Transform2D">
 			<return type="Transform2D" />
 			<description>

@@ -7,10 +7,7 @@
 		An instance of this object represents a tracked face and its corresponding blend shapes. The blend shapes come from the [url=https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes]Unified Expressions[/url] standard, and contain extended details and visuals for each blend shape. Additionally the [url=https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/compatibility/overview]Tracking Standard Comparison[/url] page documents the relationship between Unified Expressions and other standards.
 		As face trackers are turned on they are registered with the [XRServer].
 	</description>
-	<tutorials>
-		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_blend_shape" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="blend_shape" type="int" enum="XRFaceTracker.BlendShapeEntry" />

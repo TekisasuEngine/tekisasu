@@ -8,9 +8,7 @@
 		When [StaticBody2D] is moved, it is teleported to its new position without affecting other physics bodies in its path. If this is not desired, use [AnimatableBody2D] instead.
 		[StaticBody2D] is useful for completely static objects like floors and walls, as well as moving surfaces like conveyor belts and circular revolving platforms (by using [member constant_linear_velocity] and [member constant_angular_velocity]).
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="constant_angular_velocity" type="float" setter="set_constant_angular_velocity" getter="get_constant_angular_velocity" default="0.0">
 			The body's constant angular velocity. This does not rotate the body, but affects touching bodies, as if it were rotating.
 		</member>

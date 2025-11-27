@@ -7,10 +7,7 @@
 		Arranges child controls into a tabbed view, creating a tab for each one. The active tab's corresponding control is made visible, while all other child controls are hidden. Ignores non-control children.
 		[b]Note:[/b] The drawing of the clickable tabs is handled by this node; [TabBar] is not needed.
 	</description>
-	<tutorials>
-		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_current_tab_control" qualifiers="const">
 			<return type="Control" />
 			<description>

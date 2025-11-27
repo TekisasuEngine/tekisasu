@@ -6,6 +6,4 @@
 	<description>
 		Translated to [code]uniform samplerCube[/code] in the shader language. The output value can be used as port for [VisualShaderNodeCubemap].
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

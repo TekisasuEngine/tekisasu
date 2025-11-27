@@ -42,11 +42,7 @@
 		The above code relies on the number of elements in the [code]enemies[/code] array remaining constant during the multithreaded part.
 		[b]Note:[/b] Using this singleton could affect performance negatively if the task being distributed between threads is not computationally expensive.
 	</description>
-	<tutorials>
-		<link title="Using multiple threads">$DOCS_URL/tutorials/performance/using_multiple_threads.html</link>
-		<link title="Thread-safe APIs">$DOCS_URL/tutorials/performance/thread_safe_apis.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_group_task">
 			<return type="int" />
 			<param index="0" name="action" type="Callable" />

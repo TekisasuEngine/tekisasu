@@ -7,9 +7,7 @@
 		This class can be used to implement custom profilers that are able to interact with the engine and editor debugger.
 		See [EngineDebugger] and [EditorDebuggerPlugin] for more information.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_add_frame" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="data" type="Array" />

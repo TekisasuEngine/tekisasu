@@ -35,9 +35,7 @@
 		- Numbers are parsed using [method String.to_float] which is generally more lax than the JSON specification.
 		- Certain errors, such as invalid Unicode sequences, do not cause a parser error. Instead, the string is cleansed and an error is logged to the console.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_error_line" qualifiers="const">
 			<return type="int" />
 			<description>

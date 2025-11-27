@@ -24,9 +24,7 @@
 		[/codeblocks]
 		To use an [EditorResourceConversionPlugin], register it using the [method EditorPlugin.add_resource_conversion_plugin] method first.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_convert" qualifiers="virtual const">
 			<return type="Resource" />
 			<param index="0" name="resource" type="Resource" />

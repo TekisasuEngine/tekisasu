@@ -38,9 +38,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_attribute_count" qualifiers="const">
 			<return type="int" />
 			<description>

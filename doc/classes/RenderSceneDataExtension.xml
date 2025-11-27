@@ -6,9 +6,7 @@
 	<description>
 		This class allows for a RenderSceneData implementation to be made in GDExtension.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_cam_projection" qualifiers="virtual const">
 			<return type="Projection" />
 			<description>

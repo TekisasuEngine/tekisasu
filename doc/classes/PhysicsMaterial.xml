@@ -6,9 +6,7 @@
 	<description>
 		Holds physics-related properties of a surface, namely its roughness and bounciness. This class is used to apply these properties to a physics body.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="absorbent" type="bool" setter="set_absorbent" getter="is_absorbent" default="false">
 			If [code]true[/code], subtracts the bounciness from the colliding object's bounciness instead of adding it.
 		</member>

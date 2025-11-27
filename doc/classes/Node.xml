@@ -17,11 +17,7 @@
 		[b]Networking with nodes:[/b] After connecting to a server (or making one, see [ENetMultiplayerPeer]), it is possible to use the built-in RPC (remote procedure call) system to communicate over the network. By calling [method rpc] with a method name, it will be called locally and in all connected peers (peers = clients and the server that accepts connections). To identify which node receives the RPC call, Tekisasu will use its [NodePath] (make sure node names are the same on all peers). Also, take a look at the high-level networking tutorial and corresponding demos.
 		[b]Note:[/b] The [code]script[/code] property is part of the [Object] class, not [Node]. It isn't exposed like most properties but does have a setter and getter (see [method Object.set_script] and [method Object.get_script]).
 	</description>
-	<tutorials>
-		<link title="Nodes and scenes">$DOCS_URL/getting_started/step_by_step/nodes_and_scenes.html</link>
-		<link title="All Demos">https://github.com/godotengine/godot-demo-projects/</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_enter_tree" qualifiers="virtual">
 			<return type="void" />
 			<description>

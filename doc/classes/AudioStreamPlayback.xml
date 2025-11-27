@@ -6,10 +6,7 @@
 	<description>
 		Can play, loop, pause a scroll through audio. See [AudioStream] and [AudioStreamOggVorbis] for usage.
 	</description>
-	<tutorials>
-		<link title="Audio Generator Demo">https://godotengine.org/asset-library/asset/2759</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_loop_count" qualifiers="virtual const">
 			<return type="int" />
 			<description>

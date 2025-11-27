@@ -6,9 +6,7 @@
 	<description>
 		TextureProgressBar works like [ProgressBar], but uses up to 3 textures instead of Tekisasu's [Theme] resource. It can be used to create horizontal, vertical and radial progress bars.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_stretch_margin" qualifiers="const">
 			<return type="int" />
 			<param index="0" name="margin" type="int" enum="Side" />

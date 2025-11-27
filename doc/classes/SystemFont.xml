@@ -10,9 +10,7 @@
 		You can create [FontVariation] of the system font for precise control over its features.
 		[b]Note:[/b] This class is implemented on iOS, Linux, macOS and Windows, on other platforms it will fallback to default theme font.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="allow_system_fallback" type="bool" setter="set_allow_system_fallback" getter="is_allow_system_fallback" default="true">
 			If set to [code]true[/code], system fonts can be automatically used as fallbacks.
 		</member>

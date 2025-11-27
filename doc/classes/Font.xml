@@ -6,9 +6,7 @@
 	<description>
 		Abstract base class for different font types. It has methods for drawing text and font character introspection.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="draw_char" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="canvas_item" type="RID" />

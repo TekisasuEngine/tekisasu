@@ -89,9 +89,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_do_method">
 			<return type="void" />
 			<param index="0" name="callable" type="Callable" />

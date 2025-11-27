@@ -10,9 +10,7 @@
 		[b]Note:[/b] [member ParticleProcessMaterial.collision_mode] must be [code]true[/code] on the [GPUParticles3D]'s process material for collision to work.
 		[b]Note:[/b] Particle collision only affects [GPUParticles3D], not [CPUParticles3D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="follow_camera_enabled" type="bool" setter="set_follow_camera_enabled" getter="is_follow_camera_enabled" default="false">
 			If [code]true[/code], the [GPUParticlesCollisionHeightField3D] will follow the current camera in global space. The [GPUParticlesCollisionHeightField3D] does not need to be a child of the [Camera3D] node for this to work.
 			Following the camera has a performance cost, as it will force the heightmap to update whenever the camera moves. Consider lowering [member resolution] to improve performance if [member follow_camera_enabled] is [code]true[/code].

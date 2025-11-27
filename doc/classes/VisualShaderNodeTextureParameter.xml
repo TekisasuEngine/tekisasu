@@ -6,9 +6,7 @@
 	<description>
 		Performs a lookup operation on the texture provided as a uniform for the shader.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="color_default" type="int" setter="set_color_default" getter="get_color_default" enum="VisualShaderNodeTextureParameter.ColorDefault" default="0">
 			Sets the default color if no texture is assigned to the uniform.
 		</member>

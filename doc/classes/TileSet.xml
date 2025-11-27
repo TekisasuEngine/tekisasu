@@ -11,16 +11,7 @@
 		For example, adding a physics layer allows giving collision shapes to your tiles. Each layer has dedicated properties (physics layer and mask), so you may add several TileSet physics layers for each type of collision you need.
 		See the functions to add new layers for more information.
 	</description>
-	<tutorials>
-		<link title="Using Tilemaps">$DOCS_URL/tutorials/2d/using_tilemaps.html</link>
-		<link title="2D Platformer Demo">https://godotengine.org/asset-library/asset/2727</link>
-		<link title="2D Isometric Demo">https://godotengine.org/asset-library/asset/2718</link>
-		<link title="2D Hexagonal Demo">https://godotengine.org/asset-library/asset/2717</link>
-		<link title="2D Grid-based Navigation with AStarGrid2D Demo">https://godotengine.org/asset-library/asset/2723</link>
-		<link title="2D Role Playing Game (RPG) Demo">https://godotengine.org/asset-library/asset/2729</link>
-		<link title="2D Kinematic Character Demo">https://godotengine.org/asset-library/asset/2719</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_custom_data_layer">
 			<return type="void" />
 			<param index="0" name="to_position" type="int" default="-1" />

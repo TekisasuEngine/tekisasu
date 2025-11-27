@@ -136,12 +136,7 @@
 		[b]Note:[/b] Dictionaries are always passed by reference. To get a copy of a dictionary which can be modified independently of the original dictionary, use [method duplicate].
 		[b]Note:[/b] Erasing elements while iterating over dictionaries is [b]not[/b] supported and will result in unpredictable behavior.
 	</description>
-	<tutorials>
-		<link title="GDScript basics: Dictionary">$DOCS_URL/tutorials/scripting/gdscript/gdscript_basics.html#dictionary</link>
-		<link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/2755</link>
-		<link title="Operating System Testing Demo">https://godotengine.org/asset-library/asset/2789</link>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Dictionary">
 			<return type="Dictionary" />
 			<description>

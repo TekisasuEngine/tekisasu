@@ -6,9 +6,7 @@
 	<description>
 		Custom code to generate previews. Please check [code]file_dialog/thumbnail_size[/code] in [EditorSettings] to find out the right size to do previews at.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_can_generate_small_preview" qualifiers="virtual const">
 			<return type="bool" />
 			<description>

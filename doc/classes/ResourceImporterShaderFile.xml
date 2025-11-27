@@ -6,6 +6,4 @@
 	<description>
 		This imports native GLSL shaders as [RDShaderFile] resources, for use with low-level [RenderingDevice] operations. This importer does [i]not[/i] handle [code].gdshader[/code] files.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

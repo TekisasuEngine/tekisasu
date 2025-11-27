@@ -6,9 +6,7 @@
 	<description>
 		This class allows for a RenderSceneBuffer implementation to be made in GDExtension.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_configure" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="config" type="RenderSceneBuffersConfiguration" />

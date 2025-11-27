@@ -7,9 +7,7 @@
 		This class is available only in [EditorPlugin]s and can't be instantiated. You can access it using [method EditorInterface.get_file_system_dock].
 		While [FileSystemDock] doesn't expose any methods for file manipulation, it can listen for various file-related signals.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_resource_tooltip_plugin">
 			<return type="void" />
 			<param index="0" name="plugin" type="EditorResourceTooltipPlugin" />

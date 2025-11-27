@@ -6,9 +6,7 @@
 	<description>
 		[RDPipelineDepthStencilState] controls the way depth and stencil comparisons are performed when sampling those values using [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="back_op_compare" type="int" setter="set_back_op_compare" getter="get_back_op_compare" enum="RenderingDevice.CompareOperator" default="7">
 			The method used for comparing the previous back stencil value and [member back_op_reference].
 		</member>

@@ -6,9 +6,7 @@
 	<description>
 		Range is an abstract base class for controls that represent a number within a range, using a configured [member step] and [member page] size. See e.g. [ScrollBar] and [Slider] for examples of higher-level nodes using Range.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_value_changed" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="new_value" type="float" />

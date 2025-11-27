@@ -6,9 +6,7 @@
 	<description>
 		Abstraction over [TextServer] for handling a single paragraph of text.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_object">
 			<return type="bool" />
 			<param index="0" name="key" type="Variant" />

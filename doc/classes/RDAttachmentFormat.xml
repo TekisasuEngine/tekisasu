@@ -6,9 +6,7 @@
 	<description>
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="format" type="int" setter="set_format" getter="get_format" enum="RenderingDevice.DataFormat" default="36">
 			The attachment's data format.
 		</member>

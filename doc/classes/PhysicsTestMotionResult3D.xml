@@ -6,9 +6,7 @@
 	<description>
 		Describes the motion and collision result from [method PhysicsServer3D.body_test_motion].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_collider" qualifiers="const">
 			<return type="Object" />
 			<param index="0" name="collision_index" type="int" default="0" />

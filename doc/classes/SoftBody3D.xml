@@ -8,10 +8,7 @@
 		Additionally, [SoftBody3D] is subject to wind forces defined in [Area3D] (see [member Area3D.wind_source_path], [member Area3D.wind_force_magnitude], and [member Area3D.wind_attenuation_factor]).
 		[b]Note:[/b] There are many known bugs in [SoftBody3D]. Therefore, it's not recommended to use them for things that can affect gameplay (such as trampolines).
 	</description>
-	<tutorials>
-		<link title="SoftBody">$DOCS_URL/tutorials/physics/soft_body.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_collision_exception_with">
 			<return type="void" />
 			<param index="0" name="body" type="Node" />

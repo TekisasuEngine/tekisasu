@@ -6,10 +6,7 @@
 	<description>
 		Defines the API that the editor uses to extract information from the underlying VCS. The implementation of this API is included in VCS plugins, which are GDExtension plugins that inherit [EditorVCSInterface] and are attached (on demand) to the singleton instance of [EditorVCSInterface]. Instead of performing the task themselves, all the virtual functions listed below are calling the internally overridden functions in the VCS plugins to provide a plug-n-play experience. A custom VCS plugin is supposed to inherit from [EditorVCSInterface] and override each of these virtual functions.
 	</description>
-	<tutorials>
-		<link title="Version control systems">$DOCS_URL/tutorials/best_practices/version_control_systems.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_checkout_branch" qualifiers="virtual">
 			<return type="bool" />
 			<param index="0" name="branch_name" type="String" />

@@ -8,10 +8,7 @@
 		As controllers are turned on and the [XRInterface] detects them, instances of this object are automatically added to this list of active tracking objects accessible through the [XRServer].
 		The [XRController3D] consumes objects of this type and should be used in your project.
 	</description>
-	<tutorials>
-		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="type" type="int" setter="set_tracker_type" getter="get_tracker_type" overrides="XRTracker" enum="XRServer.TrackerType" default="2" />
 	</members>
 </class>

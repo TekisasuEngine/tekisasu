@@ -6,9 +6,7 @@
 	<description>
 		By changing various properties of this object, such as the ray position, you can configure the parameters for [method PhysicsDirectSpaceState3D.intersect_ray].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="create" qualifiers="static">
 			<return type="PhysicsRayQueryParameters3D" />
 			<param index="0" name="from" type="Vector3" />

@@ -76,9 +76,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="finish">
 			<return type="void" />
 			<description>

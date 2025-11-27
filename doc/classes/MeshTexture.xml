@@ -6,9 +6,7 @@
 	<description>
 		Simple texture that uses a mesh to draw itself. It's limited because flags can't be changed and region drawing is not supported.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="base_texture" type="Texture2D" setter="set_base_texture" getter="get_base_texture">
 			Sets the base texture that the Mesh will use to draw.
 		</member>

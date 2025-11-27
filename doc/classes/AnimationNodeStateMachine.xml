@@ -17,10 +17,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_node">
 			<return type="void" />
 			<param index="0" name="name" type="StringName" />

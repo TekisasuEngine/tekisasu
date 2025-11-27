@@ -6,13 +6,7 @@
 	<description>
 		A node that provides a [Shape2D] to a [CollisionObject2D] parent and allows to edit it. This can give a detection shape to an [Area2D] or turn a [PhysicsBody2D] into a solid object.
 	</description>
-	<tutorials>
-		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
-		<link title="2D Dodge The Creeps Demo">https://godotengine.org/asset-library/asset/2712</link>
-		<link title="2D Pong Demo">https://godotengine.org/asset-library/asset/2728</link>
-		<link title="2D Kinematic Character Demo">https://godotengine.org/asset-library/asset/2719</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="debug_color" type="Color" setter="set_debug_color" getter="get_debug_color" default="Color(0, 0, 0, 1)">
 			The collision shape debug color.
 			[b]Note:[/b] The default value is [member ProjectSettings.debug/shapes/collision/shape_color]. The [code]Color(0, 0, 0, 1)[/code] value documented here is a placeholder, and not the actual default debug color.

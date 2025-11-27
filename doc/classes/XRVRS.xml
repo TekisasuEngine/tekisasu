@@ -6,9 +6,7 @@
 	<description>
 		This class is used by various XR interfaces to generate VRS textures that can be used to speed up rendering.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="make_vrs_texture">
 			<return type="RID" />
 			<param index="0" name="target_size" type="Vector2" />

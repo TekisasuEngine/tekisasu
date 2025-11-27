@@ -14,6 +14,4 @@
 		Using [b]VRAM Compressed[/b] also improves loading times, as VRAM-compressed textures are faster to load compared to textures using lossless or lossy compression. VRAM compression can exhibit noticeable artifacts and is intended to be used for 3D rendering, not 2D.
 		See [Cubemap] for a general description of cubemaps.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

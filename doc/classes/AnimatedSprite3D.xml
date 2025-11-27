@@ -6,10 +6,7 @@
 	<description>
 		[AnimatedSprite3D] is similar to the [Sprite3D] node, except it carries multiple textures as animation [member sprite_frames]. Animations are created using a [SpriteFrames] resource, which allows you to import image files (or a folder containing said files) to provide the animation frames for the sprite. The [SpriteFrames] resource can be configured in the editor via the SpriteFrames bottom panel.
 	</description>
-	<tutorials>
-		<link title="2D Sprite animation (also applies to 3D)">$DOCS_URL/tutorials/2d/2d_sprite_animation.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_playing_speed" qualifiers="const">
 			<return type="float" />
 			<description>

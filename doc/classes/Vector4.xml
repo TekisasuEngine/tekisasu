@@ -9,9 +9,7 @@
 		See [Vector4i] for its integer counterpart.
 		[b]Note:[/b] In a boolean context, a Vector4 will evaluate to [code]false[/code] if it's equal to [code]Vector4(0, 0, 0, 0)[/code]. Otherwise, a Vector4 will always evaluate to [code]true[/code].
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Vector4">
 			<return type="Vector4" />
 			<description>

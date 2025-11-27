@@ -7,9 +7,7 @@
 		GraphFrame is a special [GraphElement] to which other [GraphElement]s can be attached. It can be configured to automatically resize to enclose all attached [GraphElement]s. If the frame is moved, all the attached [GraphElement]s inside it will be moved as well.
 		A GraphFrame is always kept behind the connection layer and other [GraphElement]s inside a [GraphEdit].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_titlebar_hbox">
 			<return type="HBoxContainer" />
 			<description>

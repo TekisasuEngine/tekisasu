@@ -6,9 +6,7 @@
 	<description>
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="attachments" type="RDPipelineColorBlendStateAttachment[]" setter="set_attachments" getter="get_attachments" default="[]">
 			The attachments that are blended together.
 		</member>

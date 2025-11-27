@@ -13,9 +13,7 @@
 		[EditorUndoRedoManager] is intended to be used by Tekisasu editor plugins. You can obtain it using [method EditorPlugin.get_undo_redo]. For non-editor uses or plugins that don't need to integrate with the editor's undo history, use [UndoRedo] instead.
 		The manager's API is mostly the same as in [UndoRedo], so you can refer to its documentation for more examples. The main difference is that [EditorUndoRedoManager] uses object + method name for actions, instead of [Callable].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_do_method" qualifiers="vararg">
 			<return type="void" />
 			<param index="0" name="object" type="Object" />

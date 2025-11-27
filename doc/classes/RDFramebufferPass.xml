@@ -8,9 +8,7 @@
 		Multipass framebuffers can optimize some configurations in mobile. On desktop, they provide little to no advantage.
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="color_attachments" type="PackedInt32Array" setter="set_color_attachments" getter="get_color_attachments" default="PackedInt32Array()">
 			Color attachments in order starting from 0. If this attachment is not used by the shader, pass ATTACHMENT_UNUSED to skip.
 		</member>

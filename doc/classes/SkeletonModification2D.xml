@@ -7,9 +7,7 @@
 		This resource provides an interface that can be expanded so code that operates on [Bone2D] nodes in a [Skeleton2D] can be mixed and matched together to create complex interactions.
 		This is used to provide Tekisasu with a flexible and powerful Inverse Kinematics solution that can be adapted for many different uses.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_draw_editor_gizmo" qualifiers="virtual">
 			<return type="void" />
 			<description>

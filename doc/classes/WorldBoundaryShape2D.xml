@@ -6,9 +6,7 @@
 	<description>
 		A 2D world boundary shape, intended for use in physics. [WorldBoundaryShape2D] works like an infinite straight line that forces all physics bodies to stay above it. The line's normal determines which direction is considered as "above" and in the editor, the smaller line over it represents this direction. It can for example be used for endless flat floors.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="distance" type="float" setter="set_distance" getter="get_distance" default="0.0">
 			The distance from the origin to the line, expressed in terms of [member normal] (according to its direction and magnitude). Actual absolute distance from the origin to the line can be calculated as [code]abs(distance) / normal.length()[/code].
 			In the scalar equation of the line [code]ax + by = d[/code], this is [code]d[/code], while the [code](a, b)[/code] coordinates are represented by the [member normal] property.

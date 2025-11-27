@@ -6,9 +6,7 @@
 	<description>
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="format_override" type="int" setter="set_format_override" getter="get_format_override" enum="RenderingDevice.DataFormat" default="218">
 			Optional override for the data format to return sampled values in. The default value of [constant RenderingDevice.DATA_FORMAT_MAX] does not override the format.
 		</member>

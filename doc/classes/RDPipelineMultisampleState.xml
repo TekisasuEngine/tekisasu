@@ -6,9 +6,7 @@
 	<description>
 		[RDPipelineMultisampleState] is used to control how multisample or supersample antialiasing is being performed when rendering using [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="enable_alpha_to_coverage" type="bool" setter="set_enable_alpha_to_coverage" getter="get_enable_alpha_to_coverage" default="false">
 			If [code]true[/code], alpha to coverage is enabled. This generates a temporary coverage value based on the alpha component of the fragment's first color output. This allows alpha transparency to make use of multisample antialiasing.
 		</member>

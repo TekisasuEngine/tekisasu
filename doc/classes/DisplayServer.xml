@@ -7,9 +7,7 @@
 		[DisplayServer] handles everything related to window management. It is separated from [OS] as a single operating system may support multiple display servers.
 		[b]Headless mode:[/b] Starting the engine with the [code]--headless[/code] [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command line argument[/url] disables all rendering and window management functions. Most functions from [DisplayServer] will return dummy values in this case.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="clipboard_get" qualifiers="const">
 			<return type="String" />
 			<description>

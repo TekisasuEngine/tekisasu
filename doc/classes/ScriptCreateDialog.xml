@@ -24,9 +24,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="config">
 			<return type="void" />
 			<param index="0" name="inherits" type="String" />

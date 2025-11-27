@@ -30,9 +30,7 @@
 		fv.variation_opentype = { ts.name_to_tag("wght"): 900, ts.name_to_tag("custom_hght"): 900 }
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="set_spacing">
 			<return type="void" />
 			<param index="0" name="spacing" type="int" enum="TextServer.SpacingType" />

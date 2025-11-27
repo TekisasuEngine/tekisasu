@@ -9,11 +9,7 @@
 		[RayCast3D] calculates intersection every physics frame, and it holds the result until the next physics frame. For an immediate raycast, or if you want to configure a [RayCast3D] multiple times within the same physics frame, use [method force_raycast_update].
 		To sweep over a region of 3D space, you can approximate the region with multiple [RayCast3D]s or use [ShapeCast3D].
 	</description>
-	<tutorials>
-		<link title="Ray-casting">$DOCS_URL/tutorials/physics/ray-casting.html</link>
-		<link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/2755</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_exception">
 			<return type="void" />
 			<param index="0" name="node" type="CollisionObject3D" />

@@ -6,9 +6,7 @@
 	<description>
 		Picks a random AudioStream from the pool, depending on the playback mode, and applies random pitch shifting and volume shifting during playback.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_stream">
 			<return type="void" />
 			<param index="0" name="index" type="int" />

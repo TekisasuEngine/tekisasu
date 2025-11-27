@@ -8,9 +8,7 @@
 		[b]Note:[/b] Changing a [SubViewportContainer]'s [member Control.scale] will cause its contents to appear distorted. To change its visual size without causing distortion, adjust the node's margins instead (if it's not already in a container).
 		[b]Note:[/b] The [SubViewportContainer] forwards mouse-enter and mouse-exit notifications to its sub-viewports.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_propagate_input_event" qualifiers="virtual const" experimental="">
 			<return type="bool" />
 			<param index="0" name="event" type="InputEvent" />

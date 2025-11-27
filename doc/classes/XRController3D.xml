@@ -9,10 +9,7 @@
 		The position of the controller node is automatically updated by the [XRServer]. This makes this node ideal to add child nodes to visualize the controller.
 		As many XR runtimes now use a configurable action map all inputs are named.
 	</description>
-	<tutorials>
-		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_float" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="name" type="StringName" />

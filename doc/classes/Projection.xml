@@ -8,9 +8,7 @@
 		For purely linear transformations (translation, rotation, and scale), it is recommended to use [Transform3D], as it is more performant and requires less memory.
 		Used internally as [Camera3D]'s projection matrix.
 	</description>
-	<tutorials>
-	</tutorials>
-	<constructors>
+<constructors>
 		<constructor name="Projection">
 			<return type="Projection" />
 			<description>

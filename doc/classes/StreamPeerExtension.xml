@@ -4,9 +4,7 @@
 	</brief_description>
 	<description>
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_available_bytes" qualifiers="virtual const">
 			<return type="int" />
 			<description>

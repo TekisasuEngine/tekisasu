@@ -6,9 +6,7 @@
 	<description>
 		Returns an associated value of the [member op_type] type if the provided boolean value is [code]true[/code] or [code]false[/code].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="op_type" type="int" setter="set_op_type" getter="get_op_type" enum="VisualShaderNodeSwitch.OpType" default="0">
 			A type of operands and returned value.
 		</member>

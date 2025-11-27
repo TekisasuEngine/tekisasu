@@ -8,9 +8,7 @@
 		It is notably used to provide AR modules with a video feed from the camera.
 		[b]Note:[/b] This class is currently only implemented on macOS and iOS. To get a [CameraFeed] on iOS, the camera plugin from [url=https://github.com/godotengine/godot-ios-plugins]godot-ios-plugins[/url] is required. On other platforms, no [CameraFeed]s will be available.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_feed">
 			<return type="void" />
 			<param index="0" name="feed" type="CameraFeed" />

@@ -6,9 +6,7 @@
 	<description>
 		Provides data transformation and encoding utility functions.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="base64_to_raw">
 			<return type="PackedByteArray" />
 			<param index="0" name="base64_str" type="String" />

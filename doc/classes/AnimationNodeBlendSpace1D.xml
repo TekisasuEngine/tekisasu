@@ -8,10 +8,7 @@
 		[AnimationNodeBlendSpace1D] represents a virtual axis on which any type of [AnimationRootNode]s can be added using [method add_blend_point]. Outputs the linear blend of the two [AnimationRootNode]s adjacent to the current value.
 		You can set the extents of the axis with [member min_space] and [member max_space].
 	</description>
-	<tutorials>
-		<link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_blend_point">
 			<return type="void" />
 			<param index="0" name="node" type="AnimationRootNode" />

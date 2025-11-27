@@ -18,9 +18,7 @@
 		corner_radius_bottom_left: 20
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_border_width" qualifiers="const">
 			<return type="int" />
 			<param index="0" name="margin" type="int" enum="Side" />

@@ -6,9 +6,7 @@
 	<description>
 		[LightmapGIData] contains baked lightmap and dynamic object probe data for [LightmapGI]. It is replaced every time lightmaps are baked in [LightmapGI].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_user">
 			<return type="void" />
 			<param index="0" name="path" type="NodePath" />

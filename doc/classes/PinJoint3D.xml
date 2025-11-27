@@ -6,9 +6,7 @@
 	<description>
 		A physics joint that attaches two 3D physics bodies at a single point, allowing them to freely rotate. For example, a [RigidBody3D] can be attached to a [StaticBody3D] to create a pendulum or a seesaw.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_param" qualifiers="const">
 			<return type="float" />
 			<param index="0" name="param" type="int" enum="PinJoint3D.Param" />

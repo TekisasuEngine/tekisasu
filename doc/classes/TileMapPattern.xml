@@ -7,9 +7,7 @@
 		This resource holds a set of cells to help bulk manipulations of [TileMap].
 		A pattern always start at the [code](0,0)[/code] coordinates and cannot have cells with negative coordinates.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_cell_alternative_tile" qualifiers="const">
 			<return type="int" />
 			<param index="0" name="coords" type="Vector2i" />

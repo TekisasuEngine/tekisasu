@@ -146,9 +146,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="setup">
 			<return type="int" enum="Error" />
 			<param index="0" name="server_options" type="TLSOptions" />

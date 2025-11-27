@@ -10,9 +10,7 @@
 		In particular, a [Skeleton3D] node with no [MeshInstance3D] children may be unknown to the [RenderingServer].
 		On the other hand, a [Skeleton3D] with multiple [MeshInstance3D] nodes which each have different [member MeshInstance3D.skin] objects may have multiple SkinReference instances (and hence, multiple skeleton [RID]s).
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_skeleton" qualifiers="const">
 			<return type="RID" />
 			<description>

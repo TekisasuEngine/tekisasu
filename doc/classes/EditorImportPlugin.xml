@@ -116,10 +116,7 @@
 		[/codeblocks]
 		To use [EditorImportPlugin], register it using the [method EditorPlugin.add_import_plugin] method first.
 	</description>
-	<tutorials>
-		<link title="Import plugins">$DOCS_URL/tutorials/plugins/editor/import_plugins.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_can_import_threaded" qualifiers="virtual const">
 			<return type="bool" />
 			<description>

@@ -8,10 +8,7 @@
 		[b]Note:[/b] Events received from the keyboard usually have all properties set. Event mappings should have only one of the [member keycode], [member physical_keycode] or [member unicode] set.
 		When events are compared, properties are checked in the following priority - [member keycode], [member physical_keycode] and [member unicode]. Events with the first matching value will be considered equal.
 	</description>
-	<tutorials>
-		<link title="Using InputEvent">$DOCS_URL/tutorials/inputs/inputevent.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="as_text_key_label" qualifiers="const">
 			<return type="String" />
 			<description>

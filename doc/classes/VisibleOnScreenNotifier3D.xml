@@ -8,9 +8,7 @@
 		If you want a node to be enabled automatically when this region is visible on screen, use [VisibleOnScreenEnabler3D].
 		[b]Note:[/b] [VisibleOnScreenNotifier3D] uses an approximate heuristic that doesn't take walls and other occlusion into account, unless occlusion culling is used. It also won't function unless [member Node3D.visible] is set to [code]true[/code].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="is_on_screen" qualifiers="const">
 			<return type="bool" />
 			<description>

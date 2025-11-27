@@ -26,9 +26,7 @@
 		[/codeblocks]
 		To remove a point from the pathfinding grid, it must be set as "solid" with [method set_point_solid].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_compute_cost" qualifiers="virtual const">
 			<return type="float" />
 			<param index="0" name="from_id" type="Vector2i" />

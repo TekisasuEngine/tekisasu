@@ -20,9 +20,7 @@
 		[/gdscript]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_max_height" qualifiers="const">
 			<return type="float" />
 			<description>

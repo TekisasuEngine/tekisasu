@@ -6,9 +6,7 @@
 	<description>
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="anisotropy_max" type="float" setter="set_anisotropy_max" getter="get_anisotropy_max" default="1.0">
 			Maximum anisotropy that can be used when sampling. Only effective if [member use_anisotropy] is [code]true[/code]. Higher values result in a sharper sampler at oblique angles, at the cost of performance (due to memory bandwidth). This value may be limited by the graphics hardware in use. Most graphics hardware only supports values up to [code]16.0[/code].
 			If [member anisotropy_max] is [code]1.0[/code], forcibly disables anisotropy even if [member use_anisotropy] is [code]true[/code].

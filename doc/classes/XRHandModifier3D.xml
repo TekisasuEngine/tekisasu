@@ -8,10 +8,7 @@
 		Positioning of hands is performed by creating an [XRNode3D] ancestor of the hand mesh driven by the same [XRHandTracker].
 		The hand tracking position-data is scaled by [member Skeleton3D.motion_scale] when applied to the skeleton, which can be used to adjust the tracked hand to match the scale of the hand model.
 	</description>
-	<tutorials>
-		<link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="bone_update" type="int" setter="set_bone_update" getter="get_bone_update" enum="XRHandModifier3D.BoneUpdate" default="0">
 			Specifies the type of updates to perform on the bones.
 		</member>

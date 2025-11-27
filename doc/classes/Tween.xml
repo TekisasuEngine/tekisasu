@@ -92,9 +92,7 @@
 		[b]Note:[/b] Tweens are not designed to be re-used and trying to do so results in an undefined behavior. Create a new Tween for each animation and every time you replay an animation from start. Keep in mind that Tweens start immediately, so only create a Tween when you want to start animating.
 		[b]Note:[/b] The tween is processed after all of the nodes in the current frame, i.e. node's [method Node._process] method would be called before the tween (or [method Node._physics_process] depending on the value passed to [method set_process_mode]).
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="bind_node">
 			<return type="Tween" />
 			<param index="0" name="node" type="Node" />

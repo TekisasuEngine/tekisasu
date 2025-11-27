@@ -8,10 +8,7 @@
 		Additional options (such as extracting individual meshes or materials to files) are available in the [b]Advanced Import Settings[/b] dialog. This dialog can be accessed by double-clicking a 3D scene in the FileSystem dock or by selecting a 3D scene in the FileSystem dock, going to the Import dock and choosing [b]Advanced[/b].
 		[b]Note:[/b] [ResourceImporterScene] is [i]not[/i] used for [PackedScene]s, such as [code].tscn[/code] and [code].scn[/code] files.
 	</description>
-	<tutorials>
-		<link title="Importing 3D scenes">$DOCS_URL/tutorials/assets_pipeline/importing_3d_scenes/index.html</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="_subresources" type="Dictionary" setter="" getter="" default="{}">
 			Contains properties for the scene's subresources. This is an internal option which is not visible in the Import dock.
 		</member>

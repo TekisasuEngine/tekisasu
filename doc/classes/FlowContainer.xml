@@ -6,10 +6,7 @@
 	<description>
 		A container that arranges its child controls horizontally or vertically and wraps them around at the borders. This is similar to how text in a book wraps around when no more words can fit on a line.
 	</description>
-	<tutorials>
-		<link title="Using Containers">$DOCS_URL/tutorials/ui/gui_containers.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_line_count" qualifiers="const">
 			<return type="int" />
 			<description>

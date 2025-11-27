@@ -54,10 +54,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-		<link title="Importing 3D scenes: Configuration: Using import scripts for automation">$DOCS_URL/tutorials/assets_pipeline/importing_3d_scenes/import_configuration.html#using-import-scripts-for-automation</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_post_import" qualifiers="virtual">
 			<return type="Object" />
 			<param index="0" name="scene" type="Node" />

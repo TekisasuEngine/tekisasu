@@ -7,13 +7,7 @@
 		A node that provides a [Shape3D] to a [CollisionObject3D] parent and allows to edit it. This can give a detection shape to an [Area3D] or turn a [PhysicsBody3D] into a solid object.
 		[b]Warning:[/b] A non-uniformly scaled [CollisionShape3D] will likely not behave as expected. Make sure to keep its scale the same on all axes and adjust its [member shape] resource instead.
 	</description>
-	<tutorials>
-		<link title="Physics introduction">$DOCS_URL/tutorials/physics/physics_introduction.html</link>
-		<link title="3D Kinematic Character Demo">https://godotengine.org/asset-library/asset/2739</link>
-		<link title="3D Platformer Demo">https://godotengine.org/asset-library/asset/2748</link>
-		<link title="Third Person Shooter (TPS) Demo">https://godotengine.org/asset-library/asset/2710</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="make_convex_from_siblings">
 			<return type="void" />
 			<description>

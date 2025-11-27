@@ -9,11 +9,7 @@
 		This node is intended to be a simple helper to get things going quickly, but more functionality may be desired to change how the camera works. To make your own custom camera node, inherit it from [Node2D] and change the transform of the canvas by setting [member Viewport.canvas_transform] in [Viewport] (you can obtain the current [Viewport] by using [method Node.get_viewport]).
 		Note that the [Camera2D] node's [code]position[/code] doesn't represent the actual position of the screen, which may differ due to applied smoothing or limits. You can use [method get_screen_center_position] to get the real position.
 	</description>
-	<tutorials>
-		<link title="2D Platformer Demo">https://godotengine.org/asset-library/asset/2727</link>
-		<link title="2D Isometric Demo">https://godotengine.org/asset-library/asset/2718</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="align">
 			<return type="void" />
 			<description>

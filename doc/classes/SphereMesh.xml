@@ -6,9 +6,7 @@
 	<description>
 		Class representing a spherical [PrimitiveMesh].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="height" type="float" setter="set_height" getter="get_height" default="1.0">
 			Full height of the sphere.
 		</member>

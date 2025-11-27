@@ -13,11 +13,7 @@
 		[b]Note:[/b] The collision avoidance system ignores regions. Using the modified velocity directly may move an agent outside of the traversable area. This is a limitation of the collision avoidance system, any more complex situation may require the use of the physics engine.
 		This server keeps tracks of any call and executes them during the sync phase. This means that you can request any change to the map, using any thread, without worrying.
 	</description>
-	<tutorials>
-		<link title="Using NavigationServer">$DOCS_URL/tutorials/navigation/navigation_using_navigationservers.html</link>
-		<link title="Navigation Polygon 2D Demo">https://godotengine.org/asset-library/asset/2722</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="agent_create">
 			<return type="RID" />
 			<description>

@@ -6,9 +6,7 @@
 	<description>
 		Describes the motion and collision result from [method PhysicsServer2D.body_test_motion].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_collider" qualifiers="const">
 			<return type="Object" />
 			<description>

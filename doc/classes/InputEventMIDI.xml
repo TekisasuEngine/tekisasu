@@ -59,12 +59,7 @@
 		[/codeblocks]
 		[b]Note:[/b] Tekisasu does not support MIDI output, so there is no way to emit MIDI messages from Tekisasu. Only MIDI input is supported.
 	</description>
-	<tutorials>
-		<link title="MIDI Message Status Byte List">https://www.midi.org/specifications-old/item/table-2-expanded-messages-list-status-bytes</link>
-		<link title="Wikipedia General MIDI Instrument List">https://en.wikipedia.org/wiki/General_MIDI#Program_change_events</link>
-		<link title="Wikipedia Piano Key Frequencies List">https://en.wikipedia.org/wiki/Piano_key_frequencies#List</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="channel" type="int" setter="set_channel" getter="get_channel" default="0">
 			The MIDI channel of this message, ranging from [code]0[/code] to [code]15[/code]. MIDI channel [code]9[/code] is reserved for percussion instruments.
 		</member>

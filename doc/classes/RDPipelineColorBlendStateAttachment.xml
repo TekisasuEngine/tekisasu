@@ -62,9 +62,7 @@
 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
 		[/codeblock]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="set_as_mix">
 			<return type="void" />
 			<description>

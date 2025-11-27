@@ -12,10 +12,7 @@
 		class_name VisualShaderNodeNoise
 		[/codeblock]
 	</description>
-	<tutorials>
-		<link title="Visual Shader plugins">$DOCS_URL/tutorials/plugins/editor/visual_shader_plugins.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_get_category" qualifiers="virtual const">
 			<return type="String" />
 			<description>

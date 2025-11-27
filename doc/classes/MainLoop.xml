@@ -57,9 +57,7 @@
 		[/csharp]
 		[/codeblocks]
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_finalize" qualifiers="virtual">
 			<return type="void" />
 			<description>

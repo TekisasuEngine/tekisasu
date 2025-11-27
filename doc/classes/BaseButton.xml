@@ -6,9 +6,7 @@
 	<description>
 		[BaseButton] is an abstract base class for GUI buttons. It doesn't display anything by itself.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="_pressed" qualifiers="virtual">
 			<return type="void" />
 			<description>

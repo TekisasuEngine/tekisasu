@@ -6,9 +6,7 @@
 	<description>
 		Parameters to be used with a [Mesh] convex decomposition operation.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="convex_hull_approximation" type="bool" setter="set_convex_hull_approximation" getter="get_convex_hull_approximation" default="true">
 			If [code]true[/code], uses approximation for computing convex hulls.
 		</member>

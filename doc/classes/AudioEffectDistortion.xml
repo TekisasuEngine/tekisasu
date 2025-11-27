@@ -8,10 +8,7 @@
 		Different types are available: clip, tan, lo-fi (bit crushing), overdrive, or waveshape.
 		By distorting the waveform the frequency content changes, which will often make the sound "crunchy" or "abrasive". For games, it can simulate sound coming from some saturated device or speaker very efficiently.
 	</description>
-	<tutorials>
-		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="drive" type="float" setter="set_drive" getter="get_drive" default="0.0">
 			Distortion power. Value can range from 0 to 1.
 		</member>

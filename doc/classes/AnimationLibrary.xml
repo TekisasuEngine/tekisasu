@@ -6,10 +6,7 @@
 	<description>
 		An animation library stores a set of animations accessible through [StringName] keys, for use with [AnimationPlayer] nodes.
 	</description>
-	<tutorials>
-		<link title="Animation tutorial index">$DOCS_URL/tutorials/animation/index.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_animation">
 			<return type="int" enum="Error" />
 			<param index="0" name="name" type="StringName" />

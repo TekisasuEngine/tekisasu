@@ -13,10 +13,7 @@
 		    var my_random_number = rng.randf_range(-10.0, 10.0)
 		[/codeblock]
 	</description>
-	<tutorials>
-		<link title="Random number generation">$DOCS_URL/tutorials/math/random_number_generation.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="rand_weighted">
 			<return type="int" />
 			<param index="0" name="weights" type="PackedFloat32Array" />

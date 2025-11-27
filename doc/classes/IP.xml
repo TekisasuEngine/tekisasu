@@ -6,9 +6,7 @@
 	<description>
 		IP contains support functions for the Internet Protocol (IP). TCP/IP support is in different classes (see [StreamPeerTCP] and [TCPServer]). IP provides DNS hostname resolution support, both blocking and threaded.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="clear_cache">
 			<return type="void" />
 			<param index="0" name="hostname" type="String" default="&quot;&quot;" />

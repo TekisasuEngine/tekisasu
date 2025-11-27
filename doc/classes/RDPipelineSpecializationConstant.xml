@@ -7,9 +7,7 @@
 		A [i]specialization constant[/i] is a way to create additional variants of shaders without actually increasing the number of shader versions that are compiled. This allows improving performance by reducing the number of shader versions and reducing [code]if[/code] branching, while still allowing shaders to be flexible for different use cases.
 		This object is used by [RenderingDevice].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="constant_id" type="int" setter="set_constant_id" getter="get_constant_id" default="0">
 			The identifier of the specialization constant. This is a value starting from [code]0[/code] and that increments for every different specialization constant for a given shader.
 		</member>

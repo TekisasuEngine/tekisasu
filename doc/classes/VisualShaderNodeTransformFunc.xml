@@ -6,9 +6,7 @@
 	<description>
 		Computes an inverse or transpose function on the provided [Transform3D].
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="function" type="int" setter="set_function" getter="get_function" enum="VisualShaderNodeTransformFunc.Function" default="0">
 			The function to be computed. See [enum Function] for options.
 		</member>

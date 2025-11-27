@@ -27,9 +27,7 @@
 		[/codeblocks]
 		[b]Note:[/b] This class shouldn't be instantiated directly. Instead, access the singleton using [method EditorInterface.get_editor_settings].
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_property_info">
 			<return type="void" />
 			<param index="0" name="info" type="Dictionary" />

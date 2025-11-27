@@ -8,10 +8,7 @@
 		Compared to [ResourceImporterImageFont], [ResourceImporterBMFont] supports bitmap fonts with varying glyph widths/heights.
 		See also [ResourceImporterDynamicFont].
 	</description>
-	<tutorials>
-		<link title="Bitmap fonts - Using fonts">$DOCS_URL/tutorials/ui/gui_using_fonts.html#bitmap-fonts</link>
-	</tutorials>
-	<members>
+<members>
 		<member name="compress" type="bool" setter="" getter="" default="true">
 			If [code]true[/code], uses lossless compression for the resulting font.
 		</member>

@@ -27,9 +27,7 @@
 		- [kbd]Cmd + Left Arrow[/kbd]: Same as [kbd]Home[/kbd], move the caret to the beginning of the line
 		- [kbd]Cmd + Right Arrow[/kbd]: Same as [kbd]End[/kbd], move the caret to the end of the line
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="clear">
 			<return type="void" />
 			<description>

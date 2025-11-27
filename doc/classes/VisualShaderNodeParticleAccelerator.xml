@@ -6,9 +6,7 @@
 	<description>
 		Particle accelerator can be used in "process" step of particle shader. It will accelerate the particles. Connect it to the Velocity output port.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="mode" type="int" setter="set_mode" getter="get_mode" enum="VisualShaderNodeParticleAccelerator.Mode" default="0">
 			Defines in what manner the particles will be accelerated.
 		</member>

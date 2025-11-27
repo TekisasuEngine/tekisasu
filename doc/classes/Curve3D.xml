@@ -7,9 +7,7 @@
 		This class describes a Bézier curve in 3D space. It is mainly used to give a shape to a [Path3D], but can be manually sampled for other purposes.
 		It keeps a cache of precalculated points along the curve, to speed up further calculations.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_point">
 			<return type="void" />
 			<param index="0" name="position" type="Vector3" />

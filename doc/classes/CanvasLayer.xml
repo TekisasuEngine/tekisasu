@@ -9,12 +9,7 @@
 		[b]Note:[/b] Embedded [Window]s are placed on layer [code]1024[/code]. [CanvasItem]s on layers [code]1025[/code] and higher appear in front of embedded windows.
 		[b]Note:[/b] Each [CanvasLayer] is drawn on one specific [Viewport] and cannot be shared between multiple [Viewport]s, see [member custom_viewport]. When using multiple [Viewport]s, for example in a split-screen game, you need create an individual [CanvasLayer] for each [Viewport] you want it to be drawn on.
 	</description>
-	<tutorials>
-		<link title="Viewport and canvas transforms">$DOCS_URL/tutorials/2d/2d_transforms.html</link>
-		<link title="Canvas layers">$DOCS_URL/tutorials/2d/canvas_layers.html</link>
-		<link title="2D Dodge The Creeps Demo">https://godotengine.org/asset-library/asset/2712</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_canvas" qualifiers="const">
 			<return type="RID" />
 			<description>

@@ -11,11 +11,7 @@
 		- When a [Mutex]'s reference count reaches zero and it is therefore destroyed, no threads (including the one on which the destruction will happen) must have it locked.
 		- When a [Thread]'s reference count reaches zero and it is therefore destroyed, it must not have any mutex locked.
 	</description>
-	<tutorials>
-		<link title="Using multiple threads">$DOCS_URL/tutorials/performance/using_multiple_threads.html</link>
-		<link title="Thread-safe APIs">$DOCS_URL/tutorials/performance/thread_safe_apis.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="lock">
 			<return type="void" />
 			<description>

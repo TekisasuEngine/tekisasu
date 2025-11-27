@@ -6,9 +6,7 @@
 	<description>
 		Translated to [code]uniform float[/code] in the shader language.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="default_value" type="float" setter="set_default_value" getter="get_default_value" default="0.0">
 			A default value to be assigned within the shader.
 		</member>

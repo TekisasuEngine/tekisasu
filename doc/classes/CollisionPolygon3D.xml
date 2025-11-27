@@ -7,9 +7,7 @@
 		A node that provides a thickened polygon shape (a prism) to a [CollisionObject3D] parent and allows to edit it. The polygon can be concave or convex. This can give a detection shape to an [Area3D] or turn [PhysicsBody3D] into a solid object.
 		[b]Warning:[/b] A non-uniformly scaled [CollisionShape3D] will likely not behave as expected. Make sure to keep its scale the same on all axes and adjust its shape resource instead.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="depth" type="float" setter="set_depth" getter="get_depth" default="1.0">
 			Length that the resulting collision extends in either direction perpendicular to its 2D polygon.
 		</member>

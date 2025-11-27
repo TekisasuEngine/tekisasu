@@ -9,11 +9,7 @@
 		[b]Note:[/b] Unless otherwise specified, all methods that have angle parameters must have angles specified as [i]radians[/i]. To convert degrees to radians, use [method @GlobalScope.deg_to_rad].
 		[b]Note:[/b] Be aware that "Spatial" nodes are now called "Node3D" starting with Tekisasu 4. Any Tekisasu 3.x references to "Spatial" nodes refer to "Node3D" in Tekisasu 4.
 	</description>
-	<tutorials>
-		<link title="Introduction to 3D">$DOCS_URL/tutorials/3d/introduction_to_3d.html</link>
-		<link title="All 3D Demos">https://github.com/godotengine/godot-demo-projects/tree/master/3d</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="add_gizmo">
 			<return type="void" />
 			<param index="0" name="gizmo" type="Node3DGizmo" />

@@ -6,12 +6,7 @@
 	<description>
 		Light3D is the [i]abstract[/i] base class for light nodes. As it can't be instantiated, it shouldn't be used directly. Other types of light nodes inherit from it. Light3D contains the common variables and parameters used for lighting.
 	</description>
-	<tutorials>
-		<link title="3D lights and shadows">$DOCS_URL/tutorials/3d/lights_and_shadows.html</link>
-		<link title="Faking global illumination">$DOCS_URL/tutorials/3d/global_illumination/faking_global_illumination.html</link>
-		<link title="Third Person Shooter (TPS) Demo">https://godotengine.org/asset-library/asset/2710</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="get_correlated_color" qualifiers="const">
 			<return type="Color" />
 			<description>

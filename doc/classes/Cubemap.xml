@@ -9,9 +9,7 @@
 		To create such a texture file yourself, reimport your image files using the Tekisasu Engine Editor import presets.
 		[b]Note:[/b] Tekisasu Engine doesn't support using cubemaps in a [PanoramaSkyMaterial]. You can use [url=https://danilw.github.io/GLSL-howto/cubemap_to_panorama_js/cubemap_to_panorama.html]this tool[/url] to convert a cubemap to an equirectangular sky map.
 	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="create_placeholder" qualifiers="const">
 			<return type="Resource" />
 			<description>

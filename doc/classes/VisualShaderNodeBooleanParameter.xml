@@ -6,9 +6,7 @@
 	<description>
 		Translated to [code]uniform bool[/code] in the shader language.
 	</description>
-	<tutorials>
-	</tutorials>
-	<members>
+<members>
 		<member name="default_value" type="bool" setter="set_default_value" getter="get_default_value" default="false">
 			A default value to be assigned within the shader.
 		</member>

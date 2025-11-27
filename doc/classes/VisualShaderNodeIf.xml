@@ -9,6 +9,4 @@
 		- Port [b]3[/b] is the tolerance, which allows similar floating-point numbers to be considered equal.
 		- Ports [b]4[/b], [b]5[/b], and [b]6[/b] are the possible outputs, returned if [code]a == b[/code], [code]a &gt; b[/code], or [code]a &lt; b[/code] respectively.
 	</description>
-	<tutorials>
-	</tutorials>
 </class>

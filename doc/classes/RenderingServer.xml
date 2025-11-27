@@ -14,10 +14,7 @@
 		[b]2D:[/b] In 2D, all visible objects are some form of canvas item. In order to be visible, a canvas item needs to be the child of a canvas attached to a viewport, or it needs to be the child of another canvas item that is eventually attached to the canvas. 2D-specific RenderingServer methods generally start with [code]canvas_*[/code].
 		[b]Headless mode:[/b] Starting the engine with the [code]--headless[/code] [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command line argument[/url] disables all rendering and window management functions. Most functions from [RenderingServer] will return dummy values in this case.
 	</description>
-	<tutorials>
-		<link title="Optimization using Servers">$DOCS_URL/tutorials/performance/using_servers.html</link>
-	</tutorials>
-	<methods>
+<methods>
 		<method name="bake_render_uv2">
 			<return type="Image[]" />
 			<param index="0" name="base" type="RID" />
