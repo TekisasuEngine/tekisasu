@@ -1,6 +1,6 @@
 # Arabic translation of the Tekisasu Engine properties.
 # Copyright (c) 2021-present Tekisasu
-# Copyright (c) 2014-present Tekisasu Engine contributors.
+# Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
 # This file is distributed under the same license as the Tekisasu source code.
 # Adel <dragonhunter250@gmail.com>, 2018.
@@ -84,7 +84,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine properties\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-07-15 21:54+0000\n"
 "Last-Translator: cat lover <mongo@users.noreply.hosted.weblate.org>\n"

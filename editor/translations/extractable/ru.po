@@ -1,12 +1,12 @@
 # Russian translation of the Tekisasu Engine extractable strings.
 # Copyright (c) 2021-present Tekisasu
-# Copyright (c) 2014-present Tekisasu Engine contributors.
+# Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
 # This file is distributed under the same license as the Tekisasu source code.
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine extractable strings\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-03-02 14:19+0000\n"
 "Last-Translator: Artem <artemka.hvostov@yandex.ru>\n"

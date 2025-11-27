@@ -1,6 +1,6 @@
 # Ukrainian translation of the Tekisasu Engine editor interface.
 # Copyright (c) 2021-present Tekisasu
-# Copyright (c) 2014-present Tekisasu Engine contributors.
+# Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
 # This file is distributed under the same license as the Tekisasu source code.
 # Aleksandr <XpycT.TOP@gmail.com>, 2017.
@@ -58,7 +58,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ukrainian (Tekisasu Engine)\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-01-26 10:28+0000\n"
 "Last-Translator: ogyrec <ogyrec.off@gmail.com>\n"

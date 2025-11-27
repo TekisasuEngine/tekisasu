@@ -1,6 +1,6 @@
 # Hebrew translation of the Tekisasu Engine editor interface.
 # Copyright (c) 2021-present Tekisasu
-# Copyright (c) 2014-present Tekisasu Engine contributors.
+# Copyright (c) 2014-present Godot Engine contributors.
 # Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
 # This file is distributed under the same license as the Tekisasu source code.
 # Daniel <lorddaniel09@gmail.com>, 2018.
@@ -42,7 +42,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tekisasu Engine editor interface\n"
-"Report-Msgid-Bugs-To: https://github.com/godotengine/tekisasu\n"
+"Report-Msgid-Bugs-To: https://github.com/godotengine/godot\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-08-28 12:59+0000\n"
 "Last-Translator: yoval keshet <keshetyoval@gmail.com>\n"
