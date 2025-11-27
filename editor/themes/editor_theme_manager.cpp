@@ -802,6 +802,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_pressed->duplicate();
 			Ref<StyleBoxFlat> option_button_disabled_style = p_config.button_style_disabled->duplicate();
 
+			// Use a lighter background for dropdown menus to improve visibility.
+			option_button_normal_style->set_bg_color(p_config.base_color * Color(0.7, 0.7, 0.7, 0.6));
+
 			option_button_focus_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_normal_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_hover_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
@@ -809,7 +812,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			option_button_disabled_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 
 			p_theme->set_stylebox("focus", "OptionButton", option_button_focus_style);
-			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", p_config.button_style);
+			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", option_button_normal_style);
 			p_theme->set_stylebox("hover", "OptionButton", p_config.button_style_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", p_config.button_style_pressed);
 			p_theme->set_stylebox("disabled", "OptionButton", p_config.button_style_disabled);
