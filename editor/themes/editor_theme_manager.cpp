@@ -2105,8 +2105,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Complex editor windows.
 		{
 			Ref<StyleBoxFlat> style_complex_window = p_config.window_style->duplicate();
-			style_complex_window->set_bg_color(p_config.dark_color_2);
-			style_complex_window->set_border_color(p_config.dark_color_2);
+			// Use base_color to match main editor UI background.
+			style_complex_window->set_bg_color(p_config.base_color);
+			style_complex_window->set_border_color(p_config.base_color);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorSettingsDialog", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "ProjectSettingsEditor", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorAbout", style_complex_window);
