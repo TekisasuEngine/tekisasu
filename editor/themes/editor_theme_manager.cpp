@@ -521,9 +521,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		p_config.title_bg_color = Color(
-			p_config.base_color.r * 0.75,
-			p_config.base_color.g * 0.75,
-			p_config.base_color.b * 0.75,
+			p_config.base_color.r * 0.55,
+			p_config.base_color.g * 0.55,
+			p_config.base_color.b * 0.55,
 			0.75
 		).clamp();
 
@@ -531,6 +531,13 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.base_color.r * 0.65,
 			p_config.base_color.g * 0.65,
 			p_config.base_color.b * 0.65,
+			0.75
+		).clamp();
+
+		p_config.doc_bg_color = Color(
+			p_config.base_color.r * 0.35,
+			p_config.base_color.g * 0.35,
+			p_config.base_color.b * 0.35,
 			0.75
 		).clamp();
 
@@ -2415,7 +2422,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	{
 		Ref<StyleBoxFlat> style_editor_help = p_config.base_style->duplicate();
 		// Use dark_color_5 to match inactive dock tab background color.
-		style_editor_help->set_bg_color(p_config.dark_color_5);
+		style_editor_help->set_bg_color(p_config.doc_bg_color);
 		style_editor_help->set_border_color(p_config.dark_color_3);
 		p_theme->set_stylebox("background", "EditorHelp", style_editor_help);
 
