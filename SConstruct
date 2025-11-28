@@ -48,7 +48,9 @@ _helper_module("gles3_builders", "gles3_builders.py")
 _helper_module("glsl_builders", "glsl_builders.py")
 _helper_module("methods", "methods.py")
 _helper_module("platform_methods", "platform_methods.py")
-_helper_module("version", "version.gen.py")
+# Use version.gen.py if present (from private build system), otherwise fall back to version.py
+_version_file = "version.gen.py" if os.path.exists("version.gen.py") else "version.py"
+_helper_module("version", _version_file)
 _helper_module("core.core_builders", "core/core_builders.py")
 _helper_module("main.main_builders", "main/main_builders.py")
 

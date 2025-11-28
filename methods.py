@@ -365,11 +365,13 @@ def detect_modules(search_path, recursive=False):
     def is_engine(path):
         # Prevent recursively detecting modules in self and other
         # Tekisasu sources when using `custom_modules` build option.
-        version_path = os.path.join(path, "version.gen.py")
-        if os.path.exists(version_path):
-            with open(version_path, "r", encoding="utf-8") as f:
-                if 'short_name = "tekisasu"' in f.read():
-                    return True
+        # Check version.gen.py first, then fall back to version.py
+        for version_file in ["version.gen.py", "version.py"]:
+            version_path = os.path.join(path, version_file)
+            if os.path.exists(version_path):
+                with open(version_path, "r", encoding="utf-8") as f:
+                    if 'short_name = "tekisasu"' in f.read():
+                        return True
         return False
 
     def get_files(path):
