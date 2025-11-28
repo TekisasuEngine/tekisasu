@@ -128,6 +128,9 @@ class EditorThemeManager {
 		Color disabled_border_color;
 		Color disabled_bg_color;
 		Color separator_color;
+		Color widget_bg_color; // base_color(r,g,b) * 1.5 (clamped)
+		Color title_bg_color; // base_color(r,g,b) * 0.75 (clamped)
+		Color subtitle_bg_color; // base_color(r,g,b) * 0.65 (clamped)
 
 		Ref<StyleBoxFlat> base_style;
 		Ref<StyleBoxEmpty> base_empty_style;

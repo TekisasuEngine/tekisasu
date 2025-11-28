@@ -511,11 +511,34 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.disabled_border_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.7);
 		p_config.disabled_bg_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.9);
 		p_config.separator_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.1);
+		// Tekisasu - Centralized widget background color for input widgets (dropdowns, text fields, etc.)
+		//p_config.widget_bg_color = p_config.base_color.lerp(Color(0.1, 0.1, 0.1), .5);
+		p_config.widget_bg_color = Color(
+			p_config.base_color.r * 1.5,
+			p_config.base_color.g * 1.5,
+			p_config.base_color.b * 1.5,
+			0.75
+		).clamp();
+
+		p_config.title_bg_color = Color(
+			p_config.base_color.r * 0.75,
+			p_config.base_color.g * 0.75,
+			p_config.base_color.b * 0.75,
+			0.75
+		).clamp();
+
+		p_config.subtitle_bg_color = Color(
+			p_config.base_color.r * 0.65,
+			p_config.base_color.g * 0.65,
+			p_config.base_color.b * 0.65,
+			0.75
+		).clamp();
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
 		p_theme->set_color("disabled_border_color", EditorStringName(Editor), p_config.disabled_border_color);
 		p_theme->set_color("disabled_bg_color", EditorStringName(Editor), p_config.disabled_bg_color);
 		p_theme->set_color("separator_color", EditorStringName(Editor), p_config.separator_color);
+		p_theme->set_color("widget_bg_color", EditorStringName(Editor), p_config.widget_bg_color);
 
 		// Additional editor colors.
 
@@ -755,12 +778,17 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("align_to_largest_stylebox", "Button", 1); // Enabled.
 
 		// MenuButton.
+		{
+			// Create a stylebox with widget_bg_color for MenuButton.
+			Ref<StyleBoxFlat> menu_button_style = p_config.button_style->duplicate();
+			menu_button_style->set_bg_color(p_config.widget_bg_color);
 
-		p_theme->set_stylebox(CoreStringName(normal), "MenuButton", p_config.panel_container_style);
-		p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
-		p_theme->set_stylebox(SceneStringName(pressed), "MenuButton", p_config.panel_container_style);
-		p_theme->set_stylebox("focus", "MenuButton", p_config.panel_container_style);
-		p_theme->set_stylebox("disabled", "MenuButton", p_config.panel_container_style);
+			p_theme->set_stylebox(CoreStringName(normal), "MenuButton", menu_button_style);
+			p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "MenuButton", menu_button_style);
+			p_theme->set_stylebox("focus", "MenuButton", menu_button_style);
+			p_theme->set_stylebox("disabled", "MenuButton", p_config.panel_container_style);
+		}
 
 		p_theme->set_color(SceneStringName(font_color), "MenuButton", p_config.font_color);
 		p_theme->set_color("font_hover_color", "MenuButton", p_config.font_hover_color);
@@ -802,6 +830,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_pressed->duplicate();
 			Ref<StyleBoxFlat> option_button_disabled_style = p_config.button_style_disabled->duplicate();
 
+			// Use centralized widget background color for dropdown menus.
+			option_button_normal_style->set_bg_color(p_config.widget_bg_color);
+
 			option_button_focus_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_normal_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_hover_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
@@ -809,7 +840,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			option_button_disabled_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 
 			p_theme->set_stylebox("focus", "OptionButton", option_button_focus_style);
-			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", p_config.button_style);
+			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", option_button_normal_style);
 			p_theme->set_stylebox("hover", "OptionButton", p_config.button_style_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", p_config.button_style_pressed);
 			p_theme->set_stylebox("disabled", "OptionButton", p_config.button_style_disabled);
@@ -841,12 +872,17 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		}
 
 		// CheckButton.
+		{
+			// Create a stylebox with widget_bg_color for CheckButton toggle switches.
+			Ref<StyleBoxFlat> check_button_style = p_config.button_style->duplicate();
+			check_button_style->set_bg_color(p_config.widget_bg_color);
 
-		p_theme->set_stylebox(CoreStringName(normal), "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox("hover", "CheckButton", p_config.panel_container_style);
-		p_theme->set_stylebox("hover_pressed", "CheckButton", p_config.panel_container_style);
+			p_theme->set_stylebox(CoreStringName(normal), "CheckButton", check_button_style);
+			p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", check_button_style);
+			p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
+			p_theme->set_stylebox("hover", "CheckButton", check_button_style);
+			p_theme->set_stylebox("hover_pressed", "CheckButton", check_button_style);
+		}
 
 		p_theme->set_icon("checked", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOn"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("checked_disabled", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOnDisabled"), EditorStringName(EditorIcons)));
@@ -878,12 +914,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		// CheckBox.
 		{
-			Ref<StyleBoxFlat> checkbox_style = p_config.panel_container_style->duplicate();
+			// Create a stylebox with widget_bg_color for CheckBox toggle indicators.
+			Ref<StyleBoxFlat> checkbox_style = p_config.button_style->duplicate();
+			checkbox_style->set_bg_color(p_config.widget_bg_color);
 			checkbox_style->set_content_margin_all(p_config.base_margin * EDSCALE);
 
 			p_theme->set_stylebox(CoreStringName(normal), "CheckBox", checkbox_style);
 			p_theme->set_stylebox(SceneStringName(pressed), "CheckBox", checkbox_style);
-			p_theme->set_stylebox("disabled", "CheckBox", checkbox_style);
+			p_theme->set_stylebox("disabled", "CheckBox", p_config.panel_container_style);
 			p_theme->set_stylebox("hover", "CheckBox", checkbox_style);
 			p_theme->set_stylebox("hover_pressed", "CheckBox", checkbox_style);
 			p_theme->set_icon("checked", "CheckBox", p_theme->get_icon(SNAME("GuiChecked"), EditorStringName(EditorIcons)));
@@ -1196,6 +1234,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// The original button_style style has an extra 1 pixel offset that makes LineEdits not align with Buttons,
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
+		// Use centralized widget background color for text inputs.
+		text_editor_style->set_bg_color(p_config.widget_bg_color);
 
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
@@ -1449,7 +1489,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// HSlider.
 		p_theme->set_icon("grabber_highlight", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
-		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.dark_color_3, 0, background_margin, 0, background_margin, p_config.corner_radius));
+		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.widget_bg_color, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin));
 		p_theme->set_constant("center_grabber", "HSlider", 0);
@@ -1458,7 +1498,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// VSlider.
 		p_theme->set_icon("grabber", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber_highlight", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
-		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.dark_color_3, background_margin, 0, background_margin, 0, p_config.corner_radius));
+		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.widget_bg_color, background_margin, 0, background_margin, 0, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0));
 		p_theme->set_constant("center_grabber", "VSlider", 0);
@@ -1742,6 +1782,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_icon("picker_cursor", "ColorPicker", p_theme->get_icon(SNAME("PickerCursor"), EditorStringName(EditorIcons)));
 
 		// ColorPickerButton.
+		{
+			Ref<StyleBoxFlat> color_picker_button_style = p_config.button_style->duplicate();
+			color_picker_button_style->set_bg_color(p_config.widget_bg_color);
+			p_theme->set_stylebox(CoreStringName(normal), "ColorPickerButton", color_picker_button_style);
+			p_theme->set_stylebox("hover", "ColorPickerButton", p_config.button_style_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "ColorPickerButton", p_config.button_style_pressed);
+			p_theme->set_stylebox("disabled", "ColorPickerButton", p_config.button_style_disabled);
+		}
 		p_theme->set_icon("bg", "ColorPickerButton", p_theme->get_icon(SNAME("GuiMiniCheckerboard"), EditorStringName(EditorIcons)));
 
 		// ColorPresetButton.
@@ -1915,9 +1963,17 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("read_only_label_color", "EditorSpinSlider", p_config.font_readonly_color);
 
 		Ref<StyleBoxFlat> editor_spin_label_bg = p_config.base_style->duplicate();
+		// Use a dark background for the label area (x, y, z labels in vector editors).
 		editor_spin_label_bg->set_bg_color(p_config.dark_color_3);
 		editor_spin_label_bg->set_border_width_all(0);
 		p_theme->set_stylebox("label_bg", "EditorSpinSlider", editor_spin_label_bg);
+
+		// EditorAudioBus - use a lighter background to stand out from the Tree panel background.
+		Ref<StyleBoxFlat> style_audio_bus = p_config.content_panel_style->duplicate();
+		style_audio_bus->set_bg_color(Color(p_config.dark_color_1, 0.2));
+		style_audio_bus->set_border_width_all(Math::round(EDSCALE));
+		style_audio_bus->set_border_color(p_config.dark_color_2);
+		p_theme->set_stylebox(SceneStringName(panel), "EditorAudioBus", style_audio_bus);
 
 		// Launch Pad and Play buttons.
 		Ref<StyleBoxFlat> style_launch_pad = make_flat_stylebox(Color(0, 0, 0, 0), 2 * EDSCALE, 0, 2 * EDSCALE, 0, p_config.corner_radius);
@@ -2221,7 +2277,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_bg->set_border_width_all(0);
 
 		Ref<StyleBoxFlat> style_property_child_bg = p_config.base_style->duplicate();
-		style_property_child_bg->set_bg_color(p_config.dark_color_2);
+		// Use transparent background for child_bg so vector editors show their own widget_bg_color styling.
+		style_property_child_bg->set_bg_color(Color(0, 0, 0, 0));
 		style_property_child_bg->set_border_width_all(0);
 
 		p_theme->set_stylebox("bg", "EditorProperty", memnew(StyleBoxEmpty));
