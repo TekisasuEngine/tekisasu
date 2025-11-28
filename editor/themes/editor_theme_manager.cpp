@@ -1240,11 +1240,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
 			text_editor_style->set_border_color(p_config.extra_border_color_1);
-		} else {
-			// Add a bottom line to make LineEdits more visible, especially in sectioned inspectors
-			// such as the Project Settings.
-			text_editor_style->set_border_width(SIDE_BOTTOM, Math::round(2 * EDSCALE));
-			text_editor_style->set_border_color(p_config.dark_color_2);
 		}
 
 		Ref<StyleBoxFlat> text_editor_disabled_style = text_editor_style->duplicate();
@@ -2320,9 +2315,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_constant("indent_size", "EditorInspectorSection", 6.0 * EDSCALE);
 		p_theme->set_constant("h_separation", "EditorInspectorSection", 2.0 * EDSCALE);
 
-		Color prop_category_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
-		Color prop_section_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.09);
-		Color prop_subsection_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.06);
+		Color prop_category_color = p_config.title_bg_color;
+		Color prop_section_color = p_config.subtitle_bg_color;
+		Color prop_subsection_color = p_config.subtitle_bg_color;
 
 		p_theme->set_color("prop_category", EditorStringName(Editor), prop_category_color);
 		p_theme->set_color("prop_section", EditorStringName(Editor), prop_section_color);
