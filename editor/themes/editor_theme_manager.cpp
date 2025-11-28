@@ -631,7 +631,8 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.button_style = p_config.base_style->duplicate();
 			p_config.button_style->set_content_margin_individual(p_config.widget_margin.x, p_config.widget_margin.y, p_config.widget_margin.x, p_config.widget_margin.y);
-			p_config.button_style->set_bg_color(p_config.dark_color_1);
+			// Use button_bg_color for better contrast in complex windows.
+			p_config.button_style->set_bg_color(p_config.button_bg_color);
 			if (p_config.draw_extra_borders) {
 				p_config.button_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.button_style->set_border_color(p_config.extra_border_color_1);
@@ -670,7 +671,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			}
 
 			p_config.button_style_pressed = p_config.button_style->duplicate();
-			p_config.button_style_pressed->set_bg_color(p_config.dark_color_1.darkened(0.125));
+			p_config.button_style_pressed->set_bg_color(p_config.button_bg_color.darkened(0.125));
 
 			p_config.button_style_hover = p_config.button_style->duplicate();
 			p_config.button_style_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.11));
