@@ -511,8 +511,28 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.disabled_border_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.7);
 		p_config.disabled_bg_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.9);
 		p_config.separator_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.1);
-		// Centralized widget background color for input widgets (dropdowns, text fields, etc.)
-		p_config.widget_bg_color = p_config.base_color.lerp(Color(0.1, 0.1, 0.1), .5);
+		// Tekisasu - Centralized widget background color for input widgets (dropdowns, text fields, etc.)
+		//p_config.widget_bg_color = p_config.base_color.lerp(Color(0.1, 0.1, 0.1), .5);
+		p_config.widget_bg_color = Color(
+			p_config.base_color.r * 1.5,
+			p_config.base_color.g * 1.5,
+			p_config.base_color.b * 1.5,
+			0.75
+		).clamp();
+
+		p_config.title_bg_color = Color(
+			p_config.base_color.r * 0.75,
+			p_config.base_color.g * 0.75,
+			p_config.base_color.b * 0.75,
+			0.75
+		).clamp();
+
+		p_config.subtitle_bg_color = Color(
+			p_config.base_color.r * 0.65,
+			p_config.base_color.g * 0.65,
+			p_config.base_color.b * 0.65,
+			0.75
+		).clamp();
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
 		p_theme->set_color("disabled_border_color", EditorStringName(Editor), p_config.disabled_border_color);
