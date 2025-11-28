@@ -541,6 +541,16 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			0.75
 		).clamp();
 
+		p_config.button_bg_color = Color(
+			p_config.accent_color.r * 0.35,
+			p_config.accent_color.g * 0.35,
+			p_config.accent_color.b * 0.35,
+			0.75
+		).clamp();
+
+		// Tekisasu - TODO - Future replacement of dark_color_1 for main background color and other elements.
+		// For now, using dark_color_1 as is to avoid breaking existing themes.
+		// Needs to close dark_color_1, currently just copied from another *bg_color value at the moment.
 		p_config.main_bg_color = Color(
 			p_config.base_color.r * 0.35,
 			p_config.base_color.g * 0.35,

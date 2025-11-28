@@ -132,6 +132,7 @@ class EditorThemeManager {
 		Color title_bg_color;
 		Color subtitle_bg_color;
 		Color doc_bg_color;
+		Color button_bg_color;
 		Color main_bg_color;
 
 		Ref<StyleBoxFlat> base_style;
