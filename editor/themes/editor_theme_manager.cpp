@@ -541,6 +541,13 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			0.75
 		).clamp();
 
+		p_config.main_bg_color = Color(
+			p_config.base_color.r * 0.35,
+			p_config.base_color.g * 0.35,
+			p_config.base_color.b * 0.35,
+			0.75
+		).clamp();
+
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
 		p_theme->set_color("disabled_border_color", EditorStringName(Editor), p_config.disabled_border_color);
 		p_theme->set_color("disabled_bg_color", EditorStringName(Editor), p_config.disabled_bg_color);
