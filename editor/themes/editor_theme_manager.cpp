@@ -1968,6 +1968,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_audio_bus->set_bg_color(Color(p_config.dark_color_1, 0.2));
 		style_audio_bus->set_border_width_all(Math::round(EDSCALE));
 		style_audio_bus->set_border_color(p_config.dark_color_2);
+		// Set corner radius on all corners (content_panel_style has top corners set to 0).
+		style_audio_bus->set_corner_radius_all(p_config.corner_radius * EDSCALE);
 		p_theme->set_stylebox(SceneStringName(panel), "EditorAudioBus", style_audio_bus);
 
 		// Launch Pad and Play buttons.
