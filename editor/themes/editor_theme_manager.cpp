@@ -460,8 +460,8 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Font colors.
 
-		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.25);
-		p_config.font_focus_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
+		p_config.font_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.95);
+		p_config.font_focus_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.9);
 		p_config.font_hover_color = Color(1, 1, 1, 1);
 		p_config.font_pressed_color = Color(1, 1, 1, 1);
 		p_config.font_hover_pressed_color = Color(1, 1, 1, 1);
@@ -677,7 +677,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.button_style_pressed->set_bg_color(p_config.button_bg_color.darkened(0.125));
 
 			p_config.button_style_hover = p_config.button_style->duplicate();
-			p_config.button_style_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.11));
+			p_config.button_style_hover->set_bg_color(p_config.button_bg_color.lightened(0.125));
 			if (p_config.draw_extra_borders) {
 				p_config.button_style_hover->set_border_color(p_config.extra_border_color_1);
 			} else {
