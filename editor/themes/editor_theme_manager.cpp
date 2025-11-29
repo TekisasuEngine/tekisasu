@@ -1913,17 +1913,10 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		filemenu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
 		filemenu_transparent_style->set_border_width_all(0);
 
-		// Create menubar hover style with original semi-transparent effect (not affected by button changes)
-		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.button_style->duplicate();
-		filemenu_main_screen_button_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.11));
-		if (p_config.draw_extra_borders) {
-			filemenu_main_screen_button_hover->set_border_color(p_config.extra_border_color_1);
-		} else {
-			filemenu_main_screen_button_hover->set_border_color(p_config.mono_color * Color(1, 1, 1, 0.05));
-		}
+		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.button_style_hover->duplicate();
 		for (int i = 0; i < 4; i++) {
 			filemenu_transparent_style->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
-			filemenu_main_screen_button_hover->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
+			filemenu_main_screen_button_hover->set_content_margin((Side)i, p_config.button_style_hover->get_content_margin((Side)i));
 		}
 		filemenu_transparent_style->set_content_margin(SIDE_TOP, 10 * EDSCALE);
 		filemenu_transparent_style->set_content_margin(SIDE_BOTTOM, 8 * EDSCALE);
@@ -1935,28 +1928,15 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(pressed), "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover", "TekisasuMenuBar", filemenu_main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "TekisasuMenuBar", filemenu_main_screen_button_hover);
-		// Override font colors for menubar to use original full opacity
-		Color menubar_font_color = p_config.mono_color.lerp(p_config.base_color, 0.25);
-		p_theme->set_color(SceneStringName(font_color), "TekisasuMenuBar", menubar_font_color);
-		p_theme->set_color("font_hover_color", "TekisasuMenuBar", Color(1, 1, 1, 1));
-		p_theme->set_color("font_pressed_color", "TekisasuMenuBar", Color(1, 1, 1, 1));
-		p_theme->set_color("font_focus_color", "TekisasuMenuBar", menubar_font_color);
 
 		// Main menu.
 		Ref<StyleBoxFlat> menu_transparent_style = p_config.button_style->duplicate();
 		menu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
 		menu_transparent_style->set_border_width_all(0);
-		// Create main menu hover style with original semi-transparent effect
-		Ref<StyleBoxFlat> main_screen_button_hover = p_config.button_style->duplicate();
-		main_screen_button_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.11));
-		if (p_config.draw_extra_borders) {
-			main_screen_button_hover->set_border_color(p_config.extra_border_color_1);
-		} else {
-			main_screen_button_hover->set_border_color(p_config.mono_color * Color(1, 1, 1, 0.05));
-		}
+		Ref<StyleBoxFlat> main_screen_button_hover = p_config.button_style_hover->duplicate();
 		for (int i = 0; i < 4; i++) {
 			menu_transparent_style->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
-			main_screen_button_hover->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
+			main_screen_button_hover->set_content_margin((Side)i, p_config.button_style_hover->get_content_margin((Side)i));
 		}
 		p_theme->set_stylebox(CoreStringName(normal), "MainScreenButton", menu_transparent_style);
 		p_theme->set_stylebox("normal_mirrored", "MainScreenButton", menu_transparent_style);
@@ -1966,33 +1946,18 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("hover_mirrored", "MainScreenButton", main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "MainScreenButton", main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed_mirrored", "MainScreenButton", main_screen_button_hover);
-		// Override font colors for MainScreenButton to use original full opacity
-		p_theme->set_color(SceneStringName(font_color), "MainScreenButton", menubar_font_color);
-		p_theme->set_color("font_hover_color", "MainScreenButton", Color(1, 1, 1, 1));
-		p_theme->set_color("font_pressed_color", "MainScreenButton", Color(1, 1, 1, 1));
-		p_theme->set_color("font_focus_color", "MainScreenButton", menubar_font_color);
 
 		p_theme->set_type_variation("MainMenuBar", "FlatMenuButton");
 		p_theme->set_stylebox(CoreStringName(normal), "MainMenuBar", menu_transparent_style);
 		p_theme->set_stylebox(SceneStringName(pressed), "MainMenuBar", main_screen_button_hover);
 		p_theme->set_stylebox("hover", "MainMenuBar", main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "MainMenuBar", main_screen_button_hover);
-		// Override font colors for MainMenuBar to use original full opacity
-		p_theme->set_color(SceneStringName(font_color), "MainMenuBar", menubar_font_color);
-		p_theme->set_color("font_hover_color", "MainMenuBar", Color(1, 1, 1, 1));
-		p_theme->set_color("font_pressed_color", "MainMenuBar", Color(1, 1, 1, 1));
-		p_theme->set_color("font_focus_color", "MainMenuBar", menubar_font_color);
 
 		// Run bar.
 		p_theme->set_type_variation("RunBarButton", "FlatMenuButton");
 		p_theme->set_stylebox(CoreStringName(normal), "RunBarButton", menu_transparent_style);
 		p_theme->set_stylebox("hover", "RunBarButton", main_screen_button_hover);
 		p_theme->set_stylebox("hover_pressed", "RunBarButton", main_screen_button_hover);
-		// Override font colors for RunBarButton to use original full opacity
-		p_theme->set_color(SceneStringName(font_color), "RunBarButton", menubar_font_color);
-		p_theme->set_color("font_hover_color", "RunBarButton", Color(1, 1, 1, 1));
-		p_theme->set_color("font_pressed_color", "RunBarButton", Color(1, 1, 1, 1));
-		p_theme->set_color("font_focus_color", "RunBarButton", menubar_font_color);
 		p_theme->set_stylebox(SceneStringName(pressed), "RunBarButton", menu_transparent_style);
 		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
 		// Icon colors for RunBarButton
