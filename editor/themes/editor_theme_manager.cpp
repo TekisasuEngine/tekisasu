@@ -505,7 +505,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_theme->set_color("icon_disabled_color", EditorStringName(Editor), p_config.icon_disabled_color);
 
 		// Scene tree dock button icons color with 0.85 opacity.
-		p_theme->set_color("scene_tree_button_icon_color", EditorStringName(Editor), Color(1, 1, 1, 0.85));
+		p_theme->set_color("scene_tree_button_icon_color", EditorStringName(Editor), Color(1, 1, 1, 0.65));
 
 		// Additional GUI colors.
 
