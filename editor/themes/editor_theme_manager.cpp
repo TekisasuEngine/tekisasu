@@ -810,9 +810,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			// Create a stylebox with widget_bg_color for MenuButton.
 			Ref<StyleBoxFlat> menu_button_style = p_config.button_style->duplicate();
 			menu_button_style->set_bg_color(p_config.widget_bg_color);
-			// Add 2px top and bottom margins
-			menu_button_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			menu_button_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 			p_theme->set_stylebox(CoreStringName(normal), "MenuButton", menu_button_style);
 			p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
@@ -870,23 +867,11 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			option_button_pressed_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_disabled_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 
-			// Add 2px top and bottom margins
-			option_button_focus_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			option_button_focus_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
-			option_button_normal_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			option_button_normal_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
-			option_button_hover_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			option_button_hover_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
-			option_button_pressed_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			option_button_pressed_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
-			option_button_disabled_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			option_button_disabled_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
-
 			p_theme->set_stylebox("focus", "OptionButton", option_button_focus_style);
 			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", option_button_normal_style);
-			p_theme->set_stylebox("hover", "OptionButton", option_button_hover_style);
-			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", option_button_pressed_style);
-			p_theme->set_stylebox("disabled", "OptionButton", option_button_disabled_style);
+			p_theme->set_stylebox("hover", "OptionButton", p_config.button_style_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", p_config.button_style_pressed);
+			p_theme->set_stylebox("disabled", "OptionButton", p_config.button_style_disabled);
 
 			p_theme->set_stylebox("normal_mirrored", "OptionButton", option_button_normal_style);
 			p_theme->set_stylebox("hover_mirrored", "OptionButton", option_button_hover_style);
@@ -919,9 +904,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			// Create a stylebox with widget_bg_color for CheckButton toggle switches.
 			Ref<StyleBoxFlat> check_button_style = p_config.button_style->duplicate();
 			check_button_style->set_bg_color(p_config.widget_bg_color);
-			// Add 2px top and bottom margins
-			check_button_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			check_button_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 			p_theme->set_stylebox(CoreStringName(normal), "CheckButton", check_button_style);
 			p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", check_button_style);
@@ -964,9 +946,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> checkbox_style = p_config.button_style->duplicate();
 			checkbox_style->set_bg_color(p_config.widget_bg_color);
 			checkbox_style->set_content_margin_all(p_config.base_margin * EDSCALE);
-			// Add 2px top and bottom margins
-			checkbox_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			checkbox_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 			p_theme->set_stylebox(CoreStringName(normal), "CheckBox", checkbox_style);
 			p_theme->set_stylebox(SceneStringName(pressed), "CheckBox", checkbox_style);
@@ -1285,9 +1264,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
 		// Use centralized widget background color for text inputs.
 		text_editor_style->set_bg_color(p_config.widget_bg_color);
-		// Add 2px top and bottom margins
-		text_editor_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-		text_editor_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
@@ -1536,7 +1512,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// HSlider.
 		p_theme->set_icon("grabber_highlight", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
-		// HSlider already has 2px top/bottom margins via background_margin
 		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.widget_bg_color, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin));
@@ -1546,10 +1521,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// VSlider.
 		p_theme->set_icon("grabber", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber_highlight", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
-		// Add 2px top/bottom margins for VSlider
-		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.widget_bg_color, background_margin, 2 * EDSCALE, background_margin, 2 * EDSCALE, p_config.corner_radius));
-		p_theme->set_stylebox("grabber_area", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 2 * EDSCALE, background_margin, 2 * EDSCALE, p_config.corner_radius));
-		p_theme->set_stylebox("grabber_area_highlight", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 2 * EDSCALE, background_margin, 2 * EDSCALE));
+		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.widget_bg_color, background_margin, 0, background_margin, 0, p_config.corner_radius));
+		p_theme->set_stylebox("grabber_area", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0, p_config.corner_radius));
+		p_theme->set_stylebox("grabber_area_highlight", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0));
 		p_theme->set_constant("center_grabber", "VSlider", 0);
 		p_theme->set_constant("grabber_offset", "VSlider", 0);
 	}
@@ -1834,9 +1808,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		{
 			Ref<StyleBoxFlat> color_picker_button_style = p_config.button_style->duplicate();
 			color_picker_button_style->set_bg_color(p_config.widget_bg_color);
-			// Add 2px top and bottom margins
-			color_picker_button_style->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-			color_picker_button_style->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 			p_theme->set_stylebox(CoreStringName(normal), "ColorPickerButton", color_picker_button_style);
 			p_theme->set_stylebox("hover", "ColorPickerButton", p_config.button_style_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "ColorPickerButton", p_config.button_style_pressed);
