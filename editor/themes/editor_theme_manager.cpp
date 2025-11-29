@@ -504,6 +504,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_theme->set_color("icon_pressed_color", EditorStringName(Editor), p_config.icon_pressed_color);
 		p_theme->set_color("icon_disabled_color", EditorStringName(Editor), p_config.icon_disabled_color);
 
+		// Scene tree dock button icons color with 0.85 opacity.
+		p_theme->set_color("scene_tree_button_icon_color", EditorStringName(Editor), Color(1, 1, 1, 0.65));
+
 		// Additional GUI colors.
 
 		p_config.shadow_color = Color(0, 0, 0, p_config.dark_theme ? 0.3 : 0.1);
@@ -521,9 +524,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		p_config.title_bg_color = Color(
-			p_config.base_color.r * 0.75,
-			p_config.base_color.g * 0.75,
-			p_config.base_color.b * 0.75,
+			p_config.base_color.r * 0.55,
+			p_config.base_color.g * 0.55,
+			p_config.base_color.b * 0.55,
 			0.75
 		).clamp();
 
@@ -531,6 +534,30 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.base_color.r * 0.65,
 			p_config.base_color.g * 0.65,
 			p_config.base_color.b * 0.65,
+			0.95
+		).clamp();
+
+		p_config.doc_bg_color = Color(
+			p_config.base_color.r * 0.35,
+			p_config.base_color.g * 0.35,
+			p_config.base_color.b * 0.35,
+			0.75
+		).clamp();
+
+		p_config.button_bg_color = Color(
+			p_config.base_color.r * 1.6,
+			p_config.base_color.g * 1.6,
+			p_config.base_color.b * 1.6,
+			1.0
+		).clamp();
+
+		// Tekisasu - TODO - Future replacement of dark_color_1 for main background color and other elements.
+		// For now, using dark_color_1 as is to avoid breaking existing themes.
+		// Needs to close dark_color_1, currently just copied from another *bg_color value at the moment.
+		p_config.main_bg_color = Color(
+			p_config.base_color.r * 0.35,
+			p_config.base_color.g * 0.35,
+			p_config.base_color.b * 0.35,
 			0.75
 		).clamp();
 
@@ -607,7 +634,8 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.button_style = p_config.base_style->duplicate();
 			p_config.button_style->set_content_margin_individual(p_config.widget_margin.x, p_config.widget_margin.y, p_config.widget_margin.x, p_config.widget_margin.y);
-			p_config.button_style->set_bg_color(p_config.dark_color_1);
+			// Use button_bg_color for better contrast in complex windows.
+			p_config.button_style->set_bg_color(p_config.button_bg_color);
 			if (p_config.draw_extra_borders) {
 				p_config.button_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.button_style->set_border_color(p_config.extra_border_color_1);
@@ -646,7 +674,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			}
 
 			p_config.button_style_pressed = p_config.button_style->duplicate();
-			p_config.button_style_pressed->set_bg_color(p_config.dark_color_1.darkened(0.125));
+			p_config.button_style_pressed->set_bg_color(p_config.button_bg_color.darkened(0.125));
 
 			p_config.button_style_hover = p_config.button_style->duplicate();
 			p_config.button_style_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.11));
@@ -1240,11 +1268,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
 			text_editor_style->set_border_color(p_config.extra_border_color_1);
-		} else {
-			// Add a bottom line to make LineEdits more visible, especially in sectioned inspectors
-			// such as the Project Settings.
-			text_editor_style->set_border_width(SIDE_BOTTOM, Math::round(2 * EDSCALE));
-			text_editor_style->set_border_color(p_config.dark_color_2);
 		}
 
 		Ref<StyleBoxFlat> text_editor_disabled_style = text_editor_style->duplicate();
@@ -1973,6 +1996,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_audio_bus->set_bg_color(Color(p_config.dark_color_1, 0.2));
 		style_audio_bus->set_border_width_all(Math::round(EDSCALE));
 		style_audio_bus->set_border_color(p_config.dark_color_2);
+		// Set corner radius on all corners (content_panel_style has top corners set to 0).
+		style_audio_bus->set_corner_radius_all(p_config.corner_radius * EDSCALE);
 		p_theme->set_stylebox(SceneStringName(panel), "EditorAudioBus", style_audio_bus);
 
 		// Launch Pad and Play buttons.
@@ -2101,8 +2126,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Complex editor windows.
 		{
 			Ref<StyleBoxFlat> style_complex_window = p_config.window_style->duplicate();
-			style_complex_window->set_bg_color(p_config.dark_color_2);
-			style_complex_window->set_border_color(p_config.dark_color_2);
+			// Use dark_color_1 to match the background behind the top menubar (same as Panel style).
+			style_complex_window->set_bg_color(p_config.dark_color_1);
+			style_complex_window->set_border_color(p_config.dark_color_1);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorSettingsDialog", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "ProjectSettingsEditor", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorAbout", style_complex_window);
@@ -2320,9 +2346,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_constant("indent_size", "EditorInspectorSection", 6.0 * EDSCALE);
 		p_theme->set_constant("h_separation", "EditorInspectorSection", 2.0 * EDSCALE);
 
-		Color prop_category_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
-		Color prop_section_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.09);
-		Color prop_subsection_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.06);
+		Color prop_category_color = p_config.title_bg_color;
+		Color prop_section_color = p_config.subtitle_bg_color;
+		Color prop_subsection_color = p_config.subtitle_bg_color;
 
 		p_theme->set_color("prop_category", EditorStringName(Editor), prop_category_color);
 		p_theme->set_color("prop_section", EditorStringName(Editor), prop_section_color);
@@ -2419,7 +2445,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor help.
 	{
 		Ref<StyleBoxFlat> style_editor_help = p_config.base_style->duplicate();
-		style_editor_help->set_bg_color(p_config.dark_color_2);
+		// Use dark_color_5 to match inactive dock tab background color.
+		style_editor_help->set_bg_color(p_config.doc_bg_color);
 		style_editor_help->set_border_color(p_config.dark_color_3);
 		p_theme->set_stylebox("background", "EditorHelp", style_editor_help);
 

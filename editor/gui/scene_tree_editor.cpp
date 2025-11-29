@@ -317,10 +317,12 @@ void SceneTreeEditor::_add_nodes(Node *p_node, TreeItem *p_parent) {
 			}
 
 			item->add_button(0, get_editor_theme_icon(warning_icon), BUTTON_WARNING, false, TTR("Node configuration warning:") + all_warnings);
+			item->set_button_color(0, item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 
 		if (p_node->is_unique_name_in_owner()) {
 			item->add_button(0, get_editor_theme_icon(SNAME("SceneUniqueName")), BUTTON_UNIQUE, p_node->get_owner() != EditorNode::get_singleton()->get_edited_scene(), vformat(TTR("This node can be accessed from within anywhere in the scene by preceding it with the '%s' prefix in a node path.\nClick to disable this."), UNIQUE_NODE_PREFIX));
+			item->set_button_color(0, item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 
 		int num_connections = p_node->get_persistent_signal_connection_count();
@@ -366,6 +368,7 @@ void SceneTreeEditor::_add_nodes(Node *p_node, TreeItem *p_parent) {
 
 		if (num_connections >= 1 || num_groups >= 1) {
 			item->add_button(0, icon_temp, signal_temp, false, msg_temp);
+			item->set_button_color(0, item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 	}
 
@@ -386,7 +389,7 @@ void SceneTreeEditor::_add_nodes(Node *p_node, TreeItem *p_parent) {
 		Ref<Script> scr = p_node->get_script();
 		if (!scr.is_null()) {
 			String additional_notes;
-			Color button_color = Color(1, 1, 1);
+			Color button_color = get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor));
 			// Can't set tooltip after adding button, need to do it before.
 			if (scr->is_tool()) {
 				additional_notes += "\n" + TTR("This script is currently running in the editor.");
@@ -402,9 +405,11 @@ void SceneTreeEditor::_add_nodes(Node *p_node, TreeItem *p_parent) {
 
 		if (p_node->has_meta("_edit_lock_")) {
 			item->add_button(0, get_editor_theme_icon(SNAME("Lock")), BUTTON_LOCK, false, TTR("Node is locked.\nClick to unlock it."));
+			item->set_button_color(0, item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 		if (p_node->has_meta("_edit_group_")) {
 			item->add_button(0, get_editor_theme_icon(SNAME("Group")), BUTTON_GROUP, false, TTR("Children are not selectable.\nClick to make them selectable."));
+			item->set_button_color(0, item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 
 		if (p_node->has_method("is_visible") && p_node->has_method("set_visible") && p_node->has_signal(SceneStringName(visibility_changed))) {
@@ -426,6 +431,7 @@ void SceneTreeEditor::_add_nodes(Node *p_node, TreeItem *p_parent) {
 
 			if (is_pinned) {
 				item->add_button(0, get_editor_theme_icon(SNAME("Pin")), BUTTON_PIN, false, TTR("AnimationPlayer is pinned.\nClick to unpin."));
+				item->set_button_color(0, item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 			}
 		}
 	}
@@ -494,11 +500,13 @@ void SceneTreeEditor::_update_node_tooltip(Node *p_node, TreeItem *p_item) {
 	if (p_node == get_scene_node() && p_node->get_scene_inherited_state().is_valid()) {
 		if (p_item->get_button_by_id(0, BUTTON_SUBSCENE) == -1) {
 			p_item->add_button(0, get_editor_theme_icon(SNAME("InstanceOptions")), BUTTON_SUBSCENE, false, TTR("Open in Editor"));
+			p_item->set_button_color(0, p_item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 		tooltip += String("\n" + TTR("Inherits:") + " " + p_node->get_scene_inherited_state()->get_path());
 	} else if (p_node != get_scene_node() && !p_node->get_scene_file_path().is_empty() && can_open_instance) {
 		if (p_item->get_button_by_id(0, BUTTON_SUBSCENE) == -1) {
 			p_item->add_button(0, get_editor_theme_icon(SNAME("InstanceOptions")), BUTTON_SUBSCENE, false, TTR("Open in Editor"));
+			p_item->set_button_color(0, p_item->get_button_count(0) - 1, get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor)));
 		}
 		tooltip += String("\n" + TTR("Instance:") + " " + p_node->get_scene_file_path());
 	}
@@ -554,7 +562,7 @@ void SceneTreeEditor::_node_visibility_changed(Node *p_node) {
 
 void SceneTreeEditor::_update_visibility_color(Node *p_node, TreeItem *p_item) {
 	if (p_node->has_method("is_visible_in_tree")) {
-		Color color(1, 1, 1, 1);
+		Color color = get_theme_color(SNAME("scene_tree_button_icon_color"), EditorStringName(Editor));
 		bool visible_on_screen = p_node->call("is_visible_in_tree");
 		if (!visible_on_screen) {
 			color.a = 0.6;
