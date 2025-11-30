@@ -239,7 +239,7 @@ def get_version_info(module_version_string="", silent=False):
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,
     # so this define provides a way to override it without having to modify the source.
     if os.getenv("TEKISASU_VERSION_STATUS") is not None:
-        version_info["status"] = str(os.getenv("TEKISASU_VERSION_STATUS"))
+        version_info["external_status"] = str(os.getenv("TEKISASU_VERSION_STATUS"))
         if not silent:
             print(f"Using version status '{version_info['status']}', overriding the original '{version.status}'.")
 

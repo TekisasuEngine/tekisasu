@@ -106,17 +106,17 @@ Dictionary GDExtensionAPIDump::generate_extension_api(bool p_include_docs) {
 	{
 		//header
 		Dictionary header;
-		header["version_major"] = VERSION_MAJOR;
-		header["version_minor"] = VERSION_MINOR;
-#if VERSION_PATCH
-		header["version_patch"] = VERSION_PATCH;
+		header["version_major"] = EXTERNAL_VERSION_MAJOR;
+		header["version_minor"] = EXTERNAL_VERSION_MINOR;
+#if EXTERNAL_VERSION_PATCH
+		header["version_patch"] = EXTERNAL_VERSION_PATCH;
 #else
 		header["version_patch"] = 0;
 #endif
-		header["version_status"] = VERSION_STATUS;
-		header["version_build"] = VERSION_BUILD;
-		// Use VERSION_FULL_NAME which shows the external (user-facing) version
-		header["version_full_name"] = VERSION_FULL_NAME;
+		header["version_status"] = EXTERNAL_VERSION_STATUS;
+		header["version_build"] = EXTERNAL_VERSION_BUILD;
+		// Use EXTERNAL_VERSION_FULL_NAME which shows the external (user-facing) version
+		header["version_full_name"] = EXTERNAL_VERSION_FULL_NAME;
 
 		api_dump["header"] = header;
 	}
@@ -1579,8 +1579,8 @@ Error GDExtensionAPIDump::validate_extension_json_file(const String &p_path) {
 		int major = header["version_major"];
 		int minor = header["version_minor"];
 
-		ERR_FAIL_COND_V_MSG(major != VERSION_MAJOR, ERR_INVALID_DATA, vformat("JSON API dump is for a different engine version (%d) than this one (%d)", major, VERSION_MAJOR));
-		ERR_FAIL_COND_V_MSG(minor > VERSION_MINOR, ERR_INVALID_DATA, vformat("JSON API dump is for a newer version of the engine: %d.%d", major, minor));
+		ERR_FAIL_COND_V_MSG(major != EXTERNAL_VERSION_MAJOR, ERR_INVALID_DATA, vformat("JSON API dump is for a different engine version (%d) than this one (%d)", major, EXTERNAL_VERSION_MAJOR));
+		ERR_FAIL_COND_V_MSG(minor > EXTERNAL_VERSION_MINOR, ERR_INVALID_DATA, vformat("JSON API dump is for a newer version of the engine: %d.%d", major, minor));
 	}
 
 	bool failed = false;

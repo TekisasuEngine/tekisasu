@@ -874,10 +874,10 @@ ExportTemplateManager::ExportTemplateManager() {
 	// Therefore, don't display download-related features when using a development version
 	// (whose builds aren't numbered).
 	downloads_available =
-			String(VERSION_STATUS) != String("dev") &&
-			String(VERSION_STATUS) != String("alpha") &&
-			String(VERSION_STATUS) != String("beta") &&
-			String(VERSION_STATUS) != String("rc");
+			String(EXTERNAL_VERSION_STATUS) != String("dev") &&
+			String(EXTERNAL_VERSION_STATUS) != String("alpha") &&
+			String(EXTERNAL_VERSION_STATUS) != String("beta") &&
+			String(EXTERNAL_VERSION_STATUS) != String("rc");
 
 	VBoxContainer *main_vb = memnew(VBoxContainer);
 	add_child(main_vb);

@@ -102,12 +102,17 @@
 // Describes the full configuration of that Tekisasu version, including the version number,
 // the status (dev, stable, etc.) and potential module-specific features (e.g. mono).
 // Example: "1.0.0.dev.mono"
-#define EXTERNAL_VERSION_FULL_CONFIG EXTERNAL_VERSION_NUMBER "." EXTERNAL_VERSION_STATUS VERSION_MODULE_CONFIG
+#define EXTERNAL_VERSION_FULL_CONFIG EXTERNAL_VERSION_NUMBER "." EXTERNAL_VERSION_STATUS EXTERNAL_VERSION_MODULE_CONFIG
+
+// Full name with external version, prepended with Tekisasu's name and a cosmetic "v" for "version".
+// Example: "Tekisasu Engine v1.0.0.dev.mono (4.3.1.stable.official.mono)"
+#define EXTERNAL_VERSION_FULL_NAME VERSION_NAME " v" EXTERNAL_VERSION_FULL_BUILD
 
 // Similar to EXTERNAL_VERSION_FULL_CONFIG, but also includes the internal VERSION_FULL_BUILD
 // description for reference.
 // Example: "1.0.0.dev.mono (4.3.1.stable.mono.official)"
 #define EXTERNAL_VERSION_FULL_BUILD EXTERNAL_VERSION_FULL_CONFIG " (" VERSION_FULL_BUILD ")"
+
 
 // ============================================================================
 // COMBINED VERSION STRINGS
