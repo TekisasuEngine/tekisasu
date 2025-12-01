@@ -12,5 +12,5 @@ docs = "4.3"
 # External version: Tekisasu's public-facing version (used for user-visible UI and asset fetching)
 external_major = 1
 external_minor = 3
-external_patch = 2
+external_patch = 1
 external_status = "stable"
