@@ -7411,7 +7411,7 @@ EditorNode::EditorNode() {
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Export Project"), FILE_EXPORT_PROJECT);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Manage Export Templates"), SETTINGS_MANAGE_EXPORT_TEMPLATES);
 		editor_logo_quick_menu->get_popup()->add_separator();
-		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project Manager"), RUN_PROJECT_MANAGER);
+		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit to Project List"), RUN_PROJECT_MANAGER);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Quit"), FILE_QUIT);
 		editor_logo_quick_menu->get_popup()->connect("id_pressed", callable_mp(this, &EditorNode::_menu_option));
 	}
