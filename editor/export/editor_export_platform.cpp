@@ -338,7 +338,8 @@ Ref<ImageTexture> EditorExportPlatform::get_option_icon(int p_index) const {
 }
 
 String EditorExportPlatform::find_export_template(const String &template_file_name, String *err) const {
-	String current_version = VERSION_FULL_CONFIG;
+	// Use EXTERNAL_VERSION_FULL_CONFIG for the public-facing Tekisasu version
+	String current_version = EXTERNAL_VERSION_FULL_CONFIG;
 	String template_path = EditorPaths::get_singleton()->get_export_templates_dir().path_join(current_version).path_join(template_file_name);
 
 	if (FileAccess::exists(template_path)) {

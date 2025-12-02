@@ -121,13 +121,6 @@
 // Example: "Tekisasu Engine v4.3.1.stable.official.DEV"
 #define TEKISASU_FULL_NAME VERSION_NAME " v" VERSION_FULL_BUILD "." TEKISASU_RELEASE
 
-// Distribution version string used for export templates and asset fetching.
-// Uses the external version combined with the internal VERSION_BUILD identifier.
-// This hybrid approach ensures assets are fetched based on Tekisasu's public version
-// while retaining the build type (e.g., "stable" for official, "custom_build" for custom).
-// Example: "1.0.0.dev.tx"
-#define VERSION_TEKISASU_DISTRIBUTION EXTERNAL_VERSION_FULL_CONFIG "." VERSION_BUILD
-
 // Tekisasu release is used simultaneously across the entire Tekisasu Toolchain build
 // which includes this project and Tekisasu Graphics.  New builds will be made for every
 // release of Tekisasu Toolchain
