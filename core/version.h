@@ -100,9 +100,9 @@
 #define EXTERNAL_VERSION_HEX 0x10000 * EXTERNAL_VERSION_MAJOR + 0x100 * EXTERNAL_VERSION_MINOR + EXTERNAL_VERSION_PATCH
 
 // Describes the full configuration of that Tekisasu version, including the version number,
-// the status (dev, stable, etc.) and potential module-specific features (e.g. mono).
-// Example: "1.0.0.dev.mono"
-#define EXTERNAL_VERSION_FULL_CONFIG EXTERNAL_VERSION_NUMBER "." EXTERNAL_VERSION_STATUS VERSION_MODULE_CONFIG
+// the status (dev, stable, etc.)
+// Example: "1.0.0.dev"
+#define EXTERNAL_VERSION_FULL_CONFIG EXTERNAL_VERSION_NUMBER "." EXTERNAL_VERSION_STATUS
 
 // Similar to EXTERNAL_VERSION_FULL_CONFIG, but also includes the internal VERSION_FULL_BUILD
 // description for reference.

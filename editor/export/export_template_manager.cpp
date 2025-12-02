@@ -71,7 +71,7 @@ void ExportTemplateManager::_update_template_status() {
 	da->list_dir_end();
 
 	// Update the state of the current version.
-	String current_version = VERSION_TEKISASU_DISTRIBUTION;
+	String current_version = EXTERNAL_VERSION_FULL_CONFIG;
 	current_value->set_text(current_version);
 
 	if (templates.has(current_version)) {
