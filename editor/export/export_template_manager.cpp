@@ -71,7 +71,7 @@ void ExportTemplateManager::_update_template_status() {
 	da->list_dir_end();
 
 	// Update the state of the current version.
-	String current_version = VERSION_TEKISASU_DISTRIBUTION;
+	String current_version = EXTERNAL_VERSION_FULL_CONFIG;
 	current_value->set_text(current_version);
 
 	if (templates.has(current_version)) {
@@ -678,19 +678,21 @@ String ExportTemplateManager::get_android_source_zip(const Ref<EditorExportPrese
 		}
 	}
 
-	const String templates_dir = EditorPaths::get_singleton()->get_export_templates_dir().path_join(VERSION_FULL_CONFIG);
+	// Use EXTERNAL_VERSION_FULL_CONFIG for the public-facing Tekisasu version
+	const String templates_dir = EditorPaths::get_singleton()->get_export_templates_dir().path_join(EXTERNAL_VERSION_FULL_CONFIG);
 	return templates_dir.path_join("android_source.zip");
 }
 
 String ExportTemplateManager::get_android_template_identifier(const Ref<EditorExportPreset> &p_preset) {
-	// The template identifier is the Godot version for the default template, and the full path plus md5 hash for custom templates.
+	// The template identifier is the Tekisasu version for the default template, and the full path plus md5 hash for custom templates.
 	if (p_preset.is_valid()) {
 		String android_source_zip = p_preset->get("gradle_build/android_source_template");
 		if (!android_source_zip.is_empty()) {
 			return android_source_zip + String(" [") + FileAccess::get_md5(android_source_zip) + String("]");
 		}
 	}
-	return VERSION_FULL_CONFIG;
+	// Use EXTERNAL_VERSION_FULL_CONFIG for the public-facing Tekisasu version
+	return EXTERNAL_VERSION_FULL_CONFIG;
 }
 
 bool ExportTemplateManager::is_android_template_installed(const Ref<EditorExportPreset> &p_preset) {
@@ -873,11 +875,12 @@ ExportTemplateManager::ExportTemplateManager() {
 	// (which always have a number following their status, e.g. "alpha1").
 	// Therefore, don't display download-related features when using a development version
 	// (whose builds aren't numbered).
+	// Use EXTERNAL_VERSION_STATUS for the public-facing Tekisasu version status.
 	downloads_available =
-			String(VERSION_STATUS) != String("dev") &&
-			String(VERSION_STATUS) != String("alpha") &&
-			String(VERSION_STATUS) != String("beta") &&
-			String(VERSION_STATUS) != String("rc");
+			String(EXTERNAL_VERSION_STATUS) != String("dev") &&
+			String(EXTERNAL_VERSION_STATUS) != String("alpha") &&
+			String(EXTERNAL_VERSION_STATUS) != String("beta") &&
+			String(EXTERNAL_VERSION_STATUS) != String("rc");
 
 	VBoxContainer *main_vb = memnew(VBoxContainer);
 	add_child(main_vb);
