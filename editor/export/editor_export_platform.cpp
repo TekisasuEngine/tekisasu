@@ -338,7 +338,8 @@ Ref<ImageTexture> EditorExportPlatform::get_option_icon(int p_index) const {
 }
 
 String EditorExportPlatform::find_export_template(const String &template_file_name, String *err) const {
-	String current_version = VERSION_FULL_CONFIG;
+	// Use EXTERNAL_VERSION_FULL_CONFIG for the public-facing Tekisasu version
+	String current_version = EXTERNAL_VERSION_FULL_CONFIG;
 	String template_path = EditorPaths::get_singleton()->get_export_templates_dir().path_join(current_version).path_join(template_file_name);
 
 	if (FileAccess::exists(template_path)) {
@@ -1629,9 +1630,9 @@ Error EditorExportPlatform::save_pack(const Ref<EditorExportPreset> &p_preset, b
 
 	f->store_32(PACK_HEADER_MAGIC);
 	f->store_32(PACK_FORMAT_VERSION);
-	f->store_32(VERSION_MAJOR);
-	f->store_32(VERSION_MINOR);
-	f->store_32(VERSION_PATCH);
+	f->store_32(EXTERNAL_VERSION_MAJOR);
+	f->store_32(EXTERNAL_VERSION_MINOR);
+	f->store_32(EXTERNAL_VERSION_PATCH);
 
 	uint32_t pack_flags = 0;
 	bool enc_pck = p_preset->get_enc_pck();

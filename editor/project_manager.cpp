@@ -579,7 +579,7 @@ void ProjectManager::_open_selected_projects_ask() {
 				unsupported_features.remove_at(i);
 				i--;
 			} else if (ProjectList::project_feature_looks_like_version(feature)) {
-				warning_message += vformat(TTR("Warning: This project was last edited in engine %s. Opening will change it to engine %s.\n\n"), Variant(feature), Variant(VERSION_BRANCH));
+				warning_message += vformat(TTR("Warning: This project was last edited in engine %s. Opening will change it to engine %s.\n\n"), Variant(feature), Variant(EXTERNAL_VERSION_BRANCH));
 				unsupported_features.remove_at(i);
 				i--;
 			}
