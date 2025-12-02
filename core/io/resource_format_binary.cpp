@@ -1019,10 +1019,10 @@ void ResourceLoaderBinary::open(Ref<FileAccess> p_f, bool p_no_resources, bool p
 	print_bl("minor: " + itos(ver_minor));
 	print_bl("format: " + itos(ver_format));
 
-	if (ver_format > FORMAT_VERSION || ver_major > VERSION_MAJOR) {
+	if (ver_format > FORMAT_VERSION || ver_major > EXTERNAL_VERSION_MAJOR) {
 		f.unref();
 		ERR_FAIL_MSG(vformat("File '%s' can't be loaded, as it uses a format version (%d) or engine version (%d.%d) which are not supported by your engine version (%s).",
-				local_path, ver_format, ver_major, ver_minor, VERSION_BRANCH));
+				local_path, ver_format, ver_major, ver_minor, EXTERNAL_VERSION_BRANCH));
 	}
 
 	type = get_unicode_string();
@@ -1146,7 +1146,7 @@ String ResourceLoaderBinary::recognize(Ref<FileAccess> p_f) {
 	f->get_32(); // ver_minor
 	uint32_t ver_fmt = f->get_32();
 
-	if (ver_fmt > FORMAT_VERSION || ver_major > VERSION_MAJOR) {
+	if (ver_fmt > FORMAT_VERSION || ver_major > EXTERNAL_VERSION_MAJOR) {
 		f.unref();
 		return "";
 	}
@@ -1187,7 +1187,7 @@ String ResourceLoaderBinary::recognize_script_class(Ref<FileAccess> p_f) {
 	f->get_32(); // ver_minor
 	uint32_t ver_fmt = f->get_32();
 
-	if (ver_fmt > FORMAT_VERSION || ver_major > VERSION_MAJOR) {
+	if (ver_fmt > FORMAT_VERSION || ver_major > EXTERNAL_VERSION_MAJOR) {
 		f.unref();
 		return "";
 	}
@@ -1378,10 +1378,10 @@ Error ResourceFormatLoaderBinary::rename_dependencies(const String &p_path, cons
 		return ResourceFormatSaverBinary::singleton->save(res, p_path);
 	}
 
-	if (ver_format > FORMAT_VERSION || ver_major > VERSION_MAJOR) {
+	if (ver_format > FORMAT_VERSION || ver_major > EXTERNAL_VERSION_MAJOR) {
 		ERR_FAIL_V_MSG(ERR_FILE_UNRECOGNIZED,
 				vformat("File '%s' can't be loaded, as it uses a format version (%d) or engine version (%d.%d) which are not supported by your engine version (%s).",
-						local_path, ver_format, ver_major, ver_minor, VERSION_BRANCH));
+						local_path, ver_format, ver_major, ver_minor, EXTERNAL_VERSION_BRANCH));
 	}
 
 	// Since we're not actually converting the file contents, leave the version
@@ -2164,8 +2164,8 @@ Error ResourceFormatSaverBinaryInstance::save(const String &p_path, const Ref<Re
 	}
 
 	f->store_32(0); //64 bits file, false for now
-	f->store_32(VERSION_MAJOR);
-	f->store_32(VERSION_MINOR);
+	f->store_32(EXTERNAL_VERSION_MAJOR);
+	f->store_32(EXTERNAL_VERSION_MINOR);
 	f->store_32(FORMAT_VERSION);
 
 	if (f->get_error() != OK && f->get_error() != ERR_FILE_EOF) {
@@ -2428,10 +2428,10 @@ Error ResourceFormatSaverBinaryInstance::set_uid(const String &p_path, ResourceU
 		return ERR_UNAVAILABLE;
 	}
 
-	if (ver_format > FORMAT_VERSION || ver_major > VERSION_MAJOR) {
+	if (ver_format > FORMAT_VERSION || ver_major > EXTERNAL_VERSION_MAJOR) {
 		ERR_FAIL_V_MSG(ERR_FILE_UNRECOGNIZED,
 				vformat("File '%s' can't be loaded, as it uses a format version (%d) or engine version (%d.%d) which are not supported by your engine version (%s).",
-						local_path, ver_format, ver_major, ver_minor, VERSION_BRANCH));
+						local_path, ver_format, ver_major, ver_minor, EXTERNAL_VERSION_BRANCH));
 	}
 
 	// Since we're not actually converting the file contents, leave the version

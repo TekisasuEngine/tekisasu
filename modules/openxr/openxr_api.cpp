@@ -525,8 +525,8 @@ bool OpenXRAPI::create_instance() {
 	XrApplicationInfo application_info{
 		"", // applicationName, we'll set this down below
 		1, // applicationVersion, we don't currently have this
-		"Godot Game Engine", // engineName
-		VERSION_MAJOR * 10000 + VERSION_MINOR * 100 + VERSION_PATCH, // engineVersion 4.0 -> 40000, 4.0.1 -> 40001, 4.1 -> 40100, etc.
+		"Tekisasu Engine", // engineName
+		EXTERNAL_VERSION_MAJOR * 10000 + EXTERNAL_VERSION_MINOR * 100 + EXTERNAL_VERSION_PATCH, // engineVersion 1.0 -> 10000, 1.0.1 -> 10001, 1.1 -> 10100, etc.
 		XR_CURRENT_API_VERSION // apiVersion
 	};
 

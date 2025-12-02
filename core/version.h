@@ -91,6 +91,10 @@
 // asset fetching (e.g., export templates from mirrorlist), and anywhere the
 // public Tekisasu version should be displayed.
 
+// Defines the main "branch" version for external versioning.
+// Example: "1.0"
+#define EXTERNAL_VERSION_BRANCH _MKSTR(EXTERNAL_VERSION_MAJOR) "." _MKSTR(EXTERNAL_VERSION_MINOR)
+
 // External version number as a string.
 // Example: "1.0.0"
 #define EXTERNAL_VERSION_NUMBER _MKSTR(EXTERNAL_VERSION_MAJOR) "." _MKSTR(EXTERNAL_VERSION_MINOR) "." _MKSTR(EXTERNAL_VERSION_PATCH)
