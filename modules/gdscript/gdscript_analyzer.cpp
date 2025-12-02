@@ -3746,12 +3746,12 @@ Ref<GDScriptParserRef> GDScriptAnalyzer::ensure_cached_external_parser_for_class
 	return parser_ref;
 }
 
-Ref<GDScriptParserRef> GDScriptAnalyzer::find_cached_external_parser_for_class(const GDScriptParser::ClassNode *p_class, const Ref<GDScriptParserRef> &p_dependant_parser) {
-	if (p_dependant_parser.is_null()) {
+Ref<GDScriptParserRef> GDScriptAnalyzer::find_cached_external_parser_for_class(const GDScriptParser::ClassNode *p_class, const Ref<GDScriptParserRef> &p_dependent_parser) {
+	if (p_dependent_parser.is_null()) {
 		return nullptr;
 	}
 
-	if (HashMap<const GDScriptParser::ClassNode *, Ref<GDScriptParserRef>>::Iterator E = p_dependant_parser->get_analyzer()->external_class_parser_cache.find(p_class)) {
+	if (HashMap<const GDScriptParser::ClassNode *, Ref<GDScriptParserRef>>::Iterator E = p_dependent_parser->get_analyzer()->external_class_parser_cache.find(p_class)) {
 		if (E->value.is_valid()) {
 			// Silently ensure it's parsed.
 			E->value->raise_status(GDScriptParserRef::PARSED);
@@ -3761,22 +3761,22 @@ Ref<GDScriptParserRef> GDScriptAnalyzer::find_cached_external_parser_for_class(c
 		}
 	}
 
-	if (p_dependant_parser->get_parser()->has_class(p_class)) {
-		return p_dependant_parser;
+	if (p_dependent_parser->get_parser()->has_class(p_class)) {
+		return p_dependent_parser;
 	}
 
 	// Silently ensure it's parsed.
-	p_dependant_parser->raise_status(GDScriptParserRef::PARSED);
-	return find_cached_external_parser_for_class(p_class, p_dependant_parser->get_parser());
+	p_dependent_parser->raise_status(GDScriptParserRef::PARSED);
+	return find_cached_external_parser_for_class(p_class, p_dependent_parser->get_parser());
 }
 
-Ref<GDScriptParserRef> GDScriptAnalyzer::find_cached_external_parser_for_class(const GDScriptParser::ClassNode *p_class, GDScriptParser *p_dependant_parser) {
-	if (p_dependant_parser == nullptr) {
+Ref<GDScriptParserRef> GDScriptAnalyzer::find_cached_external_parser_for_class(const GDScriptParser::ClassNode *p_class, GDScriptParser *p_dependent_parser) {
+	if (p_dependent_parser == nullptr) {
 		return nullptr;
 	}
 
 	String script_path = p_class->get_datatype().script_path;
-	if (HashMap<String, Ref<GDScriptParserRef>>::Iterator E = p_dependant_parser->depended_parsers.find(script_path)) {
+	if (HashMap<String, Ref<GDScriptParserRef>>::Iterator E = p_dependent_parser->depended_parsers.find(script_path)) {
 		if (E->value.is_valid()) {
 			// Silently ensure it's parsed.
 			E->value->raise_status(GDScriptParserRef::PARSED);
