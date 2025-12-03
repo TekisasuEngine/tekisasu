@@ -52,6 +52,7 @@ class EditorRunNative : public HBoxContainer {
 	int resume_id = -1;
 
 	void _confirm_run_native();
+	void _on_presets_runnable_changed();
 
 protected:
 	static void _bind_methods();

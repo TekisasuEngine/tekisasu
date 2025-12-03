@@ -94,6 +94,10 @@ void EditorRunNative::_confirm_run_native() {
 	resume_run_native();
 }
 
+void EditorRunNative::_on_presets_runnable_changed() {
+	first = true;
+}
+
 Error EditorRunNative::start_run_native(int p_id) {
 	if (p_id < 0) {
 		return OK;
@@ -208,6 +212,8 @@ EditorRunNative::EditorRunNative() {
 	run_native_confirm = memnew(ConfirmationDialog);
 	add_child(run_native_confirm);
 	run_native_confirm->connect(SceneStringName(confirmed), callable_mp(this, &EditorRunNative::_confirm_run_native));
+
+	EditorExport::get_singleton()->connect_presets_runnable_updated(callable_mp(this, &EditorRunNative::_on_presets_runnable_changed));
 
 	set_process(true);
 }

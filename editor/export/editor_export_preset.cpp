@@ -214,6 +214,7 @@ void EditorExportPreset::set_customized_files(const Dictionary &p_files) {
 
 void EditorExportPreset::set_name(const String &p_name) {
 	name = p_name;
+	EditorExport::singleton->emit_presets_runnable_changed();
 	EditorExport::singleton->save_presets();
 }
 
