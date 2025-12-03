@@ -424,7 +424,8 @@ Array ScriptTextEditor::_inline_object_parse(const String &p_text, int p_line) {
 				while (i_name_start < p_text.length() && (p_text[i_name_start] == ' ' || p_text[i_name_start] == '\t')) {
 					i_name_start++;
 				}
-				// Extract the color name (uppercase letters and underscores).
+				// Extract the color name. Color constants use UPPERCASE_WITH_UNDERSCORES naming convention
+				// (e.g., BLACK, ALICE_BLUE, DARK_GOLDENROD). This matches the format in color_names.inc.
 				int i_name_end = i_name_start;
 				while (i_name_end < p_text.length()) {
 					char32_t c = p_text[i_name_end];
@@ -438,6 +439,7 @@ Array ScriptTextEditor::_inline_object_parse(const String &p_text, int p_line) {
 					String color_name = p_text.substr(i_name_start, i_name_end - i_name_start);
 					int color_index = Color::find_named_color(color_name);
 					if (color_index >= 0) {
+						// Color::get_named_color() validates the index internally via ERR_FAIL_INDEX_V.
 						Color named_color = Color::get_named_color(color_index);
 						color_info["color"] = named_color;
 						color_info["color_mode"] = MODE_NAMED;
