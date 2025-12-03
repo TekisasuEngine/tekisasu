@@ -6873,11 +6873,10 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 void EditorNode::_on_audio_mixer_button_pressed() {
 	if (audio_bus_editor) {
 		WindowWrapper *wrapper = audio_bus_editor->get_window_wrapper();
-		if (wrapper && wrapper->get_window_enabled()) {
-			// If the Audio mixer is in a detached window, bring focus to it
-			wrapper->set_window_enabled(true);
-		} else {
-			// If the Audio mixer is docked, show it in the bottom panel
+		if (wrapper) {
+			// make_item_visible handles both docked and floating cases:
+			// - If docked, shows the Audio panel in the bottom panel
+			// - If floating, brings focus to the Audio mixer window
 			bottom_panel->make_item_visible(wrapper);
 		}
 	}
