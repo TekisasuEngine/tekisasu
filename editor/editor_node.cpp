@@ -6874,10 +6874,13 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 	if (audio_bus_editor) {
 		WindowWrapper *wrapper = audio_bus_editor->get_window_wrapper();
 		if (wrapper) {
-			// make_item_visible handles both docked and floating cases:
-			// - If docked, shows the Audio panel in the bottom panel
-			// - If floating, brings focus to the Audio mixer window
-			bottom_panel->make_item_visible(wrapper);
+			if (wrapper->get_window_enabled()) {
+				// If the Audio mixer is in a detached window, bring focus to it
+				wrapper->set_window_enabled(true);
+			} else {
+				// If docked, toggle the visibility of the Audio panel in the bottom panel
+				bottom_panel->make_item_visible(wrapper, !wrapper->is_visible());
+			}
 		}
 	}
 }
