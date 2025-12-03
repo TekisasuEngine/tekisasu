@@ -6745,14 +6745,13 @@ void EditorNode::_rebuild_bus_buttons() {
 	for (int i = 0; i < bus_count; i++) {
 		// Add "master:" icon before Master bus button
 		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
-			audio_bus_master_label = memnew(MenuButton);
+			audio_bus_master_label = memnew(Button);
 			audio_bus_master_label->set_flat(true);
 			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
 			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
 			audio_bus_master_label->set_modulate(Color(1, 1, 1, 0.85));
-			audio_bus_master_label->set_disabled(true);
-			audio_bus_master_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-			audio_bus_master_label->set_focus_mode(Control::FOCUS_NONE);
+			audio_bus_master_label->set_tooltip_text(TTR("Open Audio Mixer"));
+			audio_bus_master_label->connect("pressed", callable_mp(this, &EditorNode::_on_audio_mixer_button_pressed));
 			audio_bus_buttons_hb->add_child(audio_bus_master_label);
 		}
 
@@ -6868,6 +6867,19 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 		Button *button = audio_bus_buttons[p_bus_index];
 		button->set_text(p_new_name);
 		button->set_tooltip_text(TTR("Toggle mute for bus: ") + p_new_name);
+	}
+}
+
+void EditorNode::_on_audio_mixer_button_pressed() {
+	if (audio_bus_editor) {
+		WindowWrapper *wrapper = audio_bus_editor->get_window_wrapper();
+		if (wrapper && wrapper->get_window_enabled()) {
+			// If the Audio mixer is in a detached window, bring focus to it
+			wrapper->set_window_enabled(true);
+		} else {
+			// If the Audio mixer is docked, show it in the bottom panel
+			bottom_panel->make_item_visible(wrapper);
+		}
 	}
 }
 
