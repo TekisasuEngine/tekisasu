@@ -356,13 +356,13 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_base_spacing = 6;
 				preset_extra_spacing = 2;
 				preset_dialogs_buttons_min_size = Size2(112, 36);
-			} else if (config.spacing_preset == "Legacy") { // Godot/Blazium/Redot
-				preset_base_spacing = 4;
-				preset_extra_spacing = 0;
-				preset_dialogs_buttons_min_size = Size2(105, 34);
-			} else { // Default
+			} else if (config.spacing_preset == "Legacy") {
 				preset_base_spacing = 2;
 				preset_extra_spacing = 2;
+				preset_dialogs_buttons_min_size = Size2(90, 24);
+			} else { // Default
+				preset_base_spacing = 2;
+				preset_extra_spacing = 1;
 				preset_dialogs_buttons_min_size = Size2(90, 24);
 			}
 
@@ -517,23 +517,23 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		// Tekisasu - Centralized widget background color for input widgets (dropdowns, text fields, etc.)
 		//p_config.widget_bg_color = p_config.base_color.lerp(Color(0.1, 0.1, 0.1), .5);
 		p_config.widget_bg_color = Color(
-			p_config.base_color.r * 1.5,
-			p_config.base_color.g * 1.5,
-			p_config.base_color.b * 1.5,
+			p_config.base_color.r * 0.45,
+			p_config.base_color.g * 0.45,
+			p_config.base_color.b * 0.45,
 			0.75
 		).clamp();
 
 		p_config.title_bg_color = Color(
-			p_config.base_color.r * 0.55,
-			p_config.base_color.g * 0.55,
-			p_config.base_color.b * 0.55,
+			p_config.base_color.r * 0.20,
+			p_config.base_color.g * 0.20,
+			p_config.base_color.b * 0.20,
 			0.75
 		).clamp();
 
 		p_config.subtitle_bg_color = Color(
-			p_config.base_color.r * 0.65,
-			p_config.base_color.g * 0.65,
-			p_config.base_color.b * 0.65,
+			p_config.base_color.r * 0.55,
+			p_config.base_color.g * 0.55,
+			p_config.base_color.b * 0.55,
 			0.95
 		).clamp();
 
@@ -545,9 +545,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		p_config.button_bg_color = Color(
-			p_config.base_color.r * 1.6,
-			p_config.base_color.g * 1.6,
-			p_config.base_color.b * 1.6,
+			p_config.base_color.r * 1.7,
+			p_config.base_color.g * 1.7,
+			p_config.base_color.b * 1.7,
 			1.0
 		).clamp();
 
@@ -555,10 +555,10 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		// For now, using dark_color_1 as is to avoid breaking existing themes.
 		// Needs to close dark_color_1, currently just copied from another *bg_color value at the moment.
 		p_config.main_bg_color = Color(
-			p_config.base_color.r * 0.35,
-			p_config.base_color.g * 0.35,
-			p_config.base_color.b * 0.35,
-			0.75
+			p_config.base_color.r * 0.1,
+			p_config.base_color.g * 0.1,
+			p_config.base_color.b * 0.1,
+			1.0
 		).clamp();
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
@@ -899,18 +899,24 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_constant("outline_size", "OptionButton", 0);
 		}
 
-		// CheckButton.
-		{
-			// Create a stylebox with widget_bg_color for CheckButton toggle switches.
-			Ref<StyleBoxFlat> check_button_style = p_config.button_style->duplicate();
-			check_button_style->set_bg_color(p_config.widget_bg_color);
+		p_theme->set_stylebox(CoreStringName(normal), "CheckButton", p_config.panel_container_style);
+		p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", p_config.panel_container_style);
+		p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
+		p_theme->set_stylebox("hover", "CheckButton", p_config.panel_container_style);
+		p_theme->set_stylebox("hover_pressed", "CheckButton", p_config.panel_container_style);
 
-			p_theme->set_stylebox(CoreStringName(normal), "CheckButton", check_button_style);
-			p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", check_button_style);
-			p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
-			p_theme->set_stylebox("hover", "CheckButton", check_button_style);
-			p_theme->set_stylebox("hover_pressed", "CheckButton", check_button_style);
-		}
+		// CheckButton.
+//		{
+//			// Create a stylebox with widget_bg_color for CheckButton toggle switches.
+//			Ref<StyleBoxFlat> check_button_style = p_config.button_style->duplicate();
+//			check_button_style->set_bg_color(p_config.widget_bg_color);
+//
+//			p_theme->set_stylebox(CoreStringName(normal), "CheckButton", check_button_style);
+//			p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", check_button_style);
+//			p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
+//			p_theme->set_stylebox("hover", "CheckButton", check_button_style);
+//			p_theme->set_stylebox("hover_pressed", "CheckButton", check_button_style);
+//		}
 
 		p_theme->set_icon("checked", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOn"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("checked_disabled", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOnDisabled"), EditorStringName(EditorIcons)));
@@ -1861,7 +1867,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor and main screen.
 	{
 		// Editor background.
-		Color background_color_opaque = p_config.base_color.lerp(Color(0.0,0.0,0.0), 0.5); // tekisasu todo 
+		Color background_color_opaque = p_config.base_color.lerp(Color(0.0,0.0,0.0), 0.9); // tekisasu todo 
 		background_color_opaque.a = 1.0;
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
