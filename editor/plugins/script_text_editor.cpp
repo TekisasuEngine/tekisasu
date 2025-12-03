@@ -406,75 +406,120 @@ Array ScriptTextEditor::_inline_object_parse(const String &p_text, int p_line) {
 	while (i_start != -1) {
 		// Ignore words that just have "Color" in them.
 		if (i_start == 0 || !("_" + p_text.substr(i_start - 1, 1)).is_valid_identifier()) {
-			int i_par_start = p_text.find_char('(', i_start + 5);
-			if (i_par_start != -1) {
-				int i_par_end = p_text.find_char(')', i_start + 5);
-				if (i_par_end != -1) {
-					Dictionary color_info;
-					color_info["line"] = p_line;
-					color_info["column"] = i_start;
-					color_info["width_ratio"] = 1.0;
-					color_info["color_end"] = i_par_end;
+			bool has_added_color = false;
+			Dictionary color_info;
+			color_info["line"] = p_line;
+			color_info["column"] = i_start;
+			color_info["width_ratio"] = 1.0;
 
-					String fn_name = p_text.substr(i_start + 5, i_par_start - i_start - 5);
-					String s_params = p_text.substr(i_par_start + 1, i_par_end - i_par_start - 1);
-					bool has_added_color = false;
-
-					if (fn_name.is_empty()) {
-						String stripped = s_params.strip_edges(true, true);
-						// String constructor.
-						if (stripped.length() > 0 && (stripped[0] == '\"')) {
-							String color_string = stripped.substr(1, stripped.length() - 2);
-							color_info["color"] = Color(color_string);
-							color_info["color_mode"] = MODE_STRING;
-							has_added_color = true;
-						}
-						// Hex constructor.
-						else if (stripped.length() == 10 && stripped.substr(0, 2) == "0x") {
-							color_info["color"] = Color(stripped.substr(2, stripped.length() - 2));
-							color_info["color_mode"] = MODE_HEX;
-							has_added_color = true;
-						}
-						// Empty Color() constructor.
-						else if (stripped.is_empty()) {
-							color_info["color"] = Color();
-							color_info["color_mode"] = MODE_RGB;
-							has_added_color = true;
-						}
-					}
-					// Float & int parameters.
-					if (!has_added_color && s_params.size() > 0) {
-						PackedFloat64Array params = s_params.split_floats(",", false);
-						if (params.size() == 3) {
-							params.resize(4);
-							params.set(3, 1.0);
-						}
-						if (params.size() == 4) {
-							has_added_color = true;
-							if (fn_name == ".from_ok_hsl") {
-								color_info["color"] = Color::from_ok_hsl(params[0], params[1], params[2], params[3]);
-								color_info["color_mode"] = MODE_OKHSL;
-							} else if (fn_name == ".from_hsv") {
-								color_info["color"] = Color::from_hsv(params[0], params[1], params[2], params[3]);
-								color_info["color_mode"] = MODE_HSV;
-							} else if (fn_name == ".from_rgba8") {
-								// Tekisasu doesn't have Color::from_rgba8, construct from 8-bit values
-								color_info["color"] = Color(int(params[0]) / 255.0f, int(params[1]) / 255.0f, int(params[2]) / 255.0f, int(params[3]) / 255.0f);
-								color_info["color_mode"] = MODE_RGB8;
-							} else if (fn_name.is_empty()) {
-								color_info["color"] = Color(params[0], params[1], params[2], params[3]);
-								color_info["color_mode"] = MODE_RGB;
-							} else {
-								has_added_color = false;
-							}
-						}
-					}
-
-					if (has_added_color) {
-						result.push_back(color_info);
-						i_end_previous = i_par_end + 1;
+			// Check for Color.NAME pattern (named color constants like Color.BLACK).
+			int i_dot = i_start + 5;
+			// Skip whitespace after "Color".
+			while (i_dot < p_text.length() && (p_text[i_dot] == ' ' || p_text[i_dot] == '\t')) {
+				i_dot++;
+			}
+			if (i_dot < p_text.length() && p_text[i_dot] == '.') {
+				int i_name_start = i_dot + 1;
+				// Skip whitespace after '.'.
+				while (i_name_start < p_text.length() && (p_text[i_name_start] == ' ' || p_text[i_name_start] == '\t')) {
+					i_name_start++;
+				}
+				// Extract the color name. Color constants use UPPERCASE_WITH_UNDERSCORES naming convention
+				// (e.g., BLACK, ALICE_BLUE, DARK_GOLDENROD). This matches the format in color_names.inc.
+				int i_name_end = i_name_start;
+				while (i_name_end < p_text.length()) {
+					char32_t c = p_text[i_name_end];
+					if ((c >= 'A' && c <= 'Z') || c == '_') {
+						i_name_end++;
+					} else {
+						break;
 					}
 				}
+				if (i_name_end > i_name_start) {
+					String color_name = p_text.substr(i_name_start, i_name_end - i_name_start);
+					int color_index = Color::find_named_color(color_name);
+					if (color_index >= 0) {
+						// Color::get_named_color() validates the index internally via ERR_FAIL_INDEX_V.
+						Color named_color = Color::get_named_color(color_index);
+						color_info["color"] = named_color;
+						color_info["color_mode"] = MODE_NAMED;
+						color_info["color_end"] = i_name_end - 1;
+						has_added_color = true;
+						i_end_previous = i_name_end;
+					}
+				}
+			}
+
+			// Check for Color(...) constructor patterns.
+			if (!has_added_color) {
+				int i_par_start = p_text.find_char('(', i_start + 5);
+				if (i_par_start != -1) {
+					int i_par_end = p_text.find_char(')', i_start + 5);
+					if (i_par_end != -1) {
+						color_info["color_end"] = i_par_end;
+
+						String fn_name = p_text.substr(i_start + 5, i_par_start - i_start - 5);
+						String s_params = p_text.substr(i_par_start + 1, i_par_end - i_par_start - 1);
+
+						if (fn_name.is_empty()) {
+							String stripped = s_params.strip_edges(true, true);
+							// String constructor.
+							if (stripped.length() > 0 && (stripped[0] == '\"')) {
+								String color_string = stripped.substr(1, stripped.length() - 2);
+								color_info["color"] = Color(color_string);
+								color_info["color_mode"] = MODE_STRING;
+								has_added_color = true;
+							}
+							// Hex constructor.
+							else if (stripped.length() == 10 && stripped.substr(0, 2) == "0x") {
+								color_info["color"] = Color(stripped.substr(2, stripped.length() - 2));
+								color_info["color_mode"] = MODE_HEX;
+								has_added_color = true;
+							}
+							// Empty Color() constructor.
+							else if (stripped.is_empty()) {
+								color_info["color"] = Color();
+								color_info["color_mode"] = MODE_RGB;
+								has_added_color = true;
+							}
+						}
+						// Float & int parameters.
+						if (!has_added_color && s_params.size() > 0) {
+							PackedFloat64Array params = s_params.split_floats(",", false);
+							if (params.size() == 3) {
+								params.resize(4);
+								params.set(3, 1.0);
+							}
+							if (params.size() == 4) {
+								has_added_color = true;
+								if (fn_name == ".from_ok_hsl") {
+									color_info["color"] = Color::from_ok_hsl(params[0], params[1], params[2], params[3]);
+									color_info["color_mode"] = MODE_OKHSL;
+								} else if (fn_name == ".from_hsv") {
+									color_info["color"] = Color::from_hsv(params[0], params[1], params[2], params[3]);
+									color_info["color_mode"] = MODE_HSV;
+								} else if (fn_name == ".from_rgba8") {
+									// Tekisasu doesn't have Color::from_rgba8, construct from 8-bit values
+									color_info["color"] = Color(int(params[0]) / 255.0f, int(params[1]) / 255.0f, int(params[2]) / 255.0f, int(params[3]) / 255.0f);
+									color_info["color_mode"] = MODE_RGB8;
+								} else if (fn_name.is_empty()) {
+									color_info["color"] = Color(params[0], params[1], params[2], params[3]);
+									color_info["color_mode"] = MODE_RGB;
+								} else {
+									has_added_color = false;
+								}
+							}
+						}
+
+						if (has_added_color) {
+							i_end_previous = i_par_end + 1;
+						}
+					}
+				}
+			}
+
+			if (has_added_color) {
+				result.push_back(color_info);
 			}
 		}
 		i_end_previous = MAX(i_end_previous, i_start);
@@ -568,6 +613,15 @@ String ScriptTextEditor::_picker_color_stringify(const Color &p_color, COLOR_MOD
 				itos(p_color.get_a8())
 			};
 			fname = ".from_rgba8";
+		} break;
+		case ScriptTextEditor::MODE_NAMED: {
+			// Named colors (like Color.BLACK) convert to RGB format when changed.
+			str_params = {
+				String::num(p_color.r, 3),
+				String::num(p_color.g, 3),
+				String::num(p_color.b, 3),
+				String::num(p_color.a, 3)
+			};
 		} break;
 		default: {
 		} break;

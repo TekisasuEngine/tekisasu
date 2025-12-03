@@ -177,6 +177,7 @@ class ScriptTextEditor : public ScriptEditorBase {
 		MODE_OKHSL,
 		MODE_RGB8,
 		MODE_HEX,
+		MODE_NAMED, // Color aliases like Color.BLACK - converts to RGB when changed
 		MODE_MAX
 	};
 
