@@ -6793,29 +6793,64 @@ Ref<StyleBoxFlat> EditorNode::_create_bg_stylebox(const Color &p_color) {
 }
 
 void EditorNode::_update_bus_button_colors() {
+	// Check if Master bus is muted - if so, all buses effectively appear muted (red)
+	bool master_muted = AudioServer::get_singleton()->is_bus_mute(0);
+
 	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
 		int bus_index = kv.key;
 		Button *button = kv.value;
 
 		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
 			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
+			bool is_solo = AudioServer::get_singleton()->is_bus_solo(bus_index);
+			bool is_bypass = AudioServer::get_singleton()->is_bus_bypassing_effects(bus_index);
+			bool is_master = (String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master";
+
 			Color color;
 			Color bg_color;
-			if (is_muted) {
-				if ((String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master") {
-					color = Color(0.94, 0.44, 0.56, 1.0); // Red for muted
-					bg_color = Color(0.94, 0.44, 0.56, 0.2); // Darker red background
+
+			// Determine color based on state priority:
+			// 1. If Master is muted, all non-master buses show red (effective muted state)
+			// 2. If bus itself is muted, show red
+			// 3. If bus is solo, show yellow
+			// 4. If bus is bypassed, show blue
+			// 5. Otherwise, show green (unmuted)
+
+			if (is_muted || (master_muted && !is_master)) {
+				// Red for muted (or effectively muted when Master is muted)
+				if (is_master) {
+					color = Color(0.94, 0.44, 0.56, 1.0);
+					bg_color = Color(0.94, 0.44, 0.56, 0.2);
 				} else {
-					color = Color(0.85, 0.28, 0.44, 0.85); // Red for muted, opacity at 0.85 for non-master buses
-					bg_color = Color(0.85, 0.28, 0.44, 0.2); // Darker red background
+					color = Color(0.85, 0.28, 0.44, 0.85);
+					bg_color = Color(0.85, 0.28, 0.44, 0.2);
+				}
+			} else if (is_solo) {
+				// Yellow for solo
+				if (is_master) {
+					color = Color(1.0, 0.89, 0.22, 1.0);
+					bg_color = Color(1.0, 0.89, 0.22, 0.2);
+				} else {
+					color = Color(0.9, 0.8, 0.2, 0.85);
+					bg_color = Color(0.9, 0.8, 0.2, 0.2);
+				}
+			} else if (is_bypass) {
+				// Blue for bypass
+				if (is_master) {
+					color = Color(0.13, 0.8, 1.0, 1.0);
+					bg_color = Color(0.13, 0.8, 1.0, 0.2);
+				} else {
+					color = Color(0.1, 0.7, 0.9, 0.85);
+					bg_color = Color(0.1, 0.7, 0.9, 0.2);
 				}
 			} else {
-				if ((String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master") {
-					color = Color(0.46, 0.85, 0.69, 1.0); // Green for not muted
-					bg_color = Color(0.46, 0.85, 0.69, 0.2); // Darker green background
+				// Green for unmuted (normal state)
+				if (is_master) {
+					color = Color(0.46, 0.85, 0.69, 1.0);
+					bg_color = Color(0.46, 0.85, 0.69, 0.2);
 				} else {
-					color = Color(0.36, 0.73, 0.58, 0.85); // Green for not muted, opacity at 0.85 for non-master buses
-					bg_color = Color(0.36, 0.73, 0.58, 0.2); // Darker green background
+					color = Color(0.36, 0.73, 0.58, 0.85);
+					bg_color = Color(0.36, 0.73, 0.58, 0.2);
 				}
 			}
 			button->add_theme_color_override("font_color", color);
