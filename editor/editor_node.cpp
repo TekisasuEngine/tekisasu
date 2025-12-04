@@ -7444,7 +7444,7 @@ EditorNode::EditorNode() {
 	// Covers everything from TitleBarLogo to renderer chooser
 	PanelContainer *title_bar_container = memnew(PanelContainer);
 	Ref<StyleBoxFlat> title_bar_style = memnew(StyleBoxFlat);
-	title_bar_style->set_bg_color(Color(0, 0, 0, 0.6)); // Black with 0.6 opacity
+	title_bar_style->set_bg_color(Color(0, 0, 0, 0.5)); // Black with 0.5 opacity
 	int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
 	title_bar_style->set_corner_radius_all(corner_radius);
 	title_bar_style->set_content_margin_individual(0, 2 * EDSCALE, 0, 2 * EDSCALE); // 2px padding top and bottom

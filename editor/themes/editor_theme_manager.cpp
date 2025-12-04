@@ -545,9 +545,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		p_config.button_bg_color = Color(
-			p_config.base_color.r * 1.7,
-			p_config.base_color.g * 1.7,
-			p_config.base_color.b * 1.7,
+			p_config.base_color.r * 1.9,
+			p_config.base_color.g * 1.9,
+			p_config.base_color.b * 1.9,
 			1.0
 		).clamp();
 
