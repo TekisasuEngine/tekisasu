@@ -2229,29 +2229,22 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// DockTabContainer variation.
 		{
-			// Dock-specific tab style without top borders and with corner radius.
+			// Dock-specific tab style without top borders and without corner radius.
 			p_theme->set_type_variation("DockTabContainer", "TabContainer");
 
-			// Create dock tab base style with corner radius.
+			// Create dock tab base style without corner radius.
 			Ref<StyleBoxFlat> style_dock_tab_base = p_config.button_style->duplicate();
 			style_dock_tab_base->set_border_width_all(0);
-			style_dock_tab_base->set_corner_radius(CORNER_TOP_LEFT, p_config.corner_radius * EDSCALE);
-			style_dock_tab_base->set_corner_radius(CORNER_TOP_RIGHT, p_config.corner_radius * EDSCALE);
-			style_dock_tab_base->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
-			style_dock_tab_base->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
+			style_dock_tab_base->set_corner_radius_all(0);
 			style_dock_tab_base->set_expand_margin(SIDE_LEFT, -p_config.border_width);
 			style_dock_tab_base->set_content_margin(SIDE_LEFT, p_config.widget_margin.x + 5 * EDSCALE);
 			style_dock_tab_base->set_content_margin(SIDE_RIGHT, p_config.widget_margin.x + 5 * EDSCALE);
 			style_dock_tab_base->set_content_margin(SIDE_BOTTOM, p_config.widget_margin.y);
 			style_dock_tab_base->set_content_margin(SIDE_TOP, p_config.widget_margin.y);
 
-			// Selected tab - uses base_color with 1px colored top border.
+			// Selected tab - uses base_color without borders.
 			Ref<StyleBoxFlat> style_dock_tab_selected = style_dock_tab_base->duplicate();
 			style_dock_tab_selected->set_bg_color(p_config.base_color);
-			// Add a 1px highlight line at the top of the selected tab (normal tabs use 3px, dock tabs use 1px minimum).
-			style_dock_tab_selected->set_border_width(SIDE_TOP, Math::round(EDSCALE));
-			Color dock_tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
-			style_dock_tab_selected->set_border_color(dock_tab_highlight);
 
 			// Hovered tab.
 			Ref<StyleBoxFlat> style_dock_tab_hovered = style_dock_tab_base->duplicate();
@@ -2260,7 +2253,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			// Unselected tab.
 			Ref<StyleBoxFlat> style_dock_tab_unselected = style_dock_tab_base->duplicate();
 			style_dock_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
-			// Use 0.80 opacity for inactive tabs to create better contrast with active tabs.
+			// Use 0.20 opacity for inactive tabs to match tabbar background.
 			Color dock_tab_unselected_color = p_config.dark_color_5;
 			dock_tab_unselected_color.a = 0.20;
 			style_dock_tab_unselected->set_bg_color(dock_tab_unselected_color);
@@ -2283,7 +2276,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox("tab_disabled", "DockTabContainer", style_dock_tab_disabled);
 			p_theme->set_stylebox("tab_focus", "DockTabContainer", style_dock_tab_focus);
 
-			// Tabbar background with matching corner radius and 0.80 opacity.
+			// Tabbar background with 0.20 opacity.
 			Color dock_tabbar_bg_color = p_config.dark_color_5;
 			dock_tabbar_bg_color.a = 0.20;
 			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(dock_tabbar_bg_color, 0, 0, 0, 0, 0);
