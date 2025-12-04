@@ -356,6 +356,7 @@ private:
 	Control *left_menu_spacer = nullptr;
 	Control *right_menu_spacer = nullptr;
 	EditorTitleBar *title_bar = nullptr;
+	Ref<StyleBoxFlat> title_bar_container_style;
 	EditorRunBar *project_run_bar = nullptr;
 	HBoxContainer *debug_target_hb = nullptr;
 	Button *debug_target_label = nullptr;
