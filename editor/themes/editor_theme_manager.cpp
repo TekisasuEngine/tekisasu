@@ -527,7 +527,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.base_color.r * 0.20,
 			p_config.base_color.g * 0.20,
 			p_config.base_color.b * 0.20,
-			0.75
+			0.80
 		).clamp();
 
 		p_config.subtitle_bg_color = Color(
@@ -562,7 +562,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		// Editor background color - matches main editor window background.
-		p_config.background_color_opaque = p_config.base_color.lerp(Color(0.0, 0.0, 0.0), 0.9);
+		p_config.background_color_opaque = p_config.base_color.lerp(Color(0.0, 0.0, 0.0), 0.8);
 		p_config.background_color_opaque.a = 1.0;
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
@@ -2134,9 +2134,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Complex editor windows.
 		{
 			Ref<StyleBoxFlat> style_complex_window = p_config.window_style->duplicate();
-			// Use dark_color_1 to match the background behind the top menubar (same as Panel style).
-			style_complex_window->set_bg_color(p_config.dark_color_1);
-			style_complex_window->set_border_color(p_config.dark_color_1);
+			// Use background_color_opaque to match the background behind the top menubar (same as Panel style).
+			style_complex_window->set_bg_color(p_config.background_color_opaque);
+			style_complex_window->set_border_color(p_config.background_color_opaque);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorSettingsDialog", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "ProjectSettingsEditor", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorAbout", style_complex_window);
