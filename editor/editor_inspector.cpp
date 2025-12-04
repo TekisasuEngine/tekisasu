@@ -111,6 +111,11 @@ Size2 EditorProperty::get_minimum_size() const {
 		ms.width = MAX(ms.width, bems.width);
 	}
 
+	// Add content margins from bg stylebox for row padding.
+	const Ref<StyleBox> &bg_style = get_theme_stylebox(SNAME("bg"));
+	ms.width += bg_style->get_content_margin(SIDE_LEFT) + bg_style->get_content_margin(SIDE_RIGHT);
+	ms.height += bg_style->get_content_margin(SIDE_TOP) + bg_style->get_content_margin(SIDE_BOTTOM);
+
 	return ms;
 }
 
@@ -133,6 +138,12 @@ void EditorProperty::_notification(int p_what) {
 			bottom_child_rect = Rect2();
 
 			{
+				// Get margins from bg stylebox for row padding.
+				const Ref<StyleBox> &bg_style = get_theme_stylebox(SNAME("bg"));
+				int left_margin = bg_style->get_content_margin(SIDE_LEFT);
+				int top_margin = bg_style->get_content_margin(SIDE_TOP);
+				int right_margin = bg_style->get_content_margin(SIDE_RIGHT);
+
 				int child_room = size.width * (1.0 - split_ratio);
 				Ref<Font> font = get_theme_font(SceneStringName(font), SNAME("Tree"));
 				int font_size = get_theme_font_size(SceneStringName(font_size), SNAME("Tree"));
@@ -156,20 +167,20 @@ void EditorProperty::_notification(int p_what) {
 				}
 
 				if (no_children) {
-					text_size = size.width;
-					rect = Rect2(size.width - 1, 0, 1, height);
+					text_size = size.width - left_margin - right_margin;
+					rect = Rect2(size.width - 1, top_margin, 1, height);
 				} else {
-					text_size = MAX(0, size.width - (child_room + 4 * EDSCALE));
+					text_size = MAX(0, size.width - (child_room + 4 * EDSCALE) - left_margin - right_margin);
 					if (is_layout_rtl()) {
-						rect = Rect2(1, 0, child_room, height);
+						rect = Rect2(left_margin + 1, top_margin, child_room, height);
 					} else {
-						rect = Rect2(size.width - child_room, 0, child_room, height);
+						rect = Rect2(size.width - child_room - right_margin, top_margin, child_room, height);
 					}
 				}
 
 				if (bottom_editor) {
 					int v_offset = label.is_empty() ? 0 : get_theme_constant(SNAME("v_separation"));
-					bottom_rect = Rect2(0, rect.size.height + v_offset, size.width, bottom_editor->get_combined_minimum_size().height);
+					bottom_rect = Rect2(left_margin, rect.get_end().y + v_offset, size.width - left_margin - right_margin, bottom_editor->get_combined_minimum_size().height);
 				}
 
 				if (keying) {
