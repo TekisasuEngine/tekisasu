@@ -7440,12 +7440,13 @@ EditorNode::EditorNode() {
 		title_bar->add_child(left_menu_spacer);
 	}
 
-	// Title bar container with black background (corner_radius: 6, opacity: 0.3)
+	// Title bar container with black background
 	// Covers everything from TitleBarLogo to renderer chooser
 	PanelContainer *title_bar_container = memnew(PanelContainer);
 	Ref<StyleBoxFlat> title_bar_style = memnew(StyleBoxFlat);
-	title_bar_style->set_bg_color(Color(0, 0, 0, 0.3)); // Black with 0.3 opacity
-	title_bar_style->set_corner_radius_all(6);
+	title_bar_style->set_bg_color(Color(0, 0, 0, 0.6)); // Black with 0.6 opacity
+	int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
+	title_bar_style->set_corner_radius_all(corner_radius);
 	title_bar_container->add_theme_style_override(SceneStringName(panel), title_bar_style);
 	title_bar_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	title_bar->add_child(title_bar_container);
