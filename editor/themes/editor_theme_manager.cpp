@@ -1206,7 +1206,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// Use 0.20 opacity for tab bar background to create better contrast with active tabs.
 		Color tabbar_bg_color = p_config.dark_color_5;
 		tabbar_bg_color.a = 0.20;
-		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(tabbar_bg_color, 0, 0, 0, 0, 0);
+		// Tabbar background respects corner_radius for top corners, but keeps bottom corners at 0.
+		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(tabbar_bg_color, 0, 0, 0, 0, p_config.corner_radius);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("tabbar_background", "TabContainer", style_tabbar_background);
@@ -2276,10 +2277,10 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox("tab_disabled", "DockTabContainer", style_dock_tab_disabled);
 			p_theme->set_stylebox("tab_focus", "DockTabContainer", style_dock_tab_focus);
 
-			// Tabbar background with 0.20 opacity.
+			// Tabbar background with 0.20 opacity, respects corner_radius for top corners.
 			Color dock_tabbar_bg_color = p_config.dark_color_5;
 			dock_tabbar_bg_color.a = 0.20;
-			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(dock_tabbar_bg_color, 0, 0, 0, 0, 0);
+			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(dock_tabbar_bg_color, 0, 0, 0, 0, p_config.corner_radius);
 			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 			p_theme->set_stylebox("tabbar_background", "DockTabContainer", style_dock_tabbar_background);
