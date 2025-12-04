@@ -7665,9 +7665,17 @@ EditorNode::EditorNode() {
 	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
 	center_section_hb->add_child(runbar_spacer);
 
+	// Run bar section container with black background (corner_radius: 6, opacity: 0.5)
+	PanelContainer *runbar_container = memnew(PanelContainer);
+	Ref<StyleBoxFlat> runbar_style = memnew(StyleBoxFlat);
+	runbar_style->set_bg_color(Color(0, 0, 0, 0.5)); // Black with 0.5 opacity
+	runbar_style->set_corner_radius_all(6);
+	runbar_container->add_theme_style_override(SceneStringName(panel), runbar_style);
+	center_section_hb->add_child(runbar_container);
+
 	// Run bar section (moved before audio bus)
 	project_run_bar = memnew(EditorRunBar);
-	center_section_hb->add_child(project_run_bar);
+	runbar_container->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
