@@ -562,7 +562,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		// Editor background color - matches main editor window background.
-		p_config.background_color_opaque = Color(p_config.base_color.r * 1.7, p_config.base_color.g * 1.7, p_config.base_color.b * 1.7, 1.0).lerp(Color(0.0, 0.0, 0.0), 0.2);
+		p_config.background_color_opaque = Color(p_config.base_color.r * 1.8, p_config.base_color.g * 1.8, p_config.base_color.b * 1.8, 1.0).lerp(Color(0.0, 0.0, 0.0), 0.2);
 		p_config.background_color_opaque.a = 1.0;
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
