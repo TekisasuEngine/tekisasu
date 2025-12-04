@@ -177,7 +177,7 @@ void EditorProperty::_notification(int p_what) {
 
 				if (bottom_editor) {
 					int v_offset = label.is_empty() ? 0 : get_theme_constant(SNAME("v_separation"));
-					bottom_rect = Rect2(0, rect.position.y + rect.size.height + v_offset, size.width, bottom_editor->get_combined_minimum_size().height);
+					bottom_rect = Rect2(0, rect.get_end().y + v_offset, size.width, bottom_editor->get_combined_minimum_size().height);
 				}
 
 				if (keying) {
