@@ -442,7 +442,7 @@ private:
 
 	HBoxContainer *audio_bus_buttons_hb = nullptr;
 	HashMap<int, Button *> audio_bus_buttons;
-	MenuButton *audio_bus_master_label = nullptr;
+	Button *audio_bus_master_label = nullptr;
 	MenuButton *audio_bus_buses_label = nullptr;
 
 	AudioStreamPreviewGenerator *audio_preview_gen = nullptr;
@@ -717,6 +717,7 @@ private:
 	void _update_bus_button_colors();
 	void _on_bus_button_pressed(int p_bus_index);
 	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
+	void _on_audio_mixer_button_pressed();
 	void _update_debug_target_status();
 
 protected:

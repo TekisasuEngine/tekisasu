@@ -561,6 +561,10 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			1.0
 		).clamp();
 
+		// Editor background color - matches main editor window background.
+		p_config.background_color_opaque = p_config.base_color.lerp(Color(0.0, 0.0, 0.0), 0.9);
+		p_config.background_color_opaque.a = 1.0;
+
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
 		p_theme->set_color("disabled_border_color", EditorStringName(Editor), p_config.disabled_border_color);
 		p_theme->set_color("disabled_bg_color", EditorStringName(Editor), p_config.disabled_bg_color);
@@ -702,10 +706,10 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.window_style->set_expand_margin(SIDE_TOP, 24 * EDSCALE);
 
 			// Prevent corner artifacts between window title and body.
-			p_config.dialog_style = p_config.base_style->duplicate();
+			// Use background_color_opaque to match main editor window background.
+			p_config.dialog_style = make_flat_stylebox(p_config.background_color_opaque, p_config.popup_margin, p_config.popup_margin, p_config.popup_margin, p_config.popup_margin);
 			p_config.dialog_style->set_corner_radius(CORNER_TOP_LEFT, 0);
 			p_config.dialog_style->set_corner_radius(CORNER_TOP_RIGHT, 0);
-			p_config.dialog_style->set_content_margin_all(p_config.popup_margin);
 			// Prevent visible line between window title and body.
 			p_config.dialog_style->set_expand_margin(SIDE_BOTTOM, 2 * EDSCALE);
 		}
@@ -1867,10 +1871,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor and main screen.
 	{
 		// Editor background.
-		Color background_color_opaque = p_config.base_color.lerp(Color(0.0,0.0,0.0), 0.9); // tekisasu todo 
-		background_color_opaque.a = 1.0;
-		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
-		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
+		p_theme->set_color("background", EditorStringName(Editor), p_config.background_color_opaque);
+		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(p_config.background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
 		// Tekisasu - new editor_panel_foreground stylebox.
 		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
