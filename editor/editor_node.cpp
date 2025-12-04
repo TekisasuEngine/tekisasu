@@ -7644,19 +7644,30 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
+	// Center section container with black background (corner_radius: 6, opacity: 0.3)
+	PanelContainer *center_section_container = memnew(PanelContainer);
+	Ref<StyleBoxFlat> center_section_style = memnew(StyleBoxFlat);
+	center_section_style->set_bg_color(Color(0, 0, 0, 0.3)); // Black with 0.3 opacity
+	center_section_style->set_corner_radius_all(6);
+	center_section_container->add_theme_style_override(SceneStringName(panel), center_section_style);
+	title_bar->add_child(center_section_container);
+
+	HBoxContainer *center_section_hb = memnew(HBoxContainer);
+	center_section_container->add_child(center_section_hb);
+
 	main_editor_button_hb = memnew(HBoxContainer);
-	title_bar->add_child(main_editor_button_hb);
+	center_section_hb->add_child(main_editor_button_hb);
 
 	// Transparent non-interactive label spacer
 	Label *runbar_spacer = memnew(Label);
 	runbar_spacer->set_text(" | ");
 	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	title_bar->add_child(runbar_spacer);
+	center_section_hb->add_child(runbar_spacer);
 
 	// Run bar section (moved before audio bus)
 	project_run_bar = memnew(EditorRunBar);
-	title_bar->add_child(project_run_bar);
+	center_section_hb->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
@@ -7665,12 +7676,12 @@ EditorNode::EditorNode() {
 	debug_target_spacer->set_text(" | ");
 	debug_target_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	debug_target_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	title_bar->add_child(debug_target_spacer);
+	center_section_hb->add_child(debug_target_spacer);
 
 	// Debug target section
 	debug_target_hb = memnew(HBoxContainer);
 	debug_target_hb->add_theme_constant_override("separation", 0);
-	title_bar->add_child(debug_target_hb);
+	center_section_hb->add_child(debug_target_hb);
 
 	// "Debug Client:" label
 	debug_target_label = memnew(Button);
