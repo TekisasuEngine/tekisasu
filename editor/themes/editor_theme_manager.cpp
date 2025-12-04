@@ -1189,9 +1189,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_base->duplicate();
 		style_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
-		// Use 0.80 opacity for inactive tabs to create better contrast with active tabs.
+		// Use 0.20 opacity for inactive tabs to create better contrast with active tabs.
 		Color tab_unselected_color = p_config.dark_color_5;
-		tab_unselected_color.a = 0.80;
+		tab_unselected_color.a = 0.20;
 		style_tab_unselected->set_bg_color(tab_unselected_color);
 		// Add some spacing between unselected tabs to make them easier to distinguish from each other
 		style_tab_unselected->set_border_color(Color(0, 0, 0, 0));
@@ -1201,14 +1201,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		style_tab_disabled->set_bg_color(p_config.disabled_bg_color);
 		style_tab_disabled->set_border_color(p_config.disabled_bg_color);
 
-		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate(); // Tekisasu - no tab focus borders
+		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate(); // Tekisasu - dock focus borders
 		style_tab_focus->set_border_width_all(0);
 		style_tab_focus->set_border_color(p_config.accent_color);
 
-		// Use 0.80 opacity for tab bar background to create better contrast with active tabs.
+		// Use 0.20 opacity for tab bar background to create better contrast with active tabs.
 		Color tabbar_bg_color = p_config.dark_color_5;
-		tabbar_bg_color.a = 0.80;
-		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(tabbar_bg_color, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
+		tabbar_bg_color.a = 0.20;
+		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(tabbar_bg_color, 0, 0, 0, 0, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("tabbar_background", "TabContainer", style_tabbar_background);
@@ -2262,7 +2262,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			style_dock_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
 			// Use 0.80 opacity for inactive tabs to create better contrast with active tabs.
 			Color dock_tab_unselected_color = p_config.dark_color_5;
-			dock_tab_unselected_color.a = 0.80;
+			dock_tab_unselected_color.a = 0.20;
 			style_dock_tab_unselected->set_bg_color(dock_tab_unselected_color);
 			style_dock_tab_unselected->set_border_color(Color(0, 0, 0, 0));
 
@@ -2285,8 +2285,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 			// Tabbar background with matching corner radius and 0.80 opacity.
 			Color dock_tabbar_bg_color = p_config.dark_color_5;
-			dock_tabbar_bg_color.a = 0.80;
-			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(dock_tabbar_bg_color, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
+			dock_tabbar_bg_color.a = 0.20;
+			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(dock_tabbar_bg_color, 0, 0, 0, 0, 0);
 			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 			p_theme->set_stylebox("tabbar_background", "DockTabContainer", style_dock_tabbar_background);
