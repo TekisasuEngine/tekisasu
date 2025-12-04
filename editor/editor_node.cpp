@@ -834,10 +834,10 @@ void EditorNode::_notification(int p_what) {
 				_build_icon_type_cache();
 				recent_scenes->reset_size();
 
-				// Update title bar container corner radius
+				// Update title bar container corner radius (only bottom corners)
 				if (title_bar_container_style.is_valid()) {
 					int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
-					title_bar_container_style->set_corner_radius_all(corner_radius);
+					title_bar_container_style->set_corner_radius_individual(0, 0, corner_radius, corner_radius);
 				}
 			}
 
@@ -7452,8 +7452,9 @@ EditorNode::EditorNode() {
 	title_bar_container_style.instantiate();
 	title_bar_container_style->set_bg_color(Color(0, 0, 0, 0.4)); // Black with 0.4 opacity
 	int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
-	title_bar_container_style->set_corner_radius_all(corner_radius);
-	title_bar_container_style->set_content_margin_individual(0, 2 * EDSCALE, 0, 2 * EDSCALE); // 2px padding top and bottom
+	// Top corners are 0, bottom corners follow corner_radius setting
+	title_bar_container_style->set_corner_radius_individual(0, 0, corner_radius, corner_radius);
+	title_bar_container_style->set_content_margin_individual(0, 0, 0, 2 * EDSCALE); // No top margin, 2px bottom padding
 	title_bar_container->add_theme_style_override(SceneStringName(panel), title_bar_container_style);
 	title_bar_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	title_bar->add_child(title_bar_container);
