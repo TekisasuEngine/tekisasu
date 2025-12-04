@@ -7447,6 +7447,7 @@ EditorNode::EditorNode() {
 	title_bar_style->set_bg_color(Color(0, 0, 0, 0.6)); // Black with 0.6 opacity
 	int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
 	title_bar_style->set_corner_radius_all(corner_radius);
+	title_bar_style->set_content_margin_individual(0, 2 * EDSCALE, 0, 2 * EDSCALE); // 2px padding top and bottom
 	title_bar_container->add_theme_style_override(SceneStringName(panel), title_bar_style);
 	title_bar_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	title_bar->add_child(title_bar_container);
