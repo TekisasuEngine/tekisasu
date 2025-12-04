@@ -2309,7 +2309,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		Ref<StyleBoxFlat> style_property_bg = p_config.base_style->duplicate();
 		style_property_bg->set_bg_color(p_config.highlight_color);
 		style_property_bg->set_border_width_all(0);
+		style_property_bg->set_content_margin(SIDE_LEFT, 2 * EDSCALE);
 		style_property_bg->set_content_margin(SIDE_TOP, 2 * EDSCALE);
+		style_property_bg->set_content_margin(SIDE_RIGHT, 2 * EDSCALE);
 		style_property_bg->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 		Ref<StyleBoxFlat> style_property_child_bg = p_config.base_style->duplicate();
@@ -2317,7 +2319,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_child_bg->set_bg_color(Color(0, 0, 0, 0));
 		style_property_child_bg->set_border_width_all(0);
 
-		p_theme->set_stylebox("bg", "EditorProperty", make_empty_stylebox(0, 2, 0, 2));
+		p_theme->set_stylebox("bg", "EditorProperty", make_empty_stylebox(2, 2, 2, 2));
 		p_theme->set_stylebox("bg_selected", "EditorProperty", style_property_bg);
 		p_theme->set_stylebox("child_bg", "EditorProperty", style_property_child_bg);
 		p_theme->set_constant("font_offset", "EditorProperty", 8 * EDSCALE);
