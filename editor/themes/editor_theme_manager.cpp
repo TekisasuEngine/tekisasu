@@ -2245,6 +2245,10 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			// Selected tab - uses base_color without borders.
 			Ref<StyleBoxFlat> style_dock_tab_selected = style_dock_tab_base->duplicate();
 			style_dock_tab_selected->set_bg_color(p_config.base_color);
+			// Add a 1px highlight line at the top of the selected tab (normal tabs use 3px, dock tabs use 1px minimum).
+			style_dock_tab_selected->set_border_width(SIDE_TOP, 1);
+			Color dock_tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.7);
+			style_dock_tab_selected->set_border_color(dock_tab_highlight);
 
 			// Hovered tab.
 			Ref<StyleBoxFlat> style_dock_tab_hovered = style_dock_tab_base->duplicate();
