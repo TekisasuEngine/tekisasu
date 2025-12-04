@@ -7440,11 +7440,24 @@ EditorNode::EditorNode() {
 		title_bar->add_child(left_menu_spacer);
 	}
 
+	// Title bar container with black background (corner_radius: 6, opacity: 0.3)
+	// Covers everything from TitleBarLogo to renderer chooser
+	PanelContainer *title_bar_container = memnew(PanelContainer);
+	Ref<StyleBoxFlat> title_bar_style = memnew(StyleBoxFlat);
+	title_bar_style->set_bg_color(Color(0, 0, 0, 0.3)); // Black with 0.3 opacity
+	title_bar_style->set_corner_radius_all(6);
+	title_bar_container->add_theme_style_override(SceneStringName(panel), title_bar_style);
+	title_bar_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(title_bar_container);
+
+	HBoxContainer *title_bar_hb = memnew(HBoxContainer);
+	title_bar_container->add_child(title_bar_hb);
+
 	if (EDITOR_GET("interface/editor/use_editor_logo_quick_menu")) {
 		editor_logo_quick_menu = memnew(MenuButton);
 		editor_logo_quick_menu->set_flat(true);
 		editor_logo_quick_menu->set_theme_type_variation("FlatMenuButton");
-		title_bar->add_child(editor_logo_quick_menu);
+		title_bar_hb->add_child(editor_logo_quick_menu);
 		editor_logo_quick_menu->set_tooltip_text(TTR("Tekisasu Engine"));
 		// Override icon color to use white instead of the default icon_normal_color
 		editor_logo_quick_menu->add_theme_color_override("icon_normal_color", Color(1, 1, 1, 0.95));
@@ -7466,7 +7479,7 @@ EditorNode::EditorNode() {
 	}
 
 	main_menu = memnew(MenuBar);
-	title_bar->add_child(main_menu);
+	title_bar_hb->add_child(main_menu);
 	main_menu->set_theme_type_variation("TekisasuMenuBar");
 	main_menu->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	main_menu->set_start_index(0); // Main menu, add to the start of global menu.
@@ -7630,7 +7643,7 @@ EditorNode::EditorNode() {
 	HBoxContainer *left_spacer = memnew(HBoxContainer);
 	left_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	left_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(left_spacer);
+	title_bar_hb->add_child(left_spacer);
 
 	if (can_expand && global_menu) {
 		project_title = memnew(Label);
@@ -7644,30 +7657,19 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
-	// Center section container with black background (corner_radius: 6, opacity: 0.6)
-	PanelContainer *center_section_container = memnew(PanelContainer);
-	Ref<StyleBoxFlat> center_section_style = memnew(StyleBoxFlat);
-	center_section_style->set_bg_color(Color(0, 0, 0, 0.6)); // Black with 0.6 opacity
-	center_section_style->set_corner_radius_all(6);
-	center_section_container->add_theme_style_override(SceneStringName(panel), center_section_style);
-	title_bar->add_child(center_section_container);
-
-	HBoxContainer *center_section_hb = memnew(HBoxContainer);
-	center_section_container->add_child(center_section_hb);
-
 	main_editor_button_hb = memnew(HBoxContainer);
-	center_section_hb->add_child(main_editor_button_hb);
+	title_bar_hb->add_child(main_editor_button_hb);
 
 	// Transparent non-interactive label spacer
 	Label *runbar_spacer = memnew(Label);
 	runbar_spacer->set_text(" | ");
 	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	center_section_hb->add_child(runbar_spacer);
+	title_bar_hb->add_child(runbar_spacer);
 
 	// Run bar section (moved before audio bus)
 	project_run_bar = memnew(EditorRunBar);
-	center_section_hb->add_child(project_run_bar);
+	title_bar_hb->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
@@ -7676,12 +7678,12 @@ EditorNode::EditorNode() {
 	debug_target_spacer->set_text(" | ");
 	debug_target_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	debug_target_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	center_section_hb->add_child(debug_target_spacer);
+	title_bar_hb->add_child(debug_target_spacer);
 
 	// Debug target section
 	debug_target_hb = memnew(HBoxContainer);
 	debug_target_hb->add_theme_constant_override("separation", 0);
-	center_section_hb->add_child(debug_target_hb);
+	title_bar_hb->add_child(debug_target_hb);
 
 	// "Debug Client:" label
 	debug_target_label = memnew(Button);
@@ -7719,12 +7721,12 @@ EditorNode::EditorNode() {
 	Control *right_spacer = memnew(Control);
 	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(right_spacer);
+	title_bar_hb->add_child(right_spacer);
 
 	// Audio bus toggle buttons container
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
-	title_bar->add_child(audio_bus_buttons_hb);
+	title_bar_hb->add_child(audio_bus_buttons_hb);
 
 	// Options are added and handled by DebuggerEditorPlugin.
 	debug_menu = memnew(PopupMenu);
@@ -7810,10 +7812,10 @@ EditorNode::EditorNode() {
 	topright_spacer->set_text(" | ");
 	topright_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	topright_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	title_bar->add_child(topright_spacer);
+	title_bar_hb->add_child(topright_spacer);
 
 	HBoxContainer *right_menu_hb = memnew(HBoxContainer);
-	title_bar->add_child(right_menu_hb);
+	title_bar_hb->add_child(right_menu_hb);
 
 	renderer = memnew(OptionButton);
 	renderer->set_clip_text(true);
