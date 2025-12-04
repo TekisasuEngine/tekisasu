@@ -154,7 +154,7 @@ void WindowWrapper::_notification(int p_what) {
 			set_process_shortcut_input(true);
 		} break;
 		case NOTIFICATION_THEME_CHANGED: {
-			window_background->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("Background", EditorStringName(EditorStyles)));
+			window_background->add_theme_style_override(SceneStringName(panel), get_theme_stylebox("PanelForeground", EditorStringName(EditorStyles)));
 		} break;
 	}
 }
