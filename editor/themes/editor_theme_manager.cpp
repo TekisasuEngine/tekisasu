@@ -1872,6 +1872,13 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
 		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
+		// Update AcceptDialog panel to use the darker editor background color.
+		Ref<StyleBoxFlat> dialog_bg_style = make_flat_stylebox(background_color_opaque, p_config.popup_margin, p_config.popup_margin, p_config.popup_margin, p_config.popup_margin);
+		dialog_bg_style->set_corner_radius(CORNER_TOP_LEFT, 0);
+		dialog_bg_style->set_corner_radius(CORNER_TOP_RIGHT, 0);
+		dialog_bg_style->set_expand_margin(SIDE_BOTTOM, 2 * EDSCALE);
+		p_theme->set_stylebox(SceneStringName(panel), "AcceptDialog", dialog_bg_style);
+
 		// Tekisasu - new editor_panel_foreground stylebox.
 		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
 		editor_panel_foreground->set_corner_radius_all(0);
