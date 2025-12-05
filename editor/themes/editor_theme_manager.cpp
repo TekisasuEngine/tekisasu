@@ -288,7 +288,7 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			// Please use alphabetical order if you're adding a new theme here.
 			if (config.preset == "Tekisasu") {
 				preset_accent_color = Color(0.40, 0.52, 0.91);
-				preset_base_color = Color(0.17, 0.17, 0.17);
+				preset_base_color = Color(0.15, 0.16, 0.19);
 				preset_contrast = 0.4;
 			} else if (config.preset == "Tekisasu Indigo") {
 				preset_accent_color = Color(0.40, 0.52, 0.91);
@@ -296,7 +296,7 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_contrast = 0.4;
 			} else { // Default
 				preset_accent_color = Color(0.40, 0.52, 0.91);
-				preset_base_color = Color(0.17, 0.17, 0.17);
+				preset_base_color = Color(0.15, 0.16, 0.19);
 				preset_contrast = 0.4;
 			}
 
