@@ -12,7 +12,7 @@
 
 ## Tekisasu Engine
 
-Tekisasu Engine (TEK4) is forked from upstream [Godot Engine](https://godotengine.org).
+Tekisasu Engine is forked from upstream [Godot Engine](https://godotengine.org).
 
 If you are not part of Tekisasu, please do not use Tekisasu Engine as it likely won't suit your needs.
 
