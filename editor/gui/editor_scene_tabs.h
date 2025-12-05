@@ -37,6 +37,7 @@
 
 class Button;
 class HBoxContainer;
+class MenuButton;
 class Panel;
 class PanelContainer;
 class PopupMenu;
@@ -53,6 +54,7 @@ class EditorSceneTabs : public MarginContainer {
 
 	TabBar *scene_tabs = nullptr;
 	PopupMenu *scene_tabs_context_menu = nullptr;
+	MenuButton *scene_list = nullptr;
 	Button *scene_tab_add = nullptr;
 	Control *scene_tab_add_ph = nullptr;
 
@@ -71,6 +73,7 @@ class EditorSceneTabs : public MarginContainer {
 	void _reposition_active_tab(int p_to_index);
 	void _update_context_menu();
 	void _disable_menu_option_if(int p_option, bool p_condition);
+	void _update_scene_list();
 
 	void _tab_preview_done(const String &p_path, const Ref<Texture2D> &p_preview, const Ref<Texture2D> &p_small_preview, const Variant &p_udata);
 
