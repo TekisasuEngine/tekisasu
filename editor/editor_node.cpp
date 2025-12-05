@@ -7644,11 +7644,12 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
-	// Center section container with black background (corner_radius: 6, opacity: 0.6)
+	// Center section container with black background using editor theme corner_radius and 0.5 opacity
 	PanelContainer *center_section_container = memnew(PanelContainer);
 	Ref<StyleBoxFlat> center_section_style = memnew(StyleBoxFlat);
-	center_section_style->set_bg_color(Color(0, 0, 0, 0.6)); // Black with 0.6 opacity
-	center_section_style->set_corner_radius_all(6);
+	center_section_style->set_bg_color(Color(0, 0, 0, 0.5)); // Black with 0.5 opacity
+	int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
+	center_section_style->set_corner_radius_all(corner_radius * EDSCALE);
 	center_section_container->add_theme_style_override(SceneStringName(panel), center_section_style);
 	title_bar->add_child(center_section_container);
 
