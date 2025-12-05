@@ -502,8 +502,8 @@ void EditorSettings::_load_defaults(Ref<ConfigFile> p_extra_config) {
 	open_in_new_inspector_defaults.push_back("MeshLibrary");
 	_initial_set("interface/inspector/resources_to_open_in_new_inspector", open_in_new_inspector_defaults);
 
-	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/inspector/default_color_picker_mode", (int32_t)ColorPicker::MODE_RGB, "RGB,HSV,RAW,OKHSL")
-	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/inspector/default_color_picker_shape", (int32_t)ColorPicker::SHAPE_OKHSL_CIRCLE, "HSV Rectangle,HSV Rectangle Wheel,VHS Circle,OKHSL Circle")
+	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/inspector/default_color_picker_mode", (int32_t)ColorPicker::MODE_HSV, "RGB,HSV,RAW,OKHSL")
+	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/inspector/default_color_picker_shape", (int32_t)ColorPicker::SHAPE_HSV_RECTANGLE, "HSV Rectangle,HSV Rectangle Wheel,VHS Circle,OKHSL Circle")
 
 	// Theme
 	EDITOR_SETTING(Variant::BOOL, PROPERTY_HINT_ENUM, "interface/theme/follow_system_theme", false, "")
