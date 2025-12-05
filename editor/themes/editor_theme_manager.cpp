@@ -2133,6 +2133,12 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(panel), "EditorSettingsDialog", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "ProjectSettingsEditor", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorAbout", style_complex_window);
+
+			// ProjectExportDialog uses base_color instead of background_color_opaque for its styling.
+			Ref<StyleBoxFlat> style_export_window = p_config.window_style->duplicate();
+			style_export_window->set_bg_color(p_config.base_color);
+			style_export_window->set_border_color(p_config.base_color);
+			p_theme->set_stylebox(SceneStringName(panel), "ProjectExportDialog", style_export_window);
 		}
 
 		// InspectorActionButton.
