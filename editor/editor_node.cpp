@@ -7644,7 +7644,7 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
-	// Center section container with black background using editor theme corner_radius and 0.5 opacity
+	// Center section container with black background using editor theme corner_radius and 0.3 opacity
 	PanelContainer *center_section_container = memnew(PanelContainer);
 	Ref<StyleBoxFlat> center_section_style = memnew(StyleBoxFlat);
 	center_section_style->set_bg_color(Color(0, 0, 0, 0.3)); // Black with 0.3 opacity
