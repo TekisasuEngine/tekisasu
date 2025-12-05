@@ -519,9 +519,9 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		).clamp();
 
 		p_config.subtitle_bg_color = Color(
-			p_config.base_color.r * 0.55,
-			p_config.base_color.g * 0.55,
-			p_config.base_color.b * 0.55,
+			p_config.base_color.r * 0.35,
+			p_config.base_color.g * 0.35,
+			p_config.base_color.b * 0.35,
 			0.95
 		).clamp();
 
