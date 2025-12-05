@@ -507,11 +507,11 @@ void EditorSettings::_load_defaults(Ref<ConfigFile> p_extra_config) {
 
 	// Theme
 	EDITOR_SETTING(Variant::BOOL, PROPERTY_HINT_ENUM, "interface/theme/follow_system_theme", false, "")
-	EDITOR_SETTING(Variant::STRING, PROPERTY_HINT_ENUM, "interface/theme/preset", "Default", "Default,Tekisasu Dark,Tekisasu Indigo,Tekisasu Light,Tekisasu Auwey,Tekisasu Gray,Custom")
+	EDITOR_SETTING(Variant::STRING, PROPERTY_HINT_ENUM, "interface/theme/preset", "Default", "Default,Tekisasu,Tekisasu Indigo,Custom")
 	EDITOR_SETTING(Variant::STRING, PROPERTY_HINT_ENUM, "interface/theme/spacing_preset", "Default", "Compact,Default,Legacy,Spacious,Custom")
 	EDITOR_SETTING(Variant::INT, PROPERTY_HINT_ENUM, "interface/theme/icon_and_font_color", 0, "Auto,Dark,Light")
-	EDITOR_SETTING(Variant::COLOR, PROPERTY_HINT_NONE, "interface/theme/base_color", Color(0.17, 0.17, 0.20), "")
-	EDITOR_SETTING(Variant::COLOR, PROPERTY_HINT_NONE, "interface/theme/accent_color", Color(0.40, 0.53, 0.91), "")
+	EDITOR_SETTING(Variant::COLOR, PROPERTY_HINT_NONE, "interface/theme/base_color", Color(0.17, 0.17, 0.17), "")
+	EDITOR_SETTING(Variant::COLOR, PROPERTY_HINT_NONE, "interface/theme/accent_color", Color(0.40, 0.52, 0.91), "")
 	EDITOR_SETTING(Variant::BOOL, PROPERTY_HINT_NONE, "interface/theme/use_system_accent_color", false, "")
 	EDITOR_SETTING(Variant::FLOAT, PROPERTY_HINT_RANGE, "interface/theme/contrast", 0.3, "-1,1,0.01")
 	EDITOR_SETTING(Variant::BOOL, PROPERTY_HINT_NONE, "interface/theme/draw_extra_borders", true, "")

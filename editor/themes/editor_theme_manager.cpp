@@ -286,29 +286,17 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			bool preset_draw_extra_borders = false;
 
 			// Please use alphabetical order if you're adding a new theme here.
-			if (config.preset == "Tekisasu Dark") {
-				preset_accent_color = Color(0.40, 0.53, 0.91);
-				preset_base_color = Color(0.17, 0.17, 0.20);
+			if (config.preset == "Tekisasu") {
+				preset_accent_color = Color(0.40, 0.52, 0.91);
+				preset_base_color = Color(0.17, 0.17, 0.17);
 				preset_contrast = 0.4;
-			} else if (config.preset == "Tekisasu Gray") {
-				preset_accent_color = Color(0.40, 0.53, 0.91);
-				preset_base_color = Color(0.27, 0.28, 0.37);
-				preset_contrast = 0.36;
 			} else if (config.preset == "Tekisasu Indigo") {
 				preset_accent_color = Color(0.40, 0.52, 0.91);
 				preset_base_color = Color(0.21, 0.23, 0.36);
 				preset_contrast = 0.4;
-			} else if (config.preset == "Tekisasu Auwey") {
-				preset_accent_color = Color(0.49, 0.61, 0.93);
-				preset_base_color = Color(0.07, 0.07, 0.10);
-				preset_contrast = -0.98;
-			} else if (config.preset == "Tekisasu Light") {
-				preset_accent_color = Color(0.49, 0.61, 0.93);
-				preset_base_color = Color(0.35, 0.37, 0.44);
-				preset_contrast = 0.4;
 			} else { // Default
-				preset_accent_color = Color(0.40, 0.53, 0.91);
-				preset_base_color = Color(0.17, 0.17, 0.20);
+				preset_accent_color = Color(0.40, 0.52, 0.91);
+				preset_base_color = Color(0.17, 0.17, 0.17);
 				preset_contrast = 0.4;
 			}
 
