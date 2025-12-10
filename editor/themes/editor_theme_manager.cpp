@@ -850,7 +850,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_constant("outline_size", "OptionButton", 0);
 		}
 
-		// tekisasu - EditorPropertyEnum OptionButton variation.
+		// tekisasu - EditorPropertyOptionButton OptionButton variation.
 		{
     		p_theme->set_type_variation("EditorPropertyOptionButton", "OptionButton");
 
@@ -2226,7 +2226,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor inspector.
 	{
 		// Vertical separation between inspector categories and sections.
-		p_theme->set_constant("v_separation", "EditorInspector", 0);
+		p_theme->set_constant("v_separation", "EditorInspector", Math::round((p_config.base_margin * 2) * EDSCALE));
 
 		// EditorProperty.
 
