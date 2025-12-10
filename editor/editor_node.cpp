@@ -7447,9 +7447,9 @@ EditorNode::EditorNode() {
 		title_bar->add_child(editor_logo_quick_menu);
 		editor_logo_quick_menu->set_tooltip_text(TTR("Tekisasu Engine"));
 		// Override icon color to use white instead of the default icon_normal_color
-		editor_logo_quick_menu->add_theme_color_override("icon_normal_color", Color(1, 1, 1, 0.95));
-		editor_logo_quick_menu->add_theme_color_override("icon_focus_color", Color(1, 1, 1, 0.95));
-		editor_logo_quick_menu->add_theme_color_override("icon_hover_color", Color(1, 1, 1, 0.95));
+		editor_logo_quick_menu->add_theme_color_override("icon_normal_color", Color(1, 1, 1, 0.8));
+		editor_logo_quick_menu->add_theme_color_override("icon_focus_color", Color(1, 1, 1, 0.9));
+		editor_logo_quick_menu->add_theme_color_override("icon_hover_color", Color(1, 1, 1, 0.9));
 		editor_logo_quick_menu->add_theme_color_override("icon_pressed_color", Color(1, 1, 1, 1));
 		editor_logo_quick_menu->get_popup()->add_item(TTR("About"), HELP_ABOUT);
 		editor_logo_quick_menu->get_popup()->add_item(TTR("Copy System Info"), HELP_COPY_SYSTEM_INFO);
@@ -7644,31 +7644,19 @@ EditorNode::EditorNode() {
 		left_spacer->add_child(project_title);
 	}
 
-	// Center section container with black background using editor theme corner_radius and 0.3 opacity
-	PanelContainer *center_section_container = memnew(PanelContainer);
-	Ref<StyleBoxFlat> center_section_style = memnew(StyleBoxFlat);
-	center_section_style->set_bg_color(Color(0, 0, 0, 0.3)); // Black with 0.3 opacity
-	int corner_radius = CLAMP((int)EDITOR_GET("interface/theme/corner_radius"), 0, 6);
-	center_section_style->set_corner_radius_all(corner_radius * EDSCALE);
-	center_section_container->add_theme_style_override(SceneStringName(panel), center_section_style);
-	title_bar->add_child(center_section_container);
-
-	HBoxContainer *center_section_hb = memnew(HBoxContainer);
-	center_section_container->add_child(center_section_hb);
-
 	main_editor_button_hb = memnew(HBoxContainer);
-	center_section_hb->add_child(main_editor_button_hb);
+	title_bar->add_child(main_editor_button_hb);
 
 	// Transparent non-interactive label spacer
 	Label *runbar_spacer = memnew(Label);
 	runbar_spacer->set_text(" | ");
 	runbar_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	center_section_hb->add_child(runbar_spacer);
+	runbar_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .2));
+	title_bar->add_child(runbar_spacer);
 
 	// Run bar section (moved before audio bus)
 	project_run_bar = memnew(EditorRunBar);
-	center_section_hb->add_child(project_run_bar);
+	title_bar->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
@@ -7676,13 +7664,13 @@ EditorNode::EditorNode() {
 	Label *debug_target_spacer = memnew(Label);
 	debug_target_spacer->set_text(" | ");
 	debug_target_spacer->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	debug_target_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .3));
-	center_section_hb->add_child(debug_target_spacer);
+	debug_target_spacer->add_theme_color_override("font_color", Color(1, 1, 1, .2));
+	title_bar->add_child(debug_target_spacer);
 
 	// Debug target section
 	debug_target_hb = memnew(HBoxContainer);
 	debug_target_hb->add_theme_constant_override("separation", 0);
-	center_section_hb->add_child(debug_target_hb);
+	title_bar->add_child(debug_target_hb);
 
 	// "Debug Client:" label
 	debug_target_label = memnew(Button);

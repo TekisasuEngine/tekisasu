@@ -286,18 +286,22 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			bool preset_draw_extra_borders = false;
 
 			// Please use alphabetical order if you're adding a new theme here.
-			if (config.preset == "Tekisasu") {
+			if (config.preset == "Gray") {
 				preset_accent_color = Color(0.40, 0.52, 0.91);
 				preset_base_color = Color(0.15, 0.16, 0.19);
 				preset_contrast = 0.4;
-			} else if (config.preset == "Tekisasu Indigo") {
+			} else if (config.preset == "Indigo") {
 				preset_accent_color = Color(0.40, 0.52, 0.91);
 				preset_base_color = Color(0.21, 0.23, 0.36);
 				preset_contrast = 0.4;
-			} else { // Default
-				preset_accent_color = Color(0.40, 0.52, 0.91);
-				preset_base_color = Color(0.15, 0.16, 0.19);
+			} else if (config.preset == "Metal") {
+				preset_accent_color = Color(0.40, 0.51, 0.91);
+				preset_base_color = Color(0.17, 0.18, 0.21);
 				preset_contrast = 0.4;
+			} else { // Default
+				preset_accent_color = Color(0.40, 0.51, 0.91);
+				preset_base_color = Color(0.17, 0.18, 0.21);
+				preset_contrast = config.default_contrast;
 			}
 
 			config.accent_color = preset_accent_color;
@@ -344,10 +348,6 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 				preset_base_spacing = 6;
 				preset_extra_spacing = 2;
 				preset_dialogs_buttons_min_size = Size2(112, 36);
-			} else if (config.spacing_preset == "Legacy") {
-				preset_base_spacing = 2;
-				preset_extra_spacing = 2;
-				preset_dialogs_buttons_min_size = Size2(90, 24);
 			} else { // Default
 				preset_base_spacing = 2;
 				preset_extra_spacing = 1;
@@ -405,13 +405,12 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.dark_color_1 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast).clamp();
 		p_config.dark_color_2 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 1.5).clamp();
 		p_config.dark_color_3 = p_config.base_color.lerp(Color(0, 0, 0, 1), p_config.contrast * 2).clamp();
-		p_config.dark_color_4 = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.675).clamp();
-		p_config.dark_color_5 = p_config.dark_color_2.lerp(p_config.base_color, 0.5).clamp();
 
 		p_config.contrast_color_1 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast, p_config.default_contrast));
 		p_config.contrast_color_2 = p_config.base_color.lerp(p_config.mono_color, MAX(p_config.contrast * 1.5, p_config.default_contrast * 1.5));
 
-		p_config.highlight_color = p_config.mono_color * Color(1, 1, 1, 0.11);
+		// orig: p_config.highlight_color = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.275);
+		p_config.highlight_color = p_config.mono_color * Color(1, 1, 1, 0.10);
 		p_config.highlight_disabled_color = p_config.highlight_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.5);
 
 		p_config.success_color = Color(0.45, 0.95, 0.5);
@@ -450,10 +449,15 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		p_config.font_color = p_config.mono_color.lerp(p_config.base_color, 0.25);
 		p_config.font_focus_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
+		// orig
+		// p_config.font_hover_color = p_config.mono_color.lerp(p_config.base_color, 0.125);
+		// p_config.font_pressed_color = p_config.accent_color;
+		// p_config.font_hover_pressed_color = p_config.font_hover_color.lerp(p_config.accent_color, 0.74);
 		p_config.font_hover_color = Color(1, 1, 1, 1);
 		p_config.font_pressed_color = Color(1, 1, 1, 1);
 		p_config.font_hover_pressed_color = Color(1, 1, 1, 1);
-		p_config.font_disabled_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.25);
+
+		p_config.font_disabled_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.35);
 		p_config.font_readonly_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.65);
 		p_config.font_placeholder_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.6);
 		p_config.font_outline_color = Color(0, 0, 0, 0);
@@ -476,6 +480,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Icon colors.
 
+		// orig: p_config.icon_normal_color = Color(1, 1, 1);
 		p_config.icon_normal_color = p_config.mono_color.lerp(p_config.base_color, 0.45);
 		p_config.icon_focus_color = p_config.icon_normal_color * (p_config.dark_theme ? 1.15 : 1.45);
 		p_config.icon_focus_color.a = 1.0;
@@ -492,7 +497,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_theme->set_color("icon_pressed_color", EditorStringName(Editor), p_config.icon_pressed_color);
 		p_theme->set_color("icon_disabled_color", EditorStringName(Editor), p_config.icon_disabled_color);
 
-		// Scene tree dock button icons color with 0.85 opacity.
+		// Scene tree dock button icons color with 0.65 opacity.
 		p_theme->set_color("scene_tree_button_icon_color", EditorStringName(Editor), Color(1, 1, 1, 0.65));
 
 		// Additional GUI colors.
@@ -502,62 +507,11 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_config.disabled_border_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.7);
 		p_config.disabled_bg_color = p_config.mono_color.inverted().lerp(p_config.base_color, 0.9);
 		p_config.separator_color = Color(p_config.mono_color.r, p_config.mono_color.g, p_config.mono_color.b, 0.1);
-		// Tekisasu - Centralized widget background color for input widgets (dropdowns, text fields, etc.)
-		//p_config.widget_bg_color = p_config.base_color.lerp(Color(0.1, 0.1, 0.1), .5);
-		p_config.widget_bg_color = Color(
-			p_config.base_color.r * 0.45,
-			p_config.base_color.g * 0.45,
-			p_config.base_color.b * 0.45,
-			0.75
-		).clamp();
-
-		p_config.title_bg_color = Color(
-			p_config.base_color.r * 0.20,
-			p_config.base_color.g * 0.20,
-			p_config.base_color.b * 0.20,
-			0.80
-		).clamp();
-
-		p_config.subtitle_bg_color = Color(
-			p_config.base_color.r * 0.35,
-			p_config.base_color.g * 0.35,
-			p_config.base_color.b * 0.35,
-			0.95
-		).clamp();
-
-		p_config.doc_bg_color = Color(
-			p_config.base_color.r * 0.35,
-			p_config.base_color.g * 0.35,
-			p_config.base_color.b * 0.35,
-			0.75
-		).clamp();
-
-		p_config.button_bg_color = Color(
-			p_config.base_color.r * 1.7,
-			p_config.base_color.g * 1.7,
-			p_config.base_color.b * 1.7,
-			1.0
-		).clamp();
-
-		// Tekisasu - TODO - Future replacement of dark_color_1 for main background color and other elements.
-		// For now, using dark_color_1 as is to avoid breaking existing themes.
-		// Needs to close dark_color_1, currently just copied from another *bg_color value at the moment.
-		p_config.main_bg_color = Color(
-			p_config.base_color.r * 0.1,
-			p_config.base_color.g * 0.1,
-			p_config.base_color.b * 0.1,
-			1.0
-		).clamp();
-
-		// Editor background color - matches main editor window background.
-		p_config.background_color_opaque = Color(p_config.base_color.r * 1.8, p_config.base_color.g * 1.8, p_config.base_color.b * 1.8, 1.0).lerp(Color(0.0, 0.0, 0.0), 0.75);
-		p_config.background_color_opaque.a = 1.0;
 
 		p_theme->set_color("selection_color", EditorStringName(Editor), p_config.selection_color);
 		p_theme->set_color("disabled_border_color", EditorStringName(Editor), p_config.disabled_border_color);
 		p_theme->set_color("disabled_bg_color", EditorStringName(Editor), p_config.disabled_bg_color);
 		p_theme->set_color("separator_color", EditorStringName(Editor), p_config.separator_color);
-		p_theme->set_color("widget_bg_color", EditorStringName(Editor), p_config.widget_bg_color);
 
 		// Additional editor colors.
 
@@ -578,9 +532,10 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 		p_theme->set_color("property_color_w", EditorStringName(Editor), Color().from_hsv(1.5 / 3.0 + 0.05, prop_color_saturation, prop_color_value));
 
 		// Special colors for rendering methods.
-		p_theme->set_color("forward_plus_color", EditorStringName(Editor), Color(0.25, 0.55, 0.37, 1.0));
-		p_theme->set_color("mobile_color", EditorStringName(Editor), Color(0.79, 0.43, 0.61, 1.0));
-		p_theme->set_color("gl_compatibility_color", EditorStringName(Editor), Color(0.45, 0.66, 0.8, 1.0));
+
+		p_theme->set_color("forward_plus_color", EditorStringName(Editor), Color::hex(0x5d8c3fff));
+		p_theme->set_color("mobile_color", EditorStringName(Editor), Color::hex(0xa5557dff));
+		p_theme->set_color("gl_compatibility_color", EditorStringName(Editor), Color::hex(0x5586a4ff));
 
 		if (p_config.dark_theme) {
 			p_theme->set_color("highend_color", EditorStringName(Editor), Color(1.0, 0.0, 0.0));
@@ -622,12 +577,12 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 		// Button styles.
 		{
+			// orig: p_config.widget_margin = Vector2(p_config.increased_margin + 2, p_config.increased_margin + 1) * EDSCALE;
 			p_config.widget_margin = Vector2(p_config.increased_margin + 1, p_config.increased_margin) * EDSCALE;
 
 			p_config.button_style = p_config.base_style->duplicate();
 			p_config.button_style->set_content_margin_individual(p_config.widget_margin.x, p_config.widget_margin.y, p_config.widget_margin.x, p_config.widget_margin.y);
-			// Use button_bg_color for better contrast in complex windows.
-			p_config.button_style->set_bg_color(p_config.button_bg_color);
+			p_config.button_style->set_bg_color(p_config.dark_color_1);
 			if (p_config.draw_extra_borders) {
 				p_config.button_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.button_style->set_border_color(p_config.extra_border_color_1);
@@ -645,28 +600,41 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.button_style_focus = p_config.button_style->duplicate();
 			p_config.button_style_focus->set_draw_center(false);
-			if ((int)EDITOR_GET("interface/editor/focus_border_type") == 0) { // Off
-				p_config.button_style_focus->set_border_width_all(0);
-				p_config.button_style_focus->set_border_color(p_config.accent_color);
-			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 1) { // On
-				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-				p_config.button_style_focus->set_border_color(p_config.accent_color);
-			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 2) { // Translucent
-				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-				p_config.button_style_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
-			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 3) { // On - Thin
-				p_config.button_style_focus->set_border_width_all(Math::round(1 * MAX(1, EDSCALE)));
-				p_config.button_style_focus->set_border_color(p_config.accent_color);
-			} else if ((int)EDITOR_GET("interface/editor/focus_border_type") == 4) { // Translucent - Thin
-				p_config.button_style_focus->set_border_width_all(Math::round(1 * MAX(1, EDSCALE)));
-				p_config.button_style_focus->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5));
-			} else { // Legacy (On)
-				p_config.button_style_focus->set_border_width_all(Math::round(2 * MAX(1, EDSCALE)));
-				p_config.button_style_focus->set_border_color(p_config.accent_color);
+			
+			int focus_border_type = (int)EDITOR_GET("interface/editor/focus_border_type");
+			int focus_border_width_on = Math::round(2 * MAX(1, EDSCALE));
+			int focus_border_width_thin = Math::round(1 * MAX(1, EDSCALE));
+			Color focus_border_color_translucent = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.5);
+
+			switch (focus_border_type) {
+				case 0: // Off
+					p_config.button_style_focus->set_border_width_all(0);
+					p_config.button_style_focus->set_border_color(p_config.accent_color);
+					break;
+				case 1: // On (default)
+					p_config.button_style_focus->set_border_width_all(focus_border_width_on);
+					p_config.button_style_focus->set_border_color(p_config.accent_color);
+					break;
+				case 2: // Translucent
+					p_config.button_style_focus->set_border_width_all(focus_border_width_on);
+					p_config.button_style_focus->set_border_color(focus_border_color_translucent);
+					break;
+				case 3: // On - Thin
+					p_config.button_style_focus->set_border_width_all(focus_border_width_thin);
+					p_config.button_style_focus->set_border_color(p_config.accent_color);
+					break;
+				case 4: // Translucent - Thin
+					p_config.button_style_focus->set_border_width_all(focus_border_width_thin);
+					p_config.button_style_focus->set_border_color(focus_border_color_translucent);
+					break;
+				default: // In case of invalid value, set to On (case 1).
+					p_config.button_style_focus->set_border_width_all(focus_border_width_on);
+					p_config.button_style_focus->set_border_color(p_config.accent_color);
+					break;
 			}
 
 			p_config.button_style_pressed = p_config.button_style->duplicate();
-			p_config.button_style_pressed->set_bg_color(p_config.button_bg_color.darkened(0.125));
+			p_config.button_style_pressed->set_bg_color(p_config.dark_color_1.darkened(0.125));
 
 			p_config.button_style_hover = p_config.button_style->duplicate();
 			p_config.button_style_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.11));
@@ -694,10 +662,10 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.window_style->set_expand_margin(SIDE_TOP, 24 * EDSCALE);
 
 			// Prevent corner artifacts between window title and body.
-			// Use background_color_opaque to match main editor window background.
-			p_config.dialog_style = make_flat_stylebox(p_config.background_color_opaque, p_config.popup_margin, p_config.popup_margin, p_config.popup_margin, p_config.popup_margin);
+			p_config.dialog_style = p_config.base_style->duplicate();
 			p_config.dialog_style->set_corner_radius(CORNER_TOP_LEFT, 0);
 			p_config.dialog_style->set_corner_radius(CORNER_TOP_RIGHT, 0);
+			p_config.dialog_style->set_content_margin_all(p_config.popup_margin);
 			// Prevent visible line between window title and body.
 			p_config.dialog_style->set_expand_margin(SIDE_BOTTOM, 2 * EDSCALE);
 		}
@@ -725,13 +693,12 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 
 			p_config.tree_panel_style = p_config.base_style->duplicate();
 			// Make Trees easier to distinguish from other controls by using a darker background color.
+			// orig: p_config.tree_panel_style->set_bg_color(p_config.dark_color_1.lerp(p_config.dark_color_2, 0.5));
 			p_config.tree_panel_style->set_bg_color(p_config.base_color);
-			//p_config.tree_panel_style->set_bg_color(p_config.dark_color_5); // Tekisasu dark grey variant maybe?
 			if (p_config.draw_extra_borders) {
 				p_config.tree_panel_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.tree_panel_style->set_border_color(p_config.extra_border_color_2);
 			} else {
-				p_config.tree_panel_style->set_border_width_all(0);
 				p_config.tree_panel_style->set_border_color(p_config.dark_color_3);
 			}
 		}
@@ -758,7 +725,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> style_tooltip = p_config.popup_style->duplicate();
 			style_tooltip->set_shadow_size(0);
 			style_tooltip->set_content_margin_all(p_config.base_margin * EDSCALE * 0.5);
-			style_tooltip->set_bg_color(p_config.dark_color_3 * Color(0.8, 0.8, 0.8, 0.7));
+			style_tooltip->set_bg_color(p_config.dark_color_3 * Color(0.8, 0.8, 0.8, 0.9));
 			style_tooltip->set_border_width_all(0);
 			p_theme->set_stylebox(SceneStringName(panel), "TooltipPanel", style_tooltip);
 		}
@@ -798,17 +765,12 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("align_to_largest_stylebox", "Button", 1); // Enabled.
 
 		// MenuButton.
-		{
-			// Create a stylebox with widget_bg_color for MenuButton.
-			Ref<StyleBoxFlat> menu_button_style = p_config.button_style->duplicate();
-			menu_button_style->set_bg_color(p_config.widget_bg_color);
 
-			p_theme->set_stylebox(CoreStringName(normal), "MenuButton", menu_button_style);
-			p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
-			p_theme->set_stylebox(SceneStringName(pressed), "MenuButton", menu_button_style);
-			p_theme->set_stylebox("focus", "MenuButton", menu_button_style);
-			p_theme->set_stylebox("disabled", "MenuButton", p_config.panel_container_style);
-		}
+		p_theme->set_stylebox(CoreStringName(normal), "MenuButton", p_config.panel_container_style);
+		p_theme->set_stylebox("hover", "MenuButton", p_config.button_style_hover);
+		p_theme->set_stylebox(SceneStringName(pressed), "MenuButton", p_config.panel_container_style);
+		p_theme->set_stylebox("focus", "MenuButton", p_config.panel_container_style);
+		p_theme->set_stylebox("disabled", "MenuButton", p_config.panel_container_style);
 
 		p_theme->set_color(SceneStringName(font_color), "MenuButton", p_config.font_color);
 		p_theme->set_color("font_hover_color", "MenuButton", p_config.font_hover_color);
@@ -850,9 +812,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Ref<StyleBoxFlat> option_button_pressed_style = p_config.button_style_pressed->duplicate();
 			Ref<StyleBoxFlat> option_button_disabled_style = p_config.button_style_disabled->duplicate();
 
-			// Use centralized widget background color for dropdown menus.
-			option_button_normal_style->set_bg_color(p_config.widget_bg_color);
-
 			option_button_focus_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_normal_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 			option_button_hover_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
@@ -860,7 +819,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			option_button_disabled_style->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
 
 			p_theme->set_stylebox("focus", "OptionButton", option_button_focus_style);
-			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", option_button_normal_style);
+			p_theme->set_stylebox(CoreStringName(normal), "OptionButton", p_config.button_style);
 			p_theme->set_stylebox("hover", "OptionButton", p_config.button_style_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "OptionButton", p_config.button_style_pressed);
 			p_theme->set_stylebox("disabled", "OptionButton", p_config.button_style_disabled);
@@ -891,24 +850,30 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_constant("outline_size", "OptionButton", 0);
 		}
 
+		// tekisasu - EditorPropertyEnum OptionButton variation.
+		{
+    		p_theme->set_type_variation("EditorPropertyOptionButton", "OptionButton");
+
+			// Custom hover style - normal style lightened by 0.15
+			Ref<StyleBoxFlat> property_enum_hover = p_config.button_style->duplicate();
+			property_enum_hover->set_bg_color(p_config.base_color.lightened(0.2));
+			property_enum_hover->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
+
+			Ref<StyleBoxFlat> property_enum_hover_mirrored = p_config.button_style->duplicate();
+			property_enum_hover_mirrored->set_bg_color(p_config.base_color.lightened(0.2));
+			property_enum_hover_mirrored->set_content_margin(SIDE_LEFT, 4 * EDSCALE);
+
+			p_theme->set_stylebox("hover", "EditorPropertyOptionButton", property_enum_hover);
+			p_theme->set_stylebox("hover_mirrored", "EditorPropertyOptionButton", property_enum_hover_mirrored);
+		}
+
+		// CheckButton.
+
 		p_theme->set_stylebox(CoreStringName(normal), "CheckButton", p_config.panel_container_style);
 		p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", p_config.panel_container_style);
 		p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
 		p_theme->set_stylebox("hover", "CheckButton", p_config.panel_container_style);
 		p_theme->set_stylebox("hover_pressed", "CheckButton", p_config.panel_container_style);
-
-		// CheckButton.
-//		{
-//			// Create a stylebox with widget_bg_color for CheckButton toggle switches.
-//			Ref<StyleBoxFlat> check_button_style = p_config.button_style->duplicate();
-//			check_button_style->set_bg_color(p_config.widget_bg_color);
-//
-//			p_theme->set_stylebox(CoreStringName(normal), "CheckButton", check_button_style);
-//			p_theme->set_stylebox(SceneStringName(pressed), "CheckButton", check_button_style);
-//			p_theme->set_stylebox("disabled", "CheckButton", p_config.panel_container_style);
-//			p_theme->set_stylebox("hover", "CheckButton", check_button_style);
-//			p_theme->set_stylebox("hover_pressed", "CheckButton", check_button_style);
-//		}
 
 		p_theme->set_icon("checked", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOn"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("checked_disabled", "CheckButton", p_theme->get_icon(SNAME("GuiToggleOnDisabled"), EditorStringName(EditorIcons)));
@@ -940,14 +905,12 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		// CheckBox.
 		{
-			// Create a stylebox with widget_bg_color for CheckBox toggle indicators.
-			Ref<StyleBoxFlat> checkbox_style = p_config.button_style->duplicate();
-			checkbox_style->set_bg_color(p_config.widget_bg_color);
+			Ref<StyleBoxFlat> checkbox_style = p_config.panel_container_style->duplicate();
 			checkbox_style->set_content_margin_all(p_config.base_margin * EDSCALE);
 
 			p_theme->set_stylebox(CoreStringName(normal), "CheckBox", checkbox_style);
 			p_theme->set_stylebox(SceneStringName(pressed), "CheckBox", checkbox_style);
-			p_theme->set_stylebox("disabled", "CheckBox", p_config.panel_container_style);
+			p_theme->set_stylebox("disabled", "CheckBox", checkbox_style);
 			p_theme->set_stylebox("hover", "CheckBox", checkbox_style);
 			p_theme->set_stylebox("hover_pressed", "CheckBox", checkbox_style);
 			p_theme->set_icon("checked", "CheckBox", p_theme->get_icon(SNAME("GuiChecked"), EditorStringName(EditorIcons)));
@@ -1030,6 +993,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_color("title_button_color", "Tree", p_config.font_color);
 			p_theme->set_color("drop_position_color", "Tree", p_config.accent_color);
 
+			// orig: p_theme->set_constant("v_separation", "Tree", p_config.separation_margin);
 			p_theme->set_constant("v_separation", "Tree", p_config.separation_margin / 2);
 			p_theme->set_constant("h_separation", "Tree", (p_config.increased_margin + 2) * EDSCALE);
 			p_theme->set_constant("guide_width", "Tree", p_config.border_width);
@@ -1083,9 +1047,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 			Ref<StyleBoxFlat> style_tree_cursor = p_config.base_style->duplicate();
 			style_tree_cursor->set_draw_center(false);
-			style_tree_cursor->set_border_width_all(0);
+			style_tree_cursor->set_border_width_all(0); // tekisasu - remove border around selected/cursor
 			style_tree_cursor->set_border_color(p_config.contrast_color_1);
-			style_tree_cursor->set_content_margin_all(0);
 
 			Ref<StyleBoxFlat> style_tree_title = p_config.base_style->duplicate();
 			style_tree_title->set_bg_color(p_config.dark_color_3);
@@ -1162,8 +1125,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		style_tab_selected->set_bg_color(p_config.base_color);
 		// Add a highlight line at the top of the selected tab.
-		style_tab_selected->set_border_width(SIDE_TOP, Math::round(3 * EDSCALE));
-
+		style_tab_selected->set_border_width(SIDE_TOP, Math::round(2 * EDSCALE));
 		// Make the highlight line prominent, but not too prominent as to not be distracting.
 		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
 		style_tab_selected->set_border_color(tab_highlight);
@@ -1178,6 +1140,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_base->duplicate();
 		style_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
 		// Use transparent background for inactive tabs so they blend with the tabbar background.
+		// orig: style_tab_unselected->set_bg_color(p_config.dark_color_1);
 		style_tab_unselected->set_bg_color(Color(0, 0, 0, 0));
 		// Add some spacing between unselected tabs to make them easier to distinguish from each other
 		style_tab_unselected->set_border_color(Color(0, 0, 0, 0));
@@ -1187,15 +1150,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		style_tab_disabled->set_bg_color(p_config.disabled_bg_color);
 		style_tab_disabled->set_border_color(p_config.disabled_bg_color);
 
-		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate(); // Tekisasu - dock focus borders
-		style_tab_focus->set_border_width_all(0);
-		style_tab_focus->set_border_color(p_config.accent_color);
+		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate();
 
-		// Use 0.20 opacity for tab bar background to create better contrast with active tabs.
-		Color tabbar_bg_color = p_config.dark_color_5;
-		tabbar_bg_color.a = 0.20;
-		// Tabbar background respects corner_radius for top corners, but keeps bottom corners at 0.
-		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(tabbar_bg_color, 0, 0, 0, 0, p_config.corner_radius);
+		Ref<StyleBoxFlat> style_tabbar_background = make_flat_stylebox(p_config.dark_color_1, 0, 0, 0, 0, p_config.corner_radius * EDSCALE);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("tabbar_background", "TabContainer", style_tabbar_background);
@@ -1265,8 +1222,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// The original button_style style has an extra 1 pixel offset that makes LineEdits not align with Buttons,
 		// so this compensates for that.
 		text_editor_style->set_content_margin(SIDE_TOP, text_editor_style->get_content_margin(SIDE_TOP) - 1 * EDSCALE);
-		// Use centralized widget background color for text inputs.
-		text_editor_style->set_bg_color(p_config.widget_bg_color);
 
 		if (p_config.draw_extra_borders) {
 			text_editor_style->set_border_width_all(Math::round(EDSCALE));
@@ -1476,7 +1431,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		if (p_config.increase_scrollbar_touch_area) {
 			p_theme->set_stylebox("scroll", "HScrollBar", make_line_stylebox(p_config.separator_color, 50));
 		} else {
-			p_theme->set_stylebox("scroll", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 7, 7, 7, 7, -7, 1, -7, 1));
+			p_theme->set_stylebox("scroll", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 6, 6, 6, 6, -6, 1, -6, 1));
 		}
 		p_theme->set_stylebox("scroll_focus", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, 1, 1, 1, 1));
 		p_theme->set_stylebox("grabber", "HScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollGrabber"), EditorStringName(EditorIcons)), 6, 6, 6, 6, 1, 1, 1, 1));
@@ -1495,7 +1450,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		if (p_config.increase_scrollbar_touch_area) {
 			p_theme->set_stylebox("scroll", "VScrollBar", make_line_stylebox(p_config.separator_color, 50, 1, 1, true));
 		} else {
-			p_theme->set_stylebox("scroll", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 7, 7, 7, 7, 1, -7, 1, -7));
+			p_theme->set_stylebox("scroll", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 6, 6, 6, 6, 1, -6, 1, -6));
 		}
 		p_theme->set_stylebox("scroll_focus", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollBg"), EditorStringName(EditorIcons)), 5, 5, 5, 5, 1, 1, 1, 1));
 		p_theme->set_stylebox("grabber", "VScrollBar", make_stylebox(p_theme->get_icon(SNAME("GuiScrollGrabber"), EditorStringName(EditorIcons)), 6, 6, 6, 6, 1, 1, 1, 1));
@@ -1515,7 +1470,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// HSlider.
 		p_theme->set_icon("grabber_highlight", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber", "HSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
-		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.widget_bg_color, 0, background_margin, 0, background_margin, p_config.corner_radius));
+		p_theme->set_stylebox("slider", "HSlider", make_flat_stylebox(p_config.dark_color_3, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "HSlider", make_flat_stylebox(p_config.contrast_color_1, 0, background_margin, 0, background_margin));
 		p_theme->set_constant("center_grabber", "HSlider", 0);
@@ -1524,7 +1479,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// VSlider.
 		p_theme->set_icon("grabber", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("grabber_highlight", "VSlider", p_theme->get_icon(SNAME("GuiSliderGrabberHl"), EditorStringName(EditorIcons)));
-		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.widget_bg_color, background_margin, 0, background_margin, 0, p_config.corner_radius));
+		p_theme->set_stylebox("slider", "VSlider", make_flat_stylebox(p_config.dark_color_3, background_margin, 0, background_margin, 0, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0, p_config.corner_radius));
 		p_theme->set_stylebox("grabber_area_highlight", "VSlider", make_flat_stylebox(p_config.contrast_color_1, background_margin, 0, background_margin, 0));
 		p_theme->set_constant("center_grabber", "VSlider", 0);
@@ -1808,14 +1763,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_icon("picker_cursor", "ColorPicker", p_theme->get_icon(SNAME("PickerCursor"), EditorStringName(EditorIcons)));
 
 		// ColorPickerButton.
-		{
-			Ref<StyleBoxFlat> color_picker_button_style = p_config.button_style->duplicate();
-			color_picker_button_style->set_bg_color(p_config.widget_bg_color);
-			p_theme->set_stylebox(CoreStringName(normal), "ColorPickerButton", color_picker_button_style);
-			p_theme->set_stylebox("hover", "ColorPickerButton", p_config.button_style_hover);
-			p_theme->set_stylebox(SceneStringName(pressed), "ColorPickerButton", p_config.button_style_pressed);
-			p_theme->set_stylebox("disabled", "ColorPickerButton", p_config.button_style_disabled);
-		}
 		p_theme->set_icon("bg", "ColorPickerButton", p_theme->get_icon(SNAME("GuiMiniCheckerboard"), EditorStringName(EditorIcons)));
 
 		// ColorPresetButton.
@@ -1835,7 +1782,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// ProjectTag.
 		{
-			p_theme->set_type_variation("ProjectTag", "Button");
+			p_theme->set_type_variation("ProjectTagButton", "Button");
 
 			Ref<StyleBoxFlat> tag = p_config.button_style->duplicate();
 			tag->set_bg_color(p_config.dark_theme ? tag->get_bg_color().lightened(0.2) : tag->get_bg_color().darkened(0.2));
@@ -1843,31 +1790,32 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			tag->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 			tag->set_corner_radius(CORNER_TOP_RIGHT, 4);
 			tag->set_corner_radius(CORNER_BOTTOM_RIGHT, 4);
-			p_theme->set_stylebox(CoreStringName(normal), "ProjectTag", tag);
+			p_theme->set_stylebox(CoreStringName(normal), "ProjectTagButton", tag);
 
 			tag = p_config.button_style_hover->duplicate();
 			tag->set_corner_radius(CORNER_TOP_LEFT, 0);
 			tag->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 			tag->set_corner_radius(CORNER_TOP_RIGHT, 4);
 			tag->set_corner_radius(CORNER_BOTTOM_RIGHT, 4);
-			p_theme->set_stylebox("hover", "ProjectTag", tag);
+			p_theme->set_stylebox("hover", "ProjectTagButton", tag);
 
 			tag = p_config.button_style_pressed->duplicate();
 			tag->set_corner_radius(CORNER_TOP_LEFT, 0);
 			tag->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 			tag->set_corner_radius(CORNER_TOP_RIGHT, 4);
 			tag->set_corner_radius(CORNER_BOTTOM_RIGHT, 4);
-			p_theme->set_stylebox(SceneStringName(pressed), "ProjectTag", tag);
+			p_theme->set_stylebox(SceneStringName(pressed), "ProjectTagButton", tag);
 		}
 	}
 
 	// Editor and main screen.
 	{
 		// Editor background.
-		p_theme->set_color("background", EditorStringName(Editor), p_config.background_color_opaque);
-		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(p_config.background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
+		Color background_color_opaque = p_config.dark_color_2;
+		background_color_opaque.a = 1.0;
+		p_theme->set_color("background", EditorStringName(Editor), background_color_opaque);
+		p_theme->set_stylebox("Background", EditorStringName(EditorStyles), make_flat_stylebox(background_color_opaque, p_config.base_margin, p_config.base_margin, p_config.base_margin, p_config.base_margin));
 
-		// Tekisasu - new editor_panel_foreground stylebox.
 		Ref<StyleBoxFlat> editor_panel_foreground = p_config.base_style->duplicate();
 		editor_panel_foreground->set_corner_radius_all(0);
 		p_theme->set_stylebox("PanelForeground", EditorStringName(EditorStyles), editor_panel_foreground);
@@ -1909,7 +1857,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox("ScriptEditorPanelFloating", EditorStringName(EditorStyles), make_empty_stylebox(0, 0, 0, 0));
 		p_theme->set_stylebox("ScriptEditor", EditorStringName(EditorStyles), make_empty_stylebox(0, 0, 0, 0));
 
-		// Tekisasu menubar.
+// Tekisasu menubar.
 		Ref<StyleBoxFlat> filemenu_transparent_style = p_config.button_style->duplicate();
 		filemenu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
 		filemenu_transparent_style->set_border_width_all(0);
@@ -1956,18 +1904,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 
 		// Run bar.
 		p_theme->set_type_variation("RunBarButton", "FlatMenuButton");
-		p_theme->set_stylebox(CoreStringName(normal), "RunBarButton", menu_transparent_style);
-		p_theme->set_stylebox("hover", "RunBarButton", main_screen_button_hover);
-		p_theme->set_stylebox("hover_pressed", "RunBarButton", main_screen_button_hover);
-		p_theme->set_stylebox(SceneStringName(pressed), "RunBarButton", menu_transparent_style);
 		p_theme->set_stylebox("disabled", "RunBarButton", menu_transparent_style);
-		// Icon colors for RunBarButton
-		p_theme->set_color("icon_normal_color", "RunBarButton", p_config.icon_normal_color);
-		p_theme->set_color("icon_hover_color", "RunBarButton", Color(1, 1, 1, 1));
-		Color icon_pressed_color_runbar = p_config.accent_color;
-		icon_pressed_color_runbar.a = 1.0;
-		p_theme->set_color("icon_pressed_color", "RunBarButton", icon_pressed_color_runbar);
-		p_theme->set_color("icon_hover_pressed_color", "RunBarButton", icon_pressed_color_runbar);
+		p_theme->set_stylebox(SceneStringName(pressed), "RunBarButton", menu_transparent_style);
 
 		// Bottom panel.
 		Ref<StyleBoxFlat> style_bottom_panel = p_config.content_panel_style->duplicate();
@@ -1978,6 +1916,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(pressed), "BottomPanelButton", menu_transparent_style);
 		p_theme->set_stylebox("hover_pressed", "BottomPanelButton", main_screen_button_hover);
 		p_theme->set_stylebox("hover", "BottomPanelButton", main_screen_button_hover);
+		p_theme->set_color("font_pressed_color", "BottomPanelButton", p_config.accent_color.lightened(0.2));
 	}
 
 	// Editor GUI widgets.
@@ -1987,7 +1926,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_color("read_only_label_color", "EditorSpinSlider", p_config.font_readonly_color);
 
 		Ref<StyleBoxFlat> editor_spin_label_bg = p_config.base_style->duplicate();
-		// Use a dark background for the label area (x, y, z labels in vector editors).
 		editor_spin_label_bg->set_bg_color(p_config.dark_color_3);
 		editor_spin_label_bg->set_border_width_all(0);
 		p_theme->set_stylebox("label_bg", "EditorSpinSlider", editor_spin_label_bg);
@@ -2002,7 +1940,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_stylebox(SceneStringName(panel), "EditorAudioBus", style_audio_bus);
 
 		// Launch Pad and Play buttons.
-		Ref<StyleBoxFlat> style_launch_pad = make_flat_stylebox(Color(0, 0, 0, 0), 2 * EDSCALE, 0, 2 * EDSCALE, 0, p_config.corner_radius);
+		Ref<StyleBoxFlat> style_launch_pad = make_flat_stylebox(p_config.dark_color_1, 2 * EDSCALE, 0, 2 * EDSCALE, 0, p_config.corner_radius);
 		style_launch_pad->set_corner_radius_all(p_config.corner_radius * EDSCALE);
 		p_theme->set_stylebox("LaunchPadNormal", EditorStringName(EditorStyles), style_launch_pad);
 		Ref<StyleBoxFlat> style_launch_pad_movie = style_launch_pad->duplicate();
@@ -2086,7 +2024,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			// similar to active tabs.
 			Ref<StyleBoxFlat> editor_log_button_pressed = style_flat_button_pressed->duplicate();
 			editor_log_button_pressed->set_border_width_all(1 * EDSCALE);
-			editor_log_button_pressed->set_border_color(p_config.accent_color * Color(1, 1, 1, 0.4));
+			editor_log_button_pressed->set_border_color(Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.6));
 			if (!p_config.dark_theme) {
 				editor_log_button_pressed->set_bg_color(flat_pressed_color.lightened(0.5));
 			}
@@ -2127,18 +2065,11 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Complex editor windows.
 		{
 			Ref<StyleBoxFlat> style_complex_window = p_config.window_style->duplicate();
-			// Use background_color_opaque to match the background behind the top menubar (same as Panel style).
-			style_complex_window->set_bg_color(p_config.background_color_opaque);
-			style_complex_window->set_border_color(p_config.background_color_opaque);
+			style_complex_window->set_bg_color(p_config.dark_color_2);
+			style_complex_window->set_border_color(p_config.dark_color_2);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorSettingsDialog", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "ProjectSettingsEditor", style_complex_window);
 			p_theme->set_stylebox(SceneStringName(panel), "EditorAbout", style_complex_window);
-
-			// ProjectExportDialog uses base_color instead of background_color_opaque for its styling.
-			Ref<StyleBoxFlat> style_export_window = p_config.window_style->duplicate();
-			style_export_window->set_bg_color(p_config.base_color);
-			style_export_window->set_border_color(p_config.base_color);
-			p_theme->set_stylebox(SceneStringName(panel), "ProjectExportDialog", style_export_window);
 		}
 
 		// InspectorActionButton.
@@ -2220,7 +2151,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(panel), "TabContainerOdd", style_content_panel_odd);
 		}
 
-		// DockTabContainer variation.
+		// tekisasu - DockTabContainer variation.
 		{
 			// Dock-specific tab style without top borders and without corner radius.
 			p_theme->set_type_variation("DockTabContainer", "TabContainer");
@@ -2239,8 +2170,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			Ref<StyleBoxFlat> style_dock_tab_selected = style_dock_tab_base->duplicate();
 			style_dock_tab_selected->set_bg_color(p_config.base_color);
 			// Add a 1px highlight line at the top of the selected tab (normal tabs use 3px, dock tabs use 1px minimum).
-			style_dock_tab_selected->set_border_width(SIDE_TOP, 1);
-			Color dock_tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.7);
+			style_dock_tab_selected->set_border_width(SIDE_TOP, 0);
+			Color dock_tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.6);
 			style_dock_tab_selected->set_border_color(dock_tab_highlight);
 
 			// Hovered tab.
@@ -2257,8 +2188,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			// Disabled tab.
 			Ref<StyleBoxFlat> style_dock_tab_disabled = style_dock_tab_base->duplicate();
 			style_dock_tab_disabled->set_expand_margin(SIDE_BOTTOM, 0);
-			style_dock_tab_disabled->set_bg_color(p_config.disabled_bg_color);
-			style_dock_tab_disabled->set_border_color(p_config.disabled_bg_color);
 
 			// Focus style.
 			Ref<StyleBoxFlat> style_dock_tab_focus = p_config.button_style_focus->duplicate();
@@ -2270,14 +2199,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox("tab_unselected", "DockTabContainer", style_dock_tab_unselected);
 			p_theme->set_stylebox("tab_disabled", "DockTabContainer", style_dock_tab_disabled);
 			p_theme->set_stylebox("tab_focus", "DockTabContainer", style_dock_tab_focus);
-
-			// Tabbar background with 0.20 opacity, respects corner_radius for top corners.
-			Color dock_tabbar_bg_color = p_config.dark_color_5;
-			dock_tabbar_bg_color.a = 0.20;
-			Ref<StyleBoxFlat> style_dock_tabbar_background = make_flat_stylebox(dock_tabbar_bg_color, 0, 0, 0, 0, p_config.corner_radius);
-			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
-			style_dock_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
-			p_theme->set_stylebox("tabbar_background", "DockTabContainer", style_dock_tabbar_background);
 
 			// Content panel.
 			p_theme->set_stylebox(SceneStringName(panel), "DockTabContainer", p_config.content_panel_style);
@@ -2318,14 +2239,15 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_bg->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 		Ref<StyleBoxFlat> style_property_child_bg = p_config.base_style->duplicate();
-		// Use transparent background for child_bg so vector editors show their own widget_bg_color styling.
-		style_property_child_bg->set_bg_color(Color(0, 0, 0, 0));
+		style_property_child_bg->set_bg_color(p_config.dark_color_2);
 		style_property_child_bg->set_border_width_all(0);
 
+		// orig: p_theme->set_stylebox("bg", "EditorProperty", memnew(StyleBoxEmpty));
 		p_theme->set_stylebox("bg", "EditorProperty", make_empty_stylebox(2, 2, 2, 2));
 		p_theme->set_stylebox("bg_selected", "EditorProperty", style_property_bg);
 		p_theme->set_stylebox("child_bg", "EditorProperty", style_property_child_bg);
 		p_theme->set_constant("font_offset", "EditorProperty", 8 * EDSCALE);
+		// orig: p_theme->set_constant("v_separation", "EditorProperty", p_config.increased_margin * EDSCALE);
 		p_theme->set_constant("v_separation", "EditorProperty", 2 * EDSCALE);
 
 		const Color property_color = p_config.font_color.lerp(Color(0.5, 0.5, 0.5), 0.5);
@@ -2343,7 +2265,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_group_note->set_bg_color(property_group_note_color);
 		p_theme->set_stylebox("bg_group_note", "EditorProperty", style_property_group_note);
 
-		// EditorPropertyLayersGrid - use accent color for layer buttons.
+		// Tekisasu - EditorPropertyLayersGrid - use accent color for layer buttons.
 		Color layers_highlight_color = Color(p_config.accent_color.r, p_config.accent_color.g, p_config.accent_color.b, 0.275);
 		Color layers_highlight_disabled_color = layers_highlight_color.lerp(p_config.dark_theme ? Color(0, 0, 0) : Color(1, 1, 1), 0.5);
 		p_theme->set_color("highlight_color", "EditorPropertyLayersGrid", layers_highlight_color);
@@ -2361,9 +2283,13 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_constant("indent_size", "EditorInspectorSection", 6.0 * EDSCALE);
 		p_theme->set_constant("h_separation", "EditorInspectorSection", 2.0 * EDSCALE);
 
-		Color prop_category_color = p_config.title_bg_color;
-		Color prop_section_color = p_config.subtitle_bg_color;
-		Color prop_subsection_color = p_config.subtitle_bg_color;
+		// orig - prop_*_color
+		// Color prop_category_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
+		// Color prop_section_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.09);
+		// Color prop_subsection_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.06);
+		Color prop_category_color = Color(p_config.base_color.r * 0.45, p_config.base_color.g * 0.45, p_config.base_color.b * 0.45, 0.75).clamp();
+		Color prop_section_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.95).clamp();
+		Color prop_subsection_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.95).clamp();
 
 		p_theme->set_color("prop_category", EditorStringName(Editor), prop_category_color);
 		p_theme->set_color("prop_section", EditorStringName(Editor), prop_section_color);
@@ -2460,8 +2386,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 	// Editor help.
 	{
 		Ref<StyleBoxFlat> style_editor_help = p_config.base_style->duplicate();
-		// Use dark_color_5 to match inactive dock tab background color.
-		style_editor_help->set_bg_color(p_config.doc_bg_color);
+		style_editor_help->set_bg_color(p_config.dark_color_2);
 		style_editor_help->set_border_color(p_config.dark_color_3);
 		p_theme->set_stylebox("background", "EditorHelp", style_editor_help);
 
@@ -2639,18 +2564,18 @@ void EditorThemeManager::_generate_text_editor_defaults(ThemeConfiguration &p_co
 
 	/* clang-format off */
 	// Syntax highlight token colors.
-	const Color symbol_color =               p_config.dark_theme ? Color(0.67, 0.79, 1)          : Color(0, 0, 0.61);
-	const Color keyword_color =              p_config.dark_theme ? Color(1.0, 0.44, 0.52)        : Color(0.9, 0.135, 0.51);
-	const Color control_flow_keyword_color = p_config.dark_theme ? Color(1.0, 0.55, 0.8)         : Color(0.743, 0.12, 0.8);
-	const Color base_type_color =            p_config.dark_theme ? Color(0.26, 1.0, 0.76)        : Color(0, 0.6, 0.2);
-	const Color engine_type_color =          p_config.dark_theme ? Color(0.56, 1, 0.86)          : Color(0.11, 0.55, 0.4);
-	const Color user_type_color =            p_config.dark_theme ? Color(0.78, 1, 0.93)          : Color(0.18, 0.45, 0.4);
-	const Color comment_color =              p_config.dark_theme ? Color(0.42, 0.47, 0.74, 0.74) : Color(0.08, 0.08, 0.08, 0.5);
-	const Color doc_comment_color =          p_config.dark_theme ? Color(0.6, 0.7, 0.8, 0.8)	 : Color(0.15, 0.15, 0.4, 0.7);
-	const Color string_color =               p_config.dark_theme ? Color(1, 0.93, 0.63)          : Color(0.6, 0.42, 0);
+	const Color symbol_color =               p_config.dark_theme ? Color(0.67, 0.79, 1)      : Color(0, 0, 0.61);
+	const Color keyword_color =              p_config.dark_theme ? Color(1.0, 0.44, 0.52)    : Color(0.9, 0.135, 0.51);
+	const Color control_flow_keyword_color = p_config.dark_theme ? Color(1.0, 0.55, 0.8)     : Color(0.743, 0.12, 0.8);
+	const Color base_type_color =            p_config.dark_theme ? Color(0.26, 1.0, 0.76)    : Color(0, 0.6, 0.2);
+	const Color engine_type_color =          p_config.dark_theme ? Color(0.56, 1, 0.86)      : Color(0.11, 0.55, 0.4);
+	const Color user_type_color =            p_config.dark_theme ? Color(0.78, 1, 0.93)      : Color(0.18, 0.45, 0.4);
+	const Color comment_color =              p_config.dark_theme ? dim_color                 : Color(0.08, 0.08, 0.08, 0.5);
+	const Color doc_comment_color =          p_config.dark_theme ? Color(0.6, 0.7, 0.8, 0.8) : Color(0.15, 0.15, 0.4, 0.7);
+	const Color string_color =               p_config.dark_theme ? Color(1, 0.93, 0.63)      : Color(0.6, 0.42, 0);
 
 	// Use the brightest background color on a light theme (which generally uses a negative contrast rate).
-	const Color te_background_color =             p_config.dark_theme ? Color(0.11, 0.11, 0.16, 1) : p_config.dark_color_3;
+	const Color te_background_color =             p_config.dark_theme ? p_config.dark_color_2 : p_config.dark_color_3;
 	const Color completion_background_color =     p_config.dark_theme ? p_config.base_color : p_config.dark_color_2;
 	const Color completion_selected_color =       alpha1;
 	const Color completion_existing_color =       alpha2;
@@ -2658,9 +2583,9 @@ void EditorThemeManager::_generate_text_editor_defaults(ThemeConfiguration &p_co
 	const Color completion_scroll_color =         Color(mono_value, mono_value, mono_value, 0.29);
 	const Color completion_scroll_hovered_color = Color(mono_value, mono_value, mono_value, 0.4);
 	const Color completion_font_color =           p_config.font_color;
-	const Color text_color =                      Color(0.63, 0.63, 0.79, 1);
-	const Color line_number_color =               Color(1, 1, 1, 0.74);
-	const Color safe_line_number_color =          Color(0.25, 0.50, 0.87, 0.74);
+	const Color text_color =                      p_config.font_color;
+	const Color line_number_color =               dim_color;
+	const Color safe_line_number_color =          p_config.dark_theme ? (dim_color * Color(1, 1.2, 1, 1.5)) : Color(0, 0.4, 0, 0.75);
 	const Color caret_color =                     p_config.mono_color;
 	const Color caret_background_color =          p_config.mono_color.inverted();
 	const Color text_selected_color =             Color(0, 0, 0, 0);
@@ -2730,6 +2655,8 @@ void EditorThemeManager::_populate_text_editor_styles(const Ref<EditorTheme> &p_
 	String text_editor_color_theme = EditorSettings::get_singleton()->get("text_editor/theme/color_theme");
 	if (text_editor_color_theme == "Default") {
 		_generate_text_editor_defaults(p_config);
+	} else if (text_editor_color_theme == "Godot 2") {
+		EditorSettings::get_singleton()->load_text_editor_theme();
 	}
 
 	// Now theme is loaded, apply it to CodeEdit.

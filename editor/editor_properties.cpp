@@ -731,6 +731,7 @@ void EditorPropertyEnum::_bind_methods() {
 
 EditorPropertyEnum::EditorPropertyEnum() {
 	options = memnew(OptionButton);
+	options->set_theme_type_variation("EditorPropertyOptionButton");
 	options->set_clip_text(true);
 	options->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	add_child(options);
