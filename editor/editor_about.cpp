@@ -205,7 +205,7 @@ EditorAbout::EditorAbout() {
 		hash = " " + vformat("[%s]", hash.left(9));
 	}
 	// Use external version for user-facing display
-	version_btn->set_text("\n\nVersion: " EXTERNAL_VERSION_FULL_CONFIG + hash);
+	version_btn->set_text(EXTERNAL_VERSION_FULL_CONFIG + hash);
 	// Set the text to copy in metadata as it slightly differs from the button's text.
 	version_btn->set_meta(META_TEXT_TO_COPY, "v" EXTERNAL_VERSION_FULL_CONFIG + hash);
 	version_btn->set_underline_mode(LinkButton::UNDERLINE_MODE_ON_HOVER);

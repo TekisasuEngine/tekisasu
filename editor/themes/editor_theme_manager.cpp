@@ -282,26 +282,22 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 		if (config.preset != "Custom") {
 			Color preset_accent_color;
 			Color preset_base_color;
-			float preset_contrast = 0;
+			float preset_contrast = 0.4;
 			bool preset_draw_extra_borders = false;
 
 			// Please use alphabetical order if you're adding a new theme here.
-			if (config.preset == "Gray") {
-				preset_accent_color = Color(0.40, 0.52, 0.91);
-				preset_base_color = Color(0.15, 0.16, 0.19);
-				preset_contrast = 0.4;
+			if (config.preset == "Midnight") {
+				preset_accent_color = Color(0.40, 0.50, 0.91);
+				preset_base_color = Color(0.11, 0.13, 0.18);
 			} else if (config.preset == "Indigo") {
-				preset_accent_color = Color(0.40, 0.52, 0.91);
+				preset_accent_color = Color(0.40, 0.50, 0.91);
 				preset_base_color = Color(0.21, 0.23, 0.36);
-				preset_contrast = 0.4;
-			} else if (config.preset == "Metal") {
-				preset_accent_color = Color(0.40, 0.51, 0.91);
-				preset_base_color = Color(0.17, 0.18, 0.21);
-				preset_contrast = 0.4;
+			} else if (config.preset == "Default") {
+				preset_accent_color = Color(0.40, 0.50, 0.91);
+				preset_base_color = Color(0.17, 0.18, 0.20);
 			} else { // Default
-				preset_accent_color = Color(0.40, 0.51, 0.91);
-				preset_base_color = Color(0.17, 0.18, 0.21);
-				preset_contrast = config.default_contrast;
+				preset_accent_color = Color(0.40, 0.50, 0.91);
+				preset_base_color = Color(0.17, 0.18, 0.20);
 			}
 
 			config.accent_color = preset_accent_color;
@@ -852,19 +848,43 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		// tekisasu - EditorPropertyOptionButton OptionButton variation.
 		{
-    		p_theme->set_type_variation("EditorPropertyOptionButton", "OptionButton");
+			p_theme->set_type_variation("EditorPropertyOptionButton", "OptionButton");
 
-			// Custom hover style - normal style lightened by 0.15
-			Ref<StyleBoxFlat> property_enum_hover = p_config.button_style->duplicate();
-			property_enum_hover->set_bg_color(p_config.base_color.lightened(0.2));
+			Color color_normal = p_config.base_color.darkened(0.25);
+			Color color_hover = p_config.base_color.lightened(0.2);
+			Color color_pressed = p_config.base_color.darkened(0.3);
+
+			// Match the regular OptionButton styles (same as dock_tab_style)
+			Ref<StyleBoxFlat> property_enum_normal = p_config.button_style->duplicate();
+			property_enum_normal->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
+			property_enum_normal->set_bg_color(color_normal);
+
+			Ref<StyleBoxFlat> property_enum_hover = p_config.button_style_hover->duplicate();
 			property_enum_hover->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
+			property_enum_hover->set_bg_color(color_hover);
 
-			Ref<StyleBoxFlat> property_enum_hover_mirrored = p_config.button_style->duplicate();
-			property_enum_hover_mirrored->set_bg_color(p_config.base_color.lightened(0.2));
+			Ref<StyleBoxFlat> property_enum_pressed = p_config.button_style_pressed->duplicate();
+			property_enum_pressed->set_content_margin(SIDE_RIGHT, 4 * EDSCALE);
+			property_enum_pressed->set_bg_color(color_pressed);
+
+			Ref<StyleBoxFlat> property_enum_normal_mirrored = p_config.button_style->duplicate();
+			property_enum_normal_mirrored->set_content_margin(SIDE_LEFT, 4 * EDSCALE);
+			property_enum_normal_mirrored->set_bg_color(color_normal);
+
+			Ref<StyleBoxFlat> property_enum_hover_mirrored = p_config.button_style_hover->duplicate();
 			property_enum_hover_mirrored->set_content_margin(SIDE_LEFT, 4 * EDSCALE);
+			property_enum_hover_mirrored->set_bg_color(color_hover);
+			
+			Ref<StyleBoxFlat> property_enum_pressed_mirrored = p_config.button_style_pressed->duplicate();
+			property_enum_pressed_mirrored->set_content_margin(SIDE_LEFT, 4 * EDSCALE);
+			property_enum_pressed_mirrored->set_bg_color(color_pressed);
 
+			p_theme->set_stylebox(CoreStringName(normal), "EditorPropertyOptionButton", property_enum_normal);
 			p_theme->set_stylebox("hover", "EditorPropertyOptionButton", property_enum_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "EditorPropertyOptionButton", property_enum_pressed);
+			p_theme->set_stylebox("normal_mirrored", "EditorPropertyOptionButton", property_enum_normal_mirrored);
 			p_theme->set_stylebox("hover_mirrored", "EditorPropertyOptionButton", property_enum_hover_mirrored);
+			p_theme->set_stylebox("pressed_mirrored", "EditorPropertyOptionButton", property_enum_pressed_mirrored);
 		}
 
 		// CheckButton.
@@ -1503,6 +1523,26 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("shadow_outline_size", "RichTextLabel", 1 * EDSCALE);
 		p_theme->set_constant("outline_size", "RichTextLabel", 0);
 
+		// EditorLogOutput - Custom style for Output panel terminal. 
+		{
+			p_theme->set_type_variation("EditorLogOutput", "RichTextLabel");
+
+			// Create a custom background style for the output panel
+			Ref<StyleBoxFlat> output_panel_style = p_config.tree_panel_style->duplicate();
+
+			// Customize the background color - examples:
+			// Option 1: Use a darker shade
+			output_panel_style->set_bg_color(p_config.dark_color_2.darkened(0.1));
+
+			// Option 2: Use a different base color entirely
+			// output_panel_style->set_bg_color(Color(0.1, 0.1, 0.12)); // Custom dark blue-ish
+
+			// Option 3: Blend with another color
+			// output_panel_style->set_bg_color(p_config.dark_color_2.lerp(Color(0.15, 0.12, 0.1), 0.3));
+
+			p_theme->set_stylebox(CoreStringName(normal), "EditorLogOutput", output_panel_style);
+		}
+
 		// Label.
 
 		p_theme->set_stylebox(CoreStringName(normal), "Label", p_config.base_empty_style);
@@ -1779,6 +1819,26 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		p_theme->set_constant("sidebar_button_icon_separation", "ProjectManager", int(6 * EDSCALE));
 		p_theme->set_icon("browse_folder", "ProjectManager", p_theme->get_icon(SNAME("FolderBrowse"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("browse_file", "ProjectManager", p_theme->get_icon(SNAME("FileBrowse"), EditorStringName(EditorIcons)));
+
+		// ProjectManagerList - Custom darker background for project list ScrollContainer
+		{
+			p_theme->set_type_variation("ProjectManagerList", "ScrollContainer");
+
+			// Create a darker background style
+			Ref<StyleBoxFlat> project_list_bg = p_config.tree_panel_style->duplicate();
+
+			// Make it darker - examples: 
+			// Option 1: Darken the existing background
+			project_list_bg->set_bg_color(p_config.base_color.darkened(0.12));
+
+			// Option 2: Use an even darker base color
+			// project_list_bg->set_bg_color(p_config.dark_color_1);
+
+			// Option 3: Custom dark color
+			// project_list_bg->set_bg_color(Color(0.08, 0.08, 0.09)); // Very dark
+
+			p_theme->set_stylebox(SceneStringName(panel), "ProjectManagerList", project_list_bg);
+		}
 
 		// ProjectTag.
 		{
@@ -2239,7 +2299,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_bg->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 
 		Ref<StyleBoxFlat> style_property_child_bg = p_config.base_style->duplicate();
-		style_property_child_bg->set_bg_color(p_config.dark_color_2);
+		// orig: style_property_child_bg->set_bg_color(p_config.dark_color_2);
+		style_property_child_bg->set_bg_color(p_config.base_color.darkened(0.25));
 		style_property_child_bg->set_border_width_all(0);
 
 		// orig: p_theme->set_stylebox("bg", "EditorProperty", memnew(StyleBoxEmpty));
