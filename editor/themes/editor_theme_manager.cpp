@@ -2139,8 +2139,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			const float action_extra_margin = 32 * EDSCALE;
 			p_theme->set_constant("h_separation", "InspectorActionButton", action_extra_margin);
 
-			Color color_inspector_action = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
-			color_inspector_action.a = 0.5;
+			Color color_inspector_action = p_config.dark_color_1.lerp(p_config.mono_color, 0.25);
+			color_inspector_action.a = 0.9;
 			Ref<StyleBoxFlat> style_inspector_action = p_config.button_style->duplicate();
 			style_inspector_action->set_bg_color(color_inspector_action);
 			style_inspector_action->set_content_margin(SIDE_RIGHT, action_extra_margin);
