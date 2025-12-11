@@ -219,14 +219,7 @@ class ProjectManager : public Control {
 	void _set_new_tag_name(const String p_name);
 	void _create_new_tag();
 
-	// Project converter/migration tool.
-
-	ConfirmationDialog *ask_full_convert_dialog = nullptr;
 	ConfirmationDialog *ask_update_settings = nullptr;
-	Button *full_convert_button = nullptr;
-
-	void _full_convert_button_pressed();
-	void _perform_full_project_conversion();
 
 	// Input and I/O.
 

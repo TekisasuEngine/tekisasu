@@ -46,7 +46,6 @@ skip = """\
 	core/input/gamecontrollerdb.txt,
 	core/string/locales.h,
 	DONORS.md,
-	editor/project_converter_3_to_4.cpp,
 	platform/android/java/lib/src/com/*,
 	platform/web/package-lock.json
 """

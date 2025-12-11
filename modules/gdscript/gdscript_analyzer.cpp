@@ -46,11 +46,6 @@
 #include "core/templates/hash_map.h"
 #include "scene/resources/packed_scene.h"
 
-#if defined(TOOLS_ENABLED) && !defined(DISABLE_DEPRECATED)
-#define SUGGEST_GODOT4_RENAMES
-#include "editor/renames_map_3_to_4.h"
-#endif
-
 #define UNNAMED_ENUM "<anonymous enum>"
 #define ENUM_SEPARATOR "."
 
@@ -2974,60 +2969,6 @@ void GDScriptAnalyzer::reduce_binary_op(GDScriptParser::BinaryOpNode *p_binary_o
 	p_binary_op->set_datatype(result);
 }
 
-#ifdef SUGGEST_GODOT4_RENAMES
-const char *get_rename_from_map(const char *map[][2], String key) {
-	for (int index = 0; map[index][0]; index++) {
-		if (map[index][0] == key) {
-			return map[index][1];
-		}
-	}
-	return nullptr;
-}
-
-// Checks if an identifier/function name has been renamed in Godot 4, uses ProjectConverter3To4 for rename map.
-// Returns the new name if found, nullptr otherwise.
-const char *check_for_renamed_identifier(String identifier, GDScriptParser::Node::Type type) {
-	switch (type) {
-		case GDScriptParser::Node::IDENTIFIER: {
-			// Check properties
-			const char *result = get_rename_from_map(RenamesMap3To4::gdscript_properties_renames, identifier);
-			if (result) {
-				return result;
-			}
-			// Check enum values
-			result = get_rename_from_map(RenamesMap3To4::enum_renames, identifier);
-			if (result) {
-				return result;
-			}
-			// Check color constants
-			result = get_rename_from_map(RenamesMap3To4::color_renames, identifier);
-			if (result) {
-				return result;
-			}
-			// Check type names
-			result = get_rename_from_map(RenamesMap3To4::class_renames, identifier);
-			if (result) {
-				return result;
-			}
-			return get_rename_from_map(RenamesMap3To4::builtin_types_renames, identifier);
-		}
-		case GDScriptParser::Node::CALL: {
-			const char *result = get_rename_from_map(RenamesMap3To4::gdscript_function_renames, identifier);
-			if (result) {
-				return result;
-			}
-			// Built-in Types are mistaken for function calls when the built-in type is not found.
-			// Check built-in types if function rename not found
-			return get_rename_from_map(RenamesMap3To4::builtin_types_renames, identifier);
-		}
-		// Signal references don't get parsed through the GDScriptAnalyzer. No support for signal rename hints.
-		default:
-			// No rename found, return null
-			return nullptr;
-	}
-}
-#endif // SUGGEST_GODOT4_RENAMES
-
 void GDScriptAnalyzer::reduce_call(GDScriptParser::CallNode *p_call, bool p_is_await, bool p_is_root) {
 	bool all_is_constant = true;
 	HashMap<int, GDScriptParser::ArrayNode *> arrays; // For array literal to potentially type when passing.
@@ -3536,18 +3477,7 @@ void GDScriptAnalyzer::reduce_call(GDScriptParser::CallNode *p_call, bool p_is_a
 		}
 		if (!found && (is_self || (base_type.is_hard_type() && base_type.kind == GDScriptParser::DataType::BUILTIN))) {
 			String base_name = is_self && !p_call->is_super ? "self" : base_type.to_string();
-#ifdef SUGGEST_GODOT4_RENAMES
-			String rename_hint;
-			if (GLOBAL_GET(GDScriptWarning::get_settings_path_from_code(GDScriptWarning::RENAMED_IN_GODOT_4_HINT)).booleanize()) {
-				const char *renamed_function_name = check_for_renamed_identifier(p_call->function_name, p_call->type);
-				if (renamed_function_name) {
-					rename_hint = " " + vformat(R"(Did you mean to use "%s"?)", String(renamed_function_name) + "()");
-				}
-			}
-			push_error(vformat(R"*(Function "%s()" not found in base %s.%s)*", p_call->function_name, base_name, rename_hint), p_call->is_super ? p_call : p_call->callee);
-#else
 			push_error(vformat(R"*(Function "%s()" not found in base %s.)*", p_call->function_name, base_name), p_call->is_super ? p_call : p_call->callee);
-#endif // SUGGEST_GODOT4_RENAMES
 		} else if (!found && (!p_call->is_super && base_type.is_hard_type() && base_type.is_meta_type)) {
 			push_error(vformat(R"*(Static function "%s()" not found in base "%s".)*", p_call->function_name, base_type.to_string()), p_call);
 		}
@@ -3850,18 +3780,7 @@ void GDScriptAnalyzer::reduce_identifier_from_base(GDScriptParser::IdentifierNod
 				p_identifier->reduced_value = result;
 				p_identifier->set_datatype(type_from_variant(result, p_identifier));
 			} else if (base.is_hard_type()) {
-#ifdef SUGGEST_GODOT4_RENAMES
-				String rename_hint;
-				if (GLOBAL_GET(GDScriptWarning::get_settings_path_from_code(GDScriptWarning::RENAMED_IN_GODOT_4_HINT)).booleanize()) {
-					const char *renamed_identifier_name = check_for_renamed_identifier(name, p_identifier->type);
-					if (renamed_identifier_name) {
-						rename_hint = " " + vformat(R"(Did you mean to use "%s"?)", renamed_identifier_name);
-					}
-				}
-				push_error(vformat(R"(Cannot find constant "%s" on base "%s".%s)", name, base.to_string(), rename_hint), p_identifier);
-#else
 				push_error(vformat(R"(Cannot find constant "%s" on base "%s".)", name, base.to_string()), p_identifier);
-#endif // SUGGEST_GODOT4_RENAMES
 			}
 		} else {
 			switch (base.builtin_type) {
@@ -3894,18 +3813,7 @@ void GDScriptAnalyzer::reduce_identifier_from_base(GDScriptParser::IdentifierNod
 						return;
 					}
 					if (base.is_hard_type()) {
-#ifdef SUGGEST_GODOT4_RENAMES
-						String rename_hint;
-						if (GLOBAL_GET(GDScriptWarning::get_settings_path_from_code(GDScriptWarning::RENAMED_IN_GODOT_4_HINT)).booleanize()) {
-							const char *renamed_identifier_name = check_for_renamed_identifier(name, p_identifier->type);
-							if (renamed_identifier_name) {
-								rename_hint = " " + vformat(R"(Did you mean to use "%s"?)", renamed_identifier_name);
-							}
-						}
-						push_error(vformat(R"(Cannot find property "%s" on base "%s".%s)", name, base.to_string(), rename_hint), p_identifier);
-#else
 						push_error(vformat(R"(Cannot find property "%s" on base "%s".)", name, base.to_string()), p_identifier);
-#endif // SUGGEST_GODOT4_RENAMES
 					}
 				}
 			}
@@ -4410,18 +4318,7 @@ void GDScriptAnalyzer::reduce_identifier(GDScriptParser::IdentifierNode *p_ident
 	}
 
 	// Not found.
-#ifdef SUGGEST_GODOT4_RENAMES
-	String rename_hint;
-	if (GLOBAL_GET(GDScriptWarning::get_settings_path_from_code(GDScriptWarning::RENAMED_IN_GODOT_4_HINT)).booleanize()) {
-		const char *renamed_identifier_name = check_for_renamed_identifier(name, p_identifier->type);
-		if (renamed_identifier_name) {
-			rename_hint = " " + vformat(R"(Did you mean to use "%s"?)", renamed_identifier_name);
-		}
-	}
-	push_error(vformat(R"(Identifier "%s" not declared in the current scope.%s)", name, rename_hint), p_identifier);
-#else
 	push_error(vformat(R"(Identifier "%s" not declared in the current scope.)", name), p_identifier);
-#endif // SUGGEST_GODOT4_RENAMES
 	GDScriptParser::DataType dummy;
 	dummy.kind = GDScriptParser::DataType::VARIANT;
 	p_identifier->set_datatype(dummy); // Just so type is set to something.

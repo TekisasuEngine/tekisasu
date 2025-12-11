@@ -88,8 +88,6 @@ _complete_tekisasu_options() {
 --export-release
 --export-debug
 --export-pack
---convert-3to4
---validate-conversion-3to4
 --doctool
 --no-docbase
 --build-solutions
