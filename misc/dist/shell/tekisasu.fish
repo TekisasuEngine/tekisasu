@@ -105,8 +105,6 @@ complete -c godot -l check-only -d "Only parse for errors and quit (use with --s
 complete -c godot -l export-release -d "Export the project in release mode using the given preset and output path" -x
 complete -c godot -l export-debug -d "Export the project in debug mode using the given preset and output path" -x
 complete -c godot -l export-pack -d "Export the project data only as a PCK or ZIP file using the given preset and output path" -x
-complete -c godot -l convert-3to4 -d "Converts project from Godot 3.x to Godot 4.x"
-complete -c godot -l validate-conversion-3to4 -d "Shows what elements will be renamed when converting project from Godot 3.x to Godot 4.x"
 complete -c godot -l doctool -d "Dump the engine API reference to the given path in XML format, merging if existing files are found" -r
 complete -c godot -l no-docbase -d "Disallow dumping the base types (used with --doctool)"
 complete -c godot -l build-solutions -d "Build the scripting solutions (e.g. for C# projects)"
