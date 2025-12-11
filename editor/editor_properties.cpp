@@ -373,6 +373,7 @@ EditorPropertyTextEnum::EditorPropertyTextEnum() {
 	hb->add_child(edit_custom_layout);
 
 	option_button = memnew(OptionButton);
+	option_button->set_theme_type_variation("EditorPropertyOptionButton");
 	option_button->set_h_size_flags(SIZE_EXPAND_FILL);
 	option_button->set_clip_text(true);
 	option_button->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);

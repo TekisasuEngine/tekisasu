@@ -1133,6 +1133,8 @@ void ProjectList::_bind_methods() {
 }
 
 ProjectList::ProjectList() {
+	set_theme_type_variation("ProjectManagerList");
+	
 	project_list_vbox = memnew(VBoxContainer);
 	project_list_vbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(project_list_vbox);
