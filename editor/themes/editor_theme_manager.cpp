@@ -292,12 +292,15 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			} else if (config.preset == "Indigo") {
 				preset_accent_color = Color(0.40, 0.50, 0.91);
 				preset_base_color = Color(0.21, 0.23, 0.36);
+			} else if (config.preset == "Dark") {
+				preset_accent_color = Color(0.40, 0.50, 0.91);
+				preset_base_color = Color(0.12, 0.13, 0.15);
 			} else if (config.preset == "Default") {
 				preset_accent_color = Color(0.40, 0.50, 0.91);
-				preset_base_color = Color(0.17, 0.18, 0.20);
+				preset_base_color = Color(0.18, 0.19, 0.20);
 			} else { // Default
 				preset_accent_color = Color(0.40, 0.50, 0.91);
-				preset_base_color = Color(0.17, 0.18, 0.20);
+				preset_base_color = Color(0.18, 0.19, 0.20);
 			}
 
 			config.accent_color = preset_accent_color;
