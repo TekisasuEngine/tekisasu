@@ -37,7 +37,9 @@
 #include "editor/themes/editor_scale.h"
 #include "editor/themes/editor_theme_manager.h"
 #include "scene/gui/graph_edit.h"
-#include "scene/resources/dpi_texture.h"
+// NOTE: DPITexture was removed from this backport for simplicity. 
+// If DPITexture is backported in the future, uncomment the following line:
+// #include "scene/resources/dpi_texture.h"
 #include "scene/resources/image_texture.h"
 #include "scene/resources/style_box_flat.h"
 #include "scene/resources/style_box_line.h"
@@ -1361,10 +1363,15 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 			p_theme->set_constant("port_h_offset", "GraphNode", 1);
 			p_theme->set_constant("separation", "GraphNode", 1 * EDSCALE);
 
-			Ref<DPITexture> port_icon = p_theme->get_icon(SNAME("GuiGraphNodePort"), EditorStringName(EditorIcons));
-			// The true size is 24x24 This is necessary for sharp port icons at high zoom levels in GraphEdit (up to ~200%).
-			port_icon->set_size_override(Size2(12, 12));
-			p_theme->set_icon("port", "GraphNode", port_icon);
+			// NOTE: DPITexture was removed from this backport for simplicity.
+			// Original upstream code scaled the port icon from 24x24 to 12x12 for sharp rendering at high zoom.
+			// If DPITexture is backported in the future, restore this code:
+			// Ref<DPITexture> port_icon = p_theme->get_icon(SNAME("GuiGraphNodePort"), EditorStringName(EditorIcons));
+			// port_icon->set_size_override(Size2(12, 12));
+			// p_theme->set_icon("port", "GraphNode", port_icon);
+			
+			// For now, use the icon at its native size without DPI scaling:
+			p_theme->set_icon("port", "GraphNode", p_theme->get_icon(SNAME("GuiGraphNodePort"), EditorStringName(EditorIcons)));
 
 			// GraphNode's title Label.
 			p_theme->set_type_variation("GraphNodeTitleLabel", "Label");

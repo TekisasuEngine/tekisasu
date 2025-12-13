@@ -23,7 +23,6 @@ improved visual hierarchy and updated styling for editor controls and panels.
 - Modern theme with updated colors, spacing, and control styles
 - Theme-specific adjustments for corner radius and relationship line rendering
 - Improved theme generation system with modular style population
-- DPITexture resource for resolution-independent texture scaling in themes
 
 ### Modifications for Tekisasu
 
@@ -45,6 +44,24 @@ Godot 4.4+ and the Tekisasu codebase (based on Godot 4.3.1):
 4. **Accent Color Setting:** Retained the existing Tekisasu accent color setting
    and behavior from the original theme system.
 
+5. **API Compatibility:** Adapted all Godot 4.6 API calls to Godot 4.3 equivalents:
+   - Replaced `SceneStringName(hover)` and `SceneStringName(FlatButton)` with string literals
+   - Fixed `ConfigFile::get_section_keys()` to use output parameter pattern
+   - Fixed `EditorSettings::is_default_text_editor_theme()` to take no parameters
+   - Replaced `RenderingServer::free_rid()` with `free()` method
+   - Removed `PROPERTY_HINT_DICTIONARY_TYPE` usage
+
+6. **Initialization Safety:** Added safety checks in `_create_theme_config()` to handle
+   early initialization before EditorSettings is fully set up, preventing crashes.
+
+7. **DPITexture Exclusion:** The `DPITexture` resource was **excluded** from this backport
+   for simplicity and to avoid additional complexity. DPITexture was only used for scaling
+   GraphNode port icons from 24x24 to 12x12 for better appearance at high zoom levels.
+   - Port icons now use their native size without DPI scaling
+   - All DPITexture references are documented with comments indicating where to restore
+     functionality if DPITexture is backported in the future
+   - See comments in `theme_modern.cpp`, `theme_classic.cpp`, and `register_scene_types.cpp`
+
 ### Files Changed
 
 - `editor/themes/theme_modern.cpp` - Modern theme style population (new file)
@@ -56,12 +73,17 @@ Godot 4.4+ and the Tekisasu codebase (based on Godot 4.3.1):
 - `editor/editor_settings.cpp` - Added `interface/theme/style` setting
 - `editor/editor_settings_dialog.cpp` - Theme style setting UI integration
 - `editor/project_manager/quick_settings_dialog.cpp` - Quick settings theme integration
-- `scene/resources/dpi_texture.cpp` - DPITexture resource implementation (new file)
-- `scene/resources/dpi_texture.h` - DPITexture resource declaration (new file)
 - `doc/classes/EditorSettings.xml` - Documentation for new theme style setting
 - `editor/themes/editor_icons.cpp` - Icon system updates for theme support
 - `editor/themes/editor_icons.h` - Icon system header updates
 - `editor/editor_audio_buses.cpp` - Theme integration updates
+- `scene/register_scene_types.cpp` - Marked DPITexture registration location for future backport
+
+### Files NOT Included from Upstream
+
+- `scene/resources/dpi_texture.cpp` - DPITexture implementation (excluded for simplicity)
+- `scene/resources/dpi_texture.h` - DPITexture header (excluded for simplicity)
+- `doc/classes/DPITexture.xml` - DPITexture documentation (excluded)
 
 ## godotengine/godot#108079 - Add tab menu button to list currently opened scenes
 
