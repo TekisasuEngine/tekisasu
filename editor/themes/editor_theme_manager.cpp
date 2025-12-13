@@ -2902,7 +2902,8 @@ bool EditorThemeManager::is_dark_theme() {
 }
 
 bool EditorThemeManager::is_dark_icon_and_font() {
-	// Keep compatibility with existing icon/font color logic.
+	// Compatibility wrapper: currently mirrors is_dark_theme() until icon/font selection
+	// gains separate handling for future theme styles.
 	return is_dark_theme();
 }
 
