@@ -54,6 +54,12 @@ class EditorThemeManager {
 	};
 
 public:
+	enum RelationshipLinesMode {
+		RELATIONSHIP_NONE,
+		RELATIONSHIP_SELECTED_ONLY,
+		RELATIONSHIP_ALL,
+	};
+
 	struct ThemeConfiguration {
 		// Basic properties.
 
@@ -87,7 +93,7 @@ public:
 
 		// Make sure to keep those in sync with the definitions in the editor settings.
 		static constexpr float default_icon_saturation = 2.0;
-		static constexpr int default_relationship_lines = RELATIONSHIP_SELECTED_ONLY;
+		static constexpr int default_relationship_lines = EditorThemeManager::RELATIONSHIP_SELECTED_ONLY;
 		static constexpr float default_contrast = 0.3;
 		static constexpr int default_corner_radius = 4;
 
@@ -190,12 +196,6 @@ public:
 		uint32_t hash();
 		uint32_t hash_fonts();
 		uint32_t hash_icons();
-	};
-
-	enum RelationshipLinesMode {
-		RELATIONSHIP_NONE,
-		RELATIONSHIP_SELECTED_ONLY,
-		RELATIONSHIP_ALL,
 	};
 
 private:
