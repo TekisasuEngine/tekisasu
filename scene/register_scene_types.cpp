@@ -118,6 +118,7 @@
 #include "scene/resources/compositor.h"
 #include "scene/resources/compressed_texture.h"
 #include "scene/resources/curve_texture.h"
+#include "scene/resources/dpi_texture.h"
 #include "scene/resources/environment.h"
 #include "scene/resources/font.h"
 #include "scene/resources/gradient.h"
@@ -924,6 +925,7 @@ void register_scene_types() {
 	GDREGISTER_CLASS(PortableCompressedTexture2D);
 	GDREGISTER_CLASS(ImageTexture);
 	GDREGISTER_CLASS(AtlasTexture);
+	GDREGISTER_CLASS(DPITexture);
 	GDREGISTER_CLASS(MeshTexture);
 	GDREGISTER_CLASS(CurveTexture);
 	GDREGISTER_CLASS(CurveXYZTexture);
