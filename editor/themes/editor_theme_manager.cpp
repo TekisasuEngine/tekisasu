@@ -451,7 +451,7 @@ void _load_text_editor_theme() {
 	EditorSettings *settings = EditorSettings::get_singleton();
 	const String theme_name = settings->get_setting("text_editor/theme/color_theme");
 
-	ERR_FAIL_COND(EditorSettings::is_default_text_editor_theme(theme_name.get_file().to_lower()));
+	ERR_FAIL_COND(EditorSettings::get_singleton()->is_default_text_editor_theme());
 
 	const String theme_path = EditorPaths::get_singleton()->get_text_editor_themes_dir().path_join(theme_name + ".tet");
 
@@ -460,7 +460,8 @@ void _load_text_editor_theme() {
 	Error err = cf->load(theme_path);
 	ERR_FAIL_COND_MSG(err != OK, vformat("Failed to load text editor theme file '%s': %s", theme_name, error_names[err]));
 
-	const PackedStringArray keys = cf->get_section_keys("color_theme");
+	List<String> keys;
+	cf->get_section_keys("color_theme", &keys);
 
 	for (const String &key : keys) {
 		const String setting_key = "text_editor/theme/highlighting/" + key;

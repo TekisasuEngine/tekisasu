@@ -158,7 +158,7 @@ void DPITexture::_remove_scale(double p_scale) {
 	RID *rid = texture_cache.getptr(p_scale);
 	if (rid) {
 		if (rid->is_valid()) {
-			RenderingServer::get_singleton()->free_rid(*rid);
+			RenderingServer::get_singleton()->free(*rid);
 		}
 		texture_cache.erase(p_scale);
 	}
@@ -233,12 +233,12 @@ RID DPITexture::_load_at_scale(double p_scale, bool p_set_size) const {
 void DPITexture::_clear() {
 	for (KeyValue<double, RID> &tx : texture_cache) {
 		if (tx.value.is_valid()) {
-			RenderingServer::get_singleton()->free_rid(tx.value);
+			RenderingServer::get_singleton()->free(tx.value);
 		}
 	}
 	texture_cache.clear();
 	if (base_texture.is_valid()) {
-		RenderingServer::get_singleton()->free_rid(base_texture);
+		RenderingServer::get_singleton()->free(base_texture);
 	}
 	base_texture = RID();
 	alpha_cache.unref();
@@ -278,13 +278,14 @@ bool DPITexture::has_alpha() const {
 
 RID DPITexture::get_scaled_rid() const {
 	double scale = 1.0;
-	CanvasItem *ci = CanvasItem::get_current_item_drawn();
-	if (ci) {
-		Viewport *vp = ci->get_viewport();
-		if (vp) {
-			scale = vp->get_oversampling();
-		}
-	}
+	// Note: Viewport::get_oversampling() doesn't exist in Godot 4.3, use default scale.
+	// CanvasItem *ci = CanvasItem::get_current_item_drawn();
+	// if (ci) {
+	// 	Viewport *vp = ci->get_viewport();
+	// 	if (vp) {
+	// 		scale = vp->get_oversampling();
+	// 	}
+	// }
 	return _ensure_scale(scale);
 }
 
@@ -372,7 +373,7 @@ void DPITexture::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::STRING, "_source", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_INTERNAL | PROPERTY_USAGE_STORAGE), "set_source", "get_source");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "base_scale", PROPERTY_HINT_RANGE, "0.01,10.0,0.01"), "set_base_scale", "get_base_scale");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "saturation", PROPERTY_HINT_RANGE, "0.0,1.0,0.01"), "set_saturation", "get_saturation");
-	ADD_PROPERTY(PropertyInfo(Variant::DICTIONARY, "color_map", PROPERTY_HINT_DICTIONARY_TYPE, "Color;Color"), "set_color_map", "get_color_map");
+	ADD_PROPERTY(PropertyInfo(Variant::DICTIONARY, "color_map"), "set_color_map", "get_color_map");
 }
 
 DPITexture::~DPITexture() {

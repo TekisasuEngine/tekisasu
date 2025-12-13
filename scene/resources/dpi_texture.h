@@ -94,7 +94,8 @@ public:
 	RID get_rid() const override;
 
 	bool has_alpha() const override;
-	RID get_scaled_rid() const override;
+	// Note: get_scaled_rid() is not an override in Godot 4.3 - it's a custom method for this class
+	RID get_scaled_rid() const;
 	void draw(RID p_canvas_item, const Point2 &p_pos, const Color &p_modulate = Color(1, 1, 1), bool p_transpose = false) const override;
 	void draw_rect(RID p_canvas_item, const Rect2 &p_rect, bool p_tile = false, const Color &p_modulate = Color(1, 1, 1), bool p_transpose = false) const override;
 	void draw_rect_region(RID p_canvas_item, const Rect2 &p_rect, const Rect2 &p_src_rect, const Color &p_modulate = Color(1, 1, 1), bool p_transpose = false, bool p_clip_uv = true) const override;
