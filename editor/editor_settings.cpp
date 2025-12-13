@@ -1011,6 +1011,7 @@ const String EditorSettings::_get_project_metadata_path() const {
 
 #ifndef DISABLE_DEPRECATED
 void EditorSettings::_remove_deprecated_settings() {
+	// Renamed to interface/theme/color_preset in 4.3 to clarify it only affects colors.
 	erase("interface/theme/preset");
 	erase("run/output/always_open_output_on_play");
 	erase("run/output/always_close_output_on_stop");

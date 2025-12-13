@@ -139,8 +139,9 @@ void DPITexture::set_color_map(const Dictionary &p_color_map) {
 	}
 	color_map = p_color_map;
 	cmap.clear();
-	for (const Variant *E = color_map.next(); E; E = color_map.next(E)) {
-		cmap[*E] = color_map[*E];
+	Array keys = color_map.keys();
+	for (int i = 0; i < keys.size(); i++) {
+		cmap[keys[i]] = color_map[keys[i]];
 	}
 	_update_texture();
 }
