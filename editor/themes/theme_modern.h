@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  editor_icons.h                                                        */
+/*  editor_theme_manager.cpp                                              */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -30,15 +30,11 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef EDITOR_ICONS_H
-#define EDITOR_ICONS_H
+#include "editor_theme_manager.h"
 
-#include "scene/resources/theme.h"
-
-void editor_configure_icons(bool p_dark_icon_and_font);
-void editor_register_icons(const Ref<Theme> &p_theme, bool p_dark_icon_and_font, float p_icon_saturation, int p_thumb_size, float p_gizmo_handle_scale);
-void editor_copy_icons(const Ref<Theme> &p_theme, const Ref<Theme> &p_old_theme);
-
-String get_default_project_icon();
-
-#endif // EDITOR_ICONS_H
+class ThemeModern {
+public:
+	static void populate_shared_styles(const Ref<EditorTheme> &p_theme, EditorThemeManager::ThemeConfiguration &p_config);
+	static void populate_standard_styles(const Ref<EditorTheme> &p_theme, EditorThemeManager::ThemeConfiguration &p_config);
+	static void populate_editor_styles(const Ref<EditorTheme> &p_theme, EditorThemeManager::ThemeConfiguration &p_config);
+};

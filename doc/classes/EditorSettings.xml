@@ -886,9 +886,6 @@
 			The saturation to use for editor icons. Higher values result in more vibrant colors.
 			[b]Note:[/b] The default editor icon saturation was increased by 30% in Tekisasu 4.0 and later. To get Tekisasu 3.x's icon saturation back, set [member interface/theme/icon_saturation] to [code]0.77[/code].
 		</member>
-		<member name="interface/theme/preset" type="String" setter="" getter="">
-			The editor theme preset to use.
-		</member>
 		<member name="interface/theme/relationship_line_opacity" type="float" setter="" getter="">
 			The opacity to use when drawing relationship lines in the editor's [Tree]-based GUIs (such as the Scene tree dock).
 		</member>

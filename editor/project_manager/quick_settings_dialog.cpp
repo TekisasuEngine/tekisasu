@@ -62,7 +62,7 @@ void QuickSettingsDialog::_fetch_setting_values() {
 #ifndef ANDROID_ENABLED
 				editor_languages = pi.hint_string.split(",");
 #endif
-			} else if (pi.name == "interface/theme/preset") {
+			} else if (pi.name == "interface/theme/color_preset") {
 				editor_themes = pi.hint_string.split(",");
 			} else if (pi.name == "interface/editor/display_scale") {
 				editor_scales = pi.hint_string.split(",");
@@ -93,7 +93,7 @@ void QuickSettingsDialog::_update_current_values() {
 
 	// Theme options.
 	{
-		const String current_theme = EDITOR_GET("interface/theme/preset");
+		const String current_theme = EDITOR_GET("interface/theme/color_preset");
 
 		for (int i = 0; i < editor_themes.size(); i++) {
 			const String &theme_value = editor_themes[i];
@@ -168,7 +168,7 @@ void QuickSettingsDialog::_language_selected(int p_id) {
 
 void QuickSettingsDialog::_theme_selected(int p_id) {
 	const String selected_theme = theme_option_button->get_item_text(p_id);
-	_set_setting_value("interface/theme/preset", selected_theme);
+	_set_setting_value("interface/theme/color_preset", selected_theme);
 
 	custom_theme_label->set_visible(selected_theme == "Custom");
 }

@@ -45,9 +45,9 @@
 #include "modules/svg/image_loader_svg.h"
 #endif
 
-void editor_configure_icons(bool p_dark_theme) {
+void editor_configure_icons(bool p_dark_icon_and_font) {
 #ifdef MODULE_SVG_ENABLED
-	if (p_dark_theme) {
+	if (p_dark_icon_and_font) {
 		ImageLoaderSVG::set_forced_color_map(HashMap<Color, Color>());
 	} else {
 		ImageLoaderSVG::set_forced_color_map(EditorColorMap::get_color_conversion_map());
@@ -101,7 +101,7 @@ float get_gizmo_handle_scale(const String &p_gizmo_handle_name, float p_gizmo_ha
 	return EDSCALE;
 }
 
-void editor_register_icons(const Ref<Theme> &p_theme, bool p_dark_theme, float p_icon_saturation, int p_thumb_size, float p_gizmo_handle_scale) {
+void editor_register_icons(const Ref<Theme> &p_theme, bool p_dark_icon_and_font, float p_icon_saturation, int p_thumb_size, float p_gizmo_handle_scale) {
 	// Before we register the icons, we adjust their colors and saturation.
 	// Most icons follow the standard rules for color conversion to follow the editor
 	// theme's polarity (dark/light). We also adjust the saturation for most icons,
@@ -114,7 +114,7 @@ void editor_register_icons(const Ref<Theme> &p_theme, bool p_dark_theme, float p
 	HashMap<Color, Color> color_conversion_map;
 	// Icons by default are set up for the dark theme, so if the theme is light,
 	// we apply the dark-to-light color conversion map.
-	if (!p_dark_theme) {
+	if (!p_dark_icon_and_font) {
 		for (KeyValue<Color, Color> &E : EditorColorMap::get_color_conversion_map()) {
 			color_conversion_map[E.key] = E.value;
 		}
