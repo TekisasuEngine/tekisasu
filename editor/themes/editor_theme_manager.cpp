@@ -56,6 +56,8 @@ uint32_t EditorThemeManager::ThemeConfiguration::hash() {
 	// Basic properties.
 
 	hash = hash_murmur3_one_32(preset.hash(), hash);
+	hash = hash_murmur3_one_32(color_preset.hash(), hash);
+	hash = hash_murmur3_one_32(style.hash(), hash);
 	hash = hash_murmur3_one_32(spacing_preset.hash(), hash);
 
 	hash = hash_murmur3_one_32(base_color.to_rgba32(), hash);
@@ -72,6 +74,7 @@ uint32_t EditorThemeManager::ThemeConfiguration::hash() {
 
 	hash = hash_murmur3_one_32((int)draw_extra_borders, hash);
 	hash = hash_murmur3_one_float(relationship_line_opacity, hash);
+	hash = hash_murmur3_one_32(draw_relationship_lines, hash);
 	hash = hash_murmur3_one_32(thumb_size, hash);
 	hash = hash_murmur3_one_32(class_icon_size, hash);
 	hash = hash_murmur3_one_32((int)increase_scrollbar_touch_area, hash);
@@ -228,6 +231,8 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 	// Basic properties.
 
 	config.preset = EDITOR_GET("interface/theme/preset");
+	config.color_preset = EDITOR_GET("interface/theme/color_preset");
+	config.style = EDITOR_GET("interface/theme/style");
 	config.spacing_preset = EDITOR_GET("interface/theme/spacing_preset");
 
 	config.base_color = EDITOR_GET("interface/theme/base_color");
@@ -245,6 +250,7 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 
 	config.draw_extra_borders = EDITOR_GET("interface/theme/draw_extra_borders");
 	config.relationship_line_opacity = EDITOR_GET("interface/theme/relationship_line_opacity");
+	config.draw_relationship_lines = EDITOR_GET("interface/theme/draw_relationship_lines");
 	config.thumb_size = EDITOR_GET("filesystem/file_dialog/thumbnail_size");
 	config.class_icon_size = 16 * EDSCALE;
 	config.increase_scrollbar_touch_area = EDITOR_GET("interface/touchscreen/increase_scrollbar_touch_area");
@@ -1045,7 +1051,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			Color parent_line_color = p_config.mono_color * Color(1, 1, 1, CLAMP(p_config.relationship_line_opacity + 0.45, 0.0, 1.0));
 			Color children_line_color = p_config.mono_color * Color(1, 1, 1, CLAMP(p_config.relationship_line_opacity + 0.25, 0.0, 1.0));
 
-			p_theme->set_constant("draw_relationship_lines", "Tree", p_config.relationship_line_opacity >= 0.01);
+			int draw_relationship_lines = p_config.relationship_line_opacity < 0.01 ? 0 : p_config.draw_relationship_lines;
+			p_theme->set_constant("draw_relationship_lines", "Tree", draw_relationship_lines);
 			p_theme->set_constant("relationship_line_width", "Tree", relationship_line_width);
 			p_theme->set_constant("parent_hl_line_width", "Tree", relationship_line_width * 2);
 			p_theme->set_constant("children_hl_line_width", "Tree", relationship_line_width);
@@ -2892,6 +2899,11 @@ bool EditorThemeManager::is_dark_theme() {
 	}
 
 	return icon_font_color_setting == ColorMode::LIGHT_COLOR;
+}
+
+bool EditorThemeManager::is_dark_icon_and_font() {
+	// Keep compatibility with existing icon/font color logic.
+	return is_dark_theme();
 }
 
 void EditorThemeManager::initialize() {

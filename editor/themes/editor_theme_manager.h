@@ -53,6 +53,8 @@ class EditorThemeManager {
 		// Basic properties.
 
 		String preset;
+		String color_preset;
+		String style;
 		String spacing_preset;
 
 		Color base_color;
@@ -70,6 +72,7 @@ class EditorThemeManager {
 
 		bool draw_extra_borders = false;
 		float relationship_line_opacity = 1.0;
+		int draw_relationship_lines = 2;
 		int thumb_size = 16;
 		int class_icon_size = 16;
 		bool increase_scrollbar_touch_area = false;
@@ -177,6 +180,7 @@ public:
 	static bool is_generated_theme_outdated();
 
 	static bool is_dark_theme();
+	static bool is_dark_icon_and_font();
 
 	static void initialize();
 	static void finalize();
