@@ -32,7 +32,7 @@
 
 #include "editor_theme_manager.h"
 #include "editor/editor_string_names.h"
-#include "editor/settings/editor_settings.h"
+#include "editor/editor_settings.h"
 #include "editor/themes/editor_scale.h"
 #include "editor/themes/editor_theme_manager.h"
 #include "scene/gui/graph_edit.h"
