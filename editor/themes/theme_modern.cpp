@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  editor_theme_manager.cpp                                              */
+/*  theme_modern.cpp                                                      */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -30,7 +30,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "editor_theme_manager.h"
+#include "theme_modern.h"
+
 #include "editor/editor_string_names.h"
 #include "editor/editor_settings.h"
 #include "editor/themes/editor_scale.h"

@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*  editor_theme_manager.cpp                                              */
+/*  theme_classic.h                                                       */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                            TEKISASU ENGINE                             */
@@ -30,6 +30,9 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
+#ifndef THEME_CLASSIC_H
+#define THEME_CLASSIC_H
+
 #include "editor_theme_manager.h"
 
 class ThemeClassic {
@@ -38,3 +41,5 @@ public:
 	static void populate_standard_styles(const Ref<EditorTheme> &p_theme, EditorThemeManager::ThemeConfiguration &p_config);
 	static void populate_editor_styles(const Ref<EditorTheme> &p_theme, EditorThemeManager::ThemeConfiguration &p_config);
 };
+
+#endif // THEME_CLASSIC_H
