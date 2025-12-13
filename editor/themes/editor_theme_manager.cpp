@@ -239,34 +239,38 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 	ThemeConfiguration config;
 
 	// Basic properties.
+	// Note: During early initialization, EditorSettings might not be fully set up yet.
+	// Use safe accessors with defaults.
+	EditorSettings *es = EditorSettings::get_singleton();
+	
+	config.style = (es && es->has_setting("interface/theme/style")) ? String(es->get("interface/theme/style")) : "Modern";
+	config.preset = (es && es->has_setting("interface/theme/color_preset")) ? String(es->get("interface/theme/color_preset")) : "Default";
+	config.spacing_preset = (es && es->has_setting("interface/theme/spacing_preset")) ? String(es->get("interface/theme/spacing_preset")) : "Default";
 
-	config.style = EDITOR_GET("interface/theme/style");
-	config.preset = EDITOR_GET("interface/theme/color_preset");
-	config.spacing_preset = EDITOR_GET("interface/theme/spacing_preset");
-
-	config.base_color = EDITOR_GET("interface/theme/base_color");
-	config.accent_color = EDITOR_GET("interface/theme/accent_color");
-	config.contrast = EDITOR_GET("interface/theme/contrast");
-	config.icon_saturation = EDITOR_GET("interface/theme/icon_saturation");
-	config.corner_radius = EDITOR_GET("interface/theme/corner_radius");
+	config.base_color = (es && es->has_setting("interface/theme/base_color")) ? Color(es->get("interface/theme/base_color")) : Color(0.14, 0.14, 0.14);
+	config.accent_color = (es && es->has_setting("interface/theme/accent_color")) ? Color(es->get("interface/theme/accent_color")) : Color(0.40, 0.52, 0.91);
+	config.contrast = (es && es->has_setting("interface/theme/contrast")) ? float(es->get("interface/theme/contrast")) : 0.3f;
+	config.icon_saturation = (es && es->has_setting("interface/theme/icon_saturation")) ? float(es->get("interface/theme/icon_saturation")) : 1.0f;
+	config.corner_radius = (es && es->has_setting("interface/theme/corner_radius")) ? int(es->get("interface/theme/corner_radius")) : 4;
 
 	// Extra properties.
 
-	config.base_spacing = EDITOR_GET("interface/theme/base_spacing");
-	config.extra_spacing = EDITOR_GET("interface/theme/additional_spacing");
+	config.base_spacing = (es && es->has_setting("interface/theme/base_spacing")) ? int(es->get("interface/theme/base_spacing")) : 4;
+	config.extra_spacing = (es && es->has_setting("interface/theme/additional_spacing")) ? int(es->get("interface/theme/additional_spacing")) : 0;
 	// Ensure borders are visible when using an editor scale below 100%.
-	config.border_width = CLAMP((int)EDITOR_GET("interface/theme/border_size"), 0, 2) * MAX(1, EDSCALE);
+	int border_size = (es && es->has_setting("interface/theme/border_size")) ? int(es->get("interface/theme/border_size")) : 0;
+	config.border_width = CLAMP(border_size, 0, 2) * MAX(1, EDSCALE);
 
-	config.draw_extra_borders = EDITOR_GET("interface/theme/draw_extra_borders");
-	config.draw_relationship_lines = EDITOR_GET("interface/theme/draw_relationship_lines");
-	config.relationship_line_opacity = EDITOR_GET("interface/theme/relationship_line_opacity");
-	config.thumb_size = EDITOR_GET("filesystem/file_dialog/thumbnail_size");
+	config.draw_extra_borders = (es && es->has_setting("interface/theme/draw_extra_borders")) ? bool(es->get("interface/theme/draw_extra_borders")) : false;
+	config.draw_relationship_lines = (es && es->has_setting("interface/theme/draw_relationship_lines")) ? int(es->get("interface/theme/draw_relationship_lines")) : EditorThemeManager::RELATIONSHIP_SELECTED_ONLY;
+	config.relationship_line_opacity = (es && es->has_setting("interface/theme/relationship_line_opacity")) ? float(es->get("interface/theme/relationship_line_opacity")) : 0.1f;
+	config.thumb_size = (es && es->has_setting("filesystem/file_dialog/thumbnail_size")) ? int(es->get("filesystem/file_dialog/thumbnail_size")) : 64;
 	config.class_icon_size = 16 * EDSCALE;
-	config.enable_touch_optimizations = EDITOR_GET("interface/touchscreen/enable_touch_optimizations");
-	config.gizmo_handle_scale = EDITOR_GET("interface/touchscreen/scale_gizmo_handles");
+	config.enable_touch_optimizations = (es && es->has_setting("interface/touchscreen/enable_touch_optimizations")) ? bool(es->get("interface/touchscreen/enable_touch_optimizations")) : false;
+	config.gizmo_handle_scale = (es && es->has_setting("interface/touchscreen/scale_gizmo_handles")) ? float(es->get("interface/touchscreen/scale_gizmo_handles")) : 1.0f;
 	config.color_picker_button_height = 28 * EDSCALE;
-	config.subresource_hue_tint = EDITOR_GET("docks/property_editor/subresource_hue_tint");
-	config.dragging_hover_wait_msec = (float)EDITOR_GET("interface/editor/dragging_hover_wait_seconds") * 1000;
+	config.subresource_hue_tint = (es && es->has_setting("docks/property_editor/subresource_hue_tint")) ? float(es->get("docks/property_editor/subresource_hue_tint")) : 0.75f;
+	config.dragging_hover_wait_msec = (es && es->has_setting("interface/editor/dragging_hover_wait_seconds")) ? float(es->get("interface/editor/dragging_hover_wait_seconds")) * 1000 : 1000.0f;
 
 	// Handle theme style.
 	if (config.preset != "Custom") {
@@ -278,18 +282,20 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			config.corner_radius = config.default_corner_radius;
 		}
 
-		EditorSettings::get_singleton()->set_initial_value("interface/theme/draw_relationship_lines", config.draw_relationship_lines);
-		EditorSettings::get_singleton()->set_initial_value("interface/theme/corner_radius", config.corner_radius);
+		if (es) {
+			es->set_initial_value("interface/theme/draw_relationship_lines", config.draw_relationship_lines);
+			es->set_initial_value("interface/theme/corner_radius", config.corner_radius);
 
-		// Enforce values in case they were adjusted or overridden.
-		EditorSettings::get_singleton()->set_manually("interface/theme/draw_relationship_lines", config.draw_relationship_lines);
-		EditorSettings::get_singleton()->set_manually("interface/theme/corner_radius", config.corner_radius);
+			// Enforce values in case they were adjusted or overridden.
+			es->set_manually("interface/theme/draw_relationship_lines", config.draw_relationship_lines);
+			es->set_manually("interface/theme/corner_radius", config.corner_radius);
+		}
 	}
 
 	// Handle color preset.
 	{
-		const bool follow_system_theme = EDITOR_GET("interface/theme/follow_system_theme");
-		const bool use_system_accent_color = EDITOR_GET("interface/theme/use_system_accent_color");
+		const bool follow_system_theme = (es && es->has_setting("interface/theme/follow_system_theme")) ? bool(es->get("interface/theme/follow_system_theme")) : false;
+		const bool use_system_accent_color = (es && es->has_setting("interface/theme/use_system_accent_color")) ? bool(es->get("interface/theme/use_system_accent_color")) : false;
 		DisplayServer *display_server = DisplayServer::get_singleton();
 		Color system_base_color = display_server->get_base_color();
 		Color system_accent_color = display_server->get_accent_color();
@@ -382,12 +388,14 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 		}
 
 		// Enforce values in case they were adjusted or overridden.
-		EditorSettings::get_singleton()->set_manually("interface/theme/color_preset", config.preset);
-		EditorSettings::get_singleton()->set_manually("interface/theme/accent_color", config.accent_color);
-		EditorSettings::get_singleton()->set_manually("interface/theme/base_color", config.base_color);
-		EditorSettings::get_singleton()->set_manually("interface/theme/contrast", config.contrast);
-		EditorSettings::get_singleton()->set_manually("interface/theme/draw_extra_borders", config.draw_extra_borders);
-		EditorSettings::get_singleton()->set_manually("interface/theme/icon_saturation", config.icon_saturation);
+		if (es) {
+			es->set_manually("interface/theme/color_preset", config.preset);
+			es->set_manually("interface/theme/accent_color", config.accent_color);
+			es->set_manually("interface/theme/base_color", config.base_color);
+			es->set_manually("interface/theme/contrast", config.contrast);
+			es->set_manually("interface/theme/draw_extra_borders", config.draw_extra_borders);
+			es->set_manually("interface/theme/icon_saturation", config.icon_saturation);
+		}
 	}
 
 	// Handle theme spacing preset.
@@ -415,14 +423,18 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			config.extra_spacing = preset_extra_spacing;
 			config.dialogs_buttons_min_size = preset_dialogs_buttons_min_size;
 
-			EditorSettings::get_singleton()->set_initial_value("interface/theme/base_spacing", config.base_spacing);
-			EditorSettings::get_singleton()->set_initial_value("interface/theme/additional_spacing", config.extra_spacing);
+			if (es) {
+				es->set_initial_value("interface/theme/base_spacing", config.base_spacing);
+				es->set_initial_value("interface/theme/additional_spacing", config.extra_spacing);
+			}
 		}
 
 		// Enforce values in case they were adjusted or overridden.
-		EditorSettings::get_singleton()->set_manually("interface/theme/spacing_preset", config.spacing_preset);
-		EditorSettings::get_singleton()->set_manually("interface/theme/base_spacing", config.base_spacing);
-		EditorSettings::get_singleton()->set_manually("interface/theme/additional_spacing", config.extra_spacing);
+		if (es) {
+			es->set_manually("interface/theme/spacing_preset", config.spacing_preset);
+			es->set_manually("interface/theme/base_spacing", config.base_spacing);
+			es->set_manually("interface/theme/additional_spacing", config.extra_spacing);
+		}
 	}
 
 	// Generated properties.
