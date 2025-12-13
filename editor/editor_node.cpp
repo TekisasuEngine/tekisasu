@@ -6541,8 +6541,8 @@ void EditorNode::_renderer_selected(int p_which) {
 
 	renderer_request = rendering_method;
 	video_restart_dialog->set_text(
-			vformat(TTR("Changing the renderer requires restarting the editor.\n\nChoosing Save & Restart will change the rendering method to:\n- %s\n"),
-					renderer_request, renderer_request.replace("forward_plus", "mobile")));
+		vformat(TTR("Changing the renderer requires restarting the editor.\n\nChoosing Save & Restart will change the rendering method to:\n- %s\n"),
+				renderer_request));
 	video_restart_dialog->popup_centered();
 	renderer->select(renderer_current);
 	_update_renderer_color();
