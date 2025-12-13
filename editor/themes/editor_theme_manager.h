@@ -38,6 +38,7 @@
 class StyleBoxFlat;
 class StyleBoxLine;
 class StyleBoxTexture;
+class StyleBoxEmpty;
 
 class EditorThemeManager {
 	static int benchmark_run;

@@ -30,7 +30,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#pragma once
+#ifndef DPI_TEXTURE_H
+#define DPI_TEXTURE_H
 
 #include "core/templates/lru.h"
 #include "scene/resources/texture.h"
@@ -106,3 +107,5 @@ public:
 
 	~DPITexture();
 };
+
+#endif // DPI_TEXTURE_H
