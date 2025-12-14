@@ -2108,7 +2108,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			object_selector_hover->set_bg_color(p_config.base_color.lightened(0.1));
 
 			Ref<StyleBoxFlat> object_selector_pressed = p_config.button_style->duplicate();
-			object_selector_pressed->set_bg_color(p_config.base_color.lightened(0.001));
+			object_selector_pressed->set_bg_color(p_config.base_color.darkened(0.05));
 
 			p_theme->set_stylebox(CoreStringName(normal), "EditorObjectSelector", object_selector_normal);
 			p_theme->set_stylebox("hover", "EditorObjectSelector", object_selector_hover);
