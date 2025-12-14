@@ -1147,11 +1147,6 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		Ref<StyleBoxFlat> style_tab_selected = style_tab_base->duplicate();
 
 		style_tab_selected->set_bg_color(p_config.base_color);
-		// Add a highlight line at the top of the selected tab.
-		style_tab_selected->set_border_width(SIDE_TOP, Math::round(2 * EDSCALE));
-		// Make the highlight line prominent, but not too prominent as to not be distracting.
-		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
-		style_tab_selected->set_border_color(tab_highlight);
 
 		Ref<StyleBoxFlat> style_tab_hovered = style_tab_base->duplicate();
 
