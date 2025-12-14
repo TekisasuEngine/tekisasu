@@ -542,6 +542,7 @@ ActionMapEditor::ActionMapEditor() {
 	main_vbox->add_child(top_hbox);
 
 	action_list_search = memnew(LineEdit);
+	action_list_search->set_theme_type_variation("SearchableLineEdit");
 	action_list_search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	action_list_search->set_placeholder(TTR("Filter by Name"));
 	action_list_search->set_clear_button_enabled(true);

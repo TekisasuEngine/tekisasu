@@ -668,6 +668,7 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 	main_vbox->add_child(manual_vbox);
 
 	input_list_search = memnew(LineEdit);
+	input_list_search->set_theme_type_variation("SearchableLineEdit");
 	input_list_search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	input_list_search->set_placeholder(TTR("Filter Inputs"));
 	input_list_search->set_clear_button_enabled(true);
