@@ -2061,19 +2061,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(pressed), "FlatButton", style_flat_button_pressed);
 			p_theme->set_stylebox("disabled", "FlatButton", style_flat_button);
 
-			// FlatMenuButton uses custom styles with lightened background colors
-			Ref<StyleBoxFlat> style_flat_menu_button_normal = p_config.button_style->duplicate();
-			style_flat_menu_button_normal->set_bg_color(p_config.base_color.lightened(0.1));
-
-			Ref<StyleBoxFlat> style_flat_menu_button_hover = p_config.button_style->duplicate();
-			style_flat_menu_button_hover->set_bg_color(p_config.base_color.lightened(0.2));
-
-			Ref<StyleBoxFlat> style_flat_menu_button_pressed = p_config.button_style->duplicate();
-			style_flat_menu_button_pressed->set_bg_color(p_config.base_color.lightened(0.05));
-
-			p_theme->set_stylebox(CoreStringName(normal), "FlatMenuButton", style_flat_menu_button_normal);
-			p_theme->set_stylebox("hover", "FlatMenuButton", style_flat_menu_button_hover);
-			p_theme->set_stylebox(SceneStringName(pressed), "FlatMenuButton", style_flat_menu_button_pressed);
+			p_theme->set_stylebox(CoreStringName(normal), "FlatMenuButton", style_flat_button);
+			p_theme->set_stylebox("hover", "FlatMenuButton", style_flat_button_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "FlatMenuButton", style_flat_button_pressed);
 			p_theme->set_stylebox("disabled", "FlatMenuButton", style_flat_button);
 
 			// Variation for Editor Log filter buttons.
@@ -2099,6 +2089,22 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(CoreStringName(normal), "EditorLogFilterButton", style_flat_button);
 			p_theme->set_stylebox("hover", "EditorLogFilterButton", style_flat_button_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "EditorLogFilterButton", editor_log_button_pressed);
+
+			// EditorObjectSelector variation with lightened background colors.
+			p_theme->set_type_variation("EditorObjectSelector", "Button");
+
+			Ref<StyleBoxFlat> object_selector_normal = p_config.button_style->duplicate();
+			object_selector_normal->set_bg_color(p_config.base_color.lightened(0.1));
+
+			Ref<StyleBoxFlat> object_selector_hover = p_config.button_style->duplicate();
+			object_selector_hover->set_bg_color(p_config.base_color.lightened(0.2));
+
+			Ref<StyleBoxFlat> object_selector_pressed = p_config.button_style->duplicate();
+			object_selector_pressed->set_bg_color(p_config.base_color.lightened(0.05));
+
+			p_theme->set_stylebox(CoreStringName(normal), "EditorObjectSelector", object_selector_normal);
+			p_theme->set_stylebox("hover", "EditorObjectSelector", object_selector_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "EditorObjectSelector", object_selector_pressed);
 		}
 
 		// Buttons styles that stand out against the panel background (e.g. AssetLib).
