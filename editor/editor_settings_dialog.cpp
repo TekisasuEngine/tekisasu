@@ -718,6 +718,7 @@ EditorSettingsDialog::EditorSettingsDialog() {
 	tab_general->add_child(hbc);
 
 	search_box = memnew(LineEdit);
+	search_box->set_theme_type_variation("SearchableLineEdit");
 	search_box->set_placeholder(TTR("Filter Settings"));
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hbc->add_child(search_box);
@@ -763,6 +764,7 @@ EditorSettingsDialog::EditorSettingsDialog() {
 	tab_shortcuts->add_child(top_hbox);
 
 	shortcut_search_box = memnew(LineEdit);
+	shortcut_search_box->set_theme_type_variation("SearchableLineEdit");
 	shortcut_search_box->set_placeholder(TTR("Filter by Name"));
 	shortcut_search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	top_hbox->add_child(shortcut_search_box);

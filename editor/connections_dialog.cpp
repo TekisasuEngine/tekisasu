@@ -768,6 +768,7 @@ ConnectDialog::ConnectDialog() {
 	method_popup->add_child(method_vbc);
 
 	method_search = memnew(LineEdit);
+	method_search->set_theme_type_variation("SearchableLineEdit");
 	method_vbc->add_child(method_search);
 	method_search->set_placeholder(TTR("Filter Methods"));
 	method_search->set_clear_button_enabled(true);
@@ -1586,6 +1587,7 @@ ConnectionsDock::ConnectionsDock() {
 	VBoxContainer *vbc = this;
 
 	search_box = memnew(LineEdit);
+	search_box->set_theme_type_variation("SearchableLineEdit");
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_box->set_placeholder(TTR("Filter Signals"));
 	search_box->set_clear_button_enabled(true);

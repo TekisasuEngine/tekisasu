@@ -737,6 +737,7 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	add_child(property_tools_hb);
 
 	search = memnew(LineEdit);
+	search->set_theme_type_variation("SearchableLineEdit");
 	search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search->set_placeholder(TTR("Filter Properties"));
 	search->set_clear_button_enabled(true);

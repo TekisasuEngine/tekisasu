@@ -1272,6 +1272,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("outline_size", "LineEdit", 0);
 		p_theme->set_constant("caret_width", "LineEdit", 1);
 
+		// SearchableLineEdit variation with lightened background.
+		p_theme->set_type_variation("SearchableLineEdit", "LineEdit");
+
+		Ref<StyleBoxFlat> searchable_line_edit_style = text_editor_style->duplicate();
+		searchable_line_edit_style->set_bg_color(p_config.base_color.lightened(0.05));
+
+		p_theme->set_stylebox(CoreStringName(normal), "SearchableLineEdit", searchable_line_edit_style);
+
 		// TextEdit.
 
 		p_theme->set_stylebox(CoreStringName(normal), "TextEdit", text_editor_style);
