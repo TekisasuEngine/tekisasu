@@ -2061,13 +2061,19 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(pressed), "FlatButton", style_flat_button_pressed);
 			p_theme->set_stylebox("disabled", "FlatButton", style_flat_button);
 
-			// FlatMenuButton uses a custom normal style with lightened background
+			// FlatMenuButton uses custom styles with lightened background colors
 			Ref<StyleBoxFlat> style_flat_menu_button_normal = p_config.button_style->duplicate();
 			style_flat_menu_button_normal->set_bg_color(p_config.base_color.lightened(0.1));
 
+			Ref<StyleBoxFlat> style_flat_menu_button_hover = p_config.button_style->duplicate();
+			style_flat_menu_button_hover->set_bg_color(p_config.base_color.lightened(0.2));
+
+			Ref<StyleBoxFlat> style_flat_menu_button_pressed = p_config.button_style->duplicate();
+			style_flat_menu_button_pressed->set_bg_color(p_config.base_color.lightened(0.05));
+
 			p_theme->set_stylebox(CoreStringName(normal), "FlatMenuButton", style_flat_menu_button_normal);
-			p_theme->set_stylebox("hover", "FlatMenuButton", style_flat_button_hover);
-			p_theme->set_stylebox(SceneStringName(pressed), "FlatMenuButton", style_flat_button_pressed);
+			p_theme->set_stylebox("hover", "FlatMenuButton", style_flat_menu_button_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "FlatMenuButton", style_flat_menu_button_pressed);
 			p_theme->set_stylebox("disabled", "FlatMenuButton", style_flat_button);
 
 			// Variation for Editor Log filter buttons.
