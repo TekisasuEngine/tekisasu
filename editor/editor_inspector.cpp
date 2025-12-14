@@ -1385,7 +1385,7 @@ void EditorInspectorSection::_notification(int p_what) {
 		case NOTIFICATION_THEME_CHANGED: {
 			update_minimum_size();
 			bg_color = get_theme_color(SNAME("prop_subsection"), EditorStringName(Editor));
-			bg_color.a = 0.0;
+			bg_color.a /= level;
 		} break;
 
 		case NOTIFICATION_SORT_CHILDREN: {
