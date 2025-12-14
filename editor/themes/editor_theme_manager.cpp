@@ -2061,7 +2061,14 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(pressed), "FlatButton", style_flat_button_pressed);
 			p_theme->set_stylebox("disabled", "FlatButton", style_flat_button);
 
-			p_theme->set_stylebox(CoreStringName(normal), "FlatMenuButton", style_flat_button);
+			// FlatMenuButton uses a custom normal style with lightened background
+			Ref<StyleBoxFlat> style_flat_menu_button_normal = p_config.button_style->duplicate();
+			for (int i = 0; i < 4; i++) {
+				style_flat_menu_button_normal->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
+			}
+			style_flat_menu_button_normal->set_bg_color(p_config.base_color.lightened(0.1));
+
+			p_theme->set_stylebox(CoreStringName(normal), "FlatMenuButton", style_flat_menu_button_normal);
 			p_theme->set_stylebox("hover", "FlatMenuButton", style_flat_button_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "FlatMenuButton", style_flat_button_pressed);
 			p_theme->set_stylebox("disabled", "FlatMenuButton", style_flat_button);
