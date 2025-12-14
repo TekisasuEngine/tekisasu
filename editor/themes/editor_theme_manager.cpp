@@ -1173,6 +1173,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_stylebox("tabbar_background", "TabContainer", style_tabbar_background);
 		p_theme->set_stylebox(SceneStringName(panel), "TabContainer", p_config.content_panel_style);
 
+		// Define tab highlight color for drop marks.
+		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
+
 		p_theme->set_stylebox("tab_selected", "TabContainer", style_tab_selected);
 		p_theme->set_stylebox("tab_hovered", "TabContainer", style_tab_hovered);
 		p_theme->set_stylebox("tab_unselected", "TabContainer", style_tab_unselected);
