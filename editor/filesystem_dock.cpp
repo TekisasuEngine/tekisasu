@@ -3998,6 +3998,7 @@ FileSystemDock::FileSystemDock() {
 	top_vbc->add_child(toolbar2_hbc);
 
 	tree_search_box = memnew(LineEdit);
+	tree_search_box->set_theme_type_variation("SearchableLineEdit");
 	tree_search_box->set_h_size_flags(SIZE_EXPAND_FILL);
 	tree_search_box->set_placeholder(TTR("Filter Files"));
 	tree_search_box->set_clear_button_enabled(true);
@@ -4050,6 +4051,7 @@ FileSystemDock::FileSystemDock() {
 	file_list_vb->add_child(path_hb);
 
 	file_list_search_box = memnew(LineEdit);
+	file_list_search_box->set_theme_type_variation("SearchableLineEdit");
 	file_list_search_box->set_h_size_flags(SIZE_EXPAND_FILL);
 	file_list_search_box->set_placeholder(TTR("Filter Files"));
 	file_list_search_box->set_clear_button_enabled(true);

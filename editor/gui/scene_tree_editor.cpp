@@ -1772,6 +1772,7 @@ SceneTreeDialog::SceneTreeDialog() {
 	content->add_child(filter_hbc);
 
 	filter = memnew(LineEdit);
+	filter->set_theme_type_variation("SearchableLineEdit");
 	filter->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	filter->set_placeholder(TTR("Filter Nodes"));
 	filter->set_clear_button_enabled(true);

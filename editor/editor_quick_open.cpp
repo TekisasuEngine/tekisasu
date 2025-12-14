@@ -297,6 +297,7 @@ EditorQuickOpen::EditorQuickOpen() {
 	add_child(vbc);
 
 	search_box = memnew(LineEdit);
+	search_box->set_theme_type_variation("SearchableLineEdit");
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &EditorQuickOpen::_text_changed));
 	search_box->connect(SceneStringName(gui_input), callable_mp(this, &EditorQuickOpen::_sbox_input));
 	vbc->add_margin_child(TTR("Search:"), search_box);

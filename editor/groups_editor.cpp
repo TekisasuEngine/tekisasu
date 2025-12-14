@@ -848,6 +848,7 @@ GroupsEditor::GroupsEditor() {
 	hbc->add_child(add);
 
 	filter = memnew(LineEdit);
+	filter->set_theme_type_variation("SearchableLineEdit");
 	filter->set_clear_button_enabled(true);
 	filter->set_placeholder(TTR("Filter Groups"));
 	filter->set_h_size_flags(SIZE_EXPAND_FILL);

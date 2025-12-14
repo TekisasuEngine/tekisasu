@@ -1272,6 +1272,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("outline_size", "LineEdit", 0);
 		p_theme->set_constant("caret_width", "LineEdit", 1);
 
+		// SearchableLineEdit variation with lightened background.
+		p_theme->set_type_variation("SearchableLineEdit", "LineEdit");
+
+		Ref<StyleBoxFlat> searchable_line_edit_style = text_editor_style->duplicate();
+		searchable_line_edit_style->set_bg_color(p_config.base_color.lightened(0.05));
+
+		p_theme->set_stylebox(CoreStringName(normal), "SearchableLineEdit", searchable_line_edit_style);
+
 		// TextEdit.
 
 		p_theme->set_stylebox(CoreStringName(normal), "TextEdit", text_editor_style);
@@ -2089,6 +2097,22 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(CoreStringName(normal), "EditorLogFilterButton", style_flat_button);
 			p_theme->set_stylebox("hover", "EditorLogFilterButton", style_flat_button_hover);
 			p_theme->set_stylebox(SceneStringName(pressed), "EditorLogFilterButton", editor_log_button_pressed);
+
+			// EditorObjectSelector variation with lightened background colors.
+			p_theme->set_type_variation("EditorObjectSelector", "Button");
+
+			Ref<StyleBoxFlat> object_selector_normal = p_config.button_style->duplicate();
+			object_selector_normal->set_bg_color(p_config.base_color.lightened(0.05));
+
+			Ref<StyleBoxFlat> object_selector_hover = p_config.button_style->duplicate();
+			object_selector_hover->set_bg_color(p_config.base_color.lightened(0.1));
+
+			Ref<StyleBoxFlat> object_selector_pressed = p_config.button_style->duplicate();
+			object_selector_pressed->set_bg_color(p_config.base_color.darkened(0.05));
+
+			p_theme->set_stylebox(CoreStringName(normal), "EditorObjectSelector", object_selector_normal);
+			p_theme->set_stylebox("hover", "EditorObjectSelector", object_selector_hover);
+			p_theme->set_stylebox(SceneStringName(pressed), "EditorObjectSelector", object_selector_pressed);
 		}
 
 		// Buttons styles that stand out against the panel background (e.g. AssetLib).
@@ -2293,9 +2317,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Color prop_category_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
 		// Color prop_section_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.09);
 		// Color prop_subsection_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.06);
-		Color prop_category_color = Color(p_config.base_color.r * 0.45, p_config.base_color.g * 0.45, p_config.base_color.b * 0.45, 0.75).clamp();
-		Color prop_section_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.95).clamp();
-		Color prop_subsection_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.95).clamp();
+		Color prop_category_color = p_config.accent_color.lerp(Color(0,0,0,0), 0.4).clamp();
+		Color prop_section_color = p_config.base_color.darkened(0.3).clamp();
+		Color prop_subsection_color = p_config.base_color.darkened(0.3).clamp();
 
 		p_theme->set_color("prop_category", EditorStringName(Editor), prop_category_color);
 		p_theme->set_color("prop_section", EditorStringName(Editor), prop_section_color);
@@ -2309,7 +2333,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		Ref<StyleBoxFlat> category_bg = p_config.base_style->duplicate();
 		category_bg->set_bg_color(prop_category_color);
 		category_bg->set_border_color(prop_category_color);
-		category_bg->set_content_margin_all(0);
+		category_bg->set_content_margin(SIDE_TOP, 2 * EDSCALE);
+		category_bg->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
 		p_theme->set_stylebox("bg", "EditorInspectorCategory", category_bg);
 
 		p_theme->set_constant("inspector_margin", EditorStringName(Editor), 12 * EDSCALE);

@@ -314,6 +314,7 @@ EditorHelpSearch::EditorHelpSearch() {
 	vbox->add_child(hbox);
 
 	search_box = memnew(LineEdit);
+	search_box->set_theme_type_variation("SearchableLineEdit");
 	search_box->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_box->set_clear_button_enabled(true);

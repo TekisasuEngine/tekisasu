@@ -647,6 +647,7 @@ ProjectSettingsEditor::ProjectSettingsEditor(EditorData *p_data) {
 	general_editor->add_child(search_bar);
 
 	search_box = memnew(LineEdit);
+	search_box->set_theme_type_variation("SearchableLineEdit");
 	search_box->set_placeholder(TTR("Filter Settings"));
 	search_box->set_clear_button_enabled(true);
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);

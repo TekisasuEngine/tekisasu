@@ -2048,6 +2048,7 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		inspector_vbox->add_child(tools_hb);
 
 		search = memnew(LineEdit);
+		search->set_theme_type_variation("SearchableLineEdit");
 		search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		search->set_placeholder(TTR("Filter Stack Variables"));
 		search->set_clear_button_enabled(true);

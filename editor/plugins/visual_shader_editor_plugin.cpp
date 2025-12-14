@@ -6290,6 +6290,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	members_vb->add_child(filter_hb);
 
 	node_filter = memnew(LineEdit);
+	node_filter->set_theme_type_variation("SearchableLineEdit");
 	filter_hb->add_child(node_filter);
 	node_filter->connect(SceneStringName(text_changed), callable_mp(this, &VisualShaderEditor::_member_filter_changed));
 	node_filter->connect(SceneStringName(gui_input), callable_mp(this, &VisualShaderEditor::_sbox_input));

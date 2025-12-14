@@ -350,6 +350,7 @@ EditorCommandPalette::EditorCommandPalette() {
 	add_child(vbc);
 
 	command_search_box = memnew(LineEdit);
+	command_search_box->set_theme_type_variation("SearchableLineEdit");
 	command_search_box->set_placeholder(TTR("Filter Commands"));
 	command_search_box->connect(SceneStringName(gui_input), callable_mp(this, &EditorCommandPalette::_sbox_input));
 	command_search_box->connect(SceneStringName(text_changed), callable_mp(this, &EditorCommandPalette::_update_command_search));

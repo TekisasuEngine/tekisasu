@@ -1595,6 +1595,7 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	library_main->add_theme_constant_override("separation", 10 * EDSCALE);
 
 	filter = memnew(LineEdit);
+	filter->set_theme_type_variation("SearchableLineEdit");
 	if (templates_only) {
 		filter->set_placeholder(TTR("Search Templates, Projects, and Demos"));
 	} else {
