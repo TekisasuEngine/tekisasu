@@ -814,9 +814,6 @@ void EditorDockManager::register_dock_slot(DockSlot p_dock_slot, TabContainer *p
 
 	dock_slot[p_dock_slot] = p_tab_container;
 
-	// Apply dock-specific theme variation.
-	p_tab_container->set_theme_type_variation("DockTabContainer");
-
 	p_tab_container->set_custom_minimum_size(Size2(170, 0) * EDSCALE);
 	p_tab_container->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	p_tab_container->set_popup(dock_context_popup);
