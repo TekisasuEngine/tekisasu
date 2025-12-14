@@ -2317,9 +2317,9 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Color prop_category_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
 		// Color prop_section_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.09);
 		// Color prop_subsection_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.06);
-		Color prop_category_color = Color(p_config.base_color.r * 0.45, p_config.base_color.g * 0.45, p_config.base_color.b * 0.45, 0.75).clamp();
-		Color prop_section_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.95).clamp();
-		Color prop_subsection_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.95).clamp();
+		Color prop_category_color = Color(p_config.base_color.r * 0.35, p_config.base_color.g * 0.35, p_config.base_color.b * 0.35, 0.75).clamp();
+		Color prop_section_color = Color(p_config.base_color.r * 0.25, p_config.base_color.g * 0.25, p_config.base_color.b * 0.25, 0.95).clamp();
+		Color prop_subsection_color = Color(p_config.base_color.r * 0.25, p_config.base_color.g * 0.25, p_config.base_color.b * 0.25, 0.95).clamp();
 
 		p_theme->set_color("prop_category", EditorStringName(Editor), prop_category_color);
 		p_theme->set_color("prop_section", EditorStringName(Editor), prop_section_color);
