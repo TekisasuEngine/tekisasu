@@ -1131,8 +1131,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		Ref<StyleBoxFlat> style_tab_base = p_config.button_style->duplicate();
 
 		style_tab_base->set_border_width_all(0);
-		// Don't round the top corners to avoid creating a small blank space between the tabs and the main panel.
-		// This also makes the top highlight look better.
+		// Keep bottom corners flat to blend seamlessly with the content panel below.
 		style_tab_base->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tab_base->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 
