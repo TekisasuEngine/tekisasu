@@ -910,6 +910,7 @@ void ThemeItemImportTree::_bind_methods() {
 
 ThemeItemImportTree::ThemeItemImportTree() {
 	import_items_filter = memnew(LineEdit);
+	import_items_filter->set_theme_type_variation("SearchableLineEdit");
 	import_items_filter->set_placeholder(TTR("Filter Items"));
 	import_items_filter->set_clear_button_enabled(true);
 	add_child(import_items_filter);

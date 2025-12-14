@@ -1826,6 +1826,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 	hbc_animlist->add_child(anim_speed);
 
 	anim_search_box = memnew(LineEdit);
+	anim_search_box->set_theme_type_variation("SearchableLineEdit");
 	sub_vb->add_child(anim_search_box);
 	anim_search_box->set_h_size_flags(SIZE_EXPAND_FILL);
 	anim_search_box->set_placeholder(TTR("Filter Animations"));

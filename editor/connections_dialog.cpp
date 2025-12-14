@@ -735,6 +735,7 @@ ConnectDialog::ConnectDialog() {
 	HBoxContainer *hbc_filter = memnew(HBoxContainer);
 
 	filter_nodes = memnew(LineEdit);
+	filter_nodes->set_theme_type_variation("SearchableLineEdit");
 	hbc_filter->add_child(filter_nodes);
 	filter_nodes->set_h_size_flags(Control::SIZE_FILL | Control::SIZE_EXPAND);
 	filter_nodes->set_placeholder(TTR("Filter Nodes"));

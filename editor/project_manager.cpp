@@ -1198,6 +1198,7 @@ ProjectManager::ProjectManager() {
 			hb->add_child(loading_label);
 
 			search_box = memnew(LineEdit);
+			search_box->set_theme_type_variation("SearchableLineEdit");
 			search_box->set_placeholder(TTR("Filter Projects"));
 			search_box->set_tooltip_text(TTR("This field filters projects by name and last path component.\nTo filter projects by name and full path, the query must contain at least one `/` character."));
 			search_box->set_clear_button_enabled(true);
