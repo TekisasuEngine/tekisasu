@@ -1237,12 +1237,14 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 	// Dock border separator (red for testing).
 	// Uses negative bottom margin to cancel out VBoxContainer's separation for flush content alignment.
 	// All other margins set to 0 to avoid any padding around the line itself.
+	// Separation constant set to match line thickness to prevent extra height.
 	Ref<StyleBoxLine> dock_separator = make_line_stylebox(Color(1.0, 0.0, 0.0), Math::round(EDSCALE));
 	dock_separator->set_content_margin(SIDE_LEFT, 0);
 	dock_separator->set_content_margin(SIDE_TOP, 0);
 	dock_separator->set_content_margin(SIDE_RIGHT, 0);
 	dock_separator->set_content_margin(SIDE_BOTTOM, -p_config.separation_margin);
 	p_theme->set_stylebox("separator", "DockSeparator", dock_separator);
+	p_theme->set_constant("separation", "DockSeparator", Math::round(EDSCALE));
 
 	// LineEdit & TextEdit.
 	{
