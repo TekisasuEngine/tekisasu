@@ -38,6 +38,7 @@
 #include "editor/editor_undo_redo_manager.h"
 #include "scene/gui/check_box.h"
 #include "scene/gui/item_list.h"
+#include "scene/gui/separator.h"
 
 struct SortActionsByTimestamp {
 	bool operator()(const EditorUndoRedoManager::Action &l, const EditorUndoRedoManager::Action &r) const {
@@ -259,6 +260,11 @@ HistoryDock::HistoryDock() {
 	global_history_checkbox->set_clip_text(true);
 	global_history_checkbox->connect("toggled", callable_mp(this, &HistoryDock::refresh_history).unbind(1));
 	global_history_checkbox->connect("toggled", callable_mp(this, &HistoryDock::save_options).unbind(1));
+
+	// Add separator before scrollable content.
+	HSeparator *dock_separator = memnew(HSeparator);
+	dock_separator->set_theme_type_variation("DockSeparator");
+	add_child(dock_separator);
 
 	action_list = memnew(ItemList);
 	action_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);

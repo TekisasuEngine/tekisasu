@@ -60,6 +60,7 @@
 #include "scene/animation/animation_tree.h"
 #include "scene/audio/audio_stream_player.h"
 #include "scene/gui/check_box.h"
+#include "scene/gui/separator.h"
 #include "scene/property_utils.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"
@@ -4537,6 +4538,11 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	vbc->add_child(create_root_dialog);
 	create_root_dialog->set_v_size_flags(SIZE_EXPAND_FILL);
 	create_root_dialog->hide();
+
+	// Add separator before scrollable content.
+	HSeparator *dock_separator = memnew(HSeparator);
+	dock_separator->set_theme_type_variation("DockSeparator");
+	vbc->add_child(dock_separator);
 
 	scene_tree = memnew(SceneTreeEditor(false, true, true));
 

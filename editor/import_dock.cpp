@@ -40,6 +40,7 @@
 #include "editor/editor_undo_redo_manager.h"
 #include "editor/themes/editor_scale.h"
 #include "editor/themes/editor_theme_manager.h"
+#include "scene/gui/separator.h"
 
 class ImportDockParameters : public Object {
 	GDCLASS(ImportDockParameters, Object);
@@ -805,6 +806,11 @@ ImportDock::ImportDock() {
 	preset->set_disabled(true);
 	preset->get_popup()->connect("index_pressed", callable_mp(this, &ImportDock::_preset_selected));
 	hb->add_child(preset);
+
+	// Add separator before scrollable content.
+	HSeparator *dock_separator = memnew(HSeparator);
+	dock_separator->set_theme_type_variation("DockSeparator");
+	content->add_child(dock_separator);
 
 	import_opts = memnew(EditorInspector);
 	content->add_child(import_opts);

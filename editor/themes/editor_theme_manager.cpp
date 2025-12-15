@@ -1234,6 +1234,9 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 	p_theme->set_stylebox("separator", "HSeparator", make_line_stylebox(p_config.separator_color, MAX(Math::round(EDSCALE), p_config.border_width)));
 	p_theme->set_stylebox("separator", "VSeparator", make_line_stylebox(p_config.separator_color, MAX(Math::round(EDSCALE), p_config.border_width), 0, 0, true));
 
+	// Dock border separator (red for testing).
+	p_theme->set_stylebox("separator", "DockSeparator", make_line_stylebox(Color(1.0, 0.0, 0.0), Math::round(EDSCALE)));
+
 	// LineEdit & TextEdit.
 	{
 		Ref<StyleBoxFlat> text_editor_style = p_config.button_style->duplicate();

@@ -61,6 +61,7 @@
 #include "scene/gui/label.h"
 #include "scene/gui/line_edit.h"
 #include "scene/gui/progress_bar.h"
+#include "scene/gui/separator.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"
 
@@ -4007,6 +4008,11 @@ FileSystemDock::FileSystemDock() {
 
 	tree_button_sort = _create_file_menu_button();
 	toolbar2_hbc->add_child(tree_button_sort);
+
+	// Add separator before scrollable content.
+	HSeparator *dock_separator = memnew(HSeparator);
+	dock_separator->set_theme_type_variation("DockSeparator");
+	top_vbc->add_child(dock_separator);
 
 	file_list_popup = memnew(PopupMenu);
 
