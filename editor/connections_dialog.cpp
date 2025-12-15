@@ -52,6 +52,7 @@
 #include "scene/gui/margin_container.h"
 #include "scene/gui/option_button.h"
 #include "scene/gui/popup_menu.h"
+#include "scene/gui/separator.h"
 #include "scene/gui/spin_box.h"
 
 static Node *_find_first_script(Node *p_root, Node *p_node) {
@@ -1594,6 +1595,11 @@ ConnectionsDock::ConnectionsDock() {
 	search_box->set_clear_button_enabled(true);
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &ConnectionsDock::_filter_changed));
 	vbc->add_child(search_box);
+
+	// Add separator before scrollable content.
+	HSeparator *dock_separator = memnew(HSeparator);
+	dock_separator->set_theme_type_variation("DockSeparator");
+	vbc->add_child(dock_separator);
 
 	tree = memnew(ConnectionsDockTree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);

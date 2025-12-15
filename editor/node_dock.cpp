@@ -35,7 +35,6 @@
 #include "editor/connections_dialog.h"
 #include "editor/editor_node.h"
 #include "editor/themes/editor_scale.h"
-#include "scene/gui/separator.h"
 
 void NodeDock::show_groups() {
 	groups_button->set_pressed(true);
@@ -118,11 +117,6 @@ NodeDock::NodeDock() {
 	groups_button->set_clip_text(true);
 	mode_hb->add_child(groups_button);
 	groups_button->connect(SceneStringName(pressed), callable_mp(this, &NodeDock::show_groups));
-
-	// Add separator before scrollable content.
-	HSeparator *dock_separator = memnew(HSeparator);
-	dock_separator->set_theme_type_variation("DockSeparator");
-	add_child(dock_separator);
 
 	connections = memnew(ConnectionsDock);
 	add_child(connections);
