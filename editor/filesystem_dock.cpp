@@ -4026,7 +4026,7 @@ FileSystemDock::FileSystemDock() {
 	split_box->set_v_size_flags(SIZE_EXPAND_FILL);
 	split_box->connect("dragged", callable_mp(this, &FileSystemDock::_split_dragged));
 	split_box_offset_h = 240 * EDSCALE;
-	add_child(split_box);
+	top_vbc->add_child(split_box);
 
 	tree = memnew(FileSystemTree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
