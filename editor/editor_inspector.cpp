@@ -4217,6 +4217,15 @@ void EditorInspector::_vscroll_changed(double p_offset) {
 	}
 }
 
+void EditorInspector::_update_scrollbar_margin() {
+	if (!content_margin) {
+		return;
+	}
+
+	const int margin = get_v_scroll_bar()->is_visible_in_tree() ? int(20 * EDSCALE) : 0;
+	content_margin->add_theme_constant_override(SNAME("margin_right"), margin);
+}
+
 void EditorInspector::set_property_prefix(const String &p_prefix) {
 	property_prefix = p_prefix;
 }
@@ -4369,9 +4378,13 @@ void EditorInspector::_bind_methods() {
 
 EditorInspector::EditorInspector() {
 	object = nullptr;
+	content_margin = memnew(MarginContainer);
+	content_margin->set_h_size_flags(SIZE_EXPAND_FILL);
+	add_child(content_margin);
+
 	main_vbox = memnew(VBoxContainer);
 	main_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
-	add_child(main_vbox);
+	content_margin->add_child(main_vbox);
 	set_horizontal_scroll_mode(SCROLL_MODE_DISABLED);
 	set_follow_focus(true);
 
@@ -4383,6 +4396,8 @@ EditorInspector::EditorInspector() {
 	property_clipboard = Variant();
 
 	get_v_scroll_bar()->connect(SceneStringName(value_changed), callable_mp(this, &EditorInspector::_vscroll_changed));
+	get_v_scroll_bar()->connect(SceneStringName(visibility_changed), callable_mp(this, &EditorInspector::_update_scrollbar_margin));
+	_update_scrollbar_margin();
 	update_scroll_request = -1;
 	if (EditorSettings::get_singleton()) {
 		refresh_countdown = float(EDITOR_GET("docks/property_editor/auto_refresh_interval"));

@@ -489,6 +489,7 @@ class EditorInspector : public ScrollContainer {
 	static int inspector_plugin_count;
 
 	VBoxContainer *main_vbox = nullptr;
+	MarginContainer *content_margin = nullptr;
 
 	// Map used to cache the instantiated editors.
 	HashMap<StringName, List<EditorProperty *>> editor_property_map;
@@ -573,6 +574,7 @@ class EditorInspector : public ScrollContainer {
 	void _parse_added_editors(VBoxContainer *current_vbox, EditorInspectorSection *p_section, Ref<EditorInspectorPlugin> ped);
 
 	void _vscroll_changed(double);
+	void _update_scrollbar_margin();
 
 	void _feature_profile_changed();
 
