@@ -4222,7 +4222,8 @@ void EditorInspector::_update_scrollbar_margin() {
 		return;
 	}
 
-	const int margin = get_v_scroll_bar()->is_visible_in_tree() ? int(20 * EDSCALE) : 0;
+	static const int scrollbar_right_margin = 20;
+	const int margin = get_v_scroll_bar()->is_visible_in_tree() ? int(scrollbar_right_margin * EDSCALE) : 0;
 	content_margin->add_theme_constant_override(SNAME("margin_right"), margin);
 }
 
