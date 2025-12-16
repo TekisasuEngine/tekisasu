@@ -2317,7 +2317,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Color prop_category_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.12);
 		// Color prop_section_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.09);
 		// Color prop_subsection_color = p_config.dark_color_1.lerp(p_config.mono_color, 0.06);
-		Color prop_category_color = p_config.accent_color.lerp(Color(0,0,0,0), 0.4).clamp();
+		Color prop_category_color = Color(p_config.base_color.r * 0.45, p_config.base_color.g * 0.45, p_config.base_color.b * 0.45, 0.75).clamp();
 		Color prop_section_color = p_config.base_color.darkened(0.3).clamp();
 		Color prop_subsection_color = p_config.base_color.darkened(0.3).clamp();
 
@@ -2333,8 +2333,8 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		Ref<StyleBoxFlat> category_bg = p_config.base_style->duplicate();
 		category_bg->set_bg_color(prop_category_color);
 		category_bg->set_border_color(prop_category_color);
-		category_bg->set_content_margin(SIDE_TOP, 2 * EDSCALE);
-		category_bg->set_content_margin(SIDE_BOTTOM, 2 * EDSCALE);
+		category_bg->set_content_margin(SIDE_TOP, 4 * EDSCALE);
+		category_bg->set_content_margin(SIDE_BOTTOM, 4 * EDSCALE);
 		p_theme->set_stylebox("bg", "EditorInspectorCategory", category_bg);
 
 		p_theme->set_constant("inspector_margin", EditorStringName(Editor), 12 * EDSCALE);
