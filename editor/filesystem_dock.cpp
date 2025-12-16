@@ -3995,8 +3995,8 @@ FileSystemDock::FileSystemDock() {
 
 	toolbar2_hbc = memnew(HBoxContainer);
 	toolbar2_hbc->add_theme_constant_override("separation", 0);
-	toolbar2_hbc->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	top_vbc->add_child(toolbar2_hbc);
+	toolbar2_hbc->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 
 	tree_search_box = memnew(LineEdit);
 	tree_search_box->set_theme_type_variation("SearchableLineEdit");

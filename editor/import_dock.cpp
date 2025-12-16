@@ -791,8 +791,8 @@ ImportDock::ImportDock() {
 	imported->set_clip_text(true);
 	content->add_child(imported);
 	HBoxContainer *hb = memnew(HBoxContainer);
-	hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	content->add_margin_child(TTR("Import As:"), hb);
+	hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	import_as = memnew(OptionButton);
 	import_as->set_disabled(true);
 	import_as->set_fit_to_longest_item(false);

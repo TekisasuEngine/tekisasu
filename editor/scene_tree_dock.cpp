@@ -4510,8 +4510,8 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	tree_menu->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(false));
 
 	button_hb = memnew(HBoxContainer);
-	button_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	vbc->add_child(button_hb);
+	button_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 
 	edit_remote = memnew(Button);
 	edit_remote->set_theme_type_variation("FlatButton");

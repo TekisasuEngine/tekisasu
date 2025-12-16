@@ -235,8 +235,8 @@ HistoryDock::HistoryDock() {
 	ur_manager->connect("version_changed", callable_mp(this, &HistoryDock::on_version_changed));
 
 	HBoxContainer *mode_hb = memnew(HBoxContainer);
-	mode_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	add_child(mode_hb);
+	mode_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 
 	bool include_scene = EditorSettings::get_singleton()->get_project_metadata("history", "include_scene", true);
 	bool include_global = EditorSettings::get_singleton()->get_project_metadata("history", "include_global", true);
