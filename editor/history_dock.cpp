@@ -38,6 +38,7 @@
 #include "editor/editor_undo_redo_manager.h"
 #include "scene/gui/check_box.h"
 #include "scene/gui/item_list.h"
+#include "scene/gui/panel_container.h"
 
 struct SortActionsByTimestamp {
 	bool operator()(const EditorUndoRedoManager::Action &l, const EditorUndoRedoManager::Action &r) const {

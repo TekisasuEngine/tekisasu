@@ -60,6 +60,7 @@
 #include "scene/animation/animation_tree.h"
 #include "scene/audio/audio_stream_player.h"
 #include "scene/gui/check_box.h"
+#include "scene/gui/panel_container.h"
 #include "scene/property_utils.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"

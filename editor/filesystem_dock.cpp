@@ -60,6 +60,7 @@
 #include "scene/gui/item_list.h"
 #include "scene/gui/label.h"
 #include "scene/gui/line_edit.h"
+#include "scene/gui/panel_container.h"
 #include "scene/gui/progress_bar.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"

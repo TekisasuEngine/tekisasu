@@ -41,6 +41,7 @@
 #include "editor/gui/editor_object_selector.h"
 #include "editor/plugins/script_editor_plugin.h"
 #include "editor/themes/editor_scale.h"
+#include "scene/gui/panel_container.h"
 
 InspectorDock *InspectorDock::singleton = nullptr;
 

@@ -35,6 +35,7 @@
 #include "editor/connections_dialog.h"
 #include "editor/editor_node.h"
 #include "editor/themes/editor_scale.h"
+#include "scene/gui/panel_container.h"
 
 void NodeDock::show_groups() {
 	groups_button->set_pressed(true);
