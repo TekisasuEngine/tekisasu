@@ -1234,17 +1234,11 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 	p_theme->set_stylebox("separator", "HSeparator", make_line_stylebox(p_config.separator_color, MAX(Math::round(EDSCALE), p_config.border_width)));
 	p_theme->set_stylebox("separator", "VSeparator", make_line_stylebox(p_config.separator_color, MAX(Math::round(EDSCALE), p_config.border_width), 0, 0, true));
 
-	// Dock border separator (red for testing).
-	// Uses negative bottom margin to cancel out VBoxContainer's separation for flush content alignment.
-	// All other margins set to 0 to avoid any padding around the line itself.
-	// Separation constant set to 0 to minimize separator control height.
-	Ref<StyleBoxLine> dock_separator = make_line_stylebox(Color(1.0, 0.0, 0.0), Math::round(EDSCALE));
-	dock_separator->set_content_margin(SIDE_LEFT, 0);
-	dock_separator->set_content_margin(SIDE_TOP, 0);
-	dock_separator->set_content_margin(SIDE_RIGHT, 0);
-	dock_separator->set_content_margin(SIDE_BOTTOM, -p_config.separation_margin);
-	p_theme->set_stylebox("separator", "DockSeparator", dock_separator);
-	p_theme->set_constant("separation", "DockSeparator", 0);
+	// Dock toolbar panel with bottom border (red for testing).
+	Ref<StyleBoxFlat> dock_toolbar_panel = make_flat_stylebox(Color(0, 0, 0, 0), 0, 0, 0, 0);
+	dock_toolbar_panel->set_border_width(SIDE_BOTTOM, Math::round(EDSCALE));
+	dock_toolbar_panel->set_border_color(Color(1.0, 0.0, 0.0));
+	p_theme->set_stylebox("panel", "DockToolbarPanel", dock_toolbar_panel);
 
 	// LineEdit & TextEdit.
 	{

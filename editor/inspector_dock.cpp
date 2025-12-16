@@ -41,7 +41,6 @@
 #include "editor/gui/editor_object_selector.h"
 #include "editor/plugins/script_editor_plugin.h"
 #include "editor/themes/editor_scale.h"
-#include "scene/gui/separator.h"
 
 InspectorDock *InspectorDock::singleton = nullptr;
 
@@ -735,6 +734,7 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	new_resource_dialog->connect("create", callable_mp(this, &InspectorDock::_resource_created));
 
 	HBoxContainer *property_tools_hb = memnew(HBoxContainer);
+	property_tools_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	add_child(property_tools_hb);
 
 	search = memnew(LineEdit);
@@ -789,11 +789,6 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	add_child(load_resource_dialog);
 	load_resource_dialog->set_current_dir("res://");
 	load_resource_dialog->connect("file_selected", callable_mp(this, &InspectorDock::_resource_file_selected));
-
-	// Add separator before scrollable content.
-	HSeparator *dock_separator = memnew(HSeparator);
-	dock_separator->set_theme_type_variation("DockSeparator");
-	add_child(dock_separator);
 
 	inspector = memnew(EditorInspector);
 	add_child(inspector);

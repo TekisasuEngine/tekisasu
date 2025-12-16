@@ -60,7 +60,6 @@
 #include "scene/animation/animation_tree.h"
 #include "scene/audio/audio_stream_player.h"
 #include "scene/gui/check_box.h"
-#include "scene/gui/separator.h"
 #include "scene/property_utils.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"
@@ -4511,6 +4510,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	tree_menu->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(false));
 
 	button_hb = memnew(HBoxContainer);
+	button_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
 	vbc->add_child(button_hb);
 
 	edit_remote = memnew(Button);
@@ -4538,11 +4538,6 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	vbc->add_child(create_root_dialog);
 	create_root_dialog->set_v_size_flags(SIZE_EXPAND_FILL);
 	create_root_dialog->hide();
-
-	// Add separator before scrollable content.
-	HSeparator *dock_separator = memnew(HSeparator);
-	dock_separator->set_theme_type_variation("DockSeparator");
-	vbc->add_child(dock_separator);
 
 	scene_tree = memnew(SceneTreeEditor(false, true, true));
 
