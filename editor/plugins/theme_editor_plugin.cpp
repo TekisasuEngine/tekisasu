@@ -3323,6 +3323,10 @@ void ThemeTypeEditor::_update_stylebox_from_leading() {
 }
 
 void ThemeTypeEditor::_type_variation_changed(const String p_value) {
+	if (!type_variation_edit->is_editable() || edited_type.is_empty() || ClassDB::class_exists(edited_type)) {
+		return;
+	}
+
 	EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
 	ur->create_action(TTR("Set Theme Type Variation"));
 
