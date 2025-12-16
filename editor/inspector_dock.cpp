@@ -645,8 +645,16 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 
 	property_name_style = EditorPropertyNameProcessor::get_default_inspector_style();
 
+	// Wrap toolbar area in PanelContainer with bottom border.
+	PanelContainer *toolbar_panel = memnew(PanelContainer);
+	toolbar_panel->set_theme_type_variation("DockToolbar");
+	add_child(toolbar_panel);
+
+	VBoxContainer *toolbar_vbc = memnew(VBoxContainer);
+	toolbar_panel->add_child(toolbar_vbc);
+
 	HBoxContainer *general_options_hb = memnew(HBoxContainer);
-	add_child(general_options_hb);
+	toolbar_vbc->add_child(general_options_hb);
 
 	resource_new_button = memnew(Button);
 	resource_new_button->set_theme_type_variation("FlatMenuButton");
@@ -714,7 +722,7 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	history_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &InspectorDock::_select_history));
 
 	HBoxContainer *subresource_hb = memnew(HBoxContainer);
-	add_child(subresource_hb);
+	toolbar_vbc->add_child(subresource_hb);
 	object_selector = memnew(EditorObjectSelector(EditorNode::get_singleton()->get_editor_selection_history()));
 	object_selector->set_theme_type_variation("EditorObjectSelector");
 	object_selector->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -734,7 +742,7 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	new_resource_dialog->connect("create", callable_mp(this, &InspectorDock::_resource_created));
 
 	HBoxContainer *property_tools_hb = memnew(HBoxContainer);
-	add_child(property_tools_hb);
+	toolbar_vbc->add_child(property_tools_hb);
 
 	search = memnew(LineEdit);
 	search->set_theme_type_variation("SearchableLineEdit");

@@ -94,8 +94,14 @@ NodeDock::NodeDock() {
 	singleton = this;
 
 	set_name("Node");
+
+	// Wrap toolbar area in PanelContainer with bottom border.
+	PanelContainer *toolbar_panel = memnew(PanelContainer);
+	toolbar_panel->set_theme_type_variation("DockToolbar");
+	add_child(toolbar_panel);
+
 	mode_hb = memnew(HBoxContainer);
-	add_child(mode_hb);
+	toolbar_panel->add_child(mode_hb);
 	mode_hb->hide();
 
 	connections_button = memnew(Button);

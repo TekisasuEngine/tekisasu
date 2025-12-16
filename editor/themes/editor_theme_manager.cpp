@@ -693,7 +693,7 @@ void EditorThemeManager::_create_shared_styles(const Ref<EditorTheme> &p_theme, 
 			p_config.tree_panel_style = p_config.base_style->duplicate();
 			// Make Trees easier to distinguish from other controls by using a darker background color.
 			// orig: p_config.tree_panel_style->set_bg_color(p_config.dark_color_1.lerp(p_config.dark_color_2, 0.5));
-			p_config.tree_panel_style->set_bg_color(p_config.base_color);
+			p_config.tree_panel_style->set_bg_color(p_config.base_color.darkened(0.5));
 			if (p_config.draw_extra_borders) {
 				p_config.tree_panel_style->set_border_width_all(Math::round(EDSCALE));
 				p_config.tree_panel_style->set_border_color(p_config.extra_border_color_2);
@@ -712,6 +712,15 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 		// PanelContainer.
 		p_theme->set_stylebox(SceneStringName(panel), "PanelContainer", p_config.panel_container_style);
+
+		// DockToolbar - PanelContainer variation for dock toolbar areas with bottom border.
+		{
+			p_theme->set_type_variation("DockToolbar", "PanelContainer");
+			Ref<StyleBoxFlat> dock_toolbar_style = p_config.panel_container_style->duplicate();
+			dock_toolbar_style->set_border_width(SIDE_BOTTOM, 1 * EDSCALE);
+			dock_toolbar_style->set_border_color(p_config.separator_color);
+			p_theme->set_stylebox(SceneStringName(panel), "DockToolbar", dock_toolbar_style);
+		}
 
 		// TooltipPanel & TooltipLabel.
 		{
@@ -1087,7 +1096,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		{
 			Ref<StyleBoxFlat> style_itemlist_bg = p_config.base_style->duplicate();
 			style_itemlist_bg->set_content_margin_all(p_config.separation_margin);
-			style_itemlist_bg->set_bg_color(p_config.dark_color_1);
+			style_itemlist_bg->set_bg_color(p_config.base_color.darkened(0.5));
 
 			if (p_config.draw_extra_borders) {
 				style_itemlist_bg->set_border_width_all(Math::round(EDSCALE));

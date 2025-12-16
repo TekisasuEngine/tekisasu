@@ -3949,9 +3949,17 @@ FileSystemDock::FileSystemDock() {
 	VBoxContainer *top_vbc = memnew(VBoxContainer);
 	add_child(top_vbc);
 
+	// Wrap toolbar area in PanelContainer with bottom border.
+	PanelContainer *toolbar_panel = memnew(PanelContainer);
+	toolbar_panel->set_theme_type_variation("DockToolbar");
+	top_vbc->add_child(toolbar_panel);
+
+	VBoxContainer *toolbar_vbc = memnew(VBoxContainer);
+	toolbar_panel->add_child(toolbar_vbc);
+
 	HBoxContainer *toolbar_hbc = memnew(HBoxContainer);
 	toolbar_hbc->add_theme_constant_override("separation", 0);
-	top_vbc->add_child(toolbar_hbc);
+	toolbar_vbc->add_child(toolbar_hbc);
 
 	button_hist_prev = memnew(Button);
 	button_hist_prev->set_flat(true);
@@ -3995,7 +4003,7 @@ FileSystemDock::FileSystemDock() {
 
 	toolbar2_hbc = memnew(HBoxContainer);
 	toolbar2_hbc->add_theme_constant_override("separation", 0);
-	top_vbc->add_child(toolbar2_hbc);
+	toolbar_vbc->add_child(toolbar2_hbc);
 
 	tree_search_box = memnew(LineEdit);
 	tree_search_box->set_theme_type_variation("SearchableLineEdit");
