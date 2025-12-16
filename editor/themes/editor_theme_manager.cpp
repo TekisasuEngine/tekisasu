@@ -2099,8 +2099,6 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 			p_theme->set_stylebox(SceneStringName(pressed), "EditorLogFilterButton", editor_log_button_pressed);
 
 			// EditorObjectSelector variation with lightened background colors.
-			p_theme->set_type_variation("EditorObjectSelector", "Button");
-
 			Ref<StyleBoxFlat> object_selector_normal = p_config.button_style->duplicate();
 			object_selector_normal->set_bg_color(p_config.base_color.lightened(0.05));
 
