@@ -790,9 +790,13 @@ ImportDock::ImportDock() {
 	imported->add_theme_style_override(CoreStringName(normal), EditorNode::get_singleton()->get_editor_theme()->get_stylebox(CoreStringName(normal), SNAME("LineEdit")));
 	imported->set_clip_text(true);
 	content->add_child(imported);
+	
+	PanelContainer *hb_panel = memnew(PanelContainer);
+	content->add_margin_child(TTR("Import As:"), hb_panel);
+	hb_panel->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+	
 	HBoxContainer *hb = memnew(HBoxContainer);
-	content->add_margin_child(TTR("Import As:"), hb);
-	hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+	hb_panel->add_child(hb);
 	import_as = memnew(OptionButton);
 	import_as->set_disabled(true);
 	import_as->set_fit_to_longest_item(false);

@@ -1587,9 +1587,12 @@ ConnectionsDock::ConnectionsDock() {
 
 	VBoxContainer *vbc = this;
 
+	PanelContainer *search_panel = memnew(PanelContainer);
+	vbc->add_child(search_panel);
+	search_panel->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+
 	HBoxContainer *search_hb = memnew(HBoxContainer);
-	vbc->add_child(search_hb);
-	search_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+	search_panel->add_child(search_hb);
 
 	search_box = memnew(LineEdit);
 	search_box->set_theme_type_variation("SearchableLineEdit");

@@ -838,9 +838,12 @@ GroupsEditor::GroupsEditor() {
 	ED_SHORTCUT("groups_editor/rename", TTR("Rename"), Key::F2);
 	ED_SHORTCUT_OVERRIDE("groups_editor/rename", "macos", Key::ENTER);
 
+	PanelContainer *hbc_panel = memnew(PanelContainer);
+	add_child(hbc_panel);
+	hbc_panel->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+
 	HBoxContainer *hbc = memnew(HBoxContainer);
-	add_child(hbc);
-	hbc->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+	hbc_panel->add_child(hbc);
 
 	add = memnew(Button);
 	add->set_flat(true);

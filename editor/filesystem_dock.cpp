@@ -3993,10 +3993,13 @@ FileSystemDock::FileSystemDock() {
 	button_dock_placement->hide();
 	toolbar_hbc->add_child(button_dock_placement);
 
+	PanelContainer *toolbar2_panel = memnew(PanelContainer);
+	top_vbc->add_child(toolbar2_panel);
+	toolbar2_panel->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+
 	toolbar2_hbc = memnew(HBoxContainer);
 	toolbar2_hbc->add_theme_constant_override("separation", 0);
-	top_vbc->add_child(toolbar2_hbc);
-	toolbar2_hbc->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+	toolbar2_panel->add_child(toolbar2_hbc);
 
 	tree_search_box = memnew(LineEdit);
 	tree_search_box->set_theme_type_variation("SearchableLineEdit");

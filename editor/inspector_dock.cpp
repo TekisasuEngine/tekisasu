@@ -733,9 +733,12 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	new_resource_dialog->set_base_type("Resource");
 	new_resource_dialog->connect("create", callable_mp(this, &InspectorDock::_resource_created));
 
+	PanelContainer *property_tools_panel = memnew(PanelContainer);
+	add_child(property_tools_panel);
+	property_tools_panel->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+
 	HBoxContainer *property_tools_hb = memnew(HBoxContainer);
-	add_child(property_tools_hb);
-	property_tools_hb->add_theme_stylebox_override("panel", get_theme_stylebox("panel", "DockToolbarPanel"));
+	property_tools_panel->add_child(property_tools_hb);
 
 	search = memnew(LineEdit);
 	search->set_theme_type_variation("SearchableLineEdit");
