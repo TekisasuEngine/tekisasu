@@ -55,7 +55,7 @@
 #include "scene/resources/style_box_flat.h"
 #include "scene/scene_string_names.h"
 
-static const int EDITOR_INSPECTOR_SCROLLBAR_RIGHT_MARGIN = 20;
+static const int EDITOR_INSPECTOR_SCROLLBAR_RIGHT_MARGIN = 3;
 
 bool EditorInspector::_property_path_matches(const String &p_property_path, const String &p_filter, EditorPropertyNameProcessor::Style p_style) {
 	if (p_property_path.containsn(p_filter)) {
