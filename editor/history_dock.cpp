@@ -37,6 +37,7 @@
 #include "editor/editor_string_names.h"
 #include "editor/editor_undo_redo_manager.h"
 #include "scene/gui/check_box.h"
+#include "scene/gui/panel_container.h"
 #include "scene/gui/item_list.h"
 
 struct SortActionsByTimestamp {
@@ -234,8 +235,12 @@ HistoryDock::HistoryDock() {
 	ur_manager->connect("history_changed", callable_mp(this, &HistoryDock::on_history_changed));
 	ur_manager->connect("version_changed", callable_mp(this, &HistoryDock::on_version_changed));
 
+	PanelContainer *toolbar_pc = memnew(PanelContainer);
+	toolbar_pc->set_theme_type_variation("DockToolbar");
+	add_child(toolbar_pc);
+
 	HBoxContainer *mode_hb = memnew(HBoxContainer);
-	add_child(mode_hb);
+	toolbar_pc->add_child(mode_hb);
 
 	bool include_scene = EditorSettings::get_singleton()->get_project_metadata("history", "include_scene", true);
 	bool include_global = EditorSettings::get_singleton()->get_project_metadata("history", "include_global", true);

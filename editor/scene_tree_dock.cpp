@@ -60,6 +60,7 @@
 #include "scene/animation/animation_tree.h"
 #include "scene/audio/audio_stream_player.h"
 #include "scene/gui/check_box.h"
+#include "scene/gui/panel_container.h"
 #include "scene/property_utils.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"
@@ -4416,6 +4417,13 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 
 	VBoxContainer *vbc = this;
 
+	PanelContainer *toolbar_pc = memnew(PanelContainer);
+	toolbar_pc->set_theme_type_variation("DockToolbar");
+	add_child(toolbar_pc);
+
+	VBoxContainer *toolbar_vbc = memnew(VBoxContainer);
+	toolbar_pc->add_child(toolbar_vbc);
+
 	HBoxContainer *filter_hbc = memnew(HBoxContainer);
 	filter_hbc->add_theme_constant_override("separate", 0);
 
@@ -4463,7 +4471,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	button_instance->set_tooltip_text(TTR("Instantiate a scene file as a Node. Creates an inherited scene if no root node exists."));
 	button_instance->set_shortcut(ED_GET_SHORTCUT("scene_tree/instantiate_scene"));
 	filter_hbc->add_child(button_instance);
-	vbc->add_child(filter_hbc);
+	toolbar_vbc->add_child(filter_hbc);
 
 	// The "Filter Nodes" text input above the Scene Tree Editor.
 	filter = memnew(LineEdit);
@@ -4510,7 +4518,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	tree_menu->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(false));
 
 	button_hb = memnew(HBoxContainer);
-	vbc->add_child(button_hb);
+	toolbar_vbc->add_child(button_hb);
 
 	edit_remote = memnew(Button);
 	edit_remote->set_theme_type_variation("FlatButton");

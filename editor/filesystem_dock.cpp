@@ -60,6 +60,7 @@
 #include "scene/gui/item_list.h"
 #include "scene/gui/label.h"
 #include "scene/gui/line_edit.h"
+#include "scene/gui/panel_container.h"
 #include "scene/gui/progress_bar.h"
 #include "scene/resources/packed_scene.h"
 #include "servers/display_server.h"
@@ -3946,8 +3947,12 @@ FileSystemDock::FileSystemDock() {
 
 	editor_is_dark_theme = EditorThemeManager::is_dark_theme();
 
+	PanelContainer *toolbar_panel = memnew(PanelContainer);
+	toolbar_panel->set_theme_type_variation("DockToolbar");
+	add_child(toolbar_panel);
+
 	VBoxContainer *top_vbc = memnew(VBoxContainer);
-	add_child(top_vbc);
+	toolbar_panel->add_child(top_vbc);
 
 	HBoxContainer *toolbar_hbc = memnew(HBoxContainer);
 	toolbar_hbc->add_theme_constant_override("separation", 0);

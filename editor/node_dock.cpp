@@ -35,6 +35,7 @@
 #include "editor/connections_dialog.h"
 #include "editor/editor_node.h"
 #include "editor/themes/editor_scale.h"
+#include "scene/gui/panel_container.h"
 
 void NodeDock::show_groups() {
 	groups_button->set_pressed(true);
@@ -94,8 +95,12 @@ NodeDock::NodeDock() {
 	singleton = this;
 
 	set_name("Node");
+	PanelContainer *toolbar_pc = memnew(PanelContainer);
+	toolbar_pc->set_theme_type_variation("DockToolbar");
+	add_child(toolbar_pc);
+
 	mode_hb = memnew(HBoxContainer);
-	add_child(mode_hb);
+	toolbar_pc->add_child(mode_hb);
 	mode_hb->hide();
 
 	connections_button = memnew(Button);
