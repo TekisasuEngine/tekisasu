@@ -55,6 +55,8 @@
 #include "scene/resources/style_box_flat.h"
 #include "scene/scene_string_names.h"
 
+static const int EDITOR_INSPECTOR_SCROLLBAR_RIGHT_MARGIN = 20;
+
 bool EditorInspector::_property_path_matches(const String &p_property_path, const String &p_filter, EditorPropertyNameProcessor::Style p_style) {
 	if (p_property_path.containsn(p_filter)) {
 		return true;
@@ -4222,8 +4224,7 @@ void EditorInspector::_update_scrollbar_margin() {
 		return;
 	}
 
-	static const int scrollbar_right_margin = 20;
-	const int margin = get_v_scroll_bar()->is_visible_in_tree() ? int(scrollbar_right_margin * EDSCALE) : 0;
+	const int margin = get_v_scroll_bar()->is_visible_in_tree() ? int(EDITOR_INSPECTOR_SCROLLBAR_RIGHT_MARGIN * EDSCALE) : 0;
 	content_margin->add_theme_constant_override(SNAME("margin_right"), margin);
 }
 
