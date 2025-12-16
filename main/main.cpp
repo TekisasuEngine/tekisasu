@@ -1914,9 +1914,9 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 		}
 
 		String default_driver = driver_hints.get_slice(",", 0);
-		String default_driver_with_d3d12 = driver_hints_with_d3d12.get_slice(",", 1);
+		String default_driver_with_d3d12 = driver_hints_with_d3d12.get_slice(",", 0);
 
-		// For now everything defaults to vulkan when available, except on Windows. This can change in future updates.
+		// For now everything defaults to vulkan when available. This can change in future updates.
 		GLOBAL_DEF_RST_NOVAL("rendering/rendering_device/driver", default_driver);
 		GLOBAL_DEF_RST_NOVAL(PropertyInfo(Variant::STRING, "rendering/rendering_device/driver.windows", PROPERTY_HINT_ENUM, driver_hints_with_d3d12), default_driver_with_d3d12);
 		GLOBAL_DEF_RST_NOVAL(PropertyInfo(Variant::STRING, "rendering/rendering_device/driver.linuxbsd", PROPERTY_HINT_ENUM, driver_hints), default_driver);
