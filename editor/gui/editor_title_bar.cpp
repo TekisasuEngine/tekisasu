@@ -56,6 +56,9 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 		if (w) {
 			if (mb->get_button_index() == MouseButton::LEFT) {
 				if (mb->is_pressed()) {
+					if (!w->has_focus()) {
+						w->grab_focus();
+					}
 					click_pos = DisplayServer::get_singleton()->mouse_get_position() - w->get_position();
 					moving = true;
 				} else {
