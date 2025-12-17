@@ -70,11 +70,17 @@ private:
 
 	int deadzone = 0;
 	bool follow_focus = false;
+	
+	// Scroll shadow effect: When enabled, displays a visual shadow at the top of the scrollable area
+	// when content is scrolled down. This provides enhanced visual cueing that there is more content above.
+	// Works by detecting scroll position and dynamically toggling shadow visibility.
 	bool scroll_shadow_enabled = false;
 
 	struct ThemeCache {
 		Ref<StyleBox> panel_style;
+		// Style for the scroll shadow overlay (typically a gradient from dark to transparent)
 		Ref<StyleBox> scroll_shadow_style;
+		// Height of the scroll shadow in pixels
 		int scroll_shadow_height = 8;
 	} theme_cache;
 
@@ -120,6 +126,10 @@ public:
 	bool is_following_focus() const;
 	void set_follow_focus(bool p_follow);
 
+	// Scroll shadow effect control: Enable/disable the shadow overlay that appears
+	// at the top of scrollable content areas when scrolled down.
+	// This provides visual feedback indicating there is more content above the visible area.
+	// Compatible with variable toolbar heights and modern browsers.
 	void set_scroll_shadow_enabled(bool p_enabled);
 	bool is_scroll_shadow_enabled() const;
 

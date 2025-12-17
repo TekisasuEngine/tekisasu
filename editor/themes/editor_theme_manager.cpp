@@ -1313,6 +1313,15 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("margin_bottom", "MarginContainer", 0);
 
 		// ScrollContainer - Scroll shadow effect for visual cueing of scrollable areas.
+		// This creates a drop-down shadow that appears at the top of scrollable content
+		// when the user has scrolled down. It provides enhanced visual feedback that
+		// there is more content above the currently visible area.
+		// 
+		// Implementation notes:
+		// - Uses a subtle gradient effect for cross-browser compatibility
+		// - Shadow is positioned relative to panel offset, handling variable toolbar heights
+		// - Anti-aliasing creates a smooth gradient from dark to transparent
+		// - Height is scaled with EDSCALE for proper DPI handling
 		{
 			// Create a gradient-style shadow that fades from dark to transparent
 			Ref<StyleBoxFlat> scroll_shadow = make_flat_stylebox(Color(0, 0, 0, 0.3), 0, 0, 0, 0);

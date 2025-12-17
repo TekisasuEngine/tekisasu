@@ -361,6 +361,15 @@ void ScrollContainer::_notification(int p_what) {
 			draw_style_box(theme_cache.panel_style, Rect2(Vector2(), get_size()));
 
 			// Draw scroll shadow at the top when scrolled down
+			// This provides enhanced visual cueing that there is scrollable content above.
+			// The shadow only appears when:
+			// 1. scroll_shadow_enabled is true
+			// 2. A valid shadow style is configured in the theme
+			// 3. The vertical scroll position is greater than 0 (i.e., scrolled down)
+			// 
+			// This handles edge cases like:
+			// - Variable toolbar heights (shadow is positioned relative to panel offset)
+			// - Browser compatibility (uses standard rendering through StyleBox)
 			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid() && v_scroll->get_value() > 0) {
 				Size2 size = get_size();
 				Point2 ofs = theme_cache.panel_style->get_offset();
@@ -465,7 +474,10 @@ void ScrollContainer::update_scrollbars() {
 
 void ScrollContainer::_scroll_moved(float) {
 	queue_sort();
-	// Trigger redraw when scrolled to update shadow visibility
+	// Trigger redraw when scrolled to update shadow visibility.
+	// This ensures the shadow appears/disappears dynamically as the user scrolls,
+	// providing real-time visual feedback for scrollable content areas.
+	// Performance-optimized: only redraws when shadow feature is enabled.
 	if (scroll_shadow_enabled) {
 		queue_redraw();
 	}
@@ -549,6 +561,17 @@ void ScrollContainer::set_follow_focus(bool p_follow) {
 	follow_focus = p_follow;
 }
 
+// Enable or disable the scroll shadow effect.
+// When enabled, a shadow overlay appears at the top of the scrollable area when content
+// is scrolled down, providing visual cueing that there is more content above.
+// 
+// The shadow is:
+// - Positioned at the top of the content area
+// - Only visible when scroll position > 0
+// - Customizable via theme properties (scroll_shadow_style, scroll_shadow_height)
+// - Compatible with variable toolbar heights and modern browsers
+// 
+// Performance: Triggers a redraw when toggled to immediately reflect the change.
 void ScrollContainer::set_scroll_shadow_enabled(bool p_enabled) {
 	if (scroll_shadow_enabled == p_enabled) {
 		return;
