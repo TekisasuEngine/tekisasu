@@ -42,6 +42,7 @@
 #include "scene/gui/option_button.h"
 #include "scene/gui/panel.h"
 #include "scene/gui/panel_container.h"
+#include "scene/gui/margin_container.h"
 #include "scene/gui/scroll_container.h"
 #include "scene/gui/slider.h"
 #include "scene/gui/texture_progress_bar.h"
@@ -161,6 +162,7 @@ class EditorAudioBuses : public VBoxContainer {
 	HBoxContainer *top_hb = nullptr;
 
 	ScrollContainer *bus_scroll = nullptr;
+	MarginContainer *bus_margin = nullptr;
 	HBoxContainer *bus_hb = nullptr;
 
 	EditorAudioBusDrop *drop_end = nullptr;
@@ -193,6 +195,7 @@ class EditorAudioBuses : public VBoxContainer {
 	void _drop_at_index(int p_bus, int p_index);
 
 	void _server_save();
+	void _update_scrollbar_margin();
 
 	void _select_layout();
 	void _load_layout();

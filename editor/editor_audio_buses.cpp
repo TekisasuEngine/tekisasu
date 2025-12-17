@@ -50,6 +50,7 @@
 #include "editor/themes/editor_scale.h"
 #include "editor/themes/editor_theme_manager.h"
 #include "editor/window_wrapper.h"
+#include "scene/gui/margin_container.h"
 #include "scene/gui/separator.h"
 #include "scene/resources/font.h"
 #include "servers/audio_server.h"
@@ -1494,9 +1495,14 @@ EditorAudioBuses::EditorAudioBuses(WindowWrapper *p_wrapper) {
 	bus_scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	bus_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	add_child(bus_scroll);
+	bus_margin = memnew(MarginContainer);
+	bus_margin->set_v_size_flags(SIZE_EXPAND_FILL);
+	bus_scroll->add_child(bus_margin);
 	bus_hb = memnew(HBoxContainer);
 	bus_hb->set_v_size_flags(SIZE_EXPAND_FILL);
-	bus_scroll->add_child(bus_hb);
+	bus_margin->add_child(bus_hb);
+	bus_scroll->get_h_scroll_bar()->connect(SceneStringName(visibility_changed), callable_mp(this, &EditorAudioBuses::_update_scrollbar_margin));
+	_update_scrollbar_margin();
 
 	save_timer = memnew(Timer);
 	save_timer->set_wait_time(0.8);
@@ -1520,6 +1526,16 @@ EditorAudioBuses::EditorAudioBuses(WindowWrapper *p_wrapper) {
 	AudioServer::get_singleton()->connect("bus_layout_changed", callable_mp(this, &EditorAudioBuses::_rebuild_buses));
 
 	set_process(true);
+}
+
+void EditorAudioBuses::_update_scrollbar_margin() {
+	if (!bus_margin || !bus_scroll) {
+		return;
+	}
+
+	const int margin = bus_scroll->get_h_scroll_bar()->is_visible_in_tree() ? int(3 * EDSCALE) : 0;
+	bus_margin->add_theme_constant_override("margin_bottom", margin);
+	bus_margin->add_theme_constant_override("margin_top", 0);
 }
 
 void EditorAudioBuses::open_layout(const String &p_path) {
