@@ -390,7 +390,7 @@ void ScrollContainer::_notification(int p_what) {
 					}
 				}
 				
-				// Draw shadow with current alpha
+				// Draw shadow with current alpha (using fade animation)
 				if (shadow_fade_alpha > 0.0f) {
 					Size2 size = get_size();
 					Point2 ofs = theme_cache.panel_style->get_offset();
@@ -400,10 +400,20 @@ void ScrollContainer::_notification(int p_what) {
 					Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
 					float shadow_width = size.x - panel_min_size.x;
 
-					// Draw shadow at the top of the scrollable area with modulated alpha
+					// Draw shadow at the top of the scrollable area
+					// For full opacity, draw the styled shadow
+					// For fading, we need to handle it differently
 					Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
-					Color modulate = Color(1, 1, 1, shadow_fade_alpha);
-					draw_style_box(theme_cache.scroll_shadow_style, shadow_rect, modulate);
+					
+					if (shadow_fade_alpha >= 1.0f) {
+						// Full opacity - draw normal shadow
+						draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
+					} else {
+						// Fading - draw a semi-transparent dark gradient rect
+						// This approximates the shadow effect during fade-in
+						Color shadow_color = Color(0, 0, 0, 0.15 * shadow_fade_alpha);
+						draw_rect(shadow_rect, shadow_color);
+					}
 				}
 			}
 		} break;
