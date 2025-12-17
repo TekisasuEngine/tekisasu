@@ -1318,33 +1318,33 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// there is more content above the currently visible area.
 		// 
 		// Implementation notes:
-		// - Uses StyleBoxFlat's built-in shadow feature for proper gradient effect
-		// - Shadow fades from dark (top) to transparent (bottom) creating depth
+		// - Uses StyleBoxFlat's shadow feature to create gradient from dark to transparent
+		// - Center is transparent, only the shadow gradient is visible
 		// - Shadow is positioned relative to panel offset, handling variable toolbar heights
 		// - Height is scaled with EDSCALE for proper DPI handling
 		{
 			// Create a shadow with gradient effect that fades to transparency
-			// The shadow itself is drawn "inward" from the top edge
+			// We draw ONLY the shadow, not the center box
 			Ref<StyleBoxFlat> scroll_shadow = memnew(StyleBoxFlat);
 			
-			// Set a dark background color for the shadow base
-			scroll_shadow->set_bg_color(Color(0, 0, 0, 0.6));
-			scroll_shadow->set_draw_center(true);
+			// Make the center completely transparent (we only want the shadow gradient)
+			scroll_shadow->set_bg_color(Color(0, 0, 0, 0));
+			scroll_shadow->set_draw_center(true); // Still need to draw to anchor the shadow
 			scroll_shadow->set_border_width_all(0);
 			scroll_shadow->set_expand_margin_all(0);
 			
 			// Enable shadow feature to create the gradient fade effect
-			// The shadow will fade from dark (shadow_color) at top to transparent at bottom
-			scroll_shadow->set_shadow_color(Color(0, 0, 0, 0.8));
-			scroll_shadow->set_shadow_size(16 * EDSCALE); // Gradient spread
-			scroll_shadow->set_shadow_offset(Point2(0, -8 * EDSCALE)); // Offset upward for top shadow
+			// The shadow will fade from dark at the top to transparent at the bottom
+			scroll_shadow->set_shadow_color(Color(0, 0, 0, 0.7));
+			scroll_shadow->set_shadow_size(24 * EDSCALE); // Gradient spread (height of fade)
+			scroll_shadow->set_shadow_offset(Point2(0, 0)); // No offset, shadow extends downward
 			
 			// Enable anti-aliasing for smooth gradient
 			scroll_shadow->set_anti_aliased(true);
 			scroll_shadow->set_aa_size(1 * EDSCALE);
 			
 			p_theme->set_stylebox("scroll_shadow_style", "ScrollContainer", scroll_shadow);
-			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 24 * EDSCALE); // Visible height
+			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 2 * EDSCALE); // Tiny box, shadow does the work
 		}
 
 		p_theme->set_constant("h_separation", "GridContainer", p_config.separation_margin);
