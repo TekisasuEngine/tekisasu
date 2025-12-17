@@ -55,7 +55,7 @@
 #include "scene/resources/style_box_flat.h"
 #include "scene/scene_string_names.h"
 
-static const int EDITOR_INSPECTOR_SCROLLBAR_RIGHT_MARGIN = 3;
+static const int EDITOR_INSPECTOR_SCROLLBAR_MARGIN = 3;
 
 bool EditorInspector::_property_path_matches(const String &p_property_path, const String &p_filter, EditorPropertyNameProcessor::Style p_style) {
 	if (p_property_path.containsn(p_filter)) {
@@ -4224,8 +4224,11 @@ void EditorInspector::_update_scrollbar_margin() {
 		return;
 	}
 
-	const int margin = get_v_scroll_bar()->is_visible_in_tree() ? int(EDITOR_INSPECTOR_SCROLLBAR_RIGHT_MARGIN * EDSCALE) : 0;
-	content_margin->add_theme_constant_override(SNAME("margin_right"), margin);
+	const int margin = int(EDITOR_INSPECTOR_SCROLLBAR_MARGIN * EDSCALE);
+	const int right_margin = get_v_scroll_bar()->is_visible_in_tree() ? margin : 0;
+	const int top_margin = get_h_scroll_bar()->is_visible_in_tree() ? margin : 0;
+	content_margin->add_theme_constant_override(SNAME("margin_right"), right_margin);
+	content_margin->add_theme_constant_override(SNAME("margin_top"), top_margin);
 }
 
 void EditorInspector::set_property_prefix(const String &p_prefix) {
@@ -4399,6 +4402,7 @@ EditorInspector::EditorInspector() {
 
 	get_v_scroll_bar()->connect(SceneStringName(value_changed), callable_mp(this, &EditorInspector::_vscroll_changed));
 	get_v_scroll_bar()->connect(SceneStringName(visibility_changed), callable_mp(this, &EditorInspector::_update_scrollbar_margin));
+	get_h_scroll_bar()->connect(SceneStringName(visibility_changed), callable_mp(this, &EditorInspector::_update_scrollbar_margin));
 	_update_scrollbar_margin();
 	update_scroll_request = -1;
 	if (EditorSettings::get_singleton()) {
