@@ -368,30 +368,12 @@ void ScrollContainer::_notification(int p_what) {
 			// 3. The vertical scroll position is greater than 0 (i.e., scrolled down)
 			// 
 			// Shadow behavior:
-			// - Fades in over 500ms when scrolling down from top
-			// - Disappears immediately when scrolling back to top
+			// - Appears instantly when scrolling down from top
+			// - Disappears instantly when scrolling back to top
 			// - Variable toolbar heights handled via panel offset positioning
 			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid()) {
 				int v_scroll_value = v_scroll->get_value();
-				bool should_show = v_scroll_value > 0;
-				
-				// Update shadow visibility state
-				if (should_show != shadow_should_be_visible) {
-					shadow_should_be_visible = should_show;
-					if (should_show) {
-						// Start fade-in animation
-						shadow_fade_time = 0.0f;
-						set_process(true);
-					} else {
-						// Instant hide when scrolling to top
-						shadow_fade_alpha = 0.0f;
-						shadow_fade_time = 0.0f;
-						set_process(false);
-					}
-				}
-				
-				// Draw shadow with current alpha (using fade animation)
-				if (shadow_fade_alpha > 0.0f) {
+				if (v_scroll_value > 0) {
 					Size2 size = get_size();
 					Point2 ofs = theme_cache.panel_style->get_offset();
 					int shadow_height = theme_cache.scroll_shadow_height;
@@ -401,33 +383,8 @@ void ScrollContainer::_notification(int p_what) {
 					float shadow_width = size.x - panel_min_size.x;
 
 					// Draw shadow at the top of the scrollable area
-					// For full opacity, draw the styled shadow
-					// For fading, we need to handle it differently
 					Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
-					
-					if (shadow_fade_alpha >= 1.0f) {
-						// Full opacity - draw normal shadow
-						draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
-					} else {
-						// Fading - draw a semi-transparent dark gradient rect
-						// This approximates the shadow effect during fade-in
-						Color shadow_color = Color(0, 0, 0, 0.15 * shadow_fade_alpha);
-						draw_rect(shadow_rect, shadow_color);
-					}
-				}
-			}
-		} break;
-
-		case NOTIFICATION_PROCESS: {
-			// Animate shadow fade-in (500ms duration)
-			if (scroll_shadow_enabled && shadow_should_be_visible && shadow_fade_alpha < 1.0f) {
-				shadow_fade_time += get_process_delta_time();
-				shadow_fade_alpha = MIN(shadow_fade_time / 0.5f, 1.0f); // 0.5 seconds = 500ms
-				queue_redraw();
-				
-				// Stop processing when fade complete
-				if (shadow_fade_alpha >= 1.0f) {
-					set_process(false);
+					draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
 				}
 			}
 		} break;
