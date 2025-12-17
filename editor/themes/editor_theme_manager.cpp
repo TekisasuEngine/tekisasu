@@ -1081,6 +1081,23 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_stylebox("title_button_normal", "Tree", style_tree_title);
 			p_theme->set_stylebox("title_button_hover", "Tree", style_tree_title);
 			p_theme->set_stylebox("title_button_pressed", "Tree", style_tree_title);
+			
+			// Tree scroll shadow - same as ScrollContainer
+			{
+				Ref<StyleBoxFlat> tree_shadow = memnew(StyleBoxFlat);
+				tree_shadow->set_bg_color(Color(0, 0, 0, 0));
+				tree_shadow->set_draw_center(true);
+				tree_shadow->set_border_width_all(0);
+				tree_shadow->set_expand_margin_all(0);
+				tree_shadow->set_shadow_color(Color(0, 0, 0, 0.7));
+				tree_shadow->set_shadow_size(24 * EDSCALE);
+				tree_shadow->set_shadow_offset(Point2(0, 0));
+				tree_shadow->set_anti_aliased(true);
+				tree_shadow->set_aa_size(1 * EDSCALE);
+				
+				p_theme->set_stylebox("scroll_shadow_style", "Tree", tree_shadow);
+				p_theme->set_constant("scroll_shadow_height", "Tree", 2 * EDSCALE);
+			}
 		}
 
 		// ItemList.
@@ -1123,6 +1140,23 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			p_theme->set_constant("icon_margin", "ItemList", (p_config.increased_margin + 2) * EDSCALE);
 			p_theme->set_constant(SceneStringName(line_separation), "ItemList", p_config.separation_margin);
 			p_theme->set_constant("outline_size", "ItemList", 0);
+			
+			// ItemList scroll shadow - same as ScrollContainer
+			{
+				Ref<StyleBoxFlat> itemlist_shadow = memnew(StyleBoxFlat);
+				itemlist_shadow->set_bg_color(Color(0, 0, 0, 0));
+				itemlist_shadow->set_draw_center(true);
+				itemlist_shadow->set_border_width_all(0);
+				itemlist_shadow->set_expand_margin_all(0);
+				itemlist_shadow->set_shadow_color(Color(0, 0, 0, 0.7));
+				itemlist_shadow->set_shadow_size(24 * EDSCALE);
+				itemlist_shadow->set_shadow_offset(Point2(0, 0));
+				itemlist_shadow->set_anti_aliased(true);
+				itemlist_shadow->set_aa_size(1 * EDSCALE);
+				
+				p_theme->set_stylebox("scroll_shadow_style", "ItemList", itemlist_shadow);
+				p_theme->set_constant("scroll_shadow_height", "ItemList", 2 * EDSCALE);
+			}
 		}
 	}
 

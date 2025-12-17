@@ -599,6 +599,10 @@ private:
 		int scrollbar_margin_left = -1;
 		int scrollbar_h_separation = 0;
 		int scrollbar_v_separation = 0;
+		
+		// Scroll shadow effect properties
+		Ref<StyleBox> scroll_shadow_style;
+		int scroll_shadow_height = 8;
 	} theme_cache;
 
 	struct Cache {

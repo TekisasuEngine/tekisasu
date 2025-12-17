@@ -155,6 +155,10 @@ private:
 		Ref<StyleBox> cursor_style;
 		Ref<StyleBox> cursor_focus_style;
 		Color guide_color;
+		
+		// Scroll shadow effect properties
+		Ref<StyleBox> scroll_shadow_style;
+		int scroll_shadow_height = 8;
 	} theme_cache;
 
 	void _scroll_changed(double);

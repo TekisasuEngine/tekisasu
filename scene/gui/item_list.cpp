@@ -1350,6 +1350,22 @@ void ItemList::_notification(int p_what) {
 					draw_style_box(cursor, r);
 				}
 			}
+			
+			// Draw scroll shadow at the top when scrolled down
+			// This provides enhanced visual cueing that there is scrollable content above
+			if (theme_cache.scroll_shadow_style.is_valid() && scroll_bar->is_visible() && scroll_bar->get_value() > 0) {
+				Size2 size = get_size();
+				Point2 ofs = theme_cache.panel_style->get_offset();
+				int shadow_height = theme_cache.scroll_shadow_height;
+				
+				// Calculate width accounting for panel margins
+				Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
+				float shadow_width = size.x - panel_min_size.x;
+				
+				// Draw shadow at the top of the scrollable area
+				Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
+				draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
+			}
 		} break;
 	}
 }
@@ -1898,6 +1914,10 @@ void ItemList::_bind_methods() {
 	BIND_THEME_ITEM_CUSTOM(Theme::DATA_TYPE_STYLEBOX, ItemList, cursor_style, "cursor_unfocused");
 	BIND_THEME_ITEM_CUSTOM(Theme::DATA_TYPE_STYLEBOX, ItemList, cursor_focus_style, "cursor");
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, ItemList, guide_color);
+
+	// Scroll shadow effect theme bindings
+	BIND_THEME_ITEM(Theme::DATA_TYPE_STYLEBOX, ItemList, scroll_shadow_style);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, ItemList, scroll_shadow_height);
 
 	Item defaults(true);
 

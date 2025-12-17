@@ -4387,6 +4387,22 @@ void Tree::_notification(int p_what) {
 				theme_cache.focus_style->draw(ci, Rect2(Point2(), get_size()));
 				RenderingServer::get_singleton()->canvas_item_add_clip_ignore(ci, false);
 			}
+			
+			// Draw scroll shadow at the top when scrolled down
+			// This provides enhanced visual cueing that there is scrollable content above
+			if (theme_cache.scroll_shadow_style.is_valid() && v_scroll->is_visible() && v_scroll->get_value() > 0) {
+				Size2 size = get_size();
+				Point2 ofs = theme_cache.panel_style->get_offset();
+				int shadow_height = theme_cache.scroll_shadow_height;
+				
+				// Calculate width accounting for panel margins
+				Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
+				float shadow_width = size.x - panel_min_size.x;
+				
+				// Draw shadow at the top of the scrollable area
+				Rect2 shadow_rect = Rect2(ofs.x, ofs.y + tbh, shadow_width, shadow_height);
+				theme_cache.scroll_shadow_style->draw(ci, shadow_rect);
+			}
 		} break;
 
 		case NOTIFICATION_THEME_CHANGED:
@@ -5798,6 +5814,10 @@ void Tree::_bind_methods() {
 	BIND_THEME_ITEM(Theme::DATA_TYPE_STYLEBOX, Tree, title_button_pressed);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_STYLEBOX, Tree, title_button_hover);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Tree, title_button_color);
+	
+	// Scroll shadow effect theme bindings
+	BIND_THEME_ITEM(Theme::DATA_TYPE_STYLEBOX, Tree, scroll_shadow_style);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, Tree, scroll_shadow_height);
 }
 
 Tree::Tree() {
