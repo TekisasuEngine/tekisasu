@@ -4390,6 +4390,9 @@ EditorInspector::EditorInspector() {
 	set_horizontal_scroll_mode(SCROLL_MODE_DISABLED);
 	set_follow_focus(true);
 
+	// Enable scroll shadow for testing - shows a bold red bar at top when scrolled
+	set_scroll_shadow_enabled(true);
+
 	changing = 0;
 	search_box = nullptr;
 	_prop_edited = "property_edited";

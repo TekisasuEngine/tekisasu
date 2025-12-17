@@ -101,6 +101,9 @@ ScrollContainer *EditorAbout::_populate_list(const String &p_name, const List<St
 	ScrollContainer *sc = memnew(ScrollContainer);
 	sc->set_name(p_name);
 	sc->set_v_size_flags(Control::SIZE_EXPAND);
+	
+	// Enable scroll shadow for testing
+	sc->set_scroll_shadow_enabled(true);
 
 	VBoxContainer *vbc = memnew(VBoxContainer);
 	vbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
