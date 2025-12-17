@@ -70,9 +70,12 @@ private:
 
 	int deadzone = 0;
 	bool follow_focus = false;
+	bool scroll_shadow_enabled = false;
 
 	struct ThemeCache {
 		Ref<StyleBox> panel_style;
+		Ref<StyleBox> scroll_shadow_style;
+		int scroll_shadow_height = 8;
 	} theme_cache;
 
 	void _cancel_drag();
@@ -116,6 +119,9 @@ public:
 
 	bool is_following_focus() const;
 	void set_follow_focus(bool p_follow);
+
+	void set_scroll_shadow_enabled(bool p_enabled);
+	bool is_scroll_shadow_enabled() const;
 
 	HScrollBar *get_h_scroll_bar();
 	VScrollBar *get_v_scroll_bar();

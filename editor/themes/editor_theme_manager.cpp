@@ -1311,6 +1311,22 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		p_theme->set_constant("margin_top", "MarginContainer", 0);
 		p_theme->set_constant("margin_right", "MarginContainer", 0);
 		p_theme->set_constant("margin_bottom", "MarginContainer", 0);
+
+		// ScrollContainer - Scroll shadow effect for visual cueing of scrollable areas.
+		{
+			// Create a gradient-style shadow that fades from dark to transparent
+			Ref<StyleBoxFlat> scroll_shadow = make_flat_stylebox(Color(0, 0, 0, 0.3), 0, 0, 0, 0);
+			scroll_shadow->set_expand_margin_all(0);
+			scroll_shadow->set_draw_center(true);
+			
+			// Create a subtle gradient effect by using anti-aliasing
+			scroll_shadow->set_anti_aliased(true);
+			scroll_shadow->set_aa_size(2 * EDSCALE);
+			
+			p_theme->set_stylebox("scroll_shadow_style", "ScrollContainer", scroll_shadow);
+			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 8 * EDSCALE);
+		}
+
 		p_theme->set_constant("h_separation", "GridContainer", p_config.separation_margin);
 		p_theme->set_constant("v_separation", "GridContainer", p_config.separation_margin);
 		p_theme->set_constant("h_separation", "FlowContainer", p_config.separation_margin);

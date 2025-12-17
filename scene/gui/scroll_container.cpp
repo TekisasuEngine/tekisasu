@@ -359,6 +359,17 @@ void ScrollContainer::_notification(int p_what) {
 
 		case NOTIFICATION_DRAW: {
 			draw_style_box(theme_cache.panel_style, Rect2(Vector2(), get_size()));
+
+			// Draw scroll shadow at the top when scrolled down
+			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid() && v_scroll->get_value() > 0) {
+				Size2 size = get_size();
+				Point2 ofs = theme_cache.panel_style->get_offset();
+				int shadow_height = theme_cache.scroll_shadow_height;
+
+				// Draw shadow at the top of the scrollable area
+				Rect2 shadow_rect = Rect2(ofs.x, ofs.y, size.x - ofs.x, shadow_height);
+				draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
+			}
 		} break;
 
 		case NOTIFICATION_INTERNAL_PHYSICS_PROCESS: {
@@ -454,6 +465,10 @@ void ScrollContainer::update_scrollbars() {
 
 void ScrollContainer::_scroll_moved(float) {
 	queue_sort();
+	// Trigger redraw when scrolled to update shadow visibility
+	if (scroll_shadow_enabled) {
+		queue_redraw();
+	}
 };
 
 void ScrollContainer::set_h_scroll(int p_pos) {
@@ -534,6 +549,18 @@ void ScrollContainer::set_follow_focus(bool p_follow) {
 	follow_focus = p_follow;
 }
 
+void ScrollContainer::set_scroll_shadow_enabled(bool p_enabled) {
+	if (scroll_shadow_enabled == p_enabled) {
+		return;
+	}
+	scroll_shadow_enabled = p_enabled;
+	queue_redraw();
+}
+
+bool ScrollContainer::is_scroll_shadow_enabled() const {
+	return scroll_shadow_enabled;
+}
+
 PackedStringArray ScrollContainer::get_configuration_warnings() const {
 	PackedStringArray warnings = Container::get_configuration_warnings();
 
@@ -591,6 +618,9 @@ void ScrollContainer::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_follow_focus", "enabled"), &ScrollContainer::set_follow_focus);
 	ClassDB::bind_method(D_METHOD("is_following_focus"), &ScrollContainer::is_following_focus);
 
+	ClassDB::bind_method(D_METHOD("set_scroll_shadow_enabled", "enabled"), &ScrollContainer::set_scroll_shadow_enabled);
+	ClassDB::bind_method(D_METHOD("is_scroll_shadow_enabled"), &ScrollContainer::is_scroll_shadow_enabled);
+
 	ClassDB::bind_method(D_METHOD("get_h_scroll_bar"), &ScrollContainer::get_h_scroll_bar);
 	ClassDB::bind_method(D_METHOD("get_v_scroll_bar"), &ScrollContainer::get_v_scroll_bar);
 	ClassDB::bind_method(D_METHOD("ensure_control_visible", "control"), &ScrollContainer::ensure_control_visible);
@@ -599,6 +629,7 @@ void ScrollContainer::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("scroll_ended"));
 
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "follow_focus"), "set_follow_focus", "is_following_focus");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "scroll_shadow_enabled"), "set_scroll_shadow_enabled", "is_scroll_shadow_enabled");
 
 	ADD_GROUP("Scroll", "scroll_");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "scroll_horizontal", PROPERTY_HINT_NONE, "suffix:px"), "set_h_scroll", "get_h_scroll");
@@ -615,6 +646,8 @@ void ScrollContainer::_bind_methods() {
 	BIND_ENUM_CONSTANT(SCROLL_MODE_SHOW_NEVER);
 
 	BIND_THEME_ITEM_CUSTOM(Theme::DATA_TYPE_STYLEBOX, ScrollContainer, panel_style, "panel");
+	BIND_THEME_ITEM(Theme::DATA_TYPE_STYLEBOX, ScrollContainer, scroll_shadow_style);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, ScrollContainer, scroll_shadow_height);
 
 	GLOBAL_DEF("gui/common/default_scroll_deadzone", 0);
 };
