@@ -45,7 +45,7 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 				if (pending_move) {
 					Point2i real_pos = DisplayServer::get_singleton()->window_get_position(w->get_window_id());
 					w->set_position(real_pos);
-					click_pos = (press_global - real_pos).floor();
+					click_pos = press_global - real_pos;
 					pending_move = false;
 				}
 				Point2 mouse = mm->get_global_position();
@@ -66,7 +66,7 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 					if (!w->has_focus()) {
 						w->grab_focus();
 					}
-					press_global = mb->get_global_position();
+					press_global = Vector2i(mb->get_global_position());
 					pending_move = true;
 					moving = true;
 				} else {

@@ -40,7 +40,7 @@ class EditorTitleBar : public HBoxContainer {
 	GDCLASS(EditorTitleBar, HBoxContainer);
 
 	Point2i click_pos;
-	Point2 press_global;
+	Point2i press_global;
 	bool moving = false;
 	bool pending_move = false;
 	bool can_move = false;
