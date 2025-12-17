@@ -1318,22 +1318,33 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// there is more content above the currently visible area.
 		// 
 		// Implementation notes:
-		// - Uses a subtle gradient effect for cross-browser compatibility
+		// - Uses StyleBoxFlat's built-in shadow feature for proper gradient effect
+		// - Shadow fades from dark (top) to transparent (bottom) creating depth
 		// - Shadow is positioned relative to panel offset, handling variable toolbar heights
-		// - Anti-aliasing creates a smooth gradient from dark to transparent
 		// - Height is scaled with EDSCALE for proper DPI handling
 		{
-			// Create a gradient-style shadow that fades from dark to transparent
-			Ref<StyleBoxFlat> scroll_shadow = make_flat_stylebox(Color(0, 0, 0, 0.3), 0, 0, 0, 0);
-			scroll_shadow->set_expand_margin_all(0);
-			scroll_shadow->set_draw_center(true);
+			// Create a shadow with gradient effect that fades to transparency
+			// The shadow itself is drawn "inward" from the top edge
+			Ref<StyleBoxFlat> scroll_shadow = memnew(StyleBoxFlat);
 			
-			// Create a subtle gradient effect by using anti-aliasing
+			// Set a dark background color for the shadow base
+			scroll_shadow->set_bg_color(Color(0, 0, 0, 0.6));
+			scroll_shadow->set_draw_center(true);
+			scroll_shadow->set_border_width_all(0);
+			scroll_shadow->set_expand_margin_all(0);
+			
+			// Enable shadow feature to create the gradient fade effect
+			// The shadow will fade from dark (shadow_color) at top to transparent at bottom
+			scroll_shadow->set_shadow_color(Color(0, 0, 0, 0.8));
+			scroll_shadow->set_shadow_size(16 * EDSCALE); // Gradient spread
+			scroll_shadow->set_shadow_offset(Point2(0, -8 * EDSCALE)); // Offset upward for top shadow
+			
+			// Enable anti-aliasing for smooth gradient
 			scroll_shadow->set_anti_aliased(true);
-			scroll_shadow->set_aa_size(2 * EDSCALE);
+			scroll_shadow->set_aa_size(1 * EDSCALE);
 			
 			p_theme->set_stylebox("scroll_shadow_style", "ScrollContainer", scroll_shadow);
-			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 8 * EDSCALE);
+			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 24 * EDSCALE); // Visible height
 		}
 
 		p_theme->set_constant("h_separation", "GridContainer", p_config.separation_margin);
