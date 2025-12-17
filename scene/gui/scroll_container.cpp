@@ -370,14 +370,21 @@ void ScrollContainer::_notification(int p_what) {
 			// This handles edge cases like:
 			// - Variable toolbar heights (shadow is positioned relative to panel offset)
 			// - Browser compatibility (uses standard rendering through StyleBox)
-			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid() && v_scroll->get_value() > 0) {
-				Size2 size = get_size();
-				Point2 ofs = theme_cache.panel_style->get_offset();
-				int shadow_height = theme_cache.scroll_shadow_height;
+			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid()) {
+				int v_scroll_value = v_scroll->get_value();
+				if (v_scroll_value > 0) {
+					Size2 size = get_size();
+					Point2 ofs = theme_cache.panel_style->get_offset();
+					int shadow_height = theme_cache.scroll_shadow_height;
+					
+					// Calculate proper width accounting for panel margins on both sides
+					Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
+					float shadow_width = size.x - panel_min_size.x;
 
-				// Draw shadow at the top of the scrollable area
-				Rect2 shadow_rect = Rect2(ofs.x, ofs.y, size.x - ofs.x, shadow_height);
-				draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
+					// Draw shadow at the top of the scrollable area
+					Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
+					draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
+				}
 			}
 		} break;
 
