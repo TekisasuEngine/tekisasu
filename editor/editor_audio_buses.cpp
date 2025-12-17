@@ -1534,7 +1534,7 @@ void EditorAudioBuses::_update_scrollbar_margin() {
 	}
 
 	const int margin = bus_scroll->get_h_scroll_bar()->is_visible_in_tree() ? int(3 * EDSCALE) : 0;
-	bus_margin->add_theme_constant_override("margin_bottom", margin);
+	bus_margin->add_theme_constant_override("margin_bottom", margin + (EDSCALE * 2));
 	bus_margin->add_theme_constant_override("margin_top", 0);
 }
 
