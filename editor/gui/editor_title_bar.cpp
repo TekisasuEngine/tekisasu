@@ -85,6 +85,7 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 					w->set_mode(Window::MODE_MINIMIZED);
 				}
 				moving = false;
+				pending_move = false;
 			}
 		}
 	}
