@@ -1369,8 +1369,8 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			
 			// Enable shadow feature to create the gradient fade effect
 			// The shadow will fade from dark at the top to transparent at the bottom
-			scroll_shadow->set_shadow_color(Color(0, 0, 0, 0.2));
-			scroll_shadow->set_shadow_size(32 * EDSCALE); // Gradient spread (height of fade)
+			scroll_shadow->set_shadow_color(Color(0, 0, 0, 0.7));
+			scroll_shadow->set_shadow_size(24 * EDSCALE); // Gradient spread (height of fade)
 			scroll_shadow->set_shadow_offset(Point2(0, 0)); // No offset, shadow extends downward
 			
 			// Enable anti-aliasing for smooth gradient
