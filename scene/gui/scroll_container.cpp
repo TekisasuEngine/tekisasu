@@ -360,37 +360,30 @@ void ScrollContainer::_notification(int p_what) {
 		case NOTIFICATION_DRAW: {
 			draw_style_box(theme_cache.panel_style, Rect2(Vector2(), get_size()));
 
-			// Draw scroll shadow at the top when scrolled down
+			// Draw scroll shadow at the top
 			// The shadow is drawn with clip_ignore to ensure it appears on top of children,
 			// matching the behavior of Tree and ItemList widgets where shadows darken content.
 			// This provides enhanced visual cueing that there is scrollable content above.
-			// The shadow only appears when:
-			// 1. scroll_shadow_enabled is true
-			// 2. A valid shadow style is configured in the theme
-			// 3. The vertical scroll position is greater than 0 (i.e., scrolled down)
+			// The shadow appears whenever enabled and a valid style is configured.
 			// 
 			// Shadow behavior:
-			// - Appears instantly when scrolling down from top
-			// - Disappears instantly when scrolling back to top
+			// - Appears regardless of scroll position
 			// - Variable toolbar heights handled via panel offset positioning
 			// - Darkens content beneath it for visual consistency with Tree/ItemList
 			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid()) {
-				int v_scroll_value = v_scroll->get_value();
-				if (v_scroll_value > 0) {
-					RID ci = get_canvas_item();
-					Size2 size = get_size();
-					Point2 ofs = theme_cache.panel_style->get_offset();
-					int shadow_height = theme_cache.scroll_shadow_height;
-					
-					// Calculate proper width accounting for panel margins on both sides
-					Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
-					float shadow_width = size.x - panel_min_size.x;
+				RID ci = get_canvas_item();
+				Size2 size = get_size();
+				Point2 ofs = theme_cache.panel_style->get_offset();
+				int shadow_height = theme_cache.scroll_shadow_height;
+				
+				// Calculate proper width accounting for panel margins on both sides
+				Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
+				float shadow_width = size.x - panel_min_size.x;
 
-					// Draw shadow at the top of the scrollable area
-					// Using draw_rect with CanvasItemMaterial::BLEND_MODE_MUL to darken content
-					Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
-					theme_cache.scroll_shadow_style->draw(ci, shadow_rect);
-				}
+				// Draw shadow at the top of the scrollable area
+				// Using draw_rect with CanvasItemMaterial::BLEND_MODE_MUL to darken content
+				Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
+				theme_cache.scroll_shadow_style->draw(ci, shadow_rect);
 			}
 		} break;
 
@@ -575,12 +568,11 @@ void ScrollContainer::set_follow_focus(bool p_follow) {
 }
 
 // Enable or disable the scroll shadow effect.
-// When enabled, a shadow overlay appears at the top of the scrollable area when content
-// is scrolled down, providing visual cueing that there is more content above.
+// When enabled, a shadow overlay appears at the top of the scrollable area,
+// providing visual cueing that there is more content above.
 // 
 // The shadow is:
 // - Positioned at the top of the content area
-// - Only visible when scroll position > 0
 // - Customizable via theme properties (scroll_shadow_style, scroll_shadow_height)
 // - Compatible with variable toolbar heights and modern browsers
 // 

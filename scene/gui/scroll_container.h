@@ -72,9 +72,8 @@ private:
 	bool follow_focus = false;
 	
 	// Scroll shadow effect: When enabled, displays a visual shadow at the top of the scrollable area
-	// when content is scrolled down. This provides enhanced visual cueing that there is more content above.
-	// Works by detecting scroll position and dynamically toggling shadow visibility.
-	bool scroll_shadow_enabled = false;
+	// to provide enhanced visual cueing that there is more content above.
+	bool scroll_shadow_enabled = true;
 
 	struct ThemeCache {
 		Ref<StyleBox> panel_style;

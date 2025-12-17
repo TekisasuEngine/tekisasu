@@ -17,7 +17,7 @@ To quickly test the feature in the Tekisasu/Godot editor:
 You should see:
 - A scrollable list with 50 items
 - A checkbox to toggle the shadow on/off
-- The shadow appearing at the top when you scroll down
+- The shadow visible at the top of the list when enabled
 - A status label showing the current scroll position
 
 ### Method 2: Testing in Editor Panels
@@ -42,8 +42,8 @@ When testing, verify the following:
 
 ### Expected Behavior
 
-✅ **Shadow appears**: When scrolling down from the top
-✅ **Shadow hidden**: When at the top (scroll position = 0)
+✅ **Shadow appears**: At the top of the content area when the feature is enabled
+✅ **Shadow hidden**: When the feature is disabled or no scrolling is needed
 ✅ **Smooth gradient**: Shadow should fade from dark to transparent
 ✅ **Proper positioning**: Shadow should be at the very top of the content area
 ✅ **Dynamic updates**: Shadow should appear/disappear immediately when scrolling

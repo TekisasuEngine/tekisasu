@@ -2,7 +2,7 @@
 
 ## Overview
 
-The scroll shadow feature provides enhanced visual cueing for scrollable content areas in the editor UI. When enabled, a subtle drop-down shadow appears at the top of a ScrollContainer when the user has scrolled down, indicating that there is more content above the currently visible area.
+The scroll shadow feature provides enhanced visual cueing for scrollable content areas in the editor UI. When enabled, a subtle drop-down shadow appears at the top of a ScrollContainer, indicating that there is more content above the currently visible area.
 
 ## Usage
 
@@ -43,7 +43,7 @@ theme.set_constant("scroll_shadow_height", "ScrollContainer", 12)  # Taller shad
 
 ### How It Works
 
-1. **Detection**: The shadow is displayed when the vertical scroll position (`v_scroll->get_value()`) is greater than 0
+1. **Detection**: The shadow is displayed whenever the feature is enabled and a valid shadow style exists
 2. **Drawing**: A StyleBox is drawn at the top of the scrollable area using the configured `scroll_shadow_style`
 3. **Performance**: The shadow only triggers a redraw when the scroll position changes and the feature is enabled
 
@@ -66,9 +66,8 @@ The shadow is positioned relative to the panel style's offset, automatically ada
 ### Edge Cases Handled
 
 1. **No scroll needed**: Shadow not shown when content fits within visible area
-2. **At top**: Shadow not shown when scroll position is 0
-3. **Disabled state**: No performance impact when feature is disabled
-4. **Missing theme**: Gracefully handles missing shadow style in theme
+2. **Disabled state**: No performance impact when feature is disabled
+3. **Missing theme**: Gracefully handles missing shadow style in theme
 
 ## Theme Properties
 
@@ -117,7 +116,7 @@ scroll_container.add_child(help_browser)
 ## Performance Considerations
 
 - **Minimal overhead**: Only redraws when scroll position changes
-- **Optional feature**: Disabled by default to avoid unnecessary rendering
+- **Optional feature**: Enabled by default but can be disabled per use case
 - **Efficient rendering**: Uses hardware-accelerated StyleBox rendering
 - **No scripting required**: Pure C++ implementation for optimal performance
 
@@ -139,7 +138,7 @@ Potential improvements for future versions:
 ## Contributing
 
 When modifying this feature:
-1. Maintain backward compatibility (feature disabled by default)
+1. Maintain backward compatibility (feature enabled by default, but still user-configurable)
 2. Test on multiple platforms
 3. Ensure theme customization works correctly
 4. Update this documentation for any API changes

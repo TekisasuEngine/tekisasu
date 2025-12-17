@@ -72,8 +72,8 @@ void example_monitor_scroll_position(ScrollContainer *scroll) {
 	
 	// Connect to scroll changes
 	vscroll->connect("value_changed", callable_mp_lambda([scroll, vscroll](float value) {
-		// Shadow is visible when scrolled down
-		bool shadow_visible = value > 0 && scroll->is_scroll_shadow_enabled();
+		// Shadow visibility follows the feature toggle
+		bool shadow_visible = scroll->is_scroll_shadow_enabled();
 		
 		// Log for debugging
 		print_line(vformat("Scroll position: %d, Shadow visible: %s", 
@@ -110,7 +110,7 @@ void example_editor_panel_with_shadow() {
 	VBoxContainer *content = memnew(VBoxContainer);
 	scroll->add_child(content);
 	
-	// The shadow will automatically appear when user scrolls past the toolbar
+	// The shadow will appear above the content when the feature is enabled
 	for (int i = 0; i < 100; i++) {
 		Label *item = memnew(Label);
 		item->set_text("Content item " + itos(i + 1));

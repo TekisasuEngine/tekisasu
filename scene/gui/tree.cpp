@@ -4339,11 +4339,11 @@ void Tree::_notification(int p_what) {
 				draw_item(Point2(), draw_ofs, draw_size, root, self_height);
 			}
 
-			// Draw scroll shadow at the top of the scrollable area when scrolled down
+			// Draw scroll shadow at the top of the scrollable area
 			// This is drawn AFTER tree items to darken content beneath it
 			// Shadow positioned at top of widget (ofs.y) to appear above column headers
 			// This provides enhanced visual cueing that there is scrollable content above
-			if (theme_cache.scroll_shadow_style.is_valid() && v_scroll->is_visible() && v_scroll->get_value() > 0) {
+			if (theme_cache.scroll_shadow_style.is_valid() && v_scroll->is_visible()) {
 				Size2 size = get_size();
 				Point2 ofs = theme_cache.panel_style->get_offset();
 				int shadow_height = theme_cache.scroll_shadow_height;

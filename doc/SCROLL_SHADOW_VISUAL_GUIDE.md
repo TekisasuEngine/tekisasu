@@ -63,7 +63,6 @@ NOTIFICATION_DRAW triggered
 Check conditions:
   1. scroll_shadow_enabled == true?
   2. theme_cache.scroll_shadow_style valid?
-  3. v_scroll->get_value() > 0?
       ↓
 All YES → Draw shadow StyleBox at top
       ↓

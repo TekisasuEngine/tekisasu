@@ -2,7 +2,7 @@
 
 ## Overview
 
-This implementation adds a drop-down shadow effect to ScrollContainer for enhanced visual cueing of scrollable content areas in the Tekisasu Engine editor UI. The shadow appears at the top of the container when content is scrolled down, indicating there is more content above.
+This implementation adds a drop-down shadow effect to ScrollContainer for enhanced visual cueing of scrollable content areas in the Tekisasu Engine editor UI. The shadow appears at the top of the container to indicate there is more content above.
 
 ## Implementation Details
 
@@ -11,7 +11,7 @@ This implementation adds a drop-down shadow effect to ScrollContainer for enhanc
 #### 1. ScrollContainer Class (`scene/gui/scroll_container.h` & `.cpp`)
 
 **New Properties:**
-- `scroll_shadow_enabled` (bool): Master toggle for the shadow effect (default: false)
+- `scroll_shadow_enabled` (bool): Master toggle for the shadow effect (default: true)
 
 **New Theme Items:**
 - `scroll_shadow_style` (StyleBox): The visual style for the shadow overlay
@@ -25,7 +25,6 @@ This implementation adds a drop-down shadow effect to ScrollContainer for enhanc
 - Shadow is drawn in `NOTIFICATION_DRAW` when:
   - Feature is enabled
   - Valid shadow style exists in theme
-  - Vertical scroll position > 0
 - Scroll callback triggers redraw when shadow is enabled (performance optimized)
 - Shadow rectangle properly accounts for panel margins on both sides
 - V-scroll value is cached to avoid repeated calls during rendering
@@ -48,10 +47,10 @@ Created comprehensive documentation:
 
 ## Design Decisions
 
-### Why Disabled by Default?
-- Ensures backward compatibility with existing ScrollContainers
-- Allows selective enablement per use case
-- No performance impact on existing code
+### Why Enabled by Default?
+- Provides consistent visual cueing without additional configuration
+- Still allows selective disablement per use case
+- Negligible performance impact with shadow rendering
 
 ### Why StyleBox-based?
 - Leverages existing rendering infrastructure
@@ -66,7 +65,7 @@ Created comprehensive documentation:
 
 ## Features Implemented
 
-✅ **Dynamic Shadow Toggle**: Shadow appears/disappears based on scroll position  
+✅ **Consistent Shadow Presence**: Shadow remains visible whenever the feature is enabled  
 ✅ **Theme Customization**: Fully customizable via theme properties  
 ✅ **Performance Optimized**: Only redraws when needed  
 ✅ **Cross-Platform**: Works on all supported platforms  

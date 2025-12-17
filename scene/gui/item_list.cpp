@@ -1351,9 +1351,8 @@ void ItemList::_notification(int p_what) {
 				}
 			}
 			
-			// Draw scroll shadow at the top when scrolled down
-			// This provides enhanced visual cueing that there is scrollable content above
-			if (theme_cache.scroll_shadow_style.is_valid() && scroll_bar->is_visible() && scroll_bar->get_value() > 0) {
+			// Draw scroll shadow at the top to provide enhanced visual cueing that there is scrollable content above
+			if (theme_cache.scroll_shadow_style.is_valid() && scroll_bar->is_visible()) {
 				Size2 size = get_size();
 				Point2 ofs = theme_cache.panel_style->get_offset();
 				int shadow_height = theme_cache.scroll_shadow_height;
