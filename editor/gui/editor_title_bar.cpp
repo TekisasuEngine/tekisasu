@@ -42,7 +42,7 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 		if (mm->get_button_mask().has_flag(MouseButtonMask::LEFT)) {
 			Window *w = Object::cast_to<Window>(get_viewport());
 			if (w) {
-				Point2 mouse = DisplayServer::get_singleton()->mouse_get_position();
+				Point2 mouse = mm->get_global_position();
 				w->set_position(mouse - click_pos);
 			}
 		} else {
@@ -59,11 +59,10 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 					if (!w->has_focus()) {
 						w->grab_focus();
 					}
+					Point2 mouse = mb->get_global_position();
 					Point2i real_pos = DisplayServer::get_singleton()->window_get_position(w->get_window_id());
-					if (real_pos != w->get_position()) {
-						w->set_position(real_pos);
-					}
-					click_pos = DisplayServer::get_singleton()->mouse_get_position() - real_pos;
+					w->set_position(real_pos);
+					click_pos = mouse - real_pos;
 					moving = true;
 				} else {
 					moving = false;
