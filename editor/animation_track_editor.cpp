@@ -7233,6 +7233,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	panner->set_callbacks(callable_mp(this, &AnimationTrackEditor::_pan_callback), callable_mp(this, &AnimationTrackEditor::_zoom_callback));
 
 	scroll = memnew(ScrollContainer);
+	scroll->set_scroll_shadow_enabled(true); // Enable scroll shadow for visual feedback
 	timeline_vbox->add_child(scroll);
 	scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	VScrollBar *sb = scroll->get_v_scroll_bar();

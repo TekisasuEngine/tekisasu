@@ -75,6 +75,11 @@ private:
 	// when content is scrolled down. This provides enhanced visual cueing that there is more content above.
 	// Works by detecting scroll position and dynamically toggling shadow visibility.
 	bool scroll_shadow_enabled = false;
+	
+	// Animation state for shadow fade-in effect
+	float shadow_fade_alpha = 0.0f;
+	float shadow_fade_time = 0.0f;
+	bool shadow_should_be_visible = false;
 
 	struct ThemeCache {
 		Ref<StyleBox> panel_style;

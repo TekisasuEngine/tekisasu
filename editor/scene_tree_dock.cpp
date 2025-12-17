@@ -1568,6 +1568,7 @@ void SceneTreeDock::_notification(int p_what) {
 			create_root_dialog->add_child(top_row);
 
 			ScrollContainer *scroll_container = memnew(ScrollContainer);
+			scroll_container->set_scroll_shadow_enabled(true); // Enable scroll shadow for visual feedback
 			create_root_dialog->add_child(scroll_container);
 			scroll_container->set_v_size_flags(SIZE_EXPAND_FILL);
 			scroll_container->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);

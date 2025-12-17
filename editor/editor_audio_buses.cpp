@@ -1491,6 +1491,7 @@ EditorAudioBuses::EditorAudioBuses(WindowWrapper *p_wrapper) {
 	p_wrapper->connect("window_visibility_changed", callable_mp(this, &EditorAudioBuses::_window_changed));
 
 	bus_scroll = memnew(ScrollContainer);
+	bus_scroll->set_scroll_shadow_enabled(true); // Enable scroll shadow for visual feedback
 	bus_scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	bus_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	add_child(bus_scroll);

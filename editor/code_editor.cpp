@@ -1782,6 +1782,7 @@ CodeTextEditor::CodeTextEditor() {
 
 	// Error
 	ScrollContainer *scroll = memnew(ScrollContainer);
+	scroll->set_scroll_shadow_enabled(true); // Enable scroll shadow for visual feedback
 	scroll->set_h_size_flags(SIZE_EXPAND_FILL);
 	scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);

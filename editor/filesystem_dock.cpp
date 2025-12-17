@@ -4120,6 +4120,7 @@ FileSystemDock::FileSystemDock() {
 	overwrite_dialog_vb->add_child(overwrite_dialog_header);
 
 	overwrite_dialog_scroll = memnew(ScrollContainer);
+	overwrite_dialog_scroll->set_scroll_shadow_enabled(true); // Enable scroll shadow for visual feedback
 	overwrite_dialog_vb->add_child(overwrite_dialog_scroll);
 	overwrite_dialog_scroll->set_custom_minimum_size(Vector2(400, 600) * EDSCALE);
 
