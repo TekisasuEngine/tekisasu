@@ -1318,22 +1318,21 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 		// there is more content above the currently visible area.
 		// 
 		// Implementation notes:
-		// - Uses a subtle gradient effect for cross-browser compatibility
+		// - Uses a bold, visible color for testing purposes
 		// - Shadow is positioned relative to panel offset, handling variable toolbar heights
-		// - Anti-aliasing creates a smooth gradient from dark to transparent
+		// - Large height and solid color for maximum visibility during testing
 		// - Height is scaled with EDSCALE for proper DPI handling
 		{
-			// Create a gradient-style shadow that fades from dark to transparent
-			Ref<StyleBoxFlat> scroll_shadow = make_flat_stylebox(Color(0, 0, 0, 0.3), 0, 0, 0, 0);
+			// Create a bold, highly visible shadow for testing (bright red, fully opaque)
+			Ref<StyleBoxFlat> scroll_shadow = make_flat_stylebox(Color(1.0, 0.0, 0.0, 1.0), 0, 0, 0, 0);
 			scroll_shadow->set_expand_margin_all(0);
 			scroll_shadow->set_draw_center(true);
 			
-			// Create a subtle gradient effect by using anti-aliasing
-			scroll_shadow->set_anti_aliased(true);
-			scroll_shadow->set_aa_size(2 * EDSCALE);
+			// Disable anti-aliasing for sharp, solid appearance
+			scroll_shadow->set_anti_aliased(false);
 			
 			p_theme->set_stylebox("scroll_shadow_style", "ScrollContainer", scroll_shadow);
-			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 8 * EDSCALE);
+			p_theme->set_constant("scroll_shadow_height", "ScrollContainer", 32 * EDSCALE); // Much larger for testing
 		}
 
 		p_theme->set_constant("h_separation", "GridContainer", p_config.separation_margin);
