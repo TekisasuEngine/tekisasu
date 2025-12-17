@@ -4339,8 +4339,9 @@ void Tree::_notification(int p_what) {
 				draw_item(Point2(), draw_ofs, draw_size, root, self_height);
 			}
 
-			// Draw scroll shadow at the top when scrolled down
-			// This is drawn AFTER tree items but BEFORE title buttons to avoid covering column headers
+			// Draw scroll shadow at the top of the scrollable area when scrolled down
+			// This is drawn AFTER tree items to darken content beneath it
+			// Shadow positioned at top of widget (ofs.y) to appear above column headers
 			// This provides enhanced visual cueing that there is scrollable content above
 			if (theme_cache.scroll_shadow_style.is_valid() && v_scroll->is_visible() && v_scroll->get_value() > 0) {
 				Size2 size = get_size();
@@ -4351,8 +4352,9 @@ void Tree::_notification(int p_what) {
 				Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
 				float shadow_width = size.x - panel_min_size.x;
 				
-				// Draw shadow at the top of the scrollable area (below title buttons)
-				Rect2 shadow_rect = Rect2(ofs.x, ofs.y + tbh, shadow_width, shadow_height);
+				// Draw shadow at the very top of the scrollable area (at ofs.y, not below title buttons)
+				// This ensures shadow appears above column headers in views like Input Map
+				Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
 				theme_cache.scroll_shadow_style->draw(ci, shadow_rect);
 			}
 

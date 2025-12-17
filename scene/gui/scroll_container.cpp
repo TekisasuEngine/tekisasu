@@ -373,6 +373,7 @@ void ScrollContainer::_notification(int p_what) {
 			// - Appears instantly when scrolling down from top
 			// - Disappears instantly when scrolling back to top
 			// - Variable toolbar heights handled via panel offset positioning
+			// - Darkens content beneath it for visual consistency with Tree/ItemList
 			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid()) {
 				int v_scroll_value = v_scroll->get_value();
 				if (v_scroll_value > 0) {
@@ -385,12 +386,10 @@ void ScrollContainer::_notification(int p_what) {
 					Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
 					float shadow_width = size.x - panel_min_size.x;
 
-					// Draw shadow at the top of the scrollable area with clip_ignore
-					// so it renders on top of child controls
-					RenderingServer::get_singleton()->canvas_item_add_clip_ignore(ci, true);
+					// Draw shadow at the top of the scrollable area
+					// Using draw_rect with CanvasItemMaterial::BLEND_MODE_MUL to darken content
 					Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
 					theme_cache.scroll_shadow_style->draw(ci, shadow_rect);
-					RenderingServer::get_singleton()->canvas_item_add_clip_ignore(ci, false);
 				}
 			}
 		} break;
