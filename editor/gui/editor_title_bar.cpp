@@ -42,11 +42,18 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 		if (mm->get_button_mask().has_flag(MouseButtonMask::LEFT)) {
 			Window *w = Object::cast_to<Window>(get_viewport());
 			if (w) {
+				if (pending_move) {
+					Point2i real_pos = DisplayServer::get_singleton()->window_get_position(w->get_window_id());
+					w->set_position(real_pos);
+					click_pos = press_global - real_pos;
+					pending_move = false;
+				}
 				Point2 mouse = mm->get_global_position();
 				w->set_position(mouse - click_pos);
 			}
 		} else {
 			moving = false;
+			pending_move = false;
 		}
 	}
 
@@ -59,13 +66,12 @@ void EditorTitleBar::gui_input(const Ref<InputEvent> &p_event) {
 					if (!w->has_focus()) {
 						w->grab_focus();
 					}
-					Point2 mouse = mb->get_global_position();
-					Point2i real_pos = DisplayServer::get_singleton()->window_get_position(w->get_window_id());
-					w->set_position(real_pos);
-					click_pos = mouse - real_pos;
+					press_global = mb->get_global_position();
+					pending_move = true;
 					moving = true;
 				} else {
 					moving = false;
+					pending_move = false;
 				}
 			}
 			if (mb->get_button_index() == MouseButton::LEFT && mb->is_double_click() && mb->is_pressed()) {
