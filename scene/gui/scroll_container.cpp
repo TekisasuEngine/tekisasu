@@ -361,6 +361,8 @@ void ScrollContainer::_notification(int p_what) {
 			draw_style_box(theme_cache.panel_style, Rect2(Vector2(), get_size()));
 
 			// Draw scroll shadow at the top when scrolled down
+			// The shadow is drawn with clip_ignore to ensure it appears on top of children,
+			// matching the behavior of Tree and ItemList widgets where shadows darken content.
 			// This provides enhanced visual cueing that there is scrollable content above.
 			// The shadow only appears when:
 			// 1. scroll_shadow_enabled is true
@@ -374,6 +376,7 @@ void ScrollContainer::_notification(int p_what) {
 			if (scroll_shadow_enabled && theme_cache.scroll_shadow_style.is_valid()) {
 				int v_scroll_value = v_scroll->get_value();
 				if (v_scroll_value > 0) {
+					RID ci = get_canvas_item();
 					Size2 size = get_size();
 					Point2 ofs = theme_cache.panel_style->get_offset();
 					int shadow_height = theme_cache.scroll_shadow_height;
@@ -382,9 +385,12 @@ void ScrollContainer::_notification(int p_what) {
 					Size2 panel_min_size = theme_cache.panel_style->get_minimum_size();
 					float shadow_width = size.x - panel_min_size.x;
 
-					// Draw shadow at the top of the scrollable area
+					// Draw shadow at the top of the scrollable area with clip_ignore
+					// so it renders on top of child controls
+					RenderingServer::get_singleton()->canvas_item_add_clip_ignore(ci, true);
 					Rect2 shadow_rect = Rect2(ofs.x, ofs.y, shadow_width, shadow_height);
-					draw_style_box(theme_cache.scroll_shadow_style, shadow_rect);
+					theme_cache.scroll_shadow_style->draw(ci, shadow_rect);
+					RenderingServer::get_singleton()->canvas_item_add_clip_ignore(ci, false);
 				}
 			}
 		} break;
