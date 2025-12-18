@@ -79,7 +79,7 @@ namespace GodotTools.Internals
             else if (!slnParentDir.StartsWith("res://", StringComparison.Ordinal))
                 slnParentDir = "res://" + slnParentDir;
 
-            // The csproj should be in the same folder as project.godot.
+            // The csproj should be in the same folder as project.tekisasu.
             string csprojParentDir = "res://";
 
             // Set csproj path first and use it to find the sln/slnx file with the assembly

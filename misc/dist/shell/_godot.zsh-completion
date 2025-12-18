@@ -26,7 +26,7 @@
 # SOFTWARE.
 
 _arguments \
-  "1::path to scene or 'project.godot' file:_files" \
+  "1::path to scene or 'project.tekisasu' file:_files" \
   '(-h --help)'{-h,--help}'[display the full help message]' \
   '--version[display the version string]' \
   '(-v --verbose)'{-v,--verbose}'[use verbose stdout mode]' \
@@ -36,7 +36,7 @@ _arguments \
   '--debug-server[start the editor debug server]:editor debugger listen address' \
   '--quit[quit after the first iteration]' \
   '(-l --language)'{-l,--language}'[use a specific locale (<locale> being a two-letter code)]:two-letter locale code' \
-  "--path[path to a project (<directory> must contain a 'project.godot' file)]:path to directory with 'project.godot' file:_dirs" \
+  "--path[path to a project (<directory> must contain a 'project.tekisasu' file)]:path to directory with 'project.tekisasu' file:_dirs" \
   '--main-pack[path to a pack (.pck) file to load]:path to .pck file:_files' \
   '--render-thread[set the render thread mode]:render thread mode:(unsafe safe separate)' \
   '--remote-fs[use a remote filesystem]:remote filesystem address' \
