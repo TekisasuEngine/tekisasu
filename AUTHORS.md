@@ -1,10 +1,20 @@
 # Tekisasu Engine authors
 
-## Developer
-
-    Tekisasu (dev.tekisasu.com)
+    John Knight (Tekisasu-JohnK)
 
 ## Project Founders
 
-    Juan Linietsky
-    Ariel Manzur
+    Juan Linietsky (reduz)
+    Ariel Manzur (punto-)
+
+## Lead Developer
+
+    Juan Linietsky (reduz)
+
+## Project Manager
+
+    Rémi Verschelde (akien-mga)
+
+## Developers
+
+    Placeholder (placeholder)
