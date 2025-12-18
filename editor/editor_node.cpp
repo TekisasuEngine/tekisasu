@@ -1196,7 +1196,15 @@ void EditorNode::_update_debug_target_status() {
 		return;
 	}
 
-	const String status_text = is_connected ? TTRC("Connected") : TTRC("No Connection");
+	String status_text;
+	if (is_connected) {
+		status_text = debug_target_debugger->get_connected_host();
+		if (status_text.is_empty()) {
+			status_text = TTRC("Connected");
+		}
+	} else {
+		status_text = TTRC("No Connection");
+	}
 	_apply_debug_status(is_connected, status_text);
 }
 
