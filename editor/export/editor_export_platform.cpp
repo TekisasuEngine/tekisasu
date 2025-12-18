@@ -288,6 +288,10 @@ Error EditorExportPlatform::_encrypt_and_store_data(Ref<FileAccess> p_fd, const 
 		ftmp.unref();
 		fae.unref();
 	}
+	if (!pd->use_sparse_pck && pack_xor_enabled()) {
+		uint64_t written = pd->f->get_position() - sd.ofs;
+		pack_xor_process_file(pd->f, sd.ofs, written);
+	}
 	return OK;
 }
 
@@ -2063,7 +2067,7 @@ Error EditorExportPlatform::save_pack(const Ref<EditorExportPreset> &p_preset, b
 	int64_t embed_pos = 0;
 	if (!p_embed) {
 		// Regular output to separate PCK file.
-		f = FileAccess::open(p_path, FileAccess::WRITE);
+		f = FileAccess::open(p_path, FileAccess::WRITE_READ);
 		if (f.is_null()) {
 			add_message(EXPORT_MESSAGE_ERROR, TTR("Save PCK"), vformat(TTR("Can't open file for writing at path \"%s\"."), p_path));
 			return ERR_CANT_CREATE;
@@ -2175,6 +2179,12 @@ Error EditorExportPlatform::save_pack(const Ref<EditorExportPreset> &p_preset, b
 		return ERR_CANT_CREATE;
 	}
 
+	if (pack_xor_enabled() && file_base > pck_start_pos) {
+		uint64_t end_pos = f->get_position();
+		pack_xor_process_file(f, pck_start_pos, file_base - pck_start_pos);
+		f->seek(end_pos);
+	}
+
 	if (p_embed) {
 		// Ensure embedded data ends at a 64-bit multiple.
 		uint64_t embed_end = f->get_position() - embed_pos + 12;
@@ -2186,6 +2196,9 @@ Error EditorExportPlatform::save_pack(const Ref<EditorExportPreset> &p_preset, b
 		uint64_t pck_size = f->get_position() - pck_start_pos;
 		f->store_64(pck_size);
 		f->store_32(PACK_HEADER_MAGIC);
+		if (pack_xor_enabled()) {
+			pack_xor_process_file(f, f->get_position() - 12, 12);
+		}
 
 		if (r_embedded_size) {
 			*r_embedded_size = f->get_position() - embed_pos;
