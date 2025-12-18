@@ -955,7 +955,7 @@ Table of contents:
 - Allow to override editor settings per project ([GH-69012](https://github.com/godotengine/godot/pull/69012)).
 - Allow to ignore debugger error breaks ([GH-77015](https://github.com/godotengine/godot/pull/77015)).
 - CodeEditor: Make possible to select and copy error text ([GH-77776](https://github.com/godotengine/godot/pull/77776)).
-- Add syntax highlighting for ConfigFile/TSCN/TRES/project.godot ([GH-77972](https://github.com/godotengine/godot/pull/77972)).
+- Add syntax highlighting for ConfigFile/TSCN/TRES/project.tekisasu ([GH-77972](https://github.com/godotengine/godot/pull/77972)).
 - Make "access as/revoke unique name" a checkbox ([GH-82216](https://github.com/godotengine/godot/pull/82216)).
 - Don't save unnecessarily with `save_before_running` ([GH-90034](https://github.com/godotengine/godot/pull/90034)).
 - Add credits roll ([GH-90092](https://github.com/godotengine/godot/pull/90092)).

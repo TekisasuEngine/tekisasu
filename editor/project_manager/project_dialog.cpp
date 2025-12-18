@@ -96,7 +96,7 @@ void ProjectDialog::_validate_path() {
 	InputType target_path_input_type = PROJECT_PATH;
 
 	if (mode == MODE_IMPORT) {
-		if (path.get_file().strip_edges() == "project.godot") {
+		if (path.get_file().strip_edges() == "project.tekisasu") {
 			path = path.get_base_dir();
 			project_path->set_text(path);
 		}
@@ -141,7 +141,7 @@ void ProjectDialog::_validate_path() {
 					continue;
 				}
 
-				if (name.get_file() == "project.godot") {
+				if (name.get_file() == "project.tekisasu") {
 					break; // ret == UNZ_OK.
 				}
 
@@ -149,13 +149,13 @@ void ProjectDialog::_validate_path() {
 			}
 
 			if (ret == UNZ_END_OF_LIST_OF_FILE) {
-				_set_message(TTRC("Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."), MESSAGE_ERROR);
+				_set_message(TTRC("Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."), MESSAGE_ERROR);
 				unzClose(pkg);
 				return;
 			}
 
 			unzClose(pkg);
-		} else if (d->dir_exists(path) && d->file_exists(path.path_join("project.godot"))) {
+		} else if (d->dir_exists(path) && d->file_exists(path.path_join("project.tekisasu"))) {
 			zip_path = "";
 
 			create_dir->hide();
@@ -166,7 +166,7 @@ void ProjectDialog::_validate_path() {
 			create_dir->hide();
 			install_path_container->hide();
 
-			_set_message(TTRC("Please choose a \"project.godot\", a directory with one, or a \".zip\" file."), MESSAGE_ERROR);
+			_set_message(TTRC("Please choose a \"project.tekisasu\", a directory with one, or a \".zip\" file."), MESSAGE_ERROR);
 			return;
 		}
 	}
@@ -407,7 +407,7 @@ void ProjectDialog::_browse_project_path() {
 	if (mode == MODE_IMPORT) {
 		fdialog_project->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_ANY);
 		fdialog_project->clear_filters();
-		fdialog_project->add_filter("project.godot", vformat("%s %s", TEKISASU_VERSION_NAME, TTR("Project")));
+		fdialog_project->add_filter("project.tekisasu", vformat("%s %s", TEKISASU_VERSION_NAME, TTR("Project")));
 		fdialog_project->add_filter("*.zip", TTR("ZIP File"));
 	} else {
 		fdialog_project->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_DIR);
@@ -582,9 +582,9 @@ void ProjectDialog::ok_pressed() {
 			initial_settings[extra_setting.key] = extra_setting.value;
 		}
 
-		Error err = ProjectSettings::get_singleton()->save_custom(path.path_join("project.godot"), initial_settings, Vector<String>(), false);
+		Error err = ProjectSettings::get_singleton()->save_custom(path.path_join("project.tekisasu"), initial_settings, Vector<String>(), false);
 		if (err != OK) {
-			_set_message(TTRC("Couldn't create project.godot in project path."), MESSAGE_ERROR);
+			_set_message(TTRC("Couldn't create project.tekisasu in project path."), MESSAGE_ERROR);
 			return;
 		}
 
@@ -637,7 +637,7 @@ void ProjectDialog::ok_pressed() {
 				return;
 			}
 
-			// Find the first directory with a "project.godot".
+			// Find the first directory with a "project.tekisasu".
 			String zip_root;
 			int ret = unzGoToFirstFile(pkg);
 			while (ret == UNZ_OK) {
@@ -654,7 +654,7 @@ void ProjectDialog::ok_pressed() {
 					continue;
 				}
 
-				if (name.get_file() == "project.godot") {
+				if (name.get_file() == "project.tekisasu") {
 					zip_root = name.get_base_dir();
 					break;
 				}
@@ -663,7 +663,7 @@ void ProjectDialog::ok_pressed() {
 			}
 
 			if (ret == UNZ_END_OF_LIST_OF_FILE) {
-				_set_message(TTRC("Invalid \".zip\" project file; it doesn't contain a \"project.godot\" file."), MESSAGE_ERROR);
+				_set_message(TTRC("Invalid \".zip\" project file; it doesn't contain a \"project.tekisasu\" file."), MESSAGE_ERROR);
 				unzClose(pkg);
 				return;
 			}
@@ -754,9 +754,9 @@ void ProjectDialog::ok_pressed() {
 	}
 
 	if (mode == MODE_RENAME || mode == MODE_INSTALL || mode == MODE_DUPLICATE) {
-		// Load project.godot as ConfigFile to set the new name.
+		// Load project.tekisasu as ConfigFile to set the new name.
 		ConfigFile cfg;
-		String project_godot = path.path_join("project.godot");
+		String project_godot = path.path_join("project.tekisasu");
 		Error err = cfg.load(project_godot);
 		if (err != OK) {
 			dialog_error->set_text(vformat(TTR("Couldn't load project at '%s' (error %d). It may be missing or corrupted."), project_godot, err));
