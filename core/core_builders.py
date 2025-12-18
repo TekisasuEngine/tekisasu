@@ -24,7 +24,7 @@ def version_info_builder(target, source, env):
 #define GODOT_VERSION_MAJOR {major}
 #define GODOT_VERSION_MINOR {minor}
 #define GODOT_VERSION_PATCH {patch}
-#define GODOT_VERSION_STATUS "{status}"
+#define TEKISASU_VERSION_STATUS "{status}"
 #define GODOT_VERSION_BUILD "{build}"
 #define GODOT_VERSION_MODULE_CONFIG "{module_config}"
 #define GODOT_VERSION_WEBSITE "{website}"

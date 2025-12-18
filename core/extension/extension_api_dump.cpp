@@ -113,7 +113,7 @@ Dictionary GDExtensionAPIDump::generate_extension_api(bool p_include_docs) {
 #else
 		header["version_patch"] = 0;
 #endif
-		header["version_status"] = GODOT_VERSION_STATUS;
+		header["version_status"] = TEKISASU_VERSION_STATUS;
 		header["version_build"] = GODOT_VERSION_BUILD;
 		header["version_full_name"] = GODOT_VERSION_FULL_NAME;
 

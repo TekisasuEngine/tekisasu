@@ -253,7 +253,7 @@ static void gdextension_get_godot_version2(GDExtensionGodotVersion2 *r_godot_ver
 	r_godot_version->minor = GODOT_VERSION_MINOR;
 	r_godot_version->patch = GODOT_VERSION_PATCH;
 	r_godot_version->hex = GODOT_VERSION_HEX;
-	r_godot_version->status = GODOT_VERSION_STATUS;
+	r_godot_version->status = TEKISASU_VERSION_STATUS;
 	r_godot_version->build = GODOT_VERSION_BUILD;
 	r_godot_version->hash = GODOT_VERSION_HASH;
 	r_godot_version->timestamp = GODOT_VERSION_TIMESTAMP;

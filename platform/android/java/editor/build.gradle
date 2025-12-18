@@ -10,7 +10,7 @@ ext {
     // The build number is added as a suffix to the version code for upload to the Google Play store.
     getEditorBuildNumber = { ->
         int buildNumber = 0
-        String versionStatus = System.getenv("GODOT_VERSION_STATUS")
+        String versionStatus = System.getenv("TEKISASU_VERSION_STATUS")
         if (versionStatus != null && !versionStatus.isEmpty()) {
             try {
                 buildNumber = Integer.parseInt(versionStatus.replaceAll("[^0-9]", ""))

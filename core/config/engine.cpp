@@ -155,7 +155,7 @@ Dictionary Engine::get_version_info() const {
 	dict["minor"] = GODOT_VERSION_MINOR;
 	dict["patch"] = GODOT_VERSION_PATCH;
 	dict["hex"] = GODOT_VERSION_HEX;
-	dict["status"] = GODOT_VERSION_STATUS;
+	dict["status"] = TEKISASU_VERSION_STATUS;
 	dict["build"] = GODOT_VERSION_BUILD;
 
 	String hash = String(GODOT_VERSION_HASH);
