@@ -2,7 +2,7 @@
 #define MyAppVersion "4.6"
 #define MyAppPublisher "Tekisasu Engine contributors"
 #define MyAppURL "https://dev.tekisasu.com/"
-#define MyAppExeName "godot.exe"
+#define MyAppExeName "tekisasu.exe"
 
 [Setup]
 AppId={{60D07AAA-400E-40F5-B073-A796C34D9D78}
@@ -37,7 +37,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "modifypath"; Description: "Add Godot to PATH environment variable"
+Name: "modifypath"; Description: "Add Tekisasu to PATH environment variable"
 
 [Files]
 Source: "{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
