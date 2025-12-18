@@ -1,0 +1,34 @@
+#include "core/version.h"
+
+#ifndef RT_MANIFEST
+#define RT_MANIFEST 24
+#endif
+
+GODOT_ICON ICON platform/windows/tekisasu.ico
+1 RT_MANIFEST "platform/windows/tekisasu.manifest"
+
+1 VERSIONINFO
+FILEVERSION     TEKISASU_VERSION_MAJOR,TEKISASU_VERSION_MINOR,TEKISASU_VERSION_PATCH,0
+PRODUCTVERSION  TEKISASU_VERSION_MAJOR,TEKISASU_VERSION_MINOR,TEKISASU_VERSION_PATCH,0
+FILEOS          4
+FILETYPE        1
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName",            "Tekisasu Engine contributors"
+            VALUE "FileDescription",        "Tekisasu Engine"
+            VALUE "FileVersion",            TEKISASU_VERSION_NUMBER
+            VALUE "ProductName",            "Tekisasu Engine"
+            VALUE "Licence",                "MIT"
+            VALUE "LegalCopyright",         "(c) Tekisasu Engine contributors"
+            VALUE "Info",                   "https://dev.tekisasu.com"
+            VALUE "ProductVersion",         GODOT_VERSION_FULL_BUILD
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

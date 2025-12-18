@@ -110,7 +110,7 @@ void editor_register_icons(const Ref<Theme> &p_theme, bool p_dark_theme, float p
 	// The names of the icons to exclude when adjusting for saturation.
 	HashSet<StringName> saturation_exceptions;
 	saturation_exceptions.insert("DefaultProjectIcon");
-	saturation_exceptions.insert("Godot");
+	saturation_exceptions.insert("Tekisasu");
 	saturation_exceptions.insert("Logo");
 
 	// Accent color conversion map.

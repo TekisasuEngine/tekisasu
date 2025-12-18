@@ -149,7 +149,7 @@ EditorDebuggerServer *EditorDebuggerServerUDS::create(const String &p_protocol) 
 }
 
 Error EditorDebuggerServerUDS::start(const String &p_uri) {
-	String bind_path = p_uri.is_empty() ? String("/tmp/godot_debugger.sock") : p_uri.replace("unix://", "");
+	String bind_path = p_uri.is_empty() ? String("/tmp/tekisasu_debugger.sock") : p_uri.replace("unix://", "");
 
 	const Error err = server->listen(bind_path);
 	if (err != OK) {

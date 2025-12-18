@@ -222,7 +222,7 @@ void CreditsRoll::roll_credits() {
 		_create_label(_build_string(DONORS_MEMBERS_GOLD));
 
 		_create_nothing();
-		_create_label(String::utf8(GODOT_LICENSE_TEXT));
+		_create_label(String::utf8(TEKISASU_LICENSE_TEXT));
 
 		_create_nothing(400 * EDSCALE);
 		_create_label(TTRC("Thank you for choosing Godot Engine!"), LabelSize::BIG_HEADER);

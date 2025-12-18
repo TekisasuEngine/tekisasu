@@ -159,7 +159,9 @@ void editor_register_fonts(const Ref<Theme> &p_theme) {
 
 	Dictionary default_features;
 	default_features["calt"] = false; // Disable contextual alternates by default.
-	default_features["ss04"] = true; // Serifed I, tailed l for better distinction.
+	default_features["ss04"] = false; // Serifed I, tailed l for better distinction.
+	default_features["ss01"] = true; // Alternate digits (flat-top 3, open 4, 6 and 9)
+	default_features["ss02"] = false; // Disambiguation (Upper-case I with serif, lower-case L with tail, slashed zero)
 	default_features["tnum"] = true; // Tabular numbers for better alignment.
 
 	String noto_cjk_path;
