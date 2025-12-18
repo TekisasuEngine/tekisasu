@@ -1124,7 +1124,7 @@ void EditorHelp::_update_doc() {
 		class_desc->add_newline();
 		class_desc->add_newline();
 
-		const String &csharp_differences_url = vformat("%s/tutorials/scripting/c_sharp/c_sharp_differences.html", GODOT_VERSION_DOCS_URL);
+		const String &csharp_differences_url = vformat("%s/tutorials/scripting/c_sharp/c_sharp_differences.html", TEKISASU_VERSION_DOCS_URL);
 
 		class_desc->push_indent(1);
 		_push_normal_font();
@@ -4264,7 +4264,7 @@ void EditorHelpBit::_go_to_url(const String &p_what) {
 		section = vformat("#%s", clss);
 	}
 
-	String doc_url = clss.is_empty() ? String(GODOT_VERSION_DOCS_URL "/") : vformat(GODOT_VERSION_DOCS_URL "/classes/class_%s.html%s", clss, section);
+	String doc_url = clss.is_empty() ? String(TEKISASU_VERSION_DOCS_URL "/") : vformat(TEKISASU_VERSION_DOCS_URL "/classes/class_%s.html%s", clss, section);
 	OS::get_singleton()->shell_open(doc_url);
 }
 

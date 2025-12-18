@@ -172,5 +172,5 @@ String SnapshotCollector::get_godot_version_string() {
 	if (hash.length() != 0) {
 		hash = " " + vformat("[%s]", hash.left(9));
 	}
-	return "v" GODOT_VERSION_FULL_BUILD + hash;
+	return "v" TEKISASU_VERSION_FULL_BUILD + hash;
 }

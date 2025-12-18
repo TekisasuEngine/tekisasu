@@ -1026,7 +1026,7 @@ void ResourceLoaderBinary::open(Ref<FileAccess> p_f, bool p_no_resources, bool p
 	if (ver_format > FORMAT_VERSION || ver_major > TEKISASU_VERSION_MAJOR) {
 		f.unref();
 		ERR_FAIL_MSG(vformat("File '%s' can't be loaded, as it uses a format version (%d) or engine version (%d.%d) which are not supported by your engine version (%s).",
-				local_path, ver_format, ver_major, ver_minor, GODOT_VERSION_BRANCH));
+				local_path, ver_format, ver_major, ver_minor, TEKISASU_VERSION_BRANCH));
 	}
 
 	type = get_unicode_string();
@@ -1387,7 +1387,7 @@ Error ResourceFormatLoaderBinary::rename_dependencies(const String &p_path, cons
 	if (ver_format > FORMAT_VERSION || ver_major > TEKISASU_VERSION_MAJOR) {
 		ERR_FAIL_V_MSG(ERR_FILE_UNRECOGNIZED,
 				vformat("File '%s' can't be loaded, as it uses a format version (%d) or engine version (%d.%d) which are not supported by your engine version (%s).",
-						local_path, ver_format, ver_major, ver_minor, GODOT_VERSION_BRANCH));
+						local_path, ver_format, ver_major, ver_minor, TEKISASU_VERSION_BRANCH));
 	}
 
 	// Since we're not actually converting the file contents, leave the version
@@ -2468,7 +2468,7 @@ Error ResourceFormatSaverBinaryInstance::set_uid(const String &p_path, ResourceU
 	if (ver_format > FORMAT_VERSION || ver_major > TEKISASU_VERSION_MAJOR) {
 		ERR_FAIL_V_MSG(ERR_FILE_UNRECOGNIZED,
 				vformat("File '%s' can't be loaded, as it uses a format version (%d) or engine version (%d.%d) which are not supported by your engine version (%s).",
-						local_path, ver_format, ver_major, ver_minor, GODOT_VERSION_BRANCH));
+						local_path, ver_format, ver_major, ver_minor, TEKISASU_VERSION_BRANCH));
 	}
 
 	// Since we're not actually converting the file contents, leave the version

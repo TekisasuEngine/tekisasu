@@ -181,10 +181,10 @@ void ParticleProcessMaterial::_update_shader() {
 		}
 	}
 
-	// No pre-existing shader, create one.
+// No pre-existing shader, create one.
 
-	// Add a comment to describe the shader origin (useful when converting to ShaderMaterial).
-	String code = "// NOTE: Shader automatically converted from " GODOT_VERSION_NAME " " GODOT_VERSION_FULL_CONFIG "'s ParticleProcessMaterial.\n\n";
+// Add a comment to describe the shader origin (useful when converting to ShaderMaterial).
+String code = "// NOTE: Shader automatically converted from " TEKISASU_VERSION_NAME " " TEKISASU_VERSION_FULL_CONFIG "'s ParticleProcessMaterial.\n\n";
 
 	code += "shader_type particles;\n";
 	code += "render_mode disable_velocity;\n";

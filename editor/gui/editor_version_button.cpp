@@ -37,10 +37,10 @@ String _get_version_string(EditorVersionButton::VersionFormat p_format) {
 	String main;
 	switch (p_format) {
 		case EditorVersionButton::FORMAT_BASIC: {
-			return GODOT_VERSION_FULL_CONFIG;
+			return TEKISASU_VERSION_FULL_CONFIG;
 		} break;
 		case EditorVersionButton::FORMAT_WITH_BUILD: {
-			main = "v" GODOT_VERSION_FULL_BUILD;
+			main = "v" TEKISASU_VERSION_FULL_BUILD;
 		} break;
 		case EditorVersionButton::FORMAT_WITH_NAME_AND_BUILD: {
 			main = TEKISASU_VERSION_FULL_NAME;
@@ -67,8 +67,8 @@ void EditorVersionButton::_notification(int p_what) {
 
 		case NOTIFICATION_TRANSLATION_CHANGED: {
 			String build_date;
-			if (GODOT_VERSION_TIMESTAMP > 0) {
-				build_date = Time::get_singleton()->get_datetime_string_from_unix_time(GODOT_VERSION_TIMESTAMP, true) + " UTC";
+			if (TEKISASU_VERSION_TIMESTAMP > 0) {
+				build_date = Time::get_singleton()->get_datetime_string_from_unix_time(TEKISASU_VERSION_TIMESTAMP, true) + " UTC";
 			} else {
 				build_date = TTR("(unknown)");
 			}

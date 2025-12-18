@@ -301,7 +301,7 @@ void ProceduralSkyMaterial::_update_shader(bool p_use_debanding, bool p_use_sky_
 
 		// Add a comment to describe the shader origin (useful when converting to ShaderMaterial).
 		RS::get_singleton()->shader_set_code(shader_cache[index], vformat(R"(
-// NOTE: Shader automatically converted from )" GODOT_VERSION_NAME " " GODOT_VERSION_FULL_CONFIG R"('s ProceduralSkyMaterial.
+// NOTE: Shader automatically converted from )" TEKISASU_VERSION_NAME " " TEKISASU_VERSION_FULL_CONFIG R"('s ProceduralSkyMaterial.
 
 shader_type sky;
 %s
@@ -491,7 +491,7 @@ void PanoramaSkyMaterial::_update_shader(bool p_filter) {
 
 		// Add a comment to describe the shader origin (useful when converting to ShaderMaterial).
 		RS::get_singleton()->shader_set_code(shader_cache[index], vformat(R"(
-// NOTE: Shader automatically converted from )" GODOT_VERSION_NAME " " GODOT_VERSION_FULL_CONFIG R"('s PanoramaSkyMaterial.
+// NOTE: Shader automatically converted from )" TEKISASU_VERSION_NAME " " TEKISASU_VERSION_FULL_CONFIG R"('s PanoramaSkyMaterial.
 
 shader_type sky;
 
@@ -733,7 +733,7 @@ void PhysicalSkyMaterial::_update_shader(bool p_use_debanding, bool p_use_night_
 
 		// Add a comment to describe the shader origin (useful when converting to ShaderMaterial).
 		RS::get_singleton()->shader_set_code(shader_cache[index], vformat(R"(
-// NOTE: Shader automatically converted from )" GODOT_VERSION_NAME " " GODOT_VERSION_FULL_CONFIG R"('s PhysicalSkyMaterial.
+// NOTE: Shader automatically converted from )" TEKISASU_VERSION_NAME " " TEKISASU_VERSION_FULL_CONFIG R"('s PhysicalSkyMaterial.
 
 shader_type sky;
 %s
