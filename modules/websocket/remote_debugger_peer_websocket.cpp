@@ -101,7 +101,7 @@ String RemoteDebuggerPeerWebSocket::get_connected_host() const {
 	if (ws_peer.is_null()) {
 		return String();
 	}
-	return ws_peer->get_connected_host();
+	return String(ws_peer->get_connected_host());
 }
 
 Error RemoteDebuggerPeerWebSocket::put_message(const Array &p_arr) {
