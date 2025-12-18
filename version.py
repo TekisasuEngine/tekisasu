@@ -1,9 +1,9 @@
-short_name = "godot"
-name = "Godot Engine"
+short_name = "tekisasu"
+name = "Tekisasu Engine"
 major = 4
 minor = 6
 patch = 0
 status = "beta"
 module_config = ""
-website = "https://godotengine.org"
+website = "https://dev.tekisasu.com"
 docs = "latest"
