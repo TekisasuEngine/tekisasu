@@ -8664,7 +8664,7 @@ EditorNode::EditorNode() {
 	ED_SHORTCUT_AND_COMMAND("editor/report_a_bug", TTRC("Report a Bug"));
 	ED_SHORTCUT_AND_COMMAND("editor/suggest_a_feature", TTRC("Suggest a Feature"));
 	ED_SHORTCUT_AND_COMMAND("editor/send_docs_feedback", TTRC("Send Docs Feedback"));
-	ED_SHORTCUT_AND_COMMAND("editor/about", TTRC("About Godot..."));
+	ED_SHORTCUT_AND_COMMAND("editor/about", TTRC("About Tekisasu Engine"));
 	ED_SHORTCUT_AND_COMMAND("editor/support_development", TTRC("Support Godot Development"));
 
 	// Use the Ctrl modifier so F2 can be used to rename nodes in the scene tree dock.
@@ -8736,15 +8736,21 @@ EditorNode::EditorNode() {
 	quick_menu_button->set_switch_on_hover(true);
 	PopupMenu *quick_menu = quick_menu_button->get_popup();
 	quick_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_menu_option));
-	quick_menu->add_item(TTRC("Project Settings..."), PROJECT_OPEN_SETTINGS);
-	quick_menu->add_item(TTRC("Editor Settings..."), EDITOR_OPEN_SETTINGS);
+	quick_menu->add_item(TTRC("About Tekisasu Engine"), HELP_ABOUT);
+	quick_menu->add_item(TTRC("Copy System Info"), HELP_COPY_SYSTEM_INFO);
 	quick_menu->add_separator();
+	quick_menu->add_item(TTRC("Project Settings"), PROJECT_OPEN_SETTINGS);
+	quick_menu->add_item(TTRC("Editor Settings"), EDITOR_OPEN_SETTINGS);
+	quick_menu->add_separator();
+	quick_menu->add_item(TTRC("Search Help"), HELP_SEARCH);
+	quick_menu->add_item(TTRC("Online Documentation"), HELP_DOCS);
 	quick_menu->add_item(TTRC("Command Palette..."), EDITOR_COMMAND_PALETTE);
+	quick_menu->add_separator();
+	quick_menu->add_item(TTRC("Export Project"), PROJECT_EXPORT);
+	quick_menu->add_item(TTRC("Manage Export Templates"), EDITOR_MANAGE_EXPORT_TEMPLATES);
 	quick_menu->add_separator();
 	quick_menu->add_item(TTRC("Quit to Project List"), PROJECT_QUIT_TO_PROJECT_MANAGER);
 	quick_menu->add_item(TTRC("Quit"), SCENE_QUIT);
-	quick_menu->add_separator();
-	quick_menu->add_item(TTRC("About Godot..."), HELP_ABOUT);
 	title_bar->add_child(quick_menu_button);
 	if (left_menu_spacer) {
 		title_bar->move_child(quick_menu_button, left_menu_spacer->get_index() + 1);
