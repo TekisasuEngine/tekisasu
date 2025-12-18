@@ -71,7 +71,7 @@ String ProjectSettings::get_imported_files_path() const {
 }
 
 #ifdef TOOLS_ENABLED
-// Returns the features that a project must have when opened with this build of Godot.
+// Returns the features that a project must have when opened with this build of Tekisasu.
 // This is used by the project manager to provide the initial_settings for config/features.
 const PackedStringArray ProjectSettings::get_required_features() {
 	PackedStringArray features;
@@ -82,7 +82,7 @@ const PackedStringArray ProjectSettings::get_required_features() {
 	return features;
 }
 
-// Returns the features supported by this build of Godot. Includes all required features.
+// Returns the features supported by this build of Tekisasu. Includes all required features.
 const PackedStringArray ProjectSettings::_get_supported_features() {
 	PackedStringArray features = get_required_features();
 
@@ -110,7 +110,7 @@ const PackedStringArray ProjectSettings::_get_supported_features() {
 	return features;
 }
 
-// Returns the features that this project needs but this build of Godot lacks.
+// Returns the features that this project needs but this build of Tekisasu lacks.
 const PackedStringArray ProjectSettings::get_unsupported_features(const PackedStringArray &p_project_features) {
 	PackedStringArray unsupported_features;
 	PackedStringArray supported_features = singleton->_get_supported_features();
@@ -127,7 +127,7 @@ const PackedStringArray ProjectSettings::get_unsupported_features(const PackedSt
 	return unsupported_features;
 }
 
-// Returns the features that both this project has and this build of Godot has, ensuring required features exist.
+// Returns the features that both this project has and this build of Tekisasu has, ensuring required features exist.
 const PackedStringArray ProjectSettings::_trim_to_supported_features(const PackedStringArray &p_project_features) {
 	// Remove unsupported features if present.
 	PackedStringArray features = PackedStringArray(p_project_features);
@@ -708,7 +708,7 @@ Error ProjectSettings::_setup(const String &p_path, const String &p_main_pack, b
 		bool found = _load_resource_pack(exec_path, false, 0, true);
 
 		// Attempt with exec_name.pck.
-		// (This is the usual case when distributing a Godot game.)
+		// (This is the usual case when distributing a Tekisasu game.)
 		String exec_dir = exec_path.get_base_dir();
 		String exec_filename = exec_path.get_file();
 		String exec_basename = exec_filename.get_basename();
@@ -1308,7 +1308,7 @@ Error ProjectSettings::save_custom(const String &p_path, const CustomMap &p_cust
 		save_features += f;
 	}
 
-	if (p_path.ends_with(".godot") || p_path.ends_with("override.cfg")) {
+	if (p_path.ends_with(".tekisasu") || p_path.ends_with("override.cfg")) {
 		return _save_settings_text(p_path, save_props, p_custom, save_features);
 	} else if (p_path.ends_with(".binary")) {
 		return _save_settings_binary(p_path, save_props, p_custom, save_features);

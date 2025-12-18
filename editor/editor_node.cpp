@@ -7995,7 +7995,7 @@ void EditorNode::_update_main_menu_type() {
 		main_menu_bar = memnew(MenuBar);
 		main_menu_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 		main_menu_bar->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
-		main_menu_bar->set_theme_type_variation("MainMenuBar");
+		main_menu_bar->set_theme_type_variation("TekisasuMenuBar");
 		main_menu_bar->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		main_menu_bar->set_start_index(0); // Main menu, add to the start of global menu.
 		main_menu_bar->set_prefer_global_menu(menu_type == MENU_TYPE_GLOBAL);
