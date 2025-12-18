@@ -1,9 +1,12 @@
 short_name = "tekisasu"
 name = "Tekisasu Engine"
-major = 4
-minor = 6
+upstream_major = 4
+upstream_minor = 6
+upstream_patch = 0
+major = 1
+minor = 2
 patch = 0
-status = "beta"
+status = "stable"
 module_config = ""
 website = "https://dev.tekisasu.com"
 docs = "latest"
