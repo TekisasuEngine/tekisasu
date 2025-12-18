@@ -43,10 +43,10 @@ String _get_version_string(EditorVersionButton::VersionFormat p_format) {
 			main = "v" GODOT_VERSION_FULL_BUILD;
 		} break;
 		case EditorVersionButton::FORMAT_WITH_NAME_AND_BUILD: {
-			main = GODOT_VERSION_FULL_NAME;
+			main = TEKISASU_VERSION_FULL_NAME;
 		} break;
 		default: {
-			ERR_FAIL_V_MSG(GODOT_VERSION_FULL_NAME, "Unexpected format: " + itos(p_format));
+			ERR_FAIL_V_MSG(TEKISASU_VERSION_FULL_NAME, "Unexpected format: " + itos(p_format));
 		} break;
 	}
 

@@ -95,7 +95,7 @@ const PackedStringArray ProjectSettings::_get_supported_features() {
 #endif
 	// Allow pinning to a specific patch number or build type by marking
 	// them as supported. They're only used if the user adds them manually.
-	features.append(GODOT_VERSION_BRANCH "." _MKSTR(GODOT_VERSION_PATCH));
+	features.append(GODOT_VERSION_BRANCH "." _MKSTR(TEKISASU_VERSION_PATCH));
 	features.append(GODOT_VERSION_FULL_CONFIG);
 	features.append(GODOT_VERSION_FULL_BUILD);
 

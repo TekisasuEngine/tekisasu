@@ -21,11 +21,11 @@ def version_info_builder(target, source, env):
             """\
 #define GODOT_VERSION_SHORT_NAME "{short_name}"
 #define GODOT_VERSION_NAME "{name}"
-#define GODOT_VERSION_MAJOR {major}
-#define GODOT_VERSION_MINOR {minor}
-#define GODOT_VERSION_PATCH {patch}
+#define TEKISASU_VERSION_MAJOR {major}
+#define TEKISASU_VERSION_MINOR {minor}
+#define TEKISASU_VERSION_PATCH {patch}
 #define TEKISASU_VERSION_STATUS "{status}"
-#define GODOT_VERSION_BUILD "{build}"
+#define TEKISASU_VERSION_BUILD "{build}"
 #define GODOT_VERSION_MODULE_CONFIG "{module_config}"
 #define GODOT_VERSION_WEBSITE "{website}"
 #define GODOT_VERSION_DOCS_BRANCH "{docs_branch}"
