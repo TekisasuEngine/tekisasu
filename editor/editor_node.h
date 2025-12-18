@@ -43,6 +43,8 @@ typedef bool (*EditorBuildCallback)();
 class AcceptDialog;
 class ColorPicker;
 class ConfirmationDialog;
+class HBoxContainer;
+class Label;
 class Control;
 class FileDialog;
 class HBoxContainer;
@@ -327,6 +329,10 @@ private:
 	MenuButton *quick_menu_button = nullptr;
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
+	HBoxContainer *debug_target_hb = nullptr;
+	Label *debug_target_label = nullptr;
+	Label *debug_target_status = nullptr;
+	bool debug_target_last_connected_state = false;
 	HBoxContainer *right_menu_hb = nullptr;
 
 	// Spacers to center 2D / 3D / Script buttons.
@@ -682,6 +688,7 @@ private:
 	void _open_imported();
 
 	void _update_update_spinner();
+	void _update_debug_target_status();
 
 	void _resources_changed(const Vector<String> &p_resources);
 	void _scan_external_changes();

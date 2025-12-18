@@ -824,6 +824,8 @@ void EditorNode::_notification(int p_what) {
 				scene_tabs->update_scene_tabs();
 			}
 
+			_update_debug_target_status();
+
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
 			uint64_t tick = OS::get_singleton()->get_ticks_msec();
@@ -1138,6 +1140,42 @@ void EditorNode::_update_update_spinner() {
 	}
 
 	OS::get_singleton()->set_low_processor_usage_mode(!update_continuously);
+}
+
+void EditorNode::_update_debug_target_status() {
+	if (!debug_target_status) {
+		return;
+	}
+
+	EditorDebuggerNode *debugger_node = EditorDebuggerNode::get_singleton();
+	if (!debugger_node) {
+		return;
+	}
+
+	ScriptEditorDebugger *debugger = debugger_node->get_default_debugger();
+	if (!debugger) {
+		return;
+	}
+
+	bool is_connected = debugger->is_session_active();
+	if (is_connected == debug_target_last_connected_state) {
+		return;
+	}
+
+	debug_target_last_connected_state = is_connected;
+
+	const Color connected_color = Color(0.46, 0.85, 0.69, 1.0);
+	const Color disconnected_color = Color(0.94, 0.44, 0.56, 1.0);
+
+	const String status_text = is_connected ? TTRC("Connected") : TTRC("No Connection");
+	const Color status_color = is_connected ? connected_color : disconnected_color;
+
+	debug_target_status->set_text(status_text);
+	debug_target_status->add_theme_color_override(SNAME("font_color"), status_color);
+	debug_target_status->set_tooltip_text(vformat(TTRC("Debug client status: %s"), status_text));
+	if (debug_target_label) {
+		debug_target_label->set_tooltip_text(debug_target_status->get_tooltip_text());
+	}
 }
 
 void EditorNode::_execute_upgrades() {
@@ -8791,17 +8829,48 @@ EditorNode::EditorNode() {
 	title_bar->add_child(main_editor_button_hb);
 	title_bar->set_center_control(main_editor_button_hb);
 
-	// Spacer to center 2D / 3D / Script buttons.
-	right_spacer = memnew(Control);
-	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(right_spacer);
+	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).darkened(0.2);
+
+	Label *runbar_left_separator = memnew(Label);
+	runbar_left_separator->set_text("|");
+	runbar_left_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_left_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	title_bar->add_child(runbar_left_separator);
 
 	project_run_bar = memnew(EditorRunBar);
 	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	Label *runbar_right_separator = memnew(Label);
+	runbar_right_separator->set_text("|");
+	runbar_right_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_right_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	title_bar->add_child(runbar_right_separator);
+
+	debug_target_hb = memnew(HBoxContainer);
+	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	title_bar->add_child(debug_target_hb);
+
+	debug_target_label = memnew(Label);
+	debug_target_label->set_text(TTRC("Debug Client:"));
+	debug_target_label->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.5));
+	debug_target_label->set_tooltip_text(TTRC("Debug client status: No Connection"));
+	debug_target_hb->add_child(debug_target_label);
+
+	debug_target_status = memnew(Label);
+	debug_target_status->set_text(TTRC("No Connection"));
+	debug_target_status->add_theme_color_override(SNAME("font_color"), Color(0.94, 0.44, 0.56, 1.0));
+	debug_target_status->set_tooltip_text(TTRC("Debug client status: No Connection"));
+	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	debug_target_hb->add_child(debug_target_status);
+
+	// Spacer to center 2D / 3D / Script buttons.
+	right_spacer = memnew(Control);
+	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(right_spacer);
 
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
