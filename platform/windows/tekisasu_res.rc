@@ -18,9 +18,9 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName",            "Tekisasu Engine contributors"
-            VALUE "FileDescription",        GODOT_VERSION_NAME
+            VALUE "FileDescription",        "Tekisasu Engine"
             VALUE "FileVersion",            GODOT_VERSION_NUMBER
-            VALUE "ProductName",            GODOT_VERSION_NAME
+            VALUE "ProductName",            "Tekisasu Engine"
             VALUE "Licence",                "MIT"
             VALUE "LegalCopyright",         "(c) Tekisasu Engine contributors"
             VALUE "Info",                   "https://dev.tekisasu.com"
