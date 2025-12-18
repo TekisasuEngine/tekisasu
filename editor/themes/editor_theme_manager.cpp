@@ -368,18 +368,14 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			int preset_extra_spacing = 0;
 			Size2 preset_dialogs_buttons_min_size;
 
-			if (config.spacing_preset == "Compact") {
+			if (config.spacing_preset == "Default") {
 				preset_base_spacing = 2;
 				preset_extra_spacing = 2;
 				preset_dialogs_buttons_min_size = Size2(90, 26);
-			} else if (config.spacing_preset == "Spacious") {
-				preset_base_spacing = 6;
-				preset_extra_spacing = 2;
-				preset_dialogs_buttons_min_size = Size2(112, 36);
 			} else { // Default
-				preset_base_spacing = 4;
-				preset_extra_spacing = 0;
-				preset_dialogs_buttons_min_size = Size2(105, 34);
+				preset_base_spacing = 2;
+				preset_extra_spacing = 2;
+				preset_dialogs_buttons_min_size = Size2(90, 26);
 			}
 
 			config.base_spacing = preset_base_spacing;
