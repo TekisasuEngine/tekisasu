@@ -81,7 +81,6 @@ _FORCE_INLINE_ void pack_xor_process(uint8_t *p_data, uint64_t p_length, uint64_
 	(void)p_data;
 	(void)p_length;
 	(void)p_offset;
-	ERR_FAIL_COND(!p_data && p_length > 0);
 }
 
 _FORCE_INLINE_ void pack_xor_process_file(const Ref<FileAccess> &p_file, uint64_t p_offset, uint64_t p_length) {
