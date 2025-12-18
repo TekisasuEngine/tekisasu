@@ -288,10 +288,6 @@ Error EditorExportPlatform::_encrypt_and_store_data(Ref<FileAccess> p_fd, const 
 		ftmp.unref();
 		fae.unref();
 	}
-	if (!pd->use_sparse_pck && pack_xor_enabled()) {
-		uint64_t written = pd->f->get_position() - sd.ofs;
-		pack_xor_process_file(pd->f, sd.ofs, written);
-	}
 	return OK;
 }
 
@@ -337,6 +333,11 @@ Error EditorExportPlatform::_save_pack_file(const Ref<EditorExportPreset> &p_pre
 		for (int i = 0; i < 16; i++) {
 			sd.md5.write[i] = hash[i];
 		}
+	}
+
+	if (!pd->use_sparse_pck && pack_xor_enabled()) {
+		uint64_t written = pd->f->get_position() - sd.ofs;
+		pack_xor_process_file(pd->f, sd.ofs, written);
 	}
 
 	pd->file_ofs.push_back(sd);
@@ -2179,7 +2180,7 @@ Error EditorExportPlatform::save_pack(const Ref<EditorExportPreset> &p_preset, b
 		return ERR_CANT_CREATE;
 	}
 
-	if (pack_xor_enabled() && file_base > pck_start_pos) {
+	if (pack_xor_enabled() && file_base > (uint64_t)pck_start_pos) {
 		uint64_t end_pos = f->get_position();
 		pack_xor_process_file(f, pck_start_pos, file_base - pck_start_pos);
 		f->seek(end_pos);
