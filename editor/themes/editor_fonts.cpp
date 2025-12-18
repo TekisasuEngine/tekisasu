@@ -159,7 +159,9 @@ void editor_register_fonts(const Ref<Theme> &p_theme) {
 
 	Dictionary default_features;
 	default_features["calt"] = false; // Disable contextual alternates by default.
-	default_features["ss04"] = true; // Serifed I, tailed l for better distinction.
+	default_features["ss04"] = false; // Serifed I, tailed l for better distinction.
+	default_features["ss01"] = true; // Alternate digits (flat-top 3, open 4, 6 and 9)
+	default_features["ss02"] = false; // Disambiguation (Upper-case I with serif, lower-case L with tail, slashed zero)
 	default_features["tnum"] = true; // Tabular numbers for better alignment.
 
 	String noto_cjk_path;
@@ -193,15 +195,6 @@ void editor_register_fonts(const Ref<Theme> &p_theme) {
 	Ref<FontFile> japanese_font = load_internal_font(_font_DroidSansJapanese, _font_DroidSansJapanese_size, font_hinting, font_antialiasing, true, font_subpixel_positioning, font_disable_embedded_bitmaps, false, &fallbacks);
 	default_font->set_fallbacks(fallbacks);
 	default_font_msdf->set_fallbacks(fallbacks);
-
-	// Enable Inter OpenType features.
-	Dictionary ot_features;
-	ot_features["ss01"] = true; // Alternate digits (flat-top 3, open 4, 6 and 9)
-	ot_features["ss02"] = false; // Disambiguation (Upper-case I with serif, lower-case L with tail, slashed zero)
-	default_font->set_opentype_feature_overrides(ot_features);
-	default_font_msdf->set_opentype_feature_overrides(ot_features);
-	default_font_bold->set_opentype_feature_overrides(ot_features);
-	default_font_bold_msdf->set_opentype_feature_overrides(ot_features);
 
 	Ref<FontFile> default_font_bold = load_internal_font(_font_Inter_Bold, _font_Inter_Bold_size, font_hinting, font_antialiasing, true, font_subpixel_positioning, font_disable_embedded_bitmaps, false);
 	Ref<FontFile> default_font_bold_msdf = load_internal_font(_font_Inter_Bold, _font_Inter_Bold_size, font_hinting, font_antialiasing, true, font_subpixel_positioning, font_disable_embedded_bitmaps, font_allow_msdf);
