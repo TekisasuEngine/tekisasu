@@ -51,6 +51,7 @@ public:
 	virtual Array get_message() = 0;
 	virtual void close() = 0;
 	virtual void poll() = 0;
+	virtual String get_connected_host() const { return String(); }
 	virtual bool can_block() const { return true; } // If blocking io is allowed on main thread (debug).
 
 	RemoteDebuggerPeer();
@@ -92,6 +93,7 @@ public:
 	Array get_message() override;
 	void poll() override;
 	void close() override;
+	String get_connected_host() const override;
 
 	RemoteDebuggerPeerTCP(Ref<StreamPeerSocket> p_stream);
 	RemoteDebuggerPeerTCP();

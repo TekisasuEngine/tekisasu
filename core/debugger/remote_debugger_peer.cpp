@@ -246,6 +246,13 @@ RemoteDebuggerPeer *RemoteDebuggerPeerTCP::create_unix(const String &p_uri) {
 	return memnew(RemoteDebuggerPeerTCP(stream));
 }
 
+String RemoteDebuggerPeerTCP::get_connected_host() const {
+	if (tcp_client.is_null()) {
+		return String();
+	}
+	return tcp_client->get_connected_host().to_string();
+}
+
 RemoteDebuggerPeer::RemoteDebuggerPeer() {
 	max_queued_messages = (int)GLOBAL_GET("network/limits/debugger/max_queued_messages");
 }

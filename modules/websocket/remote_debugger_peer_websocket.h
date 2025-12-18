@@ -55,6 +55,7 @@ public:
 	Array get_message() override;
 	void close() override;
 	void poll() override;
+	String get_connected_host() const override;
 	bool can_block() const override;
 
 	RemoteDebuggerPeerWebSocket(const Ref<WebSocketPeer> &p_peer = Ref<WebSocketPeer>());
