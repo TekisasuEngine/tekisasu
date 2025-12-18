@@ -324,6 +324,7 @@ private:
 	Label *project_title = nullptr;
 	Control *left_menu_spacer = nullptr;
 	Control *right_menu_spacer = nullptr;
+	MenuButton *quick_menu_button = nullptr;
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
 	HBoxContainer *right_menu_hb = nullptr;
