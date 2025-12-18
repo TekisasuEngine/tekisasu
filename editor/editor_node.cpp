@@ -667,6 +667,8 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		update_preview_themes(CanvasItemEditor::THEME_PREVIEW_EDITOR);
 	}
 
+	_update_debug_status_colors();
+
 	// Update styles.
 	{
 		bool dark_mode = DisplayServer::get_singleton()->is_dark_mode_supported() && DisplayServer::get_singleton()->is_dark_mode();
@@ -1142,40 +1144,60 @@ void EditorNode::_update_update_spinner() {
 	OS::get_singleton()->set_low_processor_usage_mode(!update_continuously);
 }
 
+void EditorNode::_update_debug_status_colors() {
+	debug_target_connected_color = theme->get_color(SNAME("success_color"), EditorStringName(Editor));
+	debug_target_disconnected_color = theme->get_color(SNAME("error_color"), EditorStringName(Editor));
+}
+
+static String _debug_status_tooltip(const String &p_status_text) {
+	return vformat(TTRC("Debug client status: %s"), p_status_text);
+}
+
+void EditorNode::_apply_debug_status(bool p_connected, const String &p_status_text) {
+	debug_target_last_connected_state = p_connected;
+	if (!debug_target_status) {
+		return;
+	}
+
+	const Color status_color = p_connected ? debug_target_connected_color : debug_target_disconnected_color;
+	debug_target_status->set_text(p_status_text);
+	debug_target_status->add_theme_color_override(SNAME("font_color"), status_color);
+	debug_target_status->set_tooltip_text(_debug_status_tooltip(p_status_text));
+	if (debug_target_label) {
+		debug_target_label->set_tooltip_text(debug_target_status->get_tooltip_text());
+	}
+}
+
 void EditorNode::_update_debug_target_status() {
 	if (!debug_target_status) {
 		return;
 	}
 
 	EditorDebuggerNode *debugger_node = EditorDebuggerNode::get_singleton();
-	if (!debugger_node) {
+	if (!debugger_node && !debug_target_last_connected_state) {
 		return;
 	}
 
-	ScriptEditorDebugger *debugger = debugger_node->get_default_debugger();
-	if (!debugger) {
+	if (debugger_node) {
+		debug_target_debugger = debugger_node->get_default_debugger();
+	} else {
+		debug_target_debugger = nullptr;
+	}
+
+	if (debug_target_debugger == nullptr) {
+		if (debug_target_last_connected_state) {
+			_apply_debug_status(false, TTRC("No Connection"));
+		}
 		return;
 	}
 
-	bool is_connected = debugger->is_session_active();
+	bool is_connected = debug_target_debugger->is_session_active();
 	if (is_connected == debug_target_last_connected_state) {
 		return;
 	}
 
-	debug_target_last_connected_state = is_connected;
-
-	const Color connected_color = Color(0.46, 0.85, 0.69, 1.0);
-	const Color disconnected_color = Color(0.94, 0.44, 0.56, 1.0);
-
 	const String status_text = is_connected ? TTRC("Connected") : TTRC("No Connection");
-	const Color status_color = is_connected ? connected_color : disconnected_color;
-
-	debug_target_status->set_text(status_text);
-	debug_target_status->add_theme_color_override(SNAME("font_color"), status_color);
-	debug_target_status->set_tooltip_text(vformat(TTRC("Debug client status: %s"), status_text));
-	if (debug_target_label) {
-		debug_target_label->set_tooltip_text(debug_target_status->get_tooltip_text());
-	}
+	_apply_debug_status(is_connected, status_text);
 }
 
 void EditorNode::_execute_upgrades() {
@@ -8829,7 +8851,9 @@ EditorNode::EditorNode() {
 	title_bar->add_child(main_editor_button_hb);
 	title_bar->set_center_control(main_editor_button_hb);
 
-	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).darkened(0.2);
+	const double separator_darken_factor = 0.2;
+	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).darkened(separator_darken_factor);
+	_update_debug_status_colors();
 
 	Label *runbar_left_separator = memnew(Label);
 	runbar_left_separator->set_text("|");
@@ -8853,16 +8877,18 @@ EditorNode::EditorNode() {
 	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	title_bar->add_child(debug_target_hb);
 
+	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
+	debug_label_color.a *= 0.5;
 	debug_target_label = memnew(Label);
 	debug_target_label->set_text(TTRC("Debug Client:"));
-	debug_target_label->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.5));
-	debug_target_label->set_tooltip_text(TTRC("Debug client status: No Connection"));
+	debug_target_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_target_label->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
 	debug_target_hb->add_child(debug_target_label);
 
 	debug_target_status = memnew(Label);
 	debug_target_status->set_text(TTRC("No Connection"));
-	debug_target_status->add_theme_color_override(SNAME("font_color"), Color(0.94, 0.44, 0.56, 1.0));
-	debug_target_status->set_tooltip_text(TTRC("Debug client status: No Connection"));
+	debug_target_status->add_theme_color_override(SNAME("font_color"), debug_target_disconnected_color);
+	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	debug_target_hb->add_child(debug_target_status);
 
