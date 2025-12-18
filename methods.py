@@ -18,7 +18,7 @@ from typing import Generator, TextIO, cast
 from misc.utility.color import print_error, print_info, print_warning
 from platform_methods import detect_arch
 
-# Get the "Godot" folder name ahead of time
+# Get the "Tekisasu" folder name ahead of time
 base_folder = Path(__file__).resolve().parent
 
 compiler_version_cache = None
@@ -262,11 +262,11 @@ def detect_modules(search_path, recursive=False):
 
     def is_engine(path):
         # Prevent recursively detecting modules in self and other
-        # Godot sources when using `custom_modules` build option.
+        # Tekisasu sources when using `custom_modules` build option.
         version_path = os.path.join(path, "version.py")
         if os.path.exists(version_path):
             with open(version_path, "r", encoding="utf-8") as f:
-                if 'short_name = "godot"' in f.read():
+                if 'short_name = "tekisasu"' in f.read():
                     return True
         return False
 
@@ -476,7 +476,7 @@ def detect_visual_c_compiler_version(tools_env):
     # "x86"           Native 32 bit compiler
     # "x86_amd64"     32 bit Cross Compiler for 64 bit
 
-    # There are other architectures, but Godot does not support them currently, so this function does not detect arm/amd64_arm
+    # There are other architectures, but Tekisasu does not support them currently, so this function does not detect arm/amd64_arm
     # and similar architectures/compilers
 
     # Set chosen compiler to "not detected"
@@ -1007,7 +1007,7 @@ def dump(env):
 #
 # To generate AND build from the command line:
 #   scons vsproj=yes vsproj_gen_only=no
-def generate_vs_project(env, original_args, project_name="godot"):
+def generate_vs_project(env, original_args, project_name="tekisasu"):
     # Augmented glob_recursive that also fills the dirs argument with traversed directories that have content.
     def glob_recursive_2(pattern, dirs, node="."):
         from SCons import Node
@@ -1239,9 +1239,8 @@ def generate_vs_project(env, original_args, project_name="godot"):
     sources_active = []
     others_active = []
 
-    bin_name = env.get("binary_name", "godot")
     get_dependencies(
-        env.File(f"#bin/{bin_name}{env['PROGSUFFIX']}"), env, extensions, headers_active, sources_active, others_active
+        env.File(f"#bin/tekisasu{env['PROGSUFFIX']}"), env, extensions, headers_active, sources_active, others_active
     )
 
     all_items = []
