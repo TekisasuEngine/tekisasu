@@ -221,7 +221,7 @@ def make_license_header(target, source, env):
 
     with methods.generated_wrapper(str(target[0])) as file:
         file.write(f"""\
-inline constexpr const char *GODOT_LICENSE_TEXT = {{
+inline constexpr const char *TEKISASU_LICENSE_TEXT = {{
 {methods.to_raw_cstring(license_text)}
 }};
 

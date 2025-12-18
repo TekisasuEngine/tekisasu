@@ -292,7 +292,7 @@ EditorAbout::EditorAbout() {
 	license_text_label->set_name(TTRC("License"));
 	license_text_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	license_text_label->set_v_size_flags(Control::SIZE_EXPAND_FILL);
-	license_text_label->set_text(String::utf8(GODOT_LICENSE_TEXT));
+	license_text_label->set_text(String::utf8(TEKISASU_LICENSE_TEXT));
 	tc->add_child(license_text_label);
 
 	// Thirdparty License.
