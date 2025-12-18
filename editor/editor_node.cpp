@@ -8851,8 +8851,8 @@ EditorNode::EditorNode() {
 	title_bar->add_child(main_editor_button_hb);
 	title_bar->set_center_control(main_editor_button_hb);
 
-	const double separator_darken_factor = 0.1;
-	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).darkened(separator_darken_factor);
+	const double separator_modulated = 0.1;
+	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).lightened(separator_modulated);
 	_update_debug_status_colors();
 
 	Label *runbar_left_separator = memnew(Label);
