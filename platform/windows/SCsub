@@ -69,8 +69,8 @@ def arrange_program_clean(prog):
 
 
 env["BUILDERS"]["RES"].emitter = redirect_emitter
-res_file = "godot_res.rc"
-res_target = "godot_res" + env["OBJSUFFIX"]
+res_file = "tekisasu_res.rc"
+res_target = "tekisasu_res" + env["OBJSUFFIX"]
 res_obj = env.RES(res_target, res_file)
 env.Depends(res_obj, "#core/version_generated.gen.h")
 
@@ -88,14 +88,14 @@ else:
     prog = env.add_program("#bin/godot", sources, PROGSUFFIX=env["PROGSUFFIX"])
 arrange_program_clean(prog)
 
-env.Depends(prog, "godot.manifest")
+env.Depends(prog, "tekisasu.manifest")
 if env.msvc:
-    env.Depends(prog, "godot.natvis")
+    env.Depends(prog, "tekisasu.natvis")
 
 # Build console wrapper app.
 if env["windows_subsystem"] == "gui":
-    res_wrap_file = "godot_res_wrap.rc"
-    res_wrap_target = "godot_res_wrap" + env["OBJSUFFIX"]
+    res_wrap_file = "tekisasu_res_wrap.rc"
+    res_wrap_target = "tekisasu_res_wrap" + env["OBJSUFFIX"]
     res_wrap_obj = env_wrap.RES(res_wrap_target, res_wrap_file)
     env_wrap.Depends(res_wrap_obj, "#core/version_generated.gen.h")
 

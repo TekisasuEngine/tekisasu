@@ -510,7 +510,7 @@ def configure_msvc(env: "SConsEnvironment"):
             env.AppendUnique(LINKFLAGS=["/LTCG"])
         env.AppendUnique(ARFLAGS=["/LTCG"])
 
-    env.Append(LINKFLAGS=["/NATVIS:platform\\windows\\godot.natvis"])
+    env.Append(LINKFLAGS=["/NATVIS:platform\\windows\\tekisasu.natvis"])
 
     if env["use_asan"]:
         env.AppendUnique(LINKFLAGS=["/STACK:" + str(STACK_SIZE_SANITIZERS)])
