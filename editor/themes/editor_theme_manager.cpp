@@ -321,42 +321,12 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 			const float light_contrast = config.style == "Modern" ? -0.4 : -0.06;
 
 			// Please use alphabetical order if you're adding a new color preset here.
-			if (config.preset == "Black (OLED)") {
-				preset_accent_color = Color(0.45, 0.75, 1.0);
-				preset_base_color = Color(0, 0, 0);
-				// The contrast rate value is irrelevant on a fully black theme.
-				preset_contrast = 0.0;
-				preset_draw_extra_borders = true;
-			} else if (config.preset == "Breeze Dark") {
-				preset_accent_color = Color(0.239, 0.682, 0.914);
-				preset_base_color = Color(0.1255, 0.1373, 0.149);
-			} else if (config.preset == "Godot 2") {
-				preset_accent_color = Color(0.53, 0.67, 0.89);
-				preset_base_color = Color(0.24, 0.23, 0.27);
-				preset_icon_saturation = 1;
-			} else if (config.preset == "Godot 3") {
-				preset_accent_color = Color(0.44, 0.73, 0.98);
-				preset_base_color = Color(0.21, 0.24, 0.29);
-				preset_icon_saturation = 1;
-			} else if (config.preset == "Gray") {
-				preset_accent_color = Color(0.44, 0.73, 0.98);
-				preset_base_color = Color(0.24, 0.24, 0.24);
-			} else if (config.preset == "Light") {
-				preset_accent_color = Color(0.18, 0.50, 1.00);
-				preset_base_color = Color(0.9, 0.9, 0.9);
-				preset_contrast = light_contrast;
-				preset_icon_saturation = 1;
-			} else if (config.preset == "Solarized (Dark)") {
-				preset_accent_color = Color(0.15, 0.55, 0.82);
-				preset_base_color = Color(0.03, 0.21, 0.26);
-				preset_contrast = 0.23;
-			} else if (config.preset == "Solarized (Light)") {
-				preset_accent_color = Color(0.15, 0.55, 0.82);
-				preset_base_color = Color(0.89, 0.86, 0.79);
-				preset_contrast = light_contrast;
+			if (config.preset == "Default") {
+				preset_accent_color = Color(0.41, 0.49, 0.86);
+				preset_base_color = Color(0.15, 0.15, 0.15);
 			} else { // Default
-				preset_accent_color = Color(0.337, 0.62, 1.0);
-				preset_base_color = Color(0.153, 0.153, 0.153);
+				preset_accent_color = Color(0.41, 0.49, 0.86);
+				preset_base_color = Color(0.15, 0.15, 0.15);
 			}
 
 			config.accent_color = preset_accent_color;
