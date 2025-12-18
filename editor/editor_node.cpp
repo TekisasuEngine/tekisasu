@@ -8851,7 +8851,7 @@ EditorNode::EditorNode() {
 	title_bar->add_child(main_editor_button_hb);
 	title_bar->set_center_control(main_editor_button_hb);
 
-	const double separator_darken_factor = 0.2;
+	const double separator_darken_factor = 0.1;
 	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).darkened(separator_darken_factor);
 	_update_debug_status_colors();
 
