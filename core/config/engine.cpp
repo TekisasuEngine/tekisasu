@@ -244,7 +244,7 @@ Dictionary Engine::get_license_info() const {
 }
 
 String Engine::get_license_text() const {
-	return String(GODOT_LICENSE_TEXT);
+	return String(TEKISASU_LICENSE_TEXT);
 }
 
 String Engine::get_architecture_name() const {
