@@ -7491,15 +7491,24 @@ Vector<Ref<EditorResourceConversionPlugin>> EditorNode::find_resource_conversion
 }
 
 void EditorNode::_update_renderer_color() {
-	String rendering_method = renderer->get_selected_metadata();
+	String current_renderer = String(GLOBAL_GET("rendering/renderer/rendering_method")).to_lower();
+	Color renderer_color;
 
-	if (rendering_method == "forward_plus") {
-		renderer->add_theme_color_override(SceneStringName(font_color), theme->get_color(SNAME("forward_plus_color"), EditorStringName(Editor)));
-	} else if (rendering_method == "mobile") {
-		renderer->add_theme_color_override(SceneStringName(font_color), theme->get_color(SNAME("mobile_color"), EditorStringName(Editor)));
-	} else if (rendering_method == "gl_compatibility") {
-		renderer->add_theme_color_override(SceneStringName(font_color), theme->get_color(SNAME("gl_compatibility_color"), EditorStringName(Editor)));
+	if (current_renderer != OS::get_singleton()->get_current_rendering_method().to_lower()) {
+		renderer_color = theme->get_color(SNAME("overridden_color"), EditorStringName(Editor));
+	} else {
+		String rendering_method = renderer->get_selected_metadata();
+		if (rendering_method == "forward_plus") {
+			renderer_color = theme->get_color(SNAME("forward_plus_color"), EditorStringName(Editor));
+		} else if (rendering_method == "mobile") {
+			renderer_color = theme->get_color(SNAME("mobile_color"), EditorStringName(Editor));
+		} else if (rendering_method == "gl_compatibility") {
+			renderer_color = theme->get_color(SNAME("gl_compatibility_color"), EditorStringName(Editor));
+		}
 	}
+
+	renderer->add_theme_color_override(SceneStringName(font_color), renderer_color);
+	renderer->add_theme_color_override(SNAME("icon_normal_color"), renderer_color);
 }
 
 void EditorNode::_renderer_selected(int p_index) {
@@ -8799,10 +8808,10 @@ EditorNode::EditorNode() {
 	title_bar->add_child(right_menu_hb);
 
 	renderer = memnew(OptionButton);
+	renderer->set_clip_text(true);
 	renderer->set_visible(true);
 	renderer->set_flat(true);
 	renderer->set_theme_type_variation("TopBarOptionButton");
-	renderer->set_fit_to_longest_item(false);
 	renderer->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
 	renderer->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	renderer->set_tooltip_auto_translate_mode(AUTO_TRANSLATE_MODE_ALWAYS);
@@ -8821,6 +8830,20 @@ EditorNode::EditorNode() {
 	const String current_renderer_ps = String(GLOBAL_GET("rendering/renderer/rendering_method")).to_lower();
 	const String current_renderer_os = OS::get_singleton()->get_current_rendering_method().to_lower();
 
+	auto get_renderer_icon = [&](const String &p_renderer_method) -> Ref<Texture2D> {
+		if (p_renderer_method == "forward_plus") {
+			return theme->get_icon(SNAME("ForwardRender"), EditorStringName(EditorIcons));
+		}
+		if (p_renderer_method == "mobile") {
+			return theme->get_icon(SNAME("MobileRender"), EditorStringName(EditorIcons));
+		}
+		if (p_renderer_method == "gl_compatibility") {
+			return theme->get_icon(SNAME("CompatibilityRender"), EditorStringName(EditorIcons));
+		}
+
+		return Ref<Texture2D>();
+	};
+
 	// Add the renderers name to the UI.
 	if (current_renderer_ps == current_renderer_os) {
 		renderer->connect(SceneStringName(item_selected), callable_mp(this, &EditorNode::_renderer_selected));
@@ -8832,7 +8855,8 @@ EditorNode::EditorNode() {
 			if (rendering_method == "dummy") {
 				continue;
 			}
-			renderer->add_item(String()); // Set in NOTIFICATION_TRANSLATION_CHANGED.
+			Ref<Texture2D> renderer_icon = get_renderer_icon(rendering_method);
+			renderer->add_icon_item(renderer_icon, _to_rendering_method_display_name(rendering_method));
 			renderer->set_item_metadata(-1, rendering_method);
 			if (current_renderer_ps == rendering_method) {
 				renderer->select(i);
@@ -8840,7 +8864,9 @@ EditorNode::EditorNode() {
 		}
 	} else {
 		// It's an CLI-overridden rendering method.
-		renderer->add_item(String()); // Set in NOTIFICATION_TRANSLATION_CHANGED.
+		Ref<Texture2D> renderer_icon = get_renderer_icon(current_renderer_os);
+		// TRANSLATORS: The placeholder is the rendering method that has overridden the default one.
+		renderer->add_icon_item(renderer_icon, vformat(TTR("%s (Overridden)"), _to_rendering_method_display_name(current_renderer_os)));
 		renderer->set_item_metadata(-1, current_renderer_os);
 	}
 	_update_renderer_color();
