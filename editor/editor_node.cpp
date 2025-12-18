@@ -8728,6 +8728,30 @@ EditorNode::EditorNode() {
 
 	_update_main_menu_type();
 
+	quick_menu_button = memnew(MenuButton);
+	quick_menu_button->set_flat(true);
+	quick_menu_button->set_focus_mode(Control::FOCUS_NONE);
+	quick_menu_button->set_theme_type_variation("FlatMenuButton");
+	quick_menu_button->set_button_icon(theme->get_icon(SNAME("TitleBarLogo"), EditorStringName(EditorIcons)));
+	quick_menu_button->set_switch_on_hover(true);
+	PopupMenu *quick_menu = quick_menu_button->get_popup();
+	quick_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorNode::_menu_option));
+	quick_menu->add_item(TTRC("Project Settings..."), PROJECT_OPEN_SETTINGS);
+	quick_menu->add_item(TTRC("Editor Settings..."), EDITOR_OPEN_SETTINGS);
+	quick_menu->add_separator();
+	quick_menu->add_item(TTRC("Command Palette..."), EDITOR_COMMAND_PALETTE);
+	quick_menu->add_separator();
+	quick_menu->add_item(TTRC("Quit to Project List"), PROJECT_QUIT_TO_PROJECT_MANAGER);
+	quick_menu->add_item(TTRC("Quit"), SCENE_QUIT);
+	quick_menu->add_separator();
+	quick_menu->add_item(TTRC("About Godot..."), HELP_ABOUT);
+	title_bar->add_child(quick_menu_button);
+	if (left_menu_spacer) {
+		title_bar->move_child(quick_menu_button, left_menu_spacer->get_index() + 1);
+	} else {
+		title_bar->move_child(quick_menu_button, 0);
+	}
+
 	// Spacer to center 2D / 3D / Script buttons.
 	left_spacer = memnew(HBoxContainer);
 	left_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
