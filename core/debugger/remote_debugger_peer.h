@@ -96,7 +96,6 @@ public:
 	Array get_message() override;
 	void poll() override;
 	void close() override;
-	String get_connected_host() const override;
 
 	RemoteDebuggerPeerTCP(Ref<StreamPeerSocket> p_stream);
 	RemoteDebuggerPeerTCP();
