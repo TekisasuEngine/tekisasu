@@ -158,7 +158,7 @@ Dictionary Engine::get_version_info() const {
 	dict["status"] = TEKISASU_VERSION_STATUS;
 	dict["build"] = TEKISASU_VERSION_BUILD;
 
-	String hash = String(GODOT_VERSION_HASH);
+	String hash = String(TEKISASU_VERSION_HASH);
 	dict["hash"] = hash.is_empty() ? String("unknown") : hash;
 
 	dict["timestamp"] = GODOT_VERSION_TIMESTAMP;

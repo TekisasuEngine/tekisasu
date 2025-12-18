@@ -40,7 +40,7 @@ def version_hash_builder(target, source, env):
             """\
 #include "core/version.h"
 
-const char *const GODOT_VERSION_HASH = "{git_hash}";
+const char *const TEKISASU_VERSION_HASH = "{git_hash}";
 const uint64_t GODOT_VERSION_TIMESTAMP = {git_timestamp};
 """.format(**source[0].read())
         )

@@ -81,7 +81,7 @@
 #define TEKISASU_VERSION_FULL_NAME GODOT_VERSION_NAME " v" GODOT_VERSION_FULL_BUILD
 
 // Git commit hash, generated at build time in `core/version_hash.gen.cpp`.
-extern const char *const GODOT_VERSION_HASH;
+extern const char *const TEKISASU_VERSION_HASH;
 
 // Git commit date UNIX timestamp (in seconds), generated at build time in `core/version_hash.gen.cpp`.
 // Set to 0 if unknown.
@@ -106,6 +106,6 @@ extern const uint64_t GODOT_VERSION_TIMESTAMP;
 #define VERSION_FULL_CONFIG GODOT_VERSION_FULL_CONFIG
 #define VERSION_FULL_BUILD GODOT_VERSION_FULL_BUILD
 #define VERSION_FULL_NAME TEKISASU_VERSION_FULL_NAME
-#define VERSION_HASH GODOT_VERSION_HASH
+#define VERSION_HASH TEKISASU_VERSION_HASH
 #define VERSION_TIMESTAMP GODOT_VERSION_TIMESTAMP
 #endif // DISABLE_DEPRECATED

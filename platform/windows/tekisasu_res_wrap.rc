@@ -19,7 +19,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName",            "Tekisasu Engine contributors"
             VALUE "FileDescription",        "Tekisasu Engine (Console)"
-            VALUE "FileVersion",            GODOT_VERSION_NUMBER
+            VALUE "FileVersion",            TEKISASU_VERSION_NUMBER
             VALUE "ProductName",            "Tekisasu Engine (Console)"
             VALUE "Licence",                "MIT"
             VALUE "LegalCopyright",         "(c) Tekisasu Engine contributors"

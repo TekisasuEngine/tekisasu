@@ -50,7 +50,7 @@ String _get_version_string(EditorVersionButton::VersionFormat p_format) {
 		} break;
 	}
 
-	String hash = GODOT_VERSION_HASH;
+	String hash = TEKISASU_VERSION_HASH;
 	if (!hash.is_empty()) {
 		hash = vformat(" [%s]", hash.left(9));
 	}

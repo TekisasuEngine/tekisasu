@@ -316,7 +316,7 @@ static String unescape_cmdline(const String &p_str) {
 }
 
 static String get_full_version_string() {
-	String hash = String(GODOT_VERSION_HASH);
+	String hash = String(TEKISASU_VERSION_HASH);
 	if (!hash.is_empty()) {
 		hash = "." + hash.left(9);
 	}
