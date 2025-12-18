@@ -956,9 +956,9 @@ void EditorNode::_notification(int p_what) {
 
 			// Save the project after opening to mark it as last modified, except in headless mode.
 			// Also use this opportunity to ensure default settings are applied to new projects created from the command line
-			// using `touch project.godot`.
+			// using `touch project.tekisasu`.
 			if (DisplayServer::get_singleton()->window_can_draw()) {
-				const String project_settings_path = ProjectSettings::get_singleton()->get_resource_path().path_join("project.godot");
+				const String project_settings_path = ProjectSettings::get_singleton()->get_resource_path().path_join("project.tekisasu");
 				// Check the file's size in bytes as an optimization. If it's under 10 bytes, the file is assumed to be empty.
 				if (FileAccess::get_size(project_settings_path) < 10) {
 					const HashMap<String, Variant> initial_settings = get_initial_settings();
@@ -1480,10 +1480,10 @@ void EditorNode::_scan_external_changes() {
 		}
 	}
 
-	String project_settings_path = ProjectSettings::get_singleton()->get_resource_path().path_join("project.godot");
+	String project_settings_path = ProjectSettings::get_singleton()->get_resource_path().path_join("project.tekisasu");
 	if (FileAccess::get_modified_time(project_settings_path) > ProjectSettings::get_singleton()->get_last_saved_time()) {
 		TreeItem *ti = disk_changed_list->create_item(r);
-		ti->set_text(0, "project.godot");
+		ti->set_text(0, "project.tekisasu");
 		need_reload = true;
 		disk_changed_project = true;
 	}
@@ -1993,7 +1993,7 @@ void EditorNode::_dialog_display_load_error(String p_file, Error p_error) {
 				show_accept(vformat(TTR("Missing file '%s' or one of its dependencies."), p_file.get_file()), TTR("OK"));
 			} break;
 			case ERR_FILE_UNRECOGNIZED: {
-				show_accept(vformat(TTR("File '%s' is saved in a format that is newer than the formats supported by this version of Godot, so it can't be opened."), p_file.get_file()), TTR("OK"));
+				show_accept(vformat(TTR("File '%s' is saved in a format that is newer than the formats supported by this version of Tekisasu, so it can't be opened."), p_file.get_file()), TTR("OK"));
 			} break;
 			default: {
 				show_accept(vformat(TTR("Error while loading file '%s'."), p_file.get_file()), TTR("OK"));
@@ -3771,7 +3771,7 @@ void EditorNode::_menu_option_confirm(int p_option, bool p_confirmed) {
 			OS::get_singleton()->shell_open("https://forum.godotengine.org/");
 		} break;
 		case HELP_REPORT_A_BUG: {
-			OS::get_singleton()->shell_open("https://github.com/godotengine/godot/issues");
+			OS::get_singleton()->shell_open("https://github.com/TekisasuEngine/tekisasu/issues");
 		} break;
 		case HELP_COPY_SYSTEM_INFO: {
 			String info = _get_system_info();
@@ -5770,7 +5770,7 @@ String EditorNode::_get_system_info() const {
 	}
 	const String distribution_version = OS::get_singleton()->get_version_alias();
 
-	String godot_version = "Godot v" + String(TEKISASU_VERSION_FULL_CONFIG);
+	String godot_version = "Tekisasu v" + String(TEKISASU_VERSION_FULL_CONFIG);
 	if (String(TEKISASU_VERSION_BUILD) != "official") {
 		String hash = String(TEKISASU_VERSION_HASH);
 		hash = hash.is_empty() ? String("unknown") : vformat("(%s)", hash.left(9));
@@ -7408,7 +7408,7 @@ bool EditorNode::call_build() {
 
 	for (int i = 0; i < build_callback_count && builds_successful; i++) {
 		if (!build_callbacks[i]()) {
-			ERR_PRINT("A Godot Engine build callback failed.");
+			ERR_PRINT("A Tekisasu Engine build callback failed.");
 			builds_successful = false;
 		}
 	}
@@ -7996,6 +7996,7 @@ void EditorNode::_update_main_menu_type() {
 		main_menu_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 		main_menu_bar->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 		main_menu_bar->set_theme_type_variation("MainMenuBar");
+		main_menu_bar->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		main_menu_bar->set_start_index(0); // Main menu, add to the start of global menu.
 		main_menu_bar->set_prefer_global_menu(menu_type == MENU_TYPE_GLOBAL);
 		main_menu_bar->set_switch_on_hover(true);
@@ -8064,8 +8065,8 @@ void EditorNode::notify_settings_overrides_changed() {
 }
 
 // Returns the list of project settings to add to new projects. This is used by the
-// project manager creation dialog, but also applies to empty `project.godot` files
-// to cover the command line workflow of creating projects using `touch project.godot`.
+// project manager creation dialog, but also applies to empty `project.tekisasu` files
+// to cover the command line workflow of creating projects using `touch project.tekisasu`.
 //
 // This is used to set better defaults for new projects without affecting existing projects.
 HashMap<String, Variant> EditorNode::get_initial_settings() {
@@ -9038,7 +9039,7 @@ EditorNode::EditorNode() {
 
 	disk_changed = memnew(ConfirmationDialog);
 	{
-		disk_changed->set_title(TTR("Files have been modified outside Godot"));
+		disk_changed->set_title(TTR("Files have been modified outside Tekisasu Engine"));
 
 		VBoxContainer *vbc = memnew(VBoxContainer);
 		disk_changed->add_child(vbc);
