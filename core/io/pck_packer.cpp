@@ -84,7 +84,7 @@ Error PCKPacker::pck_start(const String &p_pck_path, int p_alignment, const Stri
 	}
 	enc_dir = p_encrypt_directory;
 
-	file = FileAccess::open(p_pck_path, FileAccess::WRITE);
+	file = FileAccess::open(p_pck_path, FileAccess::WRITE_READ);
 	ERR_FAIL_COND_V_MSG(file.is_null(), ERR_CANT_CREATE, vformat("Can't open file to write: '%s'.", String(p_pck_path)));
 
 	alignment = p_alignment;
@@ -263,6 +263,17 @@ Error PCKPacker::flush(bool p_verbose) {
 	if (fae.is_valid()) {
 		fhead.unref();
 		fae.unref();
+	}
+
+	if (pack_xor_enabled()) {
+		for (int i = 0; i < file_num; i++) {
+			if (files[i].size > 0) {
+				pack_xor_process_file(file, files[i].ofs, files[i].size);
+			}
+		}
+		if (file_base > 0) {
+			pack_xor_process_file(file, 0, file_base);
+		}
 	}
 
 	file.unref();

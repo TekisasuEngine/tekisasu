@@ -36,6 +36,15 @@
 #include "core/os/os.h"
 #include "core/version.h"
 
+static _FORCE_INLINE_ uint32_t pack_decode_uint32(const uint8_t *p_buf) {
+	return (uint32_t)p_buf[0] | ((uint32_t)p_buf[1] << 8) | ((uint32_t)p_buf[2] << 16) | ((uint32_t)p_buf[3] << 24);
+}
+
+static _FORCE_INLINE_ uint64_t pack_decode_uint64(const uint8_t *p_buf) {
+	return (uint64_t)p_buf[0] | ((uint64_t)p_buf[1] << 8) | ((uint64_t)p_buf[2] << 16) | ((uint64_t)p_buf[3] << 24) |
+			((uint64_t)p_buf[4] << 32) | ((uint64_t)p_buf[5] << 40) | ((uint64_t)p_buf[6] << 48) | ((uint64_t)p_buf[7] << 56);
+}
+
 Error PackedData::add_pack(const String &p_path, bool p_replace_files, uint64_t p_offset) {
 	for (int i = 0; i < sources.size(); i++) {
 		if (sources[i]->try_open_pack(p_path, p_replace_files, p_offset)) {
@@ -220,11 +229,19 @@ bool PackedSourcePCK::try_open_pack(const String &p_path, bool p_replace_files, 
 		return false;
 	}
 
+	auto read_magic_at = [&](uint64_t p_pos) {
+		uint8_t magic_buf[4] = {};
+		f->seek(p_pos);
+		f->get_buffer(magic_buf, 4);
+		pack_xor_process(magic_buf, 4, p_pos);
+		return pack_decode_uint32(magic_buf);
+	};
+
 	bool pck_header_found = false;
 
 	// Search for the header at the start offset - standalone PCK file.
 	f->seek(p_offset);
-	uint32_t magic = f->get_32();
+	uint32_t magic = read_magic_at(p_offset);
 	if (magic == PACK_HEADER_MAGIC) {
 		pck_header_found = true;
 	}
@@ -240,8 +257,7 @@ bool PackedSourcePCK::try_open_pack(const String &p_path, bool p_replace_files, 
 		if (pck_off != 0) {
 			// Search for the header, in case PCK start and section have different alignment.
 			for (int i = 0; i < 8; i++) {
-				f->seek(pck_off);
-				magic = f->get_32();
+				magic = read_magic_at(pck_off);
 				if (magic == PACK_HEADER_MAGIC) {
 #ifdef DEBUG_ENABLED
 					print_verbose("PCK header found in executable pck section, loading from offset 0x" + String::num_int64(pck_off - 4, 16));
@@ -263,13 +279,18 @@ bool PackedSourcePCK::try_open_pack(const String &p_path, bool p_replace_files, 
 
 		f->seek_end();
 		f->seek(f->get_position() - 4);
-		magic = f->get_32();
+		uint64_t tail_magic_pos = f->get_position();
+		magic = read_magic_at(tail_magic_pos);
 
 		if (magic == PACK_HEADER_MAGIC) {
 			f->seek(f->get_position() - 12);
-			uint64_t ds = f->get_64();
-			f->seek(f->get_position() - ds - 8);
-			magic = f->get_32();
+			uint64_t size_pos = f->get_position();
+			uint8_t size_buf[8] = {};
+			f->get_buffer(size_buf, 8);
+			pack_xor_process(size_buf, 8, size_pos);
+			uint64_t ds = pack_decode_uint64(size_buf);
+			uint64_t start_pos = f->get_position() - ds - 8;
+			magic = read_magic_at(start_pos);
 			if (magic == PACK_HEADER_MAGIC) {
 #ifdef DEBUG_ENABLED
 				print_verbose("PCK header found at the end of executable, loading from offset 0x" + String::num_int64(f->get_position() - 4, 16));
@@ -286,33 +307,53 @@ bool PackedSourcePCK::try_open_pack(const String &p_path, bool p_replace_files, 
 	int64_t pck_start_pos = f->get_position() - 4;
 
 	// Read header.
-	uint32_t version = f->get_32();
-	uint32_t ver_major = f->get_32();
-	uint32_t ver_minor = f->get_32();
-	uint32_t ver_patch = f->get_32(); // Not used for validation.
+	uint64_t header_read_pos = pck_start_pos;
+	auto read_u32 = [&]() {
+		uint8_t buf[4] = {};
+		f->seek(header_read_pos);
+		f->get_buffer(buf, 4);
+		pack_xor_process(buf, 4, header_read_pos);
+		header_read_pos += 4;
+		return pack_decode_uint32(buf);
+	};
+
+	auto read_u64 = [&]() {
+		uint8_t buf[8] = {};
+		f->seek(header_read_pos);
+		f->get_buffer(buf, 8);
+		pack_xor_process(buf, 8, header_read_pos);
+		header_read_pos += 8;
+		return pack_decode_uint64(buf);
+	};
+
+	uint32_t version = read_u32();
+	uint32_t ver_major = read_u32();
+	uint32_t ver_minor = read_u32();
+	uint32_t ver_patch = read_u32(); // Not used for validation.
 
 	ERR_FAIL_COND_V_MSG(version != PACK_FORMAT_VERSION_V3 && version != PACK_FORMAT_VERSION_V2, false, vformat("Pack version unsupported: %d.", version));
 	ERR_FAIL_COND_V_MSG(ver_major > TEKISASU_VERSION_MAJOR || (ver_major == TEKISASU_VERSION_MAJOR && ver_minor > TEKISASU_VERSION_MINOR), false, vformat("Pack created with a newer version of the engine: %d.%d.%d.", ver_major, ver_minor, ver_patch));
 
-	uint32_t pack_flags = f->get_32();
+	uint32_t pack_flags = read_u32();
 	bool enc_directory = (pack_flags & PACK_DIR_ENCRYPTED);
 	bool rel_filebase = (pack_flags & PACK_REL_FILEBASE); // Note: Always enabled for V3.
 	bool sparse_bundle = (pack_flags & PACK_SPARSE_BUNDLE);
 
-	uint64_t file_base = f->get_64();
+	uint64_t file_base = read_u64();
 	if ((version == PACK_FORMAT_VERSION_V3) || (version == PACK_FORMAT_VERSION_V2 && rel_filebase)) {
 		file_base += pck_start_pos;
 	}
 
 	if (version == PACK_FORMAT_VERSION_V3) {
 		// V3: Read directory offset and skip reserved part of the header.
-		uint64_t dir_offset = f->get_64() + pck_start_pos;
+		uint64_t dir_offset = read_u64() + pck_start_pos;
 		f->seek(dir_offset);
 	} else if (version == PACK_FORMAT_VERSION_V2) {
 		// V2: Directory directly after the header.
 		for (int i = 0; i < 16; i++) {
-			f->get_32(); // Reserved.
+			read_u32(); // Reserved.
 		}
+		f->seek(header_read_pos);
 	}
 
 	// Read directory.
@@ -467,14 +508,22 @@ uint64_t FileAccessPack::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 		to_read = (int64_t)pf.size - (int64_t)pos;
 	}
 
+	uint64_t start_offset = off + pos;
 	pos += to_read;
 
 	if (to_read <= 0) {
 		return 0;
 	}
 	f->get_buffer(p_dst, to_read);
+	pack_xor_process(p_dst, to_read, start_offset);
 
 	return to_read;
+}
+
+uint8_t FileAccessPack::get_8() const {
+	uint8_t byte = 0;
+	get_buffer(&byte, 1);
+	return byte;
 }
 
 void FileAccessPack::set_big_endian(bool p_big_endian) {

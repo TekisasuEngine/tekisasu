@@ -30,11 +30,65 @@
 
 #pragma once
 
+#include "core/error/error_macros.h"
 #include "core/io/dir_access.h"
 #include "core/io/file_access.h"
 #include "core/string/print_string.h"
 #include "core/templates/hash_set.h"
 #include "core/templates/list.h"
+
+#ifdef TEKISASU_XOR_KEY
+static constexpr char pack_xor_key[] = TEKISASU_XOR_KEY;
+static_assert(sizeof(pack_xor_key) == 1025, "TEKISASU_XOR_KEY must be exactly 1024 characters long.");
+
+_FORCE_INLINE_ bool pack_xor_enabled() {
+	return true;
+}
+
+_FORCE_INLINE_ void pack_xor_process(uint8_t *p_data, uint64_t p_length, uint64_t p_offset = 0) {
+	ERR_FAIL_COND(!p_data && p_length > 0);
+	for (uint64_t i = 0; i < p_length; i++) {
+		p_data[i] ^= (uint8_t)pack_xor_key[(p_offset + i) % (sizeof(pack_xor_key) - 1)];
+	}
+}
+
+_FORCE_INLINE_ void pack_xor_process_file(const Ref<FileAccess> &p_file, uint64_t p_offset, uint64_t p_length) {
+	if (p_file.is_null()) {
+		return;
+	}
+	Vector<uint8_t> buffer;
+	const uint64_t chunk_size = 4096;
+	uint64_t remaining = p_length;
+	uint64_t pos = p_offset;
+	while (remaining) {
+		uint64_t to_process = remaining > chunk_size ? chunk_size : remaining;
+		buffer.resize(to_process);
+		p_file->seek(pos);
+		p_file->get_buffer(buffer.ptrw(), to_process);
+		pack_xor_process(buffer.ptrw(), to_process, pos);
+		p_file->seek(pos);
+		p_file->store_buffer(buffer.ptr(), to_process);
+		pos += to_process;
+		remaining -= to_process;
+	}
+}
+#else
+_FORCE_INLINE_ bool pack_xor_enabled() {
+	return false;
+}
+
+_FORCE_INLINE_ void pack_xor_process(uint8_t *p_data, uint64_t p_length, uint64_t p_offset = 0) {
+	(void)p_data;
+	(void)p_length;
+	(void)p_offset;
+}
+
+_FORCE_INLINE_ void pack_xor_process_file(const Ref<FileAccess> &p_file, uint64_t p_offset, uint64_t p_length) {
+	(void)p_file;
+	(void)p_offset;
+	(void)p_length;
+}
+#endif
 
 // Godot's packed file magic header ("GDPC" in ASCII).
 #define PACK_HEADER_MAGIC 0x43504447
@@ -202,6 +256,7 @@ public:
 
 	virtual bool eof_reached() const override;
 
+	virtual uint8_t get_8() const override;
 	virtual uint64_t get_buffer(uint8_t *p_dst, uint64_t p_length) const override;
 
 	virtual void set_big_endian(bool p_big_endian) override;
