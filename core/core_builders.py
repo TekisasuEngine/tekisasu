@@ -24,6 +24,9 @@ def version_info_builder(target, source, env):
                 f'Invalid tekisasu_xor_key length ({len(xor_key)}). Expected exactly 1024 characters for XOR obfuscation.'
             )
             raise ValueError("tekisasu_xor_key must be exactly 1024 characters when defined.")
+        methods.print_info("XOR obfuscation enabled (tekisasu_xor_key present and valid).")
+    else:
+        methods.print_info("XOR obfuscation disabled (tekisasu_xor_key not set).")
 
     xor_define = f'#define TEKISASU_XOR_KEY "{xor_key}"\n' if xor_key else ""
 
