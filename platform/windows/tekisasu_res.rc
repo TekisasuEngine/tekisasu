@@ -24,7 +24,7 @@ BEGIN
             VALUE "Licence",                "MIT"
             VALUE "LegalCopyright",         "(c) Tekisasu Engine contributors"
             VALUE "Info",                   "https://dev.tekisasu.com"
-            VALUE "ProductVersion",         GODOT_VERSION_FULL_BUILD
+            VALUE "ProductVersion",         TEKISASU_VERSION_FULL_BUILD
         END
     END
     BLOCK "VarFileInfo"

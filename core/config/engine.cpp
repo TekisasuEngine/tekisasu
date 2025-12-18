@@ -154,14 +154,14 @@ Dictionary Engine::get_version_info() const {
 	dict["major"] = TEKISASU_VERSION_MAJOR;
 	dict["minor"] = TEKISASU_VERSION_MINOR;
 	dict["patch"] = TEKISASU_VERSION_PATCH;
-	dict["hex"] = GODOT_VERSION_HEX;
+	dict["hex"] = TEKISASU_VERSION_HEX;
 	dict["status"] = TEKISASU_VERSION_STATUS;
 	dict["build"] = TEKISASU_VERSION_BUILD;
 
 	String hash = String(TEKISASU_VERSION_HASH);
 	dict["hash"] = hash.is_empty() ? String("unknown") : hash;
 
-	dict["timestamp"] = GODOT_VERSION_TIMESTAMP;
+	dict["timestamp"] = TEKISASU_VERSION_TIMESTAMP;
 
 	String stringver = String(dict["major"]) + "." + String(dict["minor"]);
 	if ((int)dict["patch"] != 0) {

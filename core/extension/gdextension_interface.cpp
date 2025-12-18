@@ -252,11 +252,11 @@ static void gdextension_get_godot_version2(GDExtensionGodotVersion2 *r_godot_ver
 	r_godot_version->major = TEKISASU_VERSION_MAJOR;
 	r_godot_version->minor = TEKISASU_VERSION_MINOR;
 	r_godot_version->patch = TEKISASU_VERSION_PATCH;
-	r_godot_version->hex = GODOT_VERSION_HEX;
+	r_godot_version->hex = TEKISASU_VERSION_HEX;
 	r_godot_version->status = TEKISASU_VERSION_STATUS;
 	r_godot_version->build = TEKISASU_VERSION_BUILD;
 	r_godot_version->hash = TEKISASU_VERSION_HASH;
-	r_godot_version->timestamp = GODOT_VERSION_TIMESTAMP;
+	r_godot_version->timestamp = TEKISASU_VERSION_TIMESTAMP;
 	r_godot_version->string = TEKISASU_VERSION_FULL_NAME;
 }
 

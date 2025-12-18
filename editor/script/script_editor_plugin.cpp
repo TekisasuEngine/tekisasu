@@ -1479,10 +1479,10 @@ void ScriptEditor::_menu_option(int p_option) {
 			}
 			if (native_class_doc) {
 				String name = eh->get_class().to_lower();
-				String doc_url = vformat(GODOT_VERSION_DOCS_URL "/classes/class_%s.html", name);
+				String doc_url = vformat(TEKISASU_VERSION_DOCS_URL "/classes/class_%s.html", name);
 				OS::get_singleton()->shell_open(doc_url);
 			} else {
-				OS::get_singleton()->shell_open(GODOT_VERSION_DOCS_URL "/");
+				OS::get_singleton()->shell_open(TEKISASU_VERSION_DOCS_URL "/");
 			}
 		} break;
 		case FILE_MENU_HISTORY_NEXT: {

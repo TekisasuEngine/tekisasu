@@ -19,17 +19,17 @@ def version_info_builder(target, source, env):
     with methods.generated_wrapper(str(target[0])) as file:
         file.write(
             """\
-#define GODOT_VERSION_SHORT_NAME "{short_name}"
-#define GODOT_VERSION_NAME "{name}"
+#define TEKISASU_VERSION_SHORT_NAME "{short_name}"
+#define TEKISASU_VERSION_NAME "{name}"
 #define TEKISASU_VERSION_MAJOR {major}
 #define TEKISASU_VERSION_MINOR {minor}
 #define TEKISASU_VERSION_PATCH {patch}
 #define TEKISASU_VERSION_STATUS "{status}"
 #define TEKISASU_VERSION_BUILD "{build}"
-#define GODOT_VERSION_MODULE_CONFIG "{module_config}"
-#define GODOT_VERSION_WEBSITE "{website}"
-#define GODOT_VERSION_DOCS_BRANCH "{docs_branch}"
-#define GODOT_VERSION_DOCS_URL "https://docs.godotengine.org/en/" GODOT_VERSION_DOCS_BRANCH
+#define TEKISASU_VERSION_MODULE_CONFIG "{module_config}"
+#define TEKISASU_VERSION_WEBSITE "{website}"
+#define TEKISASU_VERSION_DOCS_BRANCH "{docs_branch}"
+#define TEKISASU_VERSION_DOCS_URL "https://docs.godotengine.org/en/" TEKISASU_VERSION_DOCS_BRANCH
 """.format(**source[0].read())
         )
 
@@ -41,7 +41,7 @@ def version_hash_builder(target, source, env):
 #include "core/version.h"
 
 const char *const TEKISASU_VERSION_HASH = "{git_hash}";
-const uint64_t GODOT_VERSION_TIMESTAMP = {git_timestamp};
+const uint64_t TEKISASU_VERSION_TIMESTAMP = {git_timestamp};
 """.format(**source[0].read())
         )
 
