@@ -7932,7 +7932,7 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 		WindowWrapper *wrapper = audio_bus_editor->get_window_wrapper();
 		if (wrapper) {
 			if (wrapper->get_window_enabled()) {
-				wrapper->set_window_enabled(true);
+				wrapper->grab_window_focus();
 			} else {
 				bottom_panel->make_item_visible(wrapper, !wrapper->is_visible());
 			}
