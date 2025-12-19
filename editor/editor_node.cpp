@@ -1150,6 +1150,7 @@ void EditorNode::_update_debug_status_colors() {
 
 	if (debug_target_icon) {
 		debug_target_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
+		debug_target_icon->set_modulate(debug_target_last_connected_state ? debug_target_connected_color : debug_target_disconnected_color);
 	}
 }
 
@@ -8893,13 +8894,6 @@ EditorNode::EditorNode() {
 	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	title_bar->add_child(debug_target_hb);
 
-	debug_target_icon = memnew(TextureRect);
-	debug_target_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
-	debug_target_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
-	debug_target_icon->set_custom_minimum_size(Size2(14, 14));
-	debug_target_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	debug_target_hb->add_child(debug_target_icon);
-
 	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
 	debug_label_color.a *= 0.5;
 	debug_target_label = memnew(Label);
@@ -8907,6 +8901,13 @@ EditorNode::EditorNode() {
 	debug_target_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
 	debug_target_label->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
 	debug_target_hb->add_child(debug_target_label);
+
+	debug_target_icon = memnew(TextureRect);
+	debug_target_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
+	debug_target_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
+	debug_target_icon->set_custom_minimum_size(Size2(14, 14));
+	debug_target_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_hb->add_child(debug_target_icon);
 
 	debug_target_status = memnew(Label);
 	debug_target_status->set_text(TTRC("No Connection"));
