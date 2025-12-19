@@ -80,12 +80,19 @@ RemoteDebuggerPeerTCP::RemoteDebuggerPeerTCP() {
 	// This means remote debugger takes 16 MiB just because it exists...
 	in_buf.resize((8 << 20) + 4); // 8 MiB should be way more than enough (need 4 extra bytes for encoding packet size).
 	out_buf.resize(8 << 20); // 8 MiB should be way more than enough
+	connected_host = "";
 }
 
 RemoteDebuggerPeerTCP::RemoteDebuggerPeerTCP(Ref<StreamPeerSocket> p_stream) :
 		RemoteDebuggerPeerTCP() {
 	DEV_ASSERT(p_stream.is_valid());
 	tcp_client = p_stream;
+	if (tcp_client.is_valid()) {
+		Ref<StreamPeerTCP> tcp = tcp_client;
+		if (tcp.is_valid()) {
+			connected_host = String(tcp->get_connected_host());
+		}
+	}
 	connected = true;
 	running = true;
 	thread.start(_thread_func, this);
