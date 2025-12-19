@@ -75,6 +75,7 @@ class EditorBuildProfileManager;
 class EditorBottomPanel;
 class EditorCommandPalette;
 class EditorDockManager;
+class EditorAudioBuses;
 class EditorExport;
 class EditorExportPreset;
 class EditorFeatureProfileManager;
@@ -103,6 +104,7 @@ class ProjectExportDialog;
 class ProjectSettingsEditor;
 class SceneImportSettingsDialog;
 class ProjectUpgradeTool;
+class StyleBoxFlat;
 
 #ifdef ANDROID_ENABLED
 class TouchActionsPanel;
@@ -329,6 +331,10 @@ private:
 	MenuButton *quick_menu_button = nullptr;
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
+	HBoxContainer *audio_bus_buttons_hb = nullptr;
+	HashMap<int, Button *> audio_bus_buttons;
+	Button *audio_bus_master_label = nullptr;
+	MenuButton *audio_bus_buses_label = nullptr;
 	HBoxContainer *debug_target_hb = nullptr;
 	TextureRect *debug_target_icon = nullptr;
 	Label *debug_target_label = nullptr;
@@ -422,6 +428,7 @@ private:
 	EditorMainScreen *editor_main_screen = nullptr;
 
 	AudioStreamPreviewGenerator *audio_preview_gen = nullptr;
+	EditorAudioBuses *audio_bus_editor = nullptr;
 	ProgressDialog *progress_dialog = nullptr;
 	BackgroundProgress *progress_hb = nullptr;
 
@@ -695,6 +702,12 @@ private:
 	void _update_debug_target_status();
 	void _update_debug_status_colors();
 	void _apply_debug_status(bool p_connected, const String &p_status_text);
+	void _rebuild_bus_buttons();
+	Ref<StyleBoxFlat> _create_bg_stylebox(const Color &p_color);
+	void _update_bus_button_colors();
+	void _on_bus_button_pressed(int p_bus_index);
+	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
+	void _on_audio_mixer_button_pressed();
 
 	void _resources_changed(const Vector<String> &p_resources);
 	void _scan_external_changes();

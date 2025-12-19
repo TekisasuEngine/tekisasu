@@ -69,6 +69,7 @@
 #include "scene/resources/image_texture.h"
 #include "scene/resources/packed_scene.h"
 #include "scene/resources/portable_compressed_texture.h"
+#include "scene/resources/style_box_flat.h"
 #include "scene/theme/theme_db.h"
 #include "servers/display/display_server.h"
 #include "servers/navigation_2d/navigation_server_2d.h"
@@ -978,6 +979,10 @@ void EditorNode::_notification(int p_what) {
 			// Set up a theme context for the 2D preview viewport using the stored preview theme.
 			CanvasItemEditor::ThemePreviewMode theme_preview_mode = (CanvasItemEditor::ThemePreviewMode)(int)EditorSettings::get_singleton()->get_project_metadata("2d_editor", "theme_preview", CanvasItemEditor::THEME_PREVIEW_PROJECT);
 			update_preview_themes(theme_preview_mode);
+
+			AudioServer::get_singleton()->connect("bus_layout_changed", callable_mp(this, &EditorNode::_rebuild_bus_buttons));
+			AudioServer::get_singleton()->connect("bus_renamed", callable_mp(this, &EditorNode::_on_bus_renamed));
+			_rebuild_bus_buttons();
 
 			// Remember the selected locale to preview node translations.
 			const String preview_locale = EditorSettings::get_singleton()->get_project_metadata("editor_metadata", "preview_locale", String());
@@ -7716,6 +7721,7 @@ void EditorNode::_bind_methods() {
 	ClassDB::bind_method("stop_child_process", &EditorNode::stop_child_process);
 
 	ClassDB::bind_method(D_METHOD("update_node_reference", "value", "node", "remove"), &EditorNode::update_node_reference, DEFVAL(false));
+	ClassDB::bind_method("_update_bus_button_colors", &EditorNode::_update_bus_button_colors);
 
 	ADD_SIGNAL(MethodInfo("request_help_search"));
 	ADD_SIGNAL(MethodInfo("script_add_function_request", PropertyInfo(Variant::OBJECT, "obj"), PropertyInfo(Variant::STRING, "function"), PropertyInfo(Variant::PACKED_STRING_ARRAY, "args")));
@@ -7749,6 +7755,188 @@ void EditorNode::_print_handler_impl(const String &p_string, bool p_error, bool 
 		singleton->log->add_message(p_string, EditorLog::MSG_TYPE_STD_RICH);
 	} else {
 		singleton->log->add_message(p_string, EditorLog::MSG_TYPE_STD);
+	}
+}
+
+void EditorNode::_rebuild_bus_buttons() {
+	if (!audio_bus_buttons_hb) {
+		return;
+	}
+
+	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
+		audio_bus_buttons_hb->remove_child(kv.value);
+		memdelete(kv.value);
+	}
+	audio_bus_buttons.clear();
+
+	if (audio_bus_master_label) {
+		audio_bus_buttons_hb->remove_child(audio_bus_master_label);
+		memdelete(audio_bus_master_label);
+		audio_bus_master_label = nullptr;
+	}
+	if (audio_bus_buses_label) {
+		audio_bus_buttons_hb->remove_child(audio_bus_buses_label);
+		memdelete(audio_bus_buses_label);
+		audio_bus_buses_label = nullptr;
+	}
+
+	int bus_count = AudioServer::get_singleton()->get_bus_count();
+	for (int i = 0; i < bus_count; i++) {
+		if (i == 0 && (String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
+			audio_bus_master_label = memnew(Button);
+			audio_bus_master_label->set_flat(true);
+			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
+			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+			audio_bus_master_label->set_modulate(Color(1, 1, 1, 0.85));
+			audio_bus_master_label->set_tooltip_text(TTR("Open Audio Mixer"));
+			audio_bus_master_label->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_audio_mixer_button_pressed));
+			audio_bus_buttons_hb->add_child(audio_bus_master_label);
+		}
+
+		Button *bus_button = memnew(Button);
+		bus_button->set_flat(false);
+		if ((String)AudioServer::get_singleton()->get_bus_name(i) == "Master") {
+			bus_button->set_text(TTR("Master"));
+		} else {
+			if (i == 1) {
+				audio_bus_buses_label = memnew(MenuButton);
+				audio_bus_buses_label->set_flat(true);
+				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
+				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9);
+				audio_bus_buses_label->set_text(TTR("|"));
+				audio_bus_buses_label->set_disabled(true);
+				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+				audio_bus_buses_label->set_focus_mode(Control::FOCUS_NONE);
+				audio_bus_buttons_hb->add_child(audio_bus_buses_label);
+			}
+			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
+		}
+
+		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
+		bus_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
+		audio_bus_buttons_hb->add_child(bus_button);
+		audio_bus_buttons[i] = bus_button;
+	}
+
+	_update_bus_button_colors();
+}
+
+Ref<StyleBoxFlat> EditorNode::_create_bg_stylebox(const Color &p_color) {
+	Ref<StyleBoxFlat> style = memnew(StyleBoxFlat);
+	style->set_bg_color(p_color);
+	style->set_corner_radius_all(4);
+	return style;
+}
+
+void EditorNode::_update_bus_button_colors() {
+	bool master_muted = AudioServer::get_singleton()->is_bus_mute(0);
+
+	for (KeyValue<int, Button *> &kv : audio_bus_buttons) {
+		int bus_index = kv.key;
+		Button *button = kv.value;
+
+		if (bus_index < AudioServer::get_singleton()->get_bus_count()) {
+			bool is_muted = AudioServer::get_singleton()->is_bus_mute(bus_index);
+			bool is_solo = AudioServer::get_singleton()->is_bus_solo(bus_index);
+			bool is_bypass = AudioServer::get_singleton()->is_bus_bypassing_effects(bus_index);
+			bool is_master = (String)AudioServer::get_singleton()->get_bus_name(bus_index) == "Master";
+
+			Color color;
+			Color bg_color;
+
+			if (is_muted || (master_muted && !is_master)) {
+				if (is_master) {
+					color = Color(0.94, 0.44, 0.56, 1.0);
+					bg_color = Color(0.94, 0.44, 0.56, 0.2);
+				} else {
+					color = Color(0.85, 0.28, 0.44, 0.85);
+					bg_color = Color(0.85, 0.28, 0.44, 0.2);
+				}
+			} else if (is_solo) {
+				if (is_master) {
+					color = Color(1.0, 0.89, 0.22, 1.0);
+					bg_color = Color(1.0, 0.89, 0.22, 0.2);
+				} else {
+					color = Color(0.9, 0.8, 0.2, 0.85);
+					bg_color = Color(0.9, 0.8, 0.2, 0.2);
+				}
+			} else if (is_bypass) {
+				if (is_master) {
+					color = Color(0.13, 0.8, 1.0, 1.0);
+					bg_color = Color(0.13, 0.8, 1.0, 0.2);
+				} else {
+					color = Color(0.1, 0.7, 0.9, 0.85);
+					bg_color = Color(0.1, 0.7, 0.9, 0.2);
+				}
+			} else {
+				if (is_master) {
+					color = Color(0.46, 0.85, 0.69, 1.0);
+					bg_color = Color(0.46, 0.85, 0.69, 0.2);
+				} else {
+					color = Color(0.36, 0.73, 0.58, 0.85);
+					bg_color = Color(0.36, 0.73, 0.58, 0.2);
+				}
+			}
+
+			button->add_theme_color_override("font_color", color);
+			button->add_theme_color_override("font_pressed_color", color);
+			button->add_theme_color_override("font_hover_color", color);
+			button->add_theme_color_override("font_focus_color", color);
+			button->add_theme_color_override("icon_normal_color", color);
+			button->add_theme_color_override("icon_pressed_color", color);
+			button->add_theme_color_override("icon_hover_color", color);
+			button->add_theme_color_override("icon_focus_color", color);
+			button->add_theme_font_size_override(SceneStringName(font_size), 11);
+			button->add_theme_color_override("font_outline_color", bg_color);
+			button->add_theme_style_override("normal", _create_bg_stylebox(bg_color));
+			button->add_theme_style_override("hover", _create_bg_stylebox(bg_color * 1.1));
+			button->add_theme_style_override("pressed", _create_bg_stylebox(bg_color));
+			button->add_theme_style_override("focus", _create_bg_stylebox(bg_color));
+		}
+	}
+}
+
+void EditorNode::_on_bus_button_pressed(int p_bus_index) {
+	if (p_bus_index < AudioServer::get_singleton()->get_bus_count()) {
+		bool current_mute = AudioServer::get_singleton()->is_bus_mute(p_bus_index);
+		bool new_mute = !current_mute;
+
+		EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
+		ur->create_action(TTR("Toggle Audio Bus Mute"));
+		ur->add_do_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, new_mute);
+		ur->add_undo_method(AudioServer::get_singleton(), "set_bus_mute", p_bus_index, current_mute);
+		if (audio_bus_editor) {
+			ur->add_do_method(audio_bus_editor, "_update_bus", p_bus_index);
+			ur->add_undo_method(audio_bus_editor, "_update_bus", p_bus_index);
+		}
+		ur->add_do_method(this, "_update_bus_button_colors");
+		ur->add_undo_method(this, "_update_bus_button_colors");
+		ur->commit_action();
+
+		if (EditorDebuggerNode::get_singleton() != nullptr) {
+			EditorDebuggerNode::get_singleton()->sync_audio_buses();
+		}
+	}
+}
+
+void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name) {
+	if (audio_bus_buttons.has(p_bus_index)) {
+		Button *button = audio_bus_buttons[p_bus_index];
+		button->set_text(p_new_name);
+		button->set_tooltip_text(TTR("Toggle mute for bus: ") + p_new_name);
+	}
+}
+
+void EditorNode::_on_audio_mixer_button_pressed() {
+	if (audio_bus_editor) {
+		WindowWrapper *wrapper = audio_bus_editor->get_window_wrapper();
+		if (wrapper) {
+			if (wrapper->get_window_enabled()) {
+				wrapper->set_window_enabled(true);
+			} else {
+				bottom_panel->make_item_visible(wrapper, !wrapper->is_visible());
+			}
+		}
 	}
 }
 
@@ -8922,6 +9110,10 @@ EditorNode::EditorNode() {
 	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	title_bar->add_child(right_spacer);
 
+	audio_bus_buttons_hb = memnew(HBoxContainer);
+	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+	title_bar->add_child(audio_bus_buttons_hb);
+
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(right_menu_hb);
@@ -9227,7 +9419,7 @@ EditorNode::EditorNode() {
 		add_editor_plugin(get_game_view_plugin());
 	}
 
-	EditorAudioBuses *audio_bus_editor = EditorAudioBuses::register_editor();
+	audio_bus_editor = EditorAudioBuses::register_editor();
 
 	ScriptTextEditor::register_editor(); // Register one for text scripts.
 	TextEditor::register_editor();

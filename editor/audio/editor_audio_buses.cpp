@@ -501,6 +501,10 @@ void EditorAudioBus::_solo_toggled() {
 		EditorDebuggerNode::get_singleton()->sync_audio_buses();
 	}
 
+	if (EditorNode::get_singleton()) {
+		EditorNode::get_singleton()->call_deferred("_update_bus_button_colors");
+	}
+
 	updating_bus = false;
 }
 
@@ -520,6 +524,10 @@ void EditorAudioBus::_mute_toggled() {
 		EditorDebuggerNode::get_singleton()->sync_audio_buses();
 	}
 
+	if (EditorNode::get_singleton()) {
+		EditorNode::get_singleton()->call_deferred("_update_bus_button_colors");
+	}
+
 	updating_bus = false;
 }
 
@@ -537,6 +545,10 @@ void EditorAudioBus::_bypass_toggled() {
 	// Sync audio bus changes to running game
 	if (EditorDebuggerNode::get_singleton() != nullptr) {
 		EditorDebuggerNode::get_singleton()->sync_audio_buses();
+	}
+
+	if (EditorNode::get_singleton()) {
+		EditorNode::get_singleton()->call_deferred("_update_bus_button_colors");
 	}
 
 	updating_bus = false;
