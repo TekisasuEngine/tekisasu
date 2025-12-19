@@ -7786,7 +7786,7 @@ void EditorNode::_rebuild_bus_buttons() {
 			audio_bus_master_label = memnew(Button);
 			audio_bus_master_label->set_flat(true);
 			audio_bus_master_label->set_theme_type_variation("FlatMenuButton");
-			audio_bus_master_label->set_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
+			audio_bus_master_label->set_button_icon(theme->get_icon(SNAME("AudioStreamPlayer"), EditorStringName(EditorIcons)));
 			audio_bus_master_label->set_modulate(Color(1, 1, 1, 0.85));
 			audio_bus_master_label->set_tooltip_text(TTR("Open Audio Mixer"));
 			audio_bus_master_label->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_audio_mixer_button_pressed));
@@ -7929,14 +7929,7 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 
 void EditorNode::_on_audio_mixer_button_pressed() {
 	if (audio_bus_editor) {
-		WindowWrapper *wrapper = audio_bus_editor->get_window_wrapper();
-		if (wrapper) {
-			if (wrapper->get_window_enabled()) {
-				wrapper->grab_window_focus();
-			} else {
-				bottom_panel->make_item_visible(wrapper, !wrapper->is_visible());
-			}
-		}
+		bottom_panel->make_item_visible(audio_bus_editor, true);
 	}
 }
 
