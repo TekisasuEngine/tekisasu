@@ -330,6 +330,7 @@ private:
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
 	HBoxContainer *debug_target_hb = nullptr;
+	TextureRect *debug_target_icon = nullptr;
 	Label *debug_target_label = nullptr;
 	Label *debug_target_status = nullptr;
 	ScriptEditorDebugger *debug_target_debugger = nullptr;

@@ -1147,6 +1147,10 @@ void EditorNode::_update_update_spinner() {
 void EditorNode::_update_debug_status_colors() {
 	debug_target_connected_color = theme->get_color(SNAME("success_color"), EditorStringName(Editor));
 	debug_target_disconnected_color = theme->get_color(SNAME("error_color"), EditorStringName(Editor));
+
+	if (debug_target_icon) {
+		debug_target_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
+	}
 }
 
 static String _debug_status_tooltip(const String &p_status_text) {
@@ -1159,12 +1163,16 @@ void EditorNode::_apply_debug_status(bool p_connected, const String &p_status_te
 		return;
 	}
 
-	const Color status_color = p_connected ? debug_target_connected_color : debug_target_disconnected_color;
+	const Color icon_color = p_connected ? debug_target_connected_color : debug_target_disconnected_color;
+	const Color text_color = Color(1, 1, 1, 0.95);
 	debug_target_status->set_text(p_status_text);
-	debug_target_status->add_theme_color_override(SNAME("font_color"), status_color);
+	debug_target_status->add_theme_color_override(SNAME("font_color"), text_color);
 	debug_target_status->set_tooltip_text(_debug_status_tooltip(p_status_text));
 	if (debug_target_label) {
 		debug_target_label->set_tooltip_text(debug_target_status->get_tooltip_text());
+	}
+	if (debug_target_icon) {
+		debug_target_icon->set_modulate(icon_color);
 	}
 }
 
@@ -8885,6 +8893,13 @@ EditorNode::EditorNode() {
 	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	title_bar->add_child(debug_target_hb);
 
+	debug_target_icon = memnew(TextureRect);
+	debug_target_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
+	debug_target_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
+	debug_target_icon->set_custom_minimum_size(Size2(14, 14));
+	debug_target_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_hb->add_child(debug_target_icon);
+
 	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
 	debug_label_color.a *= 0.5;
 	debug_target_label = memnew(Label);
@@ -8895,7 +8910,7 @@ EditorNode::EditorNode() {
 
 	debug_target_status = memnew(Label);
 	debug_target_status->set_text(TTRC("No Connection"));
-	debug_target_status->add_theme_color_override(SNAME("font_color"), debug_target_disconnected_color);
+	debug_target_status->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
 	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	debug_target_hb->add_child(debug_target_status);
