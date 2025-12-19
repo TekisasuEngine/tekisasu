@@ -7929,7 +7929,13 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 
 void EditorNode::_on_audio_mixer_button_pressed() {
 	if (audio_bus_editor) {
-		bottom_panel->make_item_visible(audio_bus_editor, true);
+		const bool is_floating = !bottom_panel->is_ancestor_of(audio_bus_editor);
+		const bool should_focus = is_floating || bottom_panel->get_current_tab_control() != audio_bus_editor;
+		if (should_focus) {
+			EditorDockManager::get_singleton()->focus_dock(audio_bus_editor);
+		} else {
+			bottom_panel->hide_bottom_panel();
+		}
 	}
 }
 
