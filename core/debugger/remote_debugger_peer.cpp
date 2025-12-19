@@ -80,12 +80,19 @@ RemoteDebuggerPeerTCP::RemoteDebuggerPeerTCP() {
 	// This means remote debugger takes 16 MiB just because it exists...
 	in_buf.resize((8 << 20) + 4); // 8 MiB should be way more than enough (need 4 extra bytes for encoding packet size).
 	out_buf.resize(8 << 20); // 8 MiB should be way more than enough
+	connected_host = "";
 }
 
 RemoteDebuggerPeerTCP::RemoteDebuggerPeerTCP(Ref<StreamPeerSocket> p_stream) :
 		RemoteDebuggerPeerTCP() {
 	DEV_ASSERT(p_stream.is_valid());
 	tcp_client = p_stream;
+	if (tcp_client.is_valid()) {
+		Ref<StreamPeerTCP> tcp = tcp_client;
+		if (tcp.is_valid()) {
+			connected_host = String(tcp->get_connected_host());
+		}
+	}
 	connected = true;
 	running = true;
 	thread.start(_thread_func, this);
@@ -231,7 +238,9 @@ RemoteDebuggerPeer *RemoteDebuggerPeerTCP::create_tcp(const String &p_uri) {
 	stream.instantiate();
 	ERR_FAIL_COND_V_MSG(stream->connect_to_host(ip, debug_port) != OK, nullptr, vformat("Remote Debugger: Unable to connect to host '%s:%d'.", debug_host, debug_port));
 	ERR_FAIL_COND_V(_try_connect(stream), nullptr);
-	return memnew(RemoteDebuggerPeerTCP(stream));
+	RemoteDebuggerPeerTCP *peer = memnew(RemoteDebuggerPeerTCP(stream));
+	peer->set_connected_host(String(ip));
+	return peer;
 }
 
 RemoteDebuggerPeer *RemoteDebuggerPeerTCP::create_unix(const String &p_uri) {
@@ -243,7 +252,9 @@ RemoteDebuggerPeer *RemoteDebuggerPeerTCP::create_unix(const String &p_uri) {
 	Error err = stream->connect_to_host(debug_path);
 	ERR_FAIL_COND_V_MSG(err != OK && err != ERR_BUSY, nullptr, vformat("Remote Debugger: Unable to connect to socket path '%s'.", debug_path));
 	ERR_FAIL_COND_V(_try_connect(stream), nullptr);
-	return memnew(RemoteDebuggerPeerTCP(stream));
+	RemoteDebuggerPeerTCP *peer = memnew(RemoteDebuggerPeerTCP(stream));
+	peer->set_connected_host(debug_path);
+	return peer;
 }
 
 RemoteDebuggerPeer::RemoteDebuggerPeer() {

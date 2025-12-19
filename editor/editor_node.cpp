@@ -667,6 +667,8 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		update_preview_themes(CanvasItemEditor::THEME_PREVIEW_EDITOR);
 	}
 
+	_update_debug_status_colors();
+
 	// Update styles.
 	{
 		bool dark_mode = DisplayServer::get_singleton()->is_dark_mode_supported() && DisplayServer::get_singleton()->is_dark_mode();
@@ -823,6 +825,8 @@ void EditorNode::_notification(int p_what) {
 			if (editor_data.is_scene_changed(-1)) {
 				scene_tabs->update_scene_tabs();
 			}
+
+			_update_debug_target_status();
 
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
@@ -1138,6 +1142,79 @@ void EditorNode::_update_update_spinner() {
 	}
 
 	OS::get_singleton()->set_low_processor_usage_mode(!update_continuously);
+}
+
+void EditorNode::_update_debug_status_colors() {
+	debug_target_connected_color = theme->get_color(SNAME("success_color"), EditorStringName(Editor));
+	debug_target_disconnected_color = theme->get_color(SNAME("error_color"), EditorStringName(Editor));
+
+	if (debug_target_icon) {
+		debug_target_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
+		debug_target_icon->set_modulate(debug_target_last_connected_state ? debug_target_connected_color : debug_target_disconnected_color);
+	}
+}
+
+static String _debug_status_tooltip(const String &p_status_text) {
+	return vformat(TTRC("Debug client status: %s"), p_status_text);
+}
+
+void EditorNode::_apply_debug_status(bool p_connected, const String &p_status_text) {
+	debug_target_last_connected_state = p_connected;
+	if (!debug_target_status) {
+		return;
+	}
+
+	const Color icon_color = p_connected ? debug_target_connected_color : debug_target_disconnected_color;
+	const Color text_color = Color(1, 1, 1, 0.95);
+	debug_target_status->set_text(p_status_text);
+	debug_target_status->add_theme_color_override(SNAME("font_color"), text_color);
+	debug_target_status->set_tooltip_text(_debug_status_tooltip(p_status_text));
+	if (debug_target_label) {
+		debug_target_label->set_tooltip_text(debug_target_status->get_tooltip_text());
+	}
+	if (debug_target_icon) {
+		debug_target_icon->set_modulate(icon_color);
+	}
+}
+
+void EditorNode::_update_debug_target_status() {
+	if (!debug_target_status) {
+		return;
+	}
+
+	EditorDebuggerNode *debugger_node = EditorDebuggerNode::get_singleton();
+	if (!debugger_node && !debug_target_last_connected_state) {
+		return;
+	}
+
+	if (debugger_node) {
+		debug_target_debugger = debugger_node->get_default_debugger();
+	} else {
+		debug_target_debugger = nullptr;
+	}
+
+	if (debug_target_debugger == nullptr) {
+		if (debug_target_last_connected_state) {
+			_apply_debug_status(false, TTRC("No Connection"));
+		}
+		return;
+	}
+
+	bool is_connected = debug_target_debugger->is_session_active();
+	if (is_connected == debug_target_last_connected_state) {
+		return;
+	}
+
+	String status_text;
+	if (is_connected) {
+		status_text = debug_target_debugger->get_connected_host();
+		if (status_text.is_empty()) {
+			status_text = TTRC("Connected");
+		}
+	} else {
+		status_text = TTRC("No Connection");
+	}
+	_apply_debug_status(is_connected, status_text);
 }
 
 void EditorNode::_execute_upgrades() {
@@ -8791,17 +8868,59 @@ EditorNode::EditorNode() {
 	title_bar->add_child(main_editor_button_hb);
 	title_bar->set_center_control(main_editor_button_hb);
 
-	// Spacer to center 2D / 3D / Script buttons.
-	right_spacer = memnew(Control);
-	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(right_spacer);
+	const double separator_modulated = 0.1;
+	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).lightened(separator_modulated);
+	_update_debug_status_colors();
+
+	Label *runbar_left_separator = memnew(Label);
+	runbar_left_separator->set_text("|");
+	runbar_left_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_left_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	title_bar->add_child(runbar_left_separator);
 
 	project_run_bar = memnew(EditorRunBar);
 	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	Label *runbar_right_separator = memnew(Label);
+	runbar_right_separator->set_text("|");
+	runbar_right_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_right_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	title_bar->add_child(runbar_right_separator);
+
+	debug_target_hb = memnew(HBoxContainer);
+	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	title_bar->add_child(debug_target_hb);
+
+	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
+	debug_label_color.a *= 0.5;
+	debug_target_label = memnew(Label);
+	debug_target_label->set_text(TTRC("Debug Client:"));
+	debug_target_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_target_label->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
+	debug_target_hb->add_child(debug_target_label);
+
+	debug_target_icon = memnew(TextureRect);
+	debug_target_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
+	debug_target_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
+	debug_target_icon->set_custom_minimum_size(Size2(14, 14));
+	debug_target_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_hb->add_child(debug_target_icon);
+
+	debug_target_status = memnew(Label);
+	debug_target_status->set_text(TTRC("No Connection"));
+	debug_target_status->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
+	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
+	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	debug_target_hb->add_child(debug_target_status);
+
+	// Spacer to center 2D / 3D / Script buttons.
+	right_spacer = memnew(Control);
+	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(right_spacer);
 
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);

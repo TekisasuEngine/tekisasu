@@ -97,6 +97,13 @@ Array RemoteDebuggerPeerWebSocket::get_message() {
 	return msg;
 }
 
+String RemoteDebuggerPeerWebSocket::get_connected_host() const {
+	if (ws_peer.is_null()) {
+		return String();
+	}
+	return String(ws_peer->get_connected_host());
+}
+
 Error RemoteDebuggerPeerWebSocket::put_message(const Array &p_arr) {
 	if (out_queue.size() >= max_queued_messages) {
 		return ERR_OUT_OF_MEMORY;

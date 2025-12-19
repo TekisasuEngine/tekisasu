@@ -51,6 +51,7 @@ public:
 	virtual Array get_message() = 0;
 	virtual void close() = 0;
 	virtual void poll() = 0;
+	virtual String get_connected_host() const { return String(); }
 	virtual bool can_block() const { return true; } // If blocking io is allowed on main thread (debug).
 
 	RemoteDebuggerPeer();
@@ -61,6 +62,7 @@ class RemoteDebuggerPeerTCP : public RemoteDebuggerPeer {
 
 private:
 	Ref<StreamPeerSocket> tcp_client;
+	String connected_host;
 	Mutex mutex;
 	Thread thread;
 	List<Array> in_queue;
@@ -86,6 +88,8 @@ public:
 	static RemoteDebuggerPeer *create_unix(const String &p_uri);
 
 	bool is_peer_connected() override;
+	void set_connected_host(const String &p_host) { connected_host = p_host; }
+	String get_connected_host() const override { return connected_host; }
 	int get_max_message_size() const override;
 	bool has_message() override;
 	Error put_message(const Array &p_arr) override;

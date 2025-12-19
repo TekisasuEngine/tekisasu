@@ -341,6 +341,7 @@ public:
 	bool is_breaked() const { return threads_debugged.size() > 0; }
 	bool is_debuggable() const { return threads_debugged.size() > 0 && threads_debugged[debugging_thread_id].can_debug; }
 	bool is_session_active() { return peer.is_valid() && peer->is_peer_connected(); }
+	String get_connected_host() const { return peer.is_valid() ? peer->get_connected_host() : String(); }
 	int get_remote_pid() const { return remote_pid; }
 
 	bool is_move_to_foreground() const;
