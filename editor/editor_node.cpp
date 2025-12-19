@@ -9113,6 +9113,12 @@ EditorNode::EditorNode() {
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	title_bar->add_child(audio_bus_buttons_hb);
 
+	audio_renderer_separator = memnew(Label);
+	audio_renderer_separator->set_text("|");
+	audio_renderer_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	audio_renderer_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	title_bar->add_child(audio_renderer_separator);
+
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(right_menu_hb);
