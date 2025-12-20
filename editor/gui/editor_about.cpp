@@ -45,6 +45,7 @@
 #include "editor/themes/editor_scale.h"
 #include "scene/gui/grid_container.h"
 #include "scene/gui/item_list.h"
+#include "scene/gui/line_edit.h"
 #include "scene/gui/rich_text_label.h"
 #include "scene/gui/scroll_container.h"
 #include "scene/gui/separator.h"
@@ -274,10 +275,9 @@ EditorAbout::EditorAbout() {
 		version_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
 		build_info_grid->add_child(version_label);
 
-		Label *version_value = memnew(Label(String(TEKISASU_VERSION_NUMBER) + "." + String(TEKISASU_VERSION_STATUS)));
-		version_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
-		version_value->set_selection_enabled(true);
-		version_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		LineEdit *version_value = memnew(LineEdit);
+		version_value->set_text(String(TEKISASU_VERSION_NUMBER) + "." + String(TEKISASU_VERSION_STATUS));
+		version_value->set_editable(false);
 		build_info_grid->add_child(version_value);
 
 		// Build Date
@@ -297,10 +297,9 @@ EditorAbout::EditorAbout() {
 		} else {
 			build_date_str = "N/A";
 		}
-		Label *build_date_value = memnew(Label(build_date_str));
-		build_date_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
-		build_date_value->set_selection_enabled(true);
-		build_date_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		LineEdit *build_date_value = memnew(LineEdit);
+		build_date_value->set_text(build_date_str);
+		build_date_value->set_editable(false);
 		build_info_grid->add_child(build_date_value);
 
 		// AES256 Encryption
@@ -317,10 +316,9 @@ EditorAbout::EditorAbout() {
 				break;
 			}
 		}
-		Label *aes256_value = memnew(Label(has_aes256 ? "Yes" : "No"));
-		aes256_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
-		aes256_value->set_selection_enabled(true);
-		aes256_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		LineEdit *aes256_value = memnew(LineEdit);
+		aes256_value->set_text(has_aes256 ? "Yes" : "No");
+		aes256_value->set_editable(false);
 		build_info_grid->add_child(aes256_value);
 
 		// Tekisasu XOR Key
@@ -330,10 +328,9 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(xor_label);
 
 		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
-		Label *xor_value = memnew(Label(has_xor_key ? "Yes" : "No"));
-		xor_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
-		xor_value->set_selection_enabled(true);
-		xor_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		LineEdit *xor_value = memnew(LineEdit);
+		xor_value->set_text(has_xor_key ? "Yes" : "No");
+		xor_value->set_editable(false);
 		build_info_grid->add_child(xor_value);
 
 		// Core
@@ -347,10 +344,9 @@ EditorAbout::EditorAbout() {
 			TEKISASU_VERSION_UPSTREAM_MINOR,
 			TEKISASU_VERSION_UPSTREAM_PATCH,
 			TEKISASU_VERSION_UPSTREAM_STATUS);
-		Label *core_value = memnew(Label(core_version));
-		core_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
-		core_value->set_selection_enabled(true);
-		core_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		LineEdit *core_value = memnew(LineEdit);
+		core_value->set_text(core_version);
+		core_value->set_editable(false);
 		build_info_grid->add_child(core_value);
 
 		// DirectX12 Support
@@ -364,10 +360,9 @@ EditorAbout::EditorAbout() {
 #else
 		String d3d12_support = "No";
 #endif
-		Label *d3d12_value = memnew(Label(d3d12_support));
-		d3d12_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
-		d3d12_value->set_selection_enabled(true);
-		d3d12_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		LineEdit *d3d12_value = memnew(LineEdit);
+		d3d12_value->set_text(d3d12_support);
+		d3d12_value->set_editable(false);
 		build_info_grid->add_child(d3d12_value);
 	}
 
