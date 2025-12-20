@@ -16,20 +16,6 @@ def disabled_class_builder(target, source, env):
 
 # Generate version info
 def version_info_builder(target, source, env):
-    version_data = source[0].read()
-    xor_key = version_data.get("tekisasu_xor_key")
-    if xor_key:
-        if len(xor_key) != 1024:
-            methods.print_error(
-                f'Invalid tekisasu_xor_key length ({len(xor_key)}). Expected exactly 1024 characters for XOR obfuscation.'
-            )
-            raise ValueError("tekisasu_xor_key must be exactly 1024 characters when defined.")
-        methods.print_info("XOR obfuscation enabled (tekisasu_xor_key present and valid).")
-    else:
-        methods.print_info("XOR obfuscation disabled (tekisasu_xor_key not set).")
-
-    xor_define = f'#define TEKISASU_XOR_KEY "{xor_key}"\n' if xor_key else ""
-
     with methods.generated_wrapper(str(target[0])) as file:
         file.write(
             """\
@@ -44,7 +30,7 @@ def version_info_builder(target, source, env):
 #define TEKISASU_VERSION_WEBSITE "{website}"
 #define TEKISASU_VERSION_DOCS_BRANCH "{docs_branch}"
 #define TEKISASU_VERSION_DOCS_URL "https://docs.godotengine.org/en/" TEKISASU_VERSION_DOCS_BRANCH
-{xor_define}""".format(**version_data, xor_define=xor_define)
+""".format(**source[0].read())
         )
 
 

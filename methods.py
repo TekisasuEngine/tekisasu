@@ -155,8 +155,6 @@ def get_version_info(module_version_string="", silent=False):
         "website": str(version.website),
         "docs_branch": str(version.docs),
     }
-    if hasattr(version, "tekisasu_xor_key"):
-        version_info["tekisasu_xor_key"] = str(version.tekisasu_xor_key)
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,
     # so this define provides a way to override it without having to modify the source.
