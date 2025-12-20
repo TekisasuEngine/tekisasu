@@ -200,13 +200,32 @@ gen_encrypt = env.CommandNoCache(
 )
 env.add_source_files(env.core_sources, gen_encrypt)
 
-# Generate XOR obfuscation key from version.py
-import version
+# Generate XOR obfuscation key from version.gen.py (if present) or version.py
+import os
+import importlib.util
+
+version = None
+version_source = None
+
+# Try to import version.gen.py first
+version_gen_path = os.path.join(os.path.dirname(__file__), '..', 'version.gen.py')
+if os.path.exists(version_gen_path):
+    spec = importlib.util.spec_from_file_location("version_gen", version_gen_path)
+    if spec and spec.loader:
+        version = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(version)
+        version_source = "version.gen.py"
+
+# Fall back to version.py if version.gen.py doesn't exist
+if version is None:
+    import version
+    version_source = "version.py"
+
 xor_key = getattr(version, 'tekisasu_xor_key', '')
 if xor_key:
     print(
-        "\n*** IMPORTANT: Compiling Tekisasu with XOR obfuscation enabled for PCK files."
-        "\n*** PCK files will be obfuscated with the key from version.py.\n"
+        f"\n*** IMPORTANT: Compiling Tekisasu with XOR obfuscation enabled for PCK files."
+        f"\n*** Using XOR key from {version_source}.\n"
     )
 gen_xor = env.CommandNoCache(
     "xor_key.gen.cpp",

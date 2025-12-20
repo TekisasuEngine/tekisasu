@@ -141,7 +141,26 @@ def get_version_info(module_version_string="", silent=False):
         if not silent:
             print_info(f"Using custom build name: '{build_name}'.")
 
-    import version
+    version = None
+    version_source = None
+    
+    # Try to import version.gen.py first
+    version_gen_path = os.path.join(base_folder, 'version.gen.py')
+    if os.path.exists(version_gen_path):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("version_gen", version_gen_path)
+        if spec and spec.loader:
+            version = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(version)
+            version_source = "version.gen.py"
+    
+    # Fall back to version.py if version.gen.py doesn't exist
+    if version is None:
+        import version
+        version_source = "version.py"
+    
+    if not silent:
+        print_info(f"Using version information from {version_source}.")
 
     version_info = {
         "short_name": str(version.short_name),
