@@ -430,7 +430,18 @@ Error EditorExportPlatform::_save_zip_file(const Ref<EditorExportPreset> &p_pres
 			Z_DEFLATED,
 			Z_DEFAULT_COMPRESSION);
 
-	zipWriteInFileInZip(zip, p_data.ptr(), p_data.size());
+	const bool xor_enabled = pack_xor_enabled();
+	Vector<uint8_t> obfuscated_data;
+	const uint8_t *write_ptr = p_data.ptr();
+	int write_size = p_data.size();
+
+	if (xor_enabled && write_size > 0) {
+		obfuscated_data = p_data;
+		pack_xor_process(obfuscated_data.ptrw(), obfuscated_data.size(), 0);
+		write_ptr = obfuscated_data.ptr();
+	}
+
+	zipWriteInFileInZip(zip, write_ptr, write_size);
 	zipCloseFileInZip(zip);
 
 	zd->file_count += 1;

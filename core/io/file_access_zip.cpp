@@ -290,6 +290,7 @@ uint64_t FileAccessZip::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 	ERR_FAIL_COND_V(!p_dst && p_length > 0, -1);
 	ERR_FAIL_NULL_V(zfile, -1);
 
+	uint64_t start_pos = get_position();
 	at_eof = unzeof(zfile);
 	if (at_eof) {
 		return 0;
@@ -298,6 +299,9 @@ uint64_t FileAccessZip::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 	ERR_FAIL_COND_V(read < 0, read);
 	if ((uint64_t)read < p_length) {
 		at_eof = true;
+	}
+	if (pack_xor_enabled() && read > 0) {
+		pack_xor_process(p_dst, (uint64_t)read, start_pos);
 	}
 	return read;
 }
