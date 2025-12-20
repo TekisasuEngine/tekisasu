@@ -309,8 +309,9 @@ EditorAbout::EditorAbout() {
 		aes256_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
 		build_info_grid->add_child(aes256_label);
 
+		constexpr int SCRIPT_ENCRYPTION_KEY_SIZE = 32;
 		bool has_aes256 = false;
-		for (int i = 0; i < 32; i++) {
+		for (int i = 0; i < SCRIPT_ENCRYPTION_KEY_SIZE; i++) {
 			if (script_encryption_key[i] != 0) {
 				has_aes256 = true;
 				break;
