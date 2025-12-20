@@ -3,6 +3,7 @@ from __future__ import annotations
 import atexit
 import contextlib
 import glob
+import importlib.util
 import math
 import os
 import re
@@ -145,10 +146,9 @@ def get_version_info(module_version_string="", silent=False):
     version_source = None
     
     # Try to import version.gen.py first
-    version_gen_path = os.path.join(base_folder, 'version.gen.py')
-    if os.path.exists(version_gen_path):
-        import importlib.util
-        spec = importlib.util.spec_from_file_location("version_gen", version_gen_path)
+    version_gen_path = base_folder / 'version.gen.py'
+    if version_gen_path.exists():
+        spec = importlib.util.spec_from_file_location("version_gen", str(version_gen_path))
         if spec and spec.loader:
             version = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(version)
