@@ -87,6 +87,10 @@ extern const char *const TEKISASU_VERSION_HASH;
 // Set to 0 if unknown.
 extern const uint64_t TEKISASU_VERSION_TIMESTAMP;
 
+// XOR obfuscation key for PCK files, generated at build time in `core/xor_key.gen.cpp`.
+extern const int TEKISASU_XOR_KEY_SIZE;
+extern const uint8_t tekisasu_xor_key[];
+
 #ifndef DISABLE_DEPRECATED
 // Compatibility with pre-4.5 modules.
 #define VERSION_SHORT_NAME TEKISASU_VERSION_SHORT_NAME

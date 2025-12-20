@@ -34,7 +34,7 @@
 #include "core/io/file_access_patched.h"
 #include "core/object/script_language.h"
 #include "core/os/os.h"
-#include "core/version.h"
+#include "core/version.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
 
 Error PackedData::add_pack(const String &p_path, bool p_replace_files, uint64_t p_offset) {
 	for (int i = 0; i < sources.size(); i++) {
@@ -467,12 +467,25 @@ uint64_t FileAccessPack::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 		to_read = (int64_t)pf.size - (int64_t)pos;
 	}
 
+	// Calculate the starting position for XOR deobfuscation
+	uint64_t start_pos = pos;
 	pos += to_read;
 
 	if (to_read <= 0) {
 		return 0;
 	}
 	f->get_buffer(p_dst, to_read);
+
+	// Apply XOR deobfuscation only if:
+	// 1. XOR key is present
+	// 2. File is NOT encrypted (encrypted files are wrapped by FileAccessEncrypted which handles decryption)
+	// For encrypted files, XOR deobfuscation happens in FileAccessEncrypted wrapper
+	if (TEKISASU_XOR_KEY_SIZE > 0 && !pf.encrypted) {
+		for (int64_t i = 0; i < to_read; i++) {
+			uint64_t key_index = (start_pos + i) % TEKISASU_XOR_KEY_SIZE;
+			p_dst[i] ^= tekisasu_xor_key[key_index];
+		}
+	}
 
 	return to_read;
 }

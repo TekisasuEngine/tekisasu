@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from misc.utility.scons_hints import *
 
+import importlib.util
 import os
 
 import core_builders
@@ -199,6 +200,40 @@ gen_encrypt = env.CommandNoCache(
     env.Run(core_builders.encryption_key_builder),
 )
 env.add_source_files(env.core_sources, gen_encrypt)
+
+# Generate XOR obfuscation key from version.gen.py (if present) or version.py
+version = None
+version_source = None
+
+# In SCons context, we can use Dir('#') to get repo root, but simpler to use os.getcwd()
+# since SCons runs from the repository root
+version_gen_path = os.path.join(os.getcwd(), 'version.gen.py')
+
+# Try to import version.gen.py first
+if os.path.exists(version_gen_path):
+    spec = importlib.util.spec_from_file_location("version_gen", version_gen_path)
+    if spec and spec.loader:
+        version = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(version)
+        version_source = "version.gen.py"
+
+# Fall back to version.py if version.gen.py doesn't exist
+if version is None:
+    import version
+    version_source = "version.py"
+
+xor_key = getattr(version, 'tekisasu_xor_key', '')
+if xor_key:
+    print(
+        f"\n*** IMPORTANT: Compiling Tekisasu with XOR obfuscation enabled for PCK files."
+        f"\n*** Using XOR key from {version_source}.\n"
+    )
+gen_xor = env.CommandNoCache(
+    "xor_key.gen.cpp",
+    env.Value(xor_key),
+    env.Run(core_builders.xor_key_builder),
+)
+env.add_source_files(env.core_sources, gen_xor)
 
 # Certificates
 env.CommandNoCache(

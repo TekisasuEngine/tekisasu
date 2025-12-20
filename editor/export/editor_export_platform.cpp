@@ -253,6 +253,16 @@ Error EditorExportPlatform::_encrypt_and_store_data(Ref<FileAccess> p_fd, const 
 		}
 	}
 
+	// Apply XOR obfuscation before encryption (same as in pck_packer.cpp)
+	Vector<uint8_t> data_to_write = p_data;
+	if (TEKISASU_XOR_KEY_SIZE > 0) {
+		uint8_t *data_ptr = data_to_write.ptrw();
+		uint64_t data_size = data_to_write.size();
+		for (uint64_t i = 0; i < data_size; i++) {
+			data_ptr[i] ^= tekisasu_xor_key[i % TEKISASU_XOR_KEY_SIZE];
+		}
+	}
+
 	Ref<FileAccessEncrypted> fae;
 	Ref<FileAccess> ftmp = p_fd;
 	if (r_encrypt) {
@@ -281,8 +291,8 @@ Error EditorExportPlatform::_encrypt_and_store_data(Ref<FileAccess> p_fd, const 
 		ftmp = fae;
 	}
 
-	// Store file content.
-	ftmp->store_buffer(p_data.ptr(), p_data.size());
+	// Store file content (with XOR obfuscation applied).
+	ftmp->store_buffer(data_to_write.ptr(), data_to_write.size());
 
 	if (fae.is_valid()) {
 		ftmp.unref();
