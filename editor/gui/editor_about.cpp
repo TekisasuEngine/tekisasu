@@ -276,7 +276,7 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(version_label);
 
 		LineEdit *version_value = memnew(LineEdit);
-		version_value->set_text(vformat("%s.%s", TEKISASU_VERSION_NUMBER, TEKISASU_VERSION_STATUS));
+		version_value->set_text(TEKISASU_VERSION_FULL_BUILD);
 		version_value->set_editable(false);
 		build_info_grid->add_child(version_value);
 
@@ -339,13 +339,8 @@ EditorAbout::EditorAbout() {
 		core_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
 		build_info_grid->add_child(core_label);
 
-		String core_version = vformat("%d.%d.%d.%s",
-			TEKISASU_VERSION_UPSTREAM_MAJOR,
-			TEKISASU_VERSION_UPSTREAM_MINOR,
-			TEKISASU_VERSION_UPSTREAM_PATCH,
-			TEKISASU_VERSION_UPSTREAM_STATUS);
 		LineEdit *core_value = memnew(LineEdit);
-		core_value->set_text(core_version);
+		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
 		core_value->set_editable(false);
 		build_info_grid->add_child(core_value);
 

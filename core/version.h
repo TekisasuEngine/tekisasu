@@ -80,6 +80,16 @@
 // Example: "Tekisasu v3.1.4.stable.official.mono.double"
 #define TEKISASU_VERSION_FULL_NAME TEKISASU_VERSION_NAME " v" TEKISASU_VERSION_FULL_BUILD
 
+// Upstream (Godot) version string. Follows the same pattern as TEKISASU_VERSION_NUMBER:
+// omits patch if it's 0, includes it otherwise.
+// Example: "4.6.dev" or "4.6.1.dev"
+#define TEKISASU_VERSION_UPSTREAM_BRANCH _MKSTR(TEKISASU_VERSION_UPSTREAM_MAJOR) "." _MKSTR(TEKISASU_VERSION_UPSTREAM_MINOR)
+#if TEKISASU_VERSION_UPSTREAM_PATCH
+#define TEKISASU_VERSION_UPSTREAM_NUMBER TEKISASU_VERSION_UPSTREAM_BRANCH "." _MKSTR(TEKISASU_VERSION_UPSTREAM_PATCH) "." TEKISASU_VERSION_UPSTREAM_STATUS
+#else
+#define TEKISASU_VERSION_UPSTREAM_NUMBER TEKISASU_VERSION_UPSTREAM_BRANCH "." TEKISASU_VERSION_UPSTREAM_STATUS
+#endif
+
 // Git commit hash, generated at build time in `core/version_hash.gen.cpp`.
 extern const char *const TEKISASU_VERSION_HASH;
 
