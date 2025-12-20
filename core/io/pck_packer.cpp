@@ -35,6 +35,7 @@
 #include "core/io/file_access_encrypted.h"
 #include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION
 #include "core/version.h"
+#include "core/xor_key.gen.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
 
 static int _get_pad(int p_alignment, int p_n) {
 	int rest = p_n % p_alignment;
@@ -44,6 +45,22 @@ static int _get_pad(int p_alignment, int p_n) {
 	}
 
 	return pad;
+}
+
+// Apply XOR obfuscation to buffer using the Tekisasu XOR key.
+// The key cycles through for buffers larger than the key size.
+static void _apply_xor_obfuscation(Vector<uint8_t> &p_data) {
+	if (TEKISASU_XOR_KEY_SIZE == 0) {
+		// XOR obfuscation disabled - no key defined
+		return;
+	}
+
+	uint8_t *data_ptr = p_data.ptrw();
+	uint64_t data_size = p_data.size();
+
+	for (uint64_t i = 0; i < data_size; i++) {
+		data_ptr[i] ^= tekisasu_xor_key[i % TEKISASU_XOR_KEY_SIZE];
+	}
 }
 
 void PCKPacker::_bind_methods() {
@@ -171,6 +188,9 @@ Error PCKPacker::add_file(const String &p_target_path, const String &p_source_pa
 		}
 	}
 	pf.encrypted = p_encrypt;
+
+	// Apply XOR obfuscation to the data before writing or encrypting
+	_apply_xor_obfuscation(data);
 
 	Ref<FileAccess> ftmp = file;
 

@@ -31,6 +31,7 @@
 #include "file_access_encrypted.h"
 
 #include "core/variant/variant.h"
+#include "core/xor_key.gen.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
 
 CryptoCore::RandomGenerator *FileAccessEncrypted::_fae_static_rng = nullptr;
 
@@ -106,6 +107,14 @@ Error FileAccessEncrypted::open_and_parse(Ref<FileAccess> p_base, const Vector<u
 		}
 
 		data.resize(length);
+
+		// Apply XOR deobfuscation after AES decryption
+		if (TEKISASU_XOR_KEY_SIZE > 0) {
+			uint8_t *data_ptr = data.ptrw();
+			for (uint64_t i = 0; i < length; i++) {
+				data_ptr[i] ^= tekisasu_xor_key[i % TEKISASU_XOR_KEY_SIZE];
+			}
+		}
 
 		unsigned char hash[16];
 		ERR_FAIL_COND_V(CryptoCore::md5(data.ptr(), data.size(), hash) != OK, ERR_BUG);

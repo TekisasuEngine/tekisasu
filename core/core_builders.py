@@ -71,6 +71,36 @@ uint8_t script_encryption_key[32] = {{
         )
 
 
+def xor_key_builder(target, source, env):
+    src = source[0].read()
+    
+    # XOR key is optional - if not present, generate empty key
+    if not src:
+        with methods.generated_wrapper(str(target[0])) as file:
+            file.write(
+                """\
+// XOR obfuscation is disabled (no key defined in version.py)
+inline constexpr int TEKISASU_XOR_KEY_SIZE = 0;
+inline constexpr uint8_t tekisasu_xor_key[1] = { 0 };
+"""
+            )
+        return
+    
+    # Convert string to bytes
+    buffer = src.encode('utf-8')
+    
+    with methods.generated_wrapper(str(target[0])) as file:
+        file.write(
+            f"""\
+// XOR obfuscation key for PCK files
+inline constexpr int TEKISASU_XOR_KEY_SIZE = {len(buffer)};
+inline constexpr uint8_t tekisasu_xor_key[{len(buffer)}] = {{
+	{methods.format_buffer(buffer, 1)}
+}};
+"""
+        )
+
+
 def make_certs_header(target, source, env):
     buffer = methods.get_buffer(str(source[0]))
     decomp_size = len(buffer)
