@@ -83,13 +83,21 @@ def xor_key_builder(target, source, env):
 
 // XOR obfuscation is disabled (no key defined in version.py)
 const int TEKISASU_XOR_KEY_SIZE = 0;
-const uint8_t tekisasu_xor_key[1] = { 0 };
+const uint8_t tekisasu_xor_key[] = { 0 };
 """
             )
         return
     
     # Convert string to bytes
     buffer = src.encode('utf-8')
+    
+    # Validate key size
+    if len(buffer) == 0:
+        methods.print_error("XOR key cannot be empty. Set tekisasu_xor_key in version.py or remove it.")
+        raise ValueError("Empty XOR key")
+    if len(buffer) > 65536:  # 64KB max
+        methods.print_error(f"XOR key is too large ({len(buffer)} bytes). Maximum size is 65536 bytes.")
+        raise ValueError("XOR key too large")
     
     with methods.generated_wrapper(str(target[0])) as file:
         file.write(
@@ -98,7 +106,7 @@ const uint8_t tekisasu_xor_key[1] = { 0 };
 
 // XOR obfuscation key for PCK files
 const int TEKISASU_XOR_KEY_SIZE = {len(buffer)};
-const uint8_t tekisasu_xor_key[{len(buffer)}] = {{
+const uint8_t tekisasu_xor_key[] = {{
 	{methods.format_buffer(buffer, 1)}
 }};
 """
