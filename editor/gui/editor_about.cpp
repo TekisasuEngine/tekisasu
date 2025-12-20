@@ -276,7 +276,7 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(version_label);
 
 		LineEdit *version_value = memnew(LineEdit);
-		version_value->set_text(String(TEKISASU_VERSION_NUMBER) + "." + String(TEKISASU_VERSION_STATUS));
+		version_value->set_text(vformat("%s.%s", TEKISASU_VERSION_NUMBER, TEKISASU_VERSION_STATUS));
 		version_value->set_editable(false);
 		build_info_grid->add_child(version_value);
 
