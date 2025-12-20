@@ -205,9 +205,9 @@ env.add_source_files(env.core_sources, gen_encrypt)
 version = None
 version_source = None
 
-# Get the repository root (parent of core directory)
-repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-version_gen_path = os.path.join(repo_root, 'version.gen.py')
+# In SCons context, we can use Dir('#') to get repo root, but simpler to use os.getcwd()
+# since SCons runs from the repository root
+version_gen_path = os.path.join(os.getcwd(), 'version.gen.py')
 
 # Try to import version.gen.py first
 if os.path.exists(version_gen_path):
