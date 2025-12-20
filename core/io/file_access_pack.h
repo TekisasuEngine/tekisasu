@@ -36,6 +36,7 @@
 #include "core/string/print_string.h"
 #include "core/templates/hash_set.h"
 #include "core/templates/list.h"
+#include "core/version.h"
 
 #ifdef TEKISASU_XOR_KEY
 static constexpr char pack_xor_key[] = TEKISASU_XOR_KEY;
