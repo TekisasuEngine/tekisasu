@@ -33,6 +33,9 @@
 #include "core/authors.gen.h"
 #include "core/donors.gen.h"
 #include "core/license.gen.h"
+#include "core/object/script_language.h"
+#include "core/os/time.h"
+#include "core/version_generated.gen.h"
 #include "editor/editor_node.h"
 #include "editor/editor_string_names.h"
 #include "editor/gui/credits_roll.h"
@@ -40,6 +43,7 @@
 #include "editor/gui/editor_version_button.h"
 #include "editor/run/editor_run_bar.h"
 #include "editor/themes/editor_scale.h"
+#include "scene/gui/grid_container.h"
 #include "scene/gui/item_list.h"
 #include "scene/gui/rich_text_label.h"
 #include "scene/gui/scroll_container.h"
@@ -245,6 +249,126 @@ EditorAbout::EditorAbout() {
 	tc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tc->set_theme_type_variation("TabContainerOdd");
 	vbc->add_child(tc);
+
+	// Build.
+	{
+		ScrollContainer *sc = memnew(ScrollContainer);
+		sc->set_name(TTRC("Build"));
+		sc->set_v_size_flags(Control::SIZE_EXPAND);
+		tc->add_child(sc);
+
+		VBoxContainer *vb = memnew(VBoxContainer);
+		vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		sc->add_child(vb);
+
+		GridContainer *build_info_grid = memnew(GridContainer);
+		build_info_grid->set_columns(2);
+		build_info_grid->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_theme_constant_override("h_separation", 16 * EDSCALE);
+		build_info_grid->add_theme_constant_override("v_separation", 8 * EDSCALE);
+		vb->add_child(build_info_grid);
+
+		// Version
+		Label *version_label = memnew(Label(TTRC("Version:")));
+		version_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		version_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
+		build_info_grid->add_child(version_label);
+
+		Label *version_value = memnew(Label(String(TEKISASU_VERSION_NUMBER) + "." + String(TEKISASU_VERSION_STATUS)));
+		version_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
+		version_value->set_selection_enabled(true);
+		version_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		build_info_grid->add_child(version_value);
+
+		// Build Date
+		Label *build_date_label = memnew(Label(TTRC("Build Date:")));
+		build_date_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_date_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
+		build_info_grid->add_child(build_date_label);
+
+		String build_date_str;
+		if (TEKISASU_VERSION_TIMESTAMP > 0) {
+			Time *time = Time::get_singleton();
+			Dictionary date_dict = time->get_datetime_dict_from_unix_time(TEKISASU_VERSION_TIMESTAMP);
+			build_date_str = vformat("%02d/%02d/%04d", 
+				int(date_dict["month"]), 
+				int(date_dict["day"]), 
+				int(date_dict["year"]));
+		} else {
+			build_date_str = "N/A";
+		}
+		Label *build_date_value = memnew(Label(build_date_str));
+		build_date_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
+		build_date_value->set_selection_enabled(true);
+		build_date_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		build_info_grid->add_child(build_date_value);
+
+		// AES256 Encryption
+		Label *aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
+		aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		aes256_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
+		build_info_grid->add_child(aes256_label);
+
+		bool has_aes256 = false;
+		for (int i = 0; i < 32; i++) {
+			if (script_encryption_key[i] != 0) {
+				has_aes256 = true;
+				break;
+			}
+		}
+		Label *aes256_value = memnew(Label(has_aes256 ? "Yes" : "No"));
+		aes256_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
+		aes256_value->set_selection_enabled(true);
+		aes256_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		build_info_grid->add_child(aes256_value);
+
+		// Tekisasu XOR Key
+		Label *xor_label = memnew(Label(TTRC("Tekisasu XOR Key:")));
+		xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		xor_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
+		build_info_grid->add_child(xor_label);
+
+		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
+		Label *xor_value = memnew(Label(has_xor_key ? "Yes" : "No"));
+		xor_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
+		xor_value->set_selection_enabled(true);
+		xor_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		build_info_grid->add_child(xor_value);
+
+		// Core
+		Label *core_label = memnew(Label(TTRC("Core:")));
+		core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		core_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
+		build_info_grid->add_child(core_label);
+
+		String core_version = vformat("%d.%d.%d.%s",
+			TEKISASU_VERSION_UPSTREAM_MAJOR,
+			TEKISASU_VERSION_UPSTREAM_MINOR,
+			TEKISASU_VERSION_UPSTREAM_PATCH,
+			TEKISASU_VERSION_UPSTREAM_STATUS);
+		Label *core_value = memnew(Label(core_version));
+		core_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
+		core_value->set_selection_enabled(true);
+		core_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		build_info_grid->add_child(core_value);
+
+		// DirectX12 Support
+		Label *d3d12_label = memnew(Label(TTRC("DirectX12 Support:")));
+		d3d12_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		d3d12_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
+		build_info_grid->add_child(d3d12_label);
+
+#ifdef D3D12_ENABLED
+		String d3d12_support = "Yes";
+#else
+		String d3d12_support = "No";
+#endif
+		Label *d3d12_value = memnew(Label(d3d12_support));
+		d3d12_value->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT);
+		d3d12_value->set_selection_enabled(true);
+		d3d12_value->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+		build_info_grid->add_child(d3d12_value);
+	}
 
 	{
 		ScrollContainer *sc = memnew(ScrollContainer);
