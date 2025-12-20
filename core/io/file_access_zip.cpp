@@ -237,6 +237,7 @@ Error FileAccessZip::open_internal(const String &p_path, int p_mode_flags) {
 	ERR_FAIL_NULL_V(arch, FAILED);
 	zfile = arch->get_file_handle(p_path);
 	ERR_FAIL_NULL_V(zfile, FAILED);
+	xor_offset = 0;
 
 	int err = unzGetCurrentFileInfo64(zfile, &file_info, nullptr, 0, nullptr, 0, nullptr, 0);
 	ERR_FAIL_COND_V(err != UNZ_OK, FAILED);
@@ -289,8 +290,7 @@ bool FileAccessZip::eof_reached() const {
 uint64_t FileAccessZip::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 	ERR_FAIL_COND_V(!p_dst && p_length > 0, -1);
 	ERR_FAIL_NULL_V(zfile, -1);
-
-	uint64_t start_pos = get_position();
+	uint64_t start_pos = xor_offset;
 	at_eof = unzeof(zfile);
 	if (at_eof) {
 		return 0;
@@ -302,6 +302,9 @@ uint64_t FileAccessZip::get_buffer(uint8_t *p_dst, uint64_t p_length) const {
 	}
 	if (pack_xor_enabled() && read > 0) {
 		pack_xor_process(p_dst, (uint64_t)read, start_pos);
+	}
+	if (read > 0) {
+		xor_offset += read;
 	}
 	return read;
 }
