@@ -7929,7 +7929,13 @@ void EditorNode::_on_bus_renamed(int p_bus_index, const StringName &p_old_name, 
 
 void EditorNode::_on_audio_mixer_button_pressed() {
 	if (audio_bus_editor) {
-		bottom_panel->make_item_visible(audio_bus_editor, true);
+		const bool is_floating = !bottom_panel->is_ancestor_of(audio_bus_editor);
+		const bool should_focus = is_floating || bottom_panel->get_current_tab_control() != audio_bus_editor;
+		if (should_focus) {
+			EditorDockManager::get_singleton()->focus_dock(audio_bus_editor);
+		} else {
+			bottom_panel->hide_bottom_panel();
+		}
 	}
 }
 
@@ -9106,6 +9112,12 @@ EditorNode::EditorNode() {
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	title_bar->add_child(audio_bus_buttons_hb);
+
+	audio_renderer_separator = memnew(Label);
+	audio_renderer_separator->set_text("|");
+	audio_renderer_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	audio_renderer_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	title_bar->add_child(audio_renderer_separator);
 
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);

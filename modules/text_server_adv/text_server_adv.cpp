@@ -5220,21 +5220,25 @@ RID TextServerAdvanced::_shaped_text_substr(const RID &p_shaped, int64_t p_start
 	const ShapedTextDataAdvanced *sd = shaped_owner.get_or_null(p_shaped);
 	ERR_FAIL_NULL_V(sd, RID());
 
+	int64_t length = p_length;
+
 	MutexLock lock(sd->mutex);
 	if (sd->parent != RID()) {
-		return _shaped_text_substr(sd->parent, p_start, p_length);
+		return _shaped_text_substr(sd->parent, p_start, length);
 	}
 	if (!sd->valid.is_set()) {
 		const_cast<TextServerAdvanced *>(this)->_shaped_text_shape(p_shaped);
 	}
-	ERR_FAIL_COND_V(p_start < 0 || p_length < 0, RID());
+	ERR_FAIL_COND_V(p_start < 0 || length < 0, RID());
 	ERR_FAIL_COND_V(sd->start > p_start || sd->end < p_start, RID());
-	ERR_FAIL_COND_V(sd->end < p_start + p_length, RID());
+	if (sd->end < p_start + length) {
+		length = sd->end - p_start;
+	}
 
 	ShapedTextDataAdvanced *new_sd = memnew(ShapedTextDataAdvanced);
 	new_sd->parent = p_shaped;
 	new_sd->start = p_start;
-	new_sd->end = p_start + p_length;
+	new_sd->end = p_start + length;
 	new_sd->orientation = sd->orientation;
 	new_sd->direction = sd->direction;
 	new_sd->custom_punct = sd->custom_punct;
@@ -5244,7 +5248,8 @@ RID TextServerAdvanced::_shaped_text_substr(const RID &p_shaped, int64_t p_start
 		new_sd->extra_spacing[i] = sd->extra_spacing[i];
 	}
 
-	if (!_shape_substr(new_sd, sd, p_start, p_length)) {
+	// Allow zero-length requests (e.g. slicing at the end of the text) to return an empty shaped buffer.
+	if (!_shape_substr(new_sd, sd, p_start, length)) {
 		memdelete(new_sd);
 		return RID();
 	}

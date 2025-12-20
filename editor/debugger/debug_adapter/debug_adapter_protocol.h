@@ -119,7 +119,7 @@ private:
 	int _remaining_vars = 0;
 	int _current_frame = 0;
 	uint64_t _request_timeout = 5000;
-	bool _sync_breakpoints = false;
+	bool _sync_breakpoints = true;
 
 	String _current_request;
 	Ref<DAPeer> _current_peer;

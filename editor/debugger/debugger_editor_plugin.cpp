@@ -235,7 +235,7 @@ void DebuggerEditorPlugin::_update_debug_options() {
 	bool check_debug_canvas_redraw = EditorSettings::get_singleton()->get_project_metadata("debug_options", "run_debug_canvas_redraw", false);
 	bool check_live_debug = EditorSettings::get_singleton()->get_project_metadata("debug_options", "run_live_debug", true);
 	bool check_reload_scripts = EditorSettings::get_singleton()->get_project_metadata("debug_options", "run_reload_scripts", true);
-	bool check_server_keep_open = EditorSettings::get_singleton()->get_project_metadata("debug_options", "server_keep_open", false);
+	bool check_server_keep_open = EditorSettings::get_singleton()->get_project_metadata("debug_options", "server_keep_open", true);
 
 	if (check_deploy_remote) {
 		_menu_option(RUN_DEPLOY_REMOTE_DEBUG);
