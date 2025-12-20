@@ -283,12 +283,17 @@ EditorAbout::EditorAbout() {
 		vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		sc->add_child(vb);
 
+		// Center container for the grid
+		HBoxContainer *center_container = memnew(HBoxContainer);
+		center_container->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+		center_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		vb->add_child(center_container);
+
 		GridContainer *build_info_grid = memnew(GridContainer);
 		build_info_grid->set_columns(2);
-		build_info_grid->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_theme_constant_override("h_separation", 16 * EDSCALE);
 		build_info_grid->add_theme_constant_override("v_separation", 8 * EDSCALE);
-		vb->add_child(build_info_grid);
+		center_container->add_child(build_info_grid);
 
 		// Version
 		_build_version_label = memnew(Label(TTRC("Version:")));
@@ -298,6 +303,7 @@ EditorAbout::EditorAbout() {
 		LineEdit *version_value = memnew(LineEdit);
 		version_value->set_text(TEKISASU_VERSION_FULL_BUILD);
 		version_value->set_editable(false);
+		version_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(version_value);
 
 		// Build Date
@@ -319,6 +325,7 @@ EditorAbout::EditorAbout() {
 		LineEdit *build_date_value = memnew(LineEdit);
 		build_date_value->set_text(build_date_str);
 		build_date_value->set_editable(false);
+		build_date_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(build_date_value);
 
 		// AES256 Encryption
@@ -337,6 +344,7 @@ EditorAbout::EditorAbout() {
 		LineEdit *aes256_value = memnew(LineEdit);
 		aes256_value->set_text(has_aes256 ? "Yes" : "No");
 		aes256_value->set_editable(false);
+		aes256_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(aes256_value);
 
 		// Tekisasu XOR Key
@@ -348,6 +356,7 @@ EditorAbout::EditorAbout() {
 		LineEdit *xor_value = memnew(LineEdit);
 		xor_value->set_text(has_xor_key ? "Yes" : "No");
 		xor_value->set_editable(false);
+		xor_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(xor_value);
 
 		// Core
@@ -358,6 +367,7 @@ EditorAbout::EditorAbout() {
 		LineEdit *core_value = memnew(LineEdit);
 		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
 		core_value->set_editable(false);
+		core_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(core_value);
 
 		// DirectX12 Support
@@ -373,6 +383,7 @@ EditorAbout::EditorAbout() {
 		LineEdit *d3d12_value = memnew(LineEdit);
 		d3d12_value->set_text(d3d12_support);
 		d3d12_value->set_editable(false);
+		d3d12_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(d3d12_value);
 	}
 
