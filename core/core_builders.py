@@ -79,9 +79,11 @@ def xor_key_builder(target, source, env):
         with methods.generated_wrapper(str(target[0])) as file:
             file.write(
                 """\
+#include "core/version.h"
+
 // XOR obfuscation is disabled (no key defined in version.py)
-inline constexpr int TEKISASU_XOR_KEY_SIZE = 0;
-inline constexpr uint8_t tekisasu_xor_key[1] = { 0 };
+const int TEKISASU_XOR_KEY_SIZE = 0;
+const uint8_t tekisasu_xor_key[1] = { 0 };
 """
             )
         return
@@ -92,9 +94,11 @@ inline constexpr uint8_t tekisasu_xor_key[1] = { 0 };
     with methods.generated_wrapper(str(target[0])) as file:
         file.write(
             f"""\
+#include "core/version.h"
+
 // XOR obfuscation key for PCK files
-inline constexpr int TEKISASU_XOR_KEY_SIZE = {len(buffer)};
-inline constexpr uint8_t tekisasu_xor_key[{len(buffer)}] = {{
+const int TEKISASU_XOR_KEY_SIZE = {len(buffer)};
+const uint8_t tekisasu_xor_key[{len(buffer)}] = {{
 	{methods.format_buffer(buffer, 1)}
 }};
 """

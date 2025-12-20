@@ -208,11 +208,12 @@ if xor_key:
         "\n*** IMPORTANT: Compiling Tekisasu with XOR obfuscation enabled for PCK files."
         "\n*** PCK files will be obfuscated with the key from version.py.\n"
     )
-env.CommandNoCache(
-    "xor_key.gen.h",
+gen_xor = env.CommandNoCache(
+    "xor_key.gen.cpp",
     env.Value(xor_key),
     env.Run(core_builders.xor_key_builder),
 )
+env.add_source_files(env.core_sources, gen_xor)
 
 # Certificates
 env.CommandNoCache(

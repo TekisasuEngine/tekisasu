@@ -34,8 +34,7 @@
 #include "core/io/file_access_patched.h"
 #include "core/object/script_language.h"
 #include "core/os/os.h"
-#include "core/version.h"
-#include "core/xor_key.gen.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
+#include "core/version.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
 
 Error PackedData::add_pack(const String &p_path, bool p_replace_files, uint64_t p_offset) {
 	for (int i = 0; i < sources.size(); i++) {

@@ -34,8 +34,7 @@
 #include "core/io/file_access.h"
 #include "core/io/file_access_encrypted.h"
 #include "core/io/file_access_pack.h" // PACK_HEADER_MAGIC, PACK_FORMAT_VERSION
-#include "core/version.h"
-#include "core/xor_key.gen.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
+#include "core/version.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
 
 static int _get_pad(int p_alignment, int p_n) {
 	int rest = p_n % p_alignment;

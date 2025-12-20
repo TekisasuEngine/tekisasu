@@ -31,7 +31,7 @@
 #include "file_access_encrypted.h"
 
 #include "core/variant/variant.h"
-#include "core/xor_key.gen.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
+#include "core/version.h" // TEKISASU_XOR_KEY_SIZE, tekisasu_xor_key
 
 CryptoCore::RandomGenerator *FileAccessEncrypted::_fae_static_rng = nullptr;
 
