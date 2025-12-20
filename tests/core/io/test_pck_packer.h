@@ -116,4 +116,49 @@ TEST_CASE("[PCKPacker] Pack a PCK file with some files and directories") {
 			f->get_length() <= 27000,
 			"The generated non-empty PCK file shouldn't be too large.");
 }
+
+TEST_CASE("[PCKPacker] Pack and load PCK file to verify XOR obfuscation") {
+	// Create a test file with known content
+	const String test_file_path = TestUtils::get_temp_path("test_content.txt");
+	const String test_content = "This is a test file for XOR obfuscation verification. It contains some text to ensure the XOR obfuscation works correctly across different file sizes.";
+	
+	Error err;
+	Ref<FileAccess> test_file = FileAccess::open(test_file_path, FileAccess::WRITE, &err);
+	CHECK_MESSAGE(err == OK, "Test file should be created successfully.");
+	test_file->store_string(test_content);
+	test_file->close();
+
+	// Pack the test file into a PCK
+	PCKPacker pck_packer;
+	const String output_pck_path = TestUtils::get_temp_path("output_xor_test.pck");
+	CHECK_MESSAGE(
+			pck_packer.pck_start(output_pck_path) == OK,
+			"Starting a PCK file should return an OK error code.");
+	
+	CHECK_MESSAGE(
+			pck_packer.add_file("test_content.txt", test_file_path) == OK,
+			"Adding test file to the PCK should return an OK error code.");
+	
+	CHECK_MESSAGE(
+			pck_packer.flush() == OK,
+			"Flushing the PCK should return an OK error code.");
+
+	// Load the PCK and verify the content
+	PackedData *pd = PackedData::get_singleton();
+	CHECK_MESSAGE(pd != nullptr, "PackedData singleton should exist.");
+	
+	err = pd->add_pack(output_pck_path, true, 0);
+	CHECK_MESSAGE(err == OK, "Loading the PCK file should return an OK error code.");
+	
+	// Read back the file from the PCK
+	Ref<FileAccess> loaded_file = FileAccess::open("res://test_content.txt", FileAccess::READ, &err);
+	CHECK_MESSAGE(err == OK, "Opening file from PCK should return an OK error code.");
+	
+	String loaded_content = loaded_file->get_as_text();
+	loaded_file->close();
+	
+	CHECK_MESSAGE(
+			loaded_content == test_content,
+			"Content read from PCK should match original content, verifying XOR obfuscation works correctly.");
+}
 } // namespace TestPCKPacker
