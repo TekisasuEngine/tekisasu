@@ -92,6 +92,27 @@ void EditorAbout::_notification(int p_what) {
 
 			_logo->set_texture(get_editor_theme_icon(SNAME("Logo")));
 
+			// Apply bold font to Build tab labels
+			const Ref<Font> bold_font = get_theme_font(SNAME("bold"), EditorStringName(EditorFonts));
+			if (_build_version_label) {
+				_build_version_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_date_label) {
+				_build_date_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_aes256_label) {
+				_build_aes256_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_xor_label) {
+				_build_xor_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_core_label) {
+				_build_core_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_d3d12_label) {
+				_build_d3d12_label->add_theme_font_override("font", bold_font);
+			}
+
 			for (ItemList *il : name_lists) {
 				for (int i = 0; i < il->get_item_count(); i++) {
 					if (il->get_item_metadata(i)) {
@@ -270,10 +291,9 @@ EditorAbout::EditorAbout() {
 		vb->add_child(build_info_grid);
 
 		// Version
-		Label *version_label = memnew(Label(TTRC("Version:")));
-		version_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		version_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
-		build_info_grid->add_child(version_label);
+		_build_version_label = memnew(Label(TTRC("Version:")));
+		_build_version_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_version_label);
 
 		LineEdit *version_value = memnew(LineEdit);
 		version_value->set_text(TEKISASU_VERSION_FULL_BUILD);
@@ -281,10 +301,9 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(version_value);
 
 		// Build Date
-		Label *build_date_label = memnew(Label(TTRC("Build Date:")));
-		build_date_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		build_date_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
-		build_info_grid->add_child(build_date_label);
+		_build_date_label = memnew(Label(TTRC("Build Date:")));
+		_build_date_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_date_label);
 
 		String build_date_str;
 		if (TEKISASU_VERSION_TIMESTAMP > 0) {
@@ -303,10 +322,9 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(build_date_value);
 
 		// AES256 Encryption
-		Label *aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
-		aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		aes256_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
-		build_info_grid->add_child(aes256_label);
+		_build_aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
+		_build_aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_aes256_label);
 
 		constexpr int SCRIPT_ENCRYPTION_KEY_SIZE = 32;
 		bool has_aes256 = false;
@@ -322,10 +340,9 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(aes256_value);
 
 		// Tekisasu XOR Key
-		Label *xor_label = memnew(Label(TTRC("Tekisasu XOR Key:")));
-		xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		xor_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
-		build_info_grid->add_child(xor_label);
+		_build_xor_label = memnew(Label(TTRC("Tekisasu XOR Key:")));
+		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_xor_label);
 
 		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
 		LineEdit *xor_value = memnew(LineEdit);
@@ -334,10 +351,9 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(xor_value);
 
 		// Core
-		Label *core_label = memnew(Label(TTRC("Core:")));
-		core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		core_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
-		build_info_grid->add_child(core_label);
+		_build_core_label = memnew(Label(TTRC("Core:")));
+		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_core_label);
 
 		LineEdit *core_value = memnew(LineEdit);
 		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
@@ -345,10 +361,9 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(core_value);
 
 		// DirectX12 Support
-		Label *d3d12_label = memnew(Label(TTRC("DirectX12 Support:")));
-		d3d12_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		d3d12_label->add_theme_font_override("font", get_theme_font(SNAME("bold"), EditorStringName(EditorFonts)));
-		build_info_grid->add_child(d3d12_label);
+		_build_d3d12_label = memnew(Label(TTRC("DirectX12 Support:")));
+		_build_d3d12_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_d3d12_label);
 
 #ifdef D3D12_ENABLED
 		String d3d12_support = "Yes";

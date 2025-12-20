@@ -68,6 +68,14 @@ private:
 	Vector<ItemList *> name_lists;
 	CreditsRoll *credits_roll = nullptr;
 
+	// Build tab labels
+	Label *_build_version_label = nullptr;
+	Label *_build_date_label = nullptr;
+	Label *_build_aes256_label = nullptr;
+	Label *_build_xor_label = nullptr;
+	Label *_build_core_label = nullptr;
+	Label *_build_d3d12_label = nullptr;
+
 protected:
 	void _notification(int p_what);
 
