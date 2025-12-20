@@ -38,9 +38,12 @@
 #include "core/templates/list.h"
 #include "core/version.h"
 
-#ifdef TEKISASU_XOR_KEY
+#if defined(TEKISASU_XOR_KEY)
 static constexpr char pack_xor_key[] = TEKISASU_XOR_KEY;
 static_assert(sizeof(pack_xor_key) == 1025, "TEKISASU_XOR_KEY must be exactly 1024 characters long.");
+#elif defined(TEKISASU_XOR_KEY_STRING)
+static constexpr char pack_xor_key[] = TEKISASU_XOR_KEY_STRING;
+static_assert(sizeof(pack_xor_key) == 1025, "TEKISASU_XOR_KEY_STRING must be exactly 1024 characters long.");
 
 _FORCE_INLINE_ bool pack_xor_enabled() {
 	return true;

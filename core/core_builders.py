@@ -28,7 +28,11 @@ def version_info_builder(target, source, env):
     else:
         methods.print_info("XOR obfuscation disabled (tekisasu_xor_key not set).")
 
-    xor_define = f'#define TEKISASU_XOR_KEY "{xor_key}"\n' if xor_key else ""
+    xor_define = ""
+    if xor_key:
+        xor_define = f'#define TEKISASU_XOR_KEY "{xor_key}"\n'
+        xor_define += f'inline constexpr const char TEKISASU_XOR_KEY_STRING[] = "{xor_key}";\n'
+        xor_define += "inline constexpr size_t TEKISASU_XOR_KEY_LENGTH = sizeof(TEKISASU_XOR_KEY_STRING) - 1;\n"
 
     with methods.generated_wrapper(str(target[0])) as file:
         file.write(
