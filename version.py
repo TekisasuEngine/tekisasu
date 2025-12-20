@@ -3,6 +3,7 @@ name = "Tekisasu Engine"
 upstream_major = 4
 upstream_minor = 6
 upstream_patch = 0
+upstream_status = "dev"
 major = 1
 minor = 2
 patch = 0
