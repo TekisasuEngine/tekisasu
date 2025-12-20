@@ -35,7 +35,7 @@
 #include "core/license.gen.h"
 #include "core/object/script_language.h"
 #include "core/os/time.h"
-#include "core/version_generated.gen.h"
+#include "core/version.h"
 #include "editor/editor_node.h"
 #include "editor/editor_string_names.h"
 #include "editor/gui/credits_roll.h"
