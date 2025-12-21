@@ -45,7 +45,6 @@
 #include "editor/themes/editor_scale.h"
 #include "scene/gui/grid_container.h"
 #include "scene/gui/item_list.h"
-#include "scene/gui/line_edit.h"
 #include "scene/gui/rich_text_label.h"
 #include "scene/gui/scroll_container.h"
 #include "scene/gui/separator.h"
@@ -302,24 +301,21 @@ EditorAbout::EditorAbout() {
 		vb->add_child(center_container);
 
 		GridContainer *build_info_grid = memnew(GridContainer);
-		build_info_grid->set_columns(2);
+		build_info_grid->set_columns(4);
 		build_info_grid->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_theme_constant_override("h_separation", 16 * EDSCALE);
 		build_info_grid->add_theme_constant_override("v_separation", 8 * EDSCALE);
 		center_container->add_child(build_info_grid);
 
-		// Version
+		// Row 1: Version and Build Date
 		_build_version_label = memnew(Label(TTRC("Version:")));
 		_build_version_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_version_label);
 
-		LineEdit *version_value = memnew(LineEdit);
+		Label *version_value = memnew(Label);
 		version_value->set_text(TEKISASU_VERSION_FULL_BUILD);
-		version_value->set_editable(false);
-		version_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(version_value);
 
-		// Build Date
 		_build_date_label = memnew(Label(TTRC("Build Date:")));
 		_build_date_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_date_label);
@@ -335,13 +331,11 @@ EditorAbout::EditorAbout() {
 		} else {
 			build_date_str = "N/A";
 		}
-		LineEdit *build_date_value = memnew(LineEdit);
+		Label *build_date_value = memnew(Label);
 		build_date_value->set_text(build_date_str);
-		build_date_value->set_editable(false);
-		build_date_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(build_date_value);
 
-		// Compiler
+		// Row 2: Compiler and AES256 Encryption
 		_build_compiler_label = memnew(Label(TTRC("Compiler:")));
 		_build_compiler_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_compiler_label);
@@ -368,13 +362,10 @@ EditorAbout::EditorAbout() {
 #else
 		compiler_name = "Unknown";
 #endif
-		LineEdit *compiler_value = memnew(LineEdit);
+		Label *compiler_value = memnew(Label);
 		compiler_value->set_text(compiler_name);
-		compiler_value->set_editable(false);
-		compiler_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(compiler_value);
 
-		// AES256 Encryption
 		_build_aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
 		_build_aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_aes256_label);
@@ -387,36 +378,29 @@ EditorAbout::EditorAbout() {
 				break;
 			}
 		}
-		LineEdit *aes256_value = memnew(LineEdit);
+		Label *aes256_value = memnew(Label);
 		aes256_value->set_text(has_aes256 ? "Yes" : "No");
-		aes256_value->set_editable(false);
-		aes256_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(aes256_value);
 
-		// XOR Encode/Decode
+		// Row 3: XOR Encode/Decode and Core
 		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
 		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_xor_label);
 
 		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
-		LineEdit *xor_value = memnew(LineEdit);
+		Label *xor_value = memnew(Label);
 		xor_value->set_text(has_xor_key ? "Yes" : "No");
-		xor_value->set_editable(false);
-		xor_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(xor_value);
 
-		// Core
 		_build_core_label = memnew(Label(TTRC("Core:")));
 		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_core_label);
 
-		LineEdit *core_value = memnew(LineEdit);
+		Label *core_value = memnew(Label);
 		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
-		core_value->set_editable(false);
-		core_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(core_value);
 
-		// Direct3D12 Support
+		// Row 4: Direct3D12 Support and Agility SDK Support
 		_build_d3d12_label = memnew(Label(TTRC("Direct3D12 Support:")));
 		_build_d3d12_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_d3d12_label);
@@ -426,13 +410,10 @@ EditorAbout::EditorAbout() {
 #else
 		String d3d12_support = "No";
 #endif
-		LineEdit *d3d12_value = memnew(LineEdit);
+		Label *d3d12_value = memnew(Label);
 		d3d12_value->set_text(d3d12_support);
-		d3d12_value->set_editable(false);
-		d3d12_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(d3d12_value);
 
-		// Agility SDK Support
 		_build_agility_sdk_label = memnew(Label(TTRC("Agility SDK Support:")));
 		_build_agility_sdk_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_agility_sdk_label);
@@ -442,13 +423,11 @@ EditorAbout::EditorAbout() {
 #else
 		String agility_sdk_support = "No";
 #endif
-		LineEdit *agility_sdk_value = memnew(LineEdit);
+		Label *agility_sdk_value = memnew(Label);
 		agility_sdk_value->set_text(agility_sdk_support);
-		agility_sdk_value->set_editable(false);
-		agility_sdk_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(agility_sdk_value);
 
-		// PIX Support
+		// Row 5: PIX Support and ANGLE Support
 		_build_pix_label = memnew(Label(TTRC("PIX Support:")));
 		_build_pix_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_pix_label);
@@ -458,13 +437,10 @@ EditorAbout::EditorAbout() {
 #else
 		String pix_support = "No";
 #endif
-		LineEdit *pix_value = memnew(LineEdit);
+		Label *pix_value = memnew(Label);
 		pix_value->set_text(pix_support);
-		pix_value->set_editable(false);
-		pix_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(pix_value);
 
-		// ANGLE Support
 		_build_angle_label = memnew(Label(TTRC("ANGLE Support:")));
 		_build_angle_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_angle_label);
@@ -474,10 +450,8 @@ EditorAbout::EditorAbout() {
 #else
 		String angle_support = "No";
 #endif
-		LineEdit *angle_value = memnew(LineEdit);
+		Label *angle_value = memnew(Label);
 		angle_value->set_text(angle_support);
-		angle_value->set_editable(false);
-		angle_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(angle_value);
 	}
 
