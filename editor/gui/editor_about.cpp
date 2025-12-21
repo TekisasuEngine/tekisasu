@@ -302,7 +302,6 @@ EditorAbout::EditorAbout() {
 
 		GridContainer *build_info_grid = memnew(GridContainer);
 		build_info_grid->set_columns(4);
-		build_info_grid->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_theme_constant_override("h_separation", 16 * EDSCALE);
 		build_info_grid->add_theme_constant_override("v_separation", 8 * EDSCALE);
 		center_container->add_child(build_info_grid);
