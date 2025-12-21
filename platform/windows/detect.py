@@ -471,6 +471,7 @@ def configure_msvc(env: "SConsEnvironment"):
         env.AppendUnique(CPPDEFINES=["GLES3_ENABLED"])
         if env["angle_libs"] != "":
             env.AppendUnique(CPPDEFINES=["EGL_STATIC"])
+            env.AppendUnique(CPPDEFINES=["ANGLE_ENABLED"])
             env.Append(LIBPATH=[env["angle_libs"]])
             LIBS += [
                 "libANGLE.windows." + env["arch"] + prebuilt_lib_extra_suffix,
@@ -861,6 +862,7 @@ def configure_mingw(env: "SConsEnvironment"):
         env.Append(CPPDEFINES=["GLES3_ENABLED"])
         if env["angle_libs"] != "":
             env.AppendUnique(CPPDEFINES=["EGL_STATIC"])
+            env.AppendUnique(CPPDEFINES=["ANGLE_ENABLED"])
             env.Append(LIBPATH=[env["angle_libs"]])
             env.Append(
                 LIBS=[

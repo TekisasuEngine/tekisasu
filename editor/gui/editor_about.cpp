@@ -33,6 +33,9 @@
 #include "core/authors.gen.h"
 #include "core/donors.gen.h"
 #include "core/license.gen.h"
+#include "core/object/script_language.h"
+#include "core/os/time.h"
+#include "core/version.h"
 #include "editor/editor_node.h"
 #include "editor/editor_string_names.h"
 #include "editor/gui/credits_roll.h"
@@ -40,6 +43,7 @@
 #include "editor/gui/editor_version_button.h"
 #include "editor/run/editor_run_bar.h"
 #include "editor/themes/editor_scale.h"
+#include "scene/gui/grid_container.h"
 #include "scene/gui/item_list.h"
 #include "scene/gui/rich_text_label.h"
 #include "scene/gui/scroll_container.h"
@@ -86,6 +90,39 @@ void EditorAbout::_notification(int p_what) {
 			license_text_label->end_bulk_theme_override();
 
 			_logo->set_texture(get_editor_theme_icon(SNAME("Logo")));
+
+			// Apply bold font to Build tab labels
+			const Ref<Font> bold_font = get_theme_font(SNAME("bold"), EditorStringName(EditorFonts));
+			if (_build_version_label) {
+				_build_version_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_date_label) {
+				_build_date_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_compiler_label) {
+				_build_compiler_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_aes256_label) {
+				_build_aes256_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_xor_label) {
+				_build_xor_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_core_label) {
+				_build_core_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_d3d12_label) {
+				_build_d3d12_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_agility_sdk_label) {
+				_build_agility_sdk_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_pix_label) {
+				_build_pix_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_angle_label) {
+				_build_angle_label->add_theme_font_override("font", bold_font);
+			}
 
 			for (ItemList *il : name_lists) {
 				for (int i = 0; i < il->get_item_count(); i++) {
@@ -245,6 +282,177 @@ EditorAbout::EditorAbout() {
 	tc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tc->set_theme_type_variation("TabContainerOdd");
 	vbc->add_child(tc);
+
+	// Build.
+	{
+		ScrollContainer *sc = memnew(ScrollContainer);
+		sc->set_name(TTRC("Build"));
+		sc->set_v_size_flags(Control::SIZE_EXPAND);
+		tc->add_child(sc);
+
+		VBoxContainer *vb = memnew(VBoxContainer);
+		vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		sc->add_child(vb);
+
+		// Center container for the grid
+		HBoxContainer *center_container = memnew(HBoxContainer);
+		center_container->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+		center_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		vb->add_child(center_container);
+
+		GridContainer *build_info_grid = memnew(GridContainer);
+		build_info_grid->set_columns(4);
+		build_info_grid->add_theme_constant_override("h_separation", 16 * EDSCALE);
+		build_info_grid->add_theme_constant_override("v_separation", 8 * EDSCALE);
+		center_container->add_child(build_info_grid);
+
+		// Row 1: Version and Build Date
+		_build_version_label = memnew(Label(TTRC("Version:")));
+		_build_version_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_version_label);
+
+		Label *version_value = memnew(Label);
+		version_value->set_text(TEKISASU_VERSION_FULL_BUILD);
+		build_info_grid->add_child(version_value);
+
+		_build_date_label = memnew(Label(TTRC("Build Date:")));
+		_build_date_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_date_label);
+
+		String build_date_str;
+		if (TEKISASU_VERSION_TIMESTAMP > 0) {
+			Time *time = Time::get_singleton();
+			Dictionary date_dict = time->get_datetime_dict_from_unix_time(TEKISASU_VERSION_TIMESTAMP);
+			build_date_str = vformat("%02d/%02d/%04d", 
+				int(date_dict["month"]), 
+				int(date_dict["day"]), 
+				int(date_dict["year"]));
+		} else {
+			build_date_str = "N/A";
+		}
+		Label *build_date_value = memnew(Label);
+		build_date_value->set_text(build_date_str);
+		build_info_grid->add_child(build_date_value);
+
+		// Row 2: Compiler and AES256 Encryption
+		_build_compiler_label = memnew(Label(TTRC("Compiler:")));
+		_build_compiler_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_compiler_label);
+
+		String compiler_name;
+#if defined(_MSC_VER)
+		compiler_name = "MSVC";
+#elif defined(__clang__)
+	#if defined(__MINGW32__)
+		compiler_name = "MinGW-LLVM";
+	#else
+		compiler_name = "Clang";
+	#endif
+#elif defined(__GNUC__)
+	#if defined(__MINGW32__)
+		#if defined(__MINGW64__)
+		compiler_name = "MinGW-w64";
+		#else
+		compiler_name = "MinGW";
+		#endif
+	#else
+		compiler_name = "GCC";
+	#endif
+#else
+		compiler_name = "Unknown";
+#endif
+		Label *compiler_value = memnew(Label);
+		compiler_value->set_text(compiler_name);
+		build_info_grid->add_child(compiler_value);
+
+		_build_aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
+		_build_aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_aes256_label);
+
+		constexpr int SCRIPT_ENCRYPTION_KEY_SIZE = 32;
+		bool has_aes256 = false;
+		for (int i = 0; i < SCRIPT_ENCRYPTION_KEY_SIZE; i++) {
+			if (script_encryption_key[i] != 0) {
+				has_aes256 = true;
+				break;
+			}
+		}
+		Label *aes256_value = memnew(Label);
+		aes256_value->set_text(has_aes256 ? "Yes" : "No");
+		build_info_grid->add_child(aes256_value);
+
+		// Row 3: XOR Encode/Decode and Core
+		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
+		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_xor_label);
+
+		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
+		Label *xor_value = memnew(Label);
+		xor_value->set_text(has_xor_key ? "Yes" : "No");
+		build_info_grid->add_child(xor_value);
+
+		_build_core_label = memnew(Label(TTRC("Core:")));
+		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_core_label);
+
+		Label *core_value = memnew(Label);
+		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
+		build_info_grid->add_child(core_value);
+
+		// Row 4: Direct3D12 Support and Agility SDK Support
+		_build_d3d12_label = memnew(Label(TTRC("Direct3D12 Support:")));
+		_build_d3d12_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_d3d12_label);
+
+#ifdef D3D12_ENABLED
+		String d3d12_support = "Yes";
+#else
+		String d3d12_support = "No";
+#endif
+		Label *d3d12_value = memnew(Label);
+		d3d12_value->set_text(d3d12_support);
+		build_info_grid->add_child(d3d12_value);
+
+		_build_agility_sdk_label = memnew(Label(TTRC("Agility SDK Support:")));
+		_build_agility_sdk_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_agility_sdk_label);
+
+#ifdef AGILITY_SDK_ENABLED
+		String agility_sdk_support = "Yes";
+#else
+		String agility_sdk_support = "No";
+#endif
+		Label *agility_sdk_value = memnew(Label);
+		agility_sdk_value->set_text(agility_sdk_support);
+		build_info_grid->add_child(agility_sdk_value);
+
+		// Row 5: PIX Support and ANGLE Support
+		_build_pix_label = memnew(Label(TTRC("PIX Support:")));
+		_build_pix_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_pix_label);
+
+#ifdef PIX_ENABLED
+		String pix_support = "Yes";
+#else
+		String pix_support = "No";
+#endif
+		Label *pix_value = memnew(Label);
+		pix_value->set_text(pix_support);
+		build_info_grid->add_child(pix_value);
+
+		_build_angle_label = memnew(Label(TTRC("ANGLE Support:")));
+		_build_angle_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_angle_label);
+
+#ifdef ANGLE_ENABLED
+		String angle_support = "Yes";
+#else
+		String angle_support = "No";
+#endif
+		Label *angle_value = memnew(Label);
+		angle_value->set_text(angle_support);
+		build_info_grid->add_child(angle_value);
+	}
 
 	{
 		ScrollContainer *sc = memnew(ScrollContainer);

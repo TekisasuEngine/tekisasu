@@ -173,6 +173,10 @@ def get_version_info(module_version_string="", silent=False):
         "module_config": str(version.module_config) + module_version_string,
         "website": str(version.website),
         "docs_branch": str(version.docs),
+        "upstream_major": int(getattr(version, 'upstream_major', 4)),
+        "upstream_minor": int(getattr(version, 'upstream_minor', 6)),
+        "upstream_patch": int(getattr(version, 'upstream_patch', 0)),
+        "upstream_status": str(getattr(version, 'upstream_status', 'stable')),
     }
 
     # For dev snapshots (alpha, beta, RC, etc.) we do not commit status change to Git,
