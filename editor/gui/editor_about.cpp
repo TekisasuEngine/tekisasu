@@ -100,6 +100,9 @@ void EditorAbout::_notification(int p_what) {
 			if (_build_date_label) {
 				_build_date_label->add_theme_font_override("font", bold_font);
 			}
+			if (_build_compiler_label) {
+				_build_compiler_label->add_theme_font_override("font", bold_font);
+			}
 			if (_build_aes256_label) {
 				_build_aes256_label->add_theme_font_override("font", bold_font);
 			}
@@ -111,6 +114,15 @@ void EditorAbout::_notification(int p_what) {
 			}
 			if (_build_d3d12_label) {
 				_build_d3d12_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_agility_sdk_label) {
+				_build_agility_sdk_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_pix_label) {
+				_build_pix_label->add_theme_font_override("font", bold_font);
+			}
+			if (_build_angle_label) {
+				_build_angle_label->add_theme_font_override("font", bold_font);
 			}
 
 			for (ItemList *il : name_lists) {
@@ -329,6 +341,39 @@ EditorAbout::EditorAbout() {
 		build_date_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(build_date_value);
 
+		// Compiler
+		_build_compiler_label = memnew(Label(TTRC("Compiler:")));
+		_build_compiler_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_compiler_label);
+
+		String compiler_name;
+#if defined(_MSC_VER)
+		compiler_name = "MSVC";
+#elif defined(__clang__)
+	#if defined(__MINGW32__)
+		compiler_name = "MinGW-LLVM";
+	#else
+		compiler_name = "Clang";
+	#endif
+#elif defined(__GNUC__)
+	#if defined(__MINGW32__)
+		#if defined(__MINGW64__)
+		compiler_name = "MinGW-w64";
+		#else
+		compiler_name = "MinGW";
+		#endif
+	#else
+		compiler_name = "GCC";
+	#endif
+#else
+		compiler_name = "Unknown";
+#endif
+		LineEdit *compiler_value = memnew(LineEdit);
+		compiler_value->set_text(compiler_name);
+		compiler_value->set_editable(false);
+		compiler_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(compiler_value);
+
 		// AES256 Encryption
 		_build_aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
 		_build_aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -348,8 +393,8 @@ EditorAbout::EditorAbout() {
 		aes256_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(aes256_value);
 
-		// Tekisasu XOR Key
-		_build_xor_label = memnew(Label(TTRC("Tekisasu XOR Key:")));
+		// XOR Encode/Decode
+		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
 		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_xor_label);
 
@@ -371,8 +416,8 @@ EditorAbout::EditorAbout() {
 		core_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(core_value);
 
-		// DirectX12 Support
-		_build_d3d12_label = memnew(Label(TTRC("DirectX12 Support:")));
+		// Direct3D12 Support
+		_build_d3d12_label = memnew(Label(TTRC("Direct3D12 Support:")));
 		_build_d3d12_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_d3d12_label);
 
@@ -386,6 +431,54 @@ EditorAbout::EditorAbout() {
 		d3d12_value->set_editable(false);
 		d3d12_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(d3d12_value);
+
+		// Agility SDK Support
+		_build_agility_sdk_label = memnew(Label(TTRC("Agility SDK Support:")));
+		_build_agility_sdk_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_agility_sdk_label);
+
+#ifdef AGILITY_SDK_ENABLED
+		String agility_sdk_support = "Yes";
+#else
+		String agility_sdk_support = "No";
+#endif
+		LineEdit *agility_sdk_value = memnew(LineEdit);
+		agility_sdk_value->set_text(agility_sdk_support);
+		agility_sdk_value->set_editable(false);
+		agility_sdk_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(agility_sdk_value);
+
+		// PIX Support
+		_build_pix_label = memnew(Label(TTRC("PIX Support:")));
+		_build_pix_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_pix_label);
+
+#ifdef PIX_ENABLED
+		String pix_support = "Yes";
+#else
+		String pix_support = "No";
+#endif
+		LineEdit *pix_value = memnew(LineEdit);
+		pix_value->set_text(pix_support);
+		pix_value->set_editable(false);
+		pix_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(pix_value);
+
+		// ANGLE Support
+		_build_angle_label = memnew(Label(TTRC("ANGLE Support:")));
+		_build_angle_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_angle_label);
+
+#ifdef ANGLE_ENABLED
+		String angle_support = "Yes";
+#else
+		String angle_support = "No";
+#endif
+		LineEdit *angle_value = memnew(LineEdit);
+		angle_value->set_text(angle_support);
+		angle_value->set_editable(false);
+		angle_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(angle_value);
 	}
 
 	{

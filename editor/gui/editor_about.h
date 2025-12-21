@@ -71,10 +71,14 @@ private:
 	// Build tab labels
 	Label *_build_version_label = nullptr;
 	Label *_build_date_label = nullptr;
+	Label *_build_compiler_label = nullptr;
 	Label *_build_aes256_label = nullptr;
 	Label *_build_xor_label = nullptr;
 	Label *_build_core_label = nullptr;
 	Label *_build_d3d12_label = nullptr;
+	Label *_build_agility_sdk_label = nullptr;
+	Label *_build_pix_label = nullptr;
+	Label *_build_angle_label = nullptr;
 
 protected:
 	void _notification(int p_what);
