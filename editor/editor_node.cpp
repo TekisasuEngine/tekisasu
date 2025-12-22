@@ -8720,14 +8720,14 @@ EditorNode::EditorNode() {
 #endif
 
 	// Create TekisasuBar (secondary toolbar).
-	// First, create an outer PanelContainer with the title_bar background color.
+	// First, create an outer PanelContainer with the window background color.
 	tekisasu_bar_outer = memnew(PanelContainer);
 	tekisasu_bar_outer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	
-	// Get the title_bar background color.
-	Color title_bar_bg_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor));
+	// Get the window background color (same as main canvas background).
+	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
-	outer_style->set_bg_color(title_bar_bg_color);
+	outer_style->set_bg_color(background_color);
 	outer_style->set_content_margin_all(5 * EDSCALE); // Margin around the black bar
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
@@ -8740,7 +8740,15 @@ EditorNode::EditorNode() {
 	// Set up the black background style with TekisasuBar-specific theming.
 	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
 	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
-	tekisasu_bar_style->set_corner_radius_all(4);
+	
+	// Get corner radius from the Panel stylebox to match theme settings.
+	Ref<StyleBoxFlat> panel_style = theme->get_stylebox(SceneStringName(panel), "Panel");
+	int corner_radius = 4; // Default fallback
+	if (panel_style.is_valid()) {
+		corner_radius = panel_style->get_corner_radius(CORNER_TOP_LEFT);
+	}
+	tekisasu_bar_style->set_corner_radius_all(corner_radius);
+	
 	// Internal padding: 5px * EDSCALE on all sides.
 	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
 	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
