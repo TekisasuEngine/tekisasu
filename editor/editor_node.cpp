@@ -7962,7 +7962,7 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 			target_height = tekisasu_bar_outer->get_combined_minimum_size().y;
 		}
 		
-		// Create tween for smooth animation over 1000ms.
+		// Create tween for smooth animation over 1.0 seconds (1000ms).
 		tekisasu_bar_tween = create_tween();
 		tekisasu_bar_tween->set_ease(Tween::EASE_IN_OUT);
 		tekisasu_bar_tween->set_trans(Tween::TRANS_CUBIC);
@@ -8006,7 +8006,7 @@ void EditorNode::_update_tekisasu_bar_theme() {
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
 	outer_style->set_bg_color(background_color);
 	// No top margin to align TekisasuBar with content below when hidden.
-	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
+	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left=5px, top=0px, right=5px, bottom=5px
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
 	// Update inner panel corner radius from theme.
@@ -8794,7 +8794,7 @@ EditorNode::EditorNode() {
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
 	outer_style->set_bg_color(background_color);
 	// No top margin to align TekisasuBar with content below when hidden.
-	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
+	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left=5px, top=0px, right=5px, bottom=5px
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
 	main_vbox->add_child(tekisasu_bar_outer);
