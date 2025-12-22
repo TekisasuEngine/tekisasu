@@ -58,6 +58,7 @@
 #include "scene/gui/menu_bar.h"
 #include "scene/gui/menu_button.h"
 #include "scene/gui/panel.h"
+#include "scene/gui/panel_container.h"
 #include "scene/gui/popup.h"
 #include "scene/gui/rich_text_label.h"
 #include "scene/gui/split_container.h"
@@ -7939,6 +7940,26 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 	}
 }
 
+void EditorNode::_on_tekisasu_bar_toggle_pressed() {
+	tekisasu_bar_visible = !tekisasu_bar_visible;
+	
+	// Toggle visibility of the TekisasuBar.
+	if (tekisasu_bar && tekisasu_bar->get_parent()) {
+		tekisasu_bar->get_parent()->set_visible(tekisasu_bar_visible);
+	}
+	
+	// Update the toggle button icon modulation.
+	if (tekisasu_bar_toggle_button) {
+		if (tekisasu_bar_visible) {
+			// Normal color when visible.
+			tekisasu_bar_toggle_button->set_modulate(Color(1, 1, 1, 1));
+		} else {
+			// Desaturated color when hidden.
+			tekisasu_bar_toggle_button->set_modulate(Color(0.6, 0.6, 0.6, 1));
+		}
+	}
+}
+
 static void _execute_thread(void *p_ud) {
 	EditorNode::ExecuteThreadArgs *eta = (EditorNode::ExecuteThreadArgs *)p_ud;
 	Error err = OS::get_singleton()->execute(eta->path, eta->args, &eta->output, &eta->exitcode, true, &eta->execute_output_mutex);
@@ -8698,6 +8719,38 @@ EditorNode::EditorNode() {
 	main_vbox->add_child(title_bar);
 #endif
 
+	// Create TekisasuBar (secondary toolbar).
+	tekisasu_bar = memnew(HBoxContainer);
+	tekisasu_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	
+	// Create a PanelContainer for the black background with corner radius.
+	PanelContainer *tekisasu_bar_panel = memnew(PanelContainer);
+	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	tekisasu_bar_panel->add_child(tekisasu_bar);
+	
+	// Set up the black background style.
+	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
+	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
+	int corner_radius = theme->get_constant(SNAME("corner_radius"), EditorStringName(Editor));
+	tekisasu_bar_style->set_corner_radius_all(corner_radius);
+	tekisasu_bar_panel->add_theme_stylebox_override(SceneStringName(panel), tekisasu_bar_style);
+	
+	main_vbox->add_child(tekisasu_bar_panel);
+
+	// Create left, center, and right sections for TekisasuBar.
+	tekisasu_bar_left = memnew(HBoxContainer);
+	tekisasu_bar_left->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	tekisasu_bar->add_child(tekisasu_bar_left);
+
+	tekisasu_bar_center = memnew(HBoxContainer);
+	tekisasu_bar_center->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	tekisasu_bar->add_child(tekisasu_bar_center);
+
+	tekisasu_bar_right = memnew(HBoxContainer);
+	tekisasu_bar_right->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	tekisasu_bar_right->set_alignment(BoxContainer::ALIGNMENT_END);
+	tekisasu_bar->add_child(tekisasu_bar_right);
+
 	main_hsplit = memnew(DockSplitContainer);
 	main_hsplit->set_name("DockHSplitMain");
 	main_hsplit->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -9068,15 +9121,26 @@ EditorNode::EditorNode() {
 	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).lightened(separator_modulated);
 	_update_debug_status_colors();
 
+	// Spacer to center 2D / 3D / Script buttons.
+	right_spacer = memnew(Control);
+	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	title_bar->add_child(right_spacer);
+
+	right_menu_hb = memnew(HBoxContainer);
+	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+	title_bar->add_child(right_menu_hb);
+
+	// Move runbar to the right, before the TekisasuBar toggle button.
 	Label *runbar_left_separator = memnew(Label);
 	runbar_left_separator->set_text("|");
 	runbar_left_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_left_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	title_bar->add_child(runbar_left_separator);
+	right_menu_hb->add_child(runbar_left_separator);
 
 	project_run_bar = memnew(EditorRunBar);
 	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
-	title_bar->add_child(project_run_bar);
+	right_menu_hb->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
 
@@ -9084,53 +9148,16 @@ EditorNode::EditorNode() {
 	runbar_right_separator->set_text("|");
 	runbar_right_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_right_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	title_bar->add_child(runbar_right_separator);
+	right_menu_hb->add_child(runbar_right_separator);
 
-	debug_target_hb = memnew(HBoxContainer);
-	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	title_bar->add_child(debug_target_hb);
-
-	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
-	debug_label_color.a *= 0.5;
-	debug_target_label = memnew(Label);
-	debug_target_label->set_text(TTRC("Debug Client:"));
-	debug_target_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
-	debug_target_label->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
-	debug_target_hb->add_child(debug_target_label);
-
-	debug_target_icon = memnew(TextureRect);
-	debug_target_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
-	debug_target_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
-	debug_target_icon->set_custom_minimum_size(Size2(14, 14));
-	debug_target_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	debug_target_hb->add_child(debug_target_icon);
-
-	debug_target_status = memnew(Label);
-	debug_target_status->set_text(TTRC("No Connection"));
-	debug_target_status->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
-	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
-	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	debug_target_hb->add_child(debug_target_status);
-
-	// Spacer to center 2D / 3D / Script buttons.
-	right_spacer = memnew(Control);
-	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	title_bar->add_child(right_spacer);
-
-	audio_bus_buttons_hb = memnew(HBoxContainer);
-	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
-	title_bar->add_child(audio_bus_buttons_hb);
-
-	audio_renderer_separator = memnew(Label);
-	audio_renderer_separator->set_text("|");
-	audio_renderer_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	audio_renderer_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	title_bar->add_child(audio_renderer_separator);
-
-	right_menu_hb = memnew(HBoxContainer);
-	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
-	title_bar->add_child(right_menu_hb);
+	// TekisasuBar toggle button.
+	tekisasu_bar_toggle_button = memnew(Button);
+	tekisasu_bar_toggle_button->set_flat(true);
+	tekisasu_bar_toggle_button->set_button_icon(theme->get_icon(SNAME("SphereShape3D"), EditorStringName(EditorIcons)));
+	tekisasu_bar_toggle_button->set_tooltip_text(TTRC("Toggle TekisasuBar"));
+	tekisasu_bar_toggle_button->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
+	tekisasu_bar_toggle_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_tekisasu_bar_toggle_pressed));
+	right_menu_hb->add_child(tekisasu_bar_toggle_button);
 
 	renderer = memnew(OptionButton);
 	renderer->set_clip_text(true);
@@ -9195,6 +9222,38 @@ EditorNode::EditorNode() {
 		renderer->set_item_metadata(-1, current_renderer_os);
 	}
 	_update_renderer_color();
+
+	// Add audio bus buttons to the left section of TekisasuBar.
+	audio_bus_buttons_hb = memnew(HBoxContainer);
+	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+	tekisasu_bar_left->add_child(audio_bus_buttons_hb);
+
+	// Add debug client section to the right section of TekisasuBar.
+	debug_target_hb = memnew(HBoxContainer);
+	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	tekisasu_bar_right->add_child(debug_target_hb);
+
+	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
+	debug_label_color.a *= 0.5;
+	debug_target_label = memnew(Label);
+	debug_target_label->set_text(TTRC("Debug Client:"));
+	debug_target_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_target_label->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
+	debug_target_hb->add_child(debug_target_label);
+
+	debug_target_icon = memnew(TextureRect);
+	debug_target_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
+	debug_target_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
+	debug_target_icon->set_custom_minimum_size(Size2(14, 14));
+	debug_target_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_target_hb->add_child(debug_target_icon);
+
+	debug_target_status = memnew(Label);
+	debug_target_status->set_text(TTRC("No Connection"));
+	debug_target_status->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
+	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
+	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
+	debug_target_hb->add_child(debug_target_status);
 
 	progress_hb = memnew(BackgroundProgress);
 
