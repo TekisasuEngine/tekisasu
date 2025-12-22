@@ -687,6 +687,9 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		bottom_panel->_theme_changed();
 		distraction_free->set_button_icon(theme->get_icon(SNAME("DistractionFree"), EditorStringName(EditorIcons)));
 		update_distraction_free_button_theme();
+		
+		// Update TekisasuBar theme.
+		_update_tekisasu_bar_theme();
 
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_SEARCH), get_editor_theme_native_menu_icon(SNAME("HelpSearch"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_COPY_SYSTEM_INFO), get_editor_theme_native_menu_icon(SNAME("ActionCopy"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
@@ -7960,6 +7963,33 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 	}
 }
 
+void EditorNode::_update_tekisasu_bar_theme() {
+	if (!tekisasu_bar_outer || !tekisasu_bar_panel) {
+		return;
+	}
+	
+	// Update outer container background color to match window background.
+	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
+	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
+	outer_style->set_bg_color(background_color);
+	outer_style->set_content_margin_all(5 * EDSCALE);
+	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
+	
+	// Update inner panel corner radius from theme.
+	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
+	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
+	
+	// Get corner radius from the Panel stylebox to match theme settings.
+	Ref<StyleBoxFlat> panel_style = theme->get_stylebox(SceneStringName(panel), "Panel");
+	int corner_radius = 4; // Default fallback
+	if (panel_style.is_valid()) {
+		corner_radius = panel_style->get_corner_radius(CORNER_TOP_LEFT);
+	}
+	tekisasu_bar_style->set_corner_radius_all(corner_radius);
+	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
+	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
+}
+
 static void _execute_thread(void *p_ud) {
 	EditorNode::ExecuteThreadArgs *eta = (EditorNode::ExecuteThreadArgs *)p_ud;
 	Error err = OS::get_singleton()->execute(eta->path, eta->args, &eta->output, &eta->exitcode, true, &eta->execute_output_mutex);
@@ -9155,12 +9185,6 @@ EditorNode::EditorNode() {
 	title_bar->add_child(right_menu_hb);
 
 	// Move runbar to the right, before the TekisasuBar toggle button.
-	Label *runbar_left_separator = memnew(Label);
-	runbar_left_separator->set_text("|");
-	runbar_left_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	runbar_left_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	right_menu_hb->add_child(runbar_left_separator);
-
 	project_run_bar = memnew(EditorRunBar);
 	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	right_menu_hb->add_child(project_run_bar);
@@ -9181,6 +9205,13 @@ EditorNode::EditorNode() {
 	tekisasu_bar_toggle_button->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
 	tekisasu_bar_toggle_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_tekisasu_bar_toggle_pressed));
 	right_menu_hb->add_child(tekisasu_bar_toggle_button);
+
+	// Separator after toggle button.
+	Label *toggle_separator = memnew(Label);
+	toggle_separator->set_text("|");
+	toggle_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	toggle_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	right_menu_hb->add_child(toggle_separator);
 
 	renderer = memnew(OptionButton);
 	renderer->set_clip_text(true);
@@ -9246,15 +9277,10 @@ EditorNode::EditorNode() {
 	}
 	_update_renderer_color();
 
-	// Add audio bus buttons to the left section of TekisasuBar.
-	audio_bus_buttons_hb = memnew(HBoxContainer);
-	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
-	tekisasu_bar_left->add_child(audio_bus_buttons_hb);
-
-	// Add debug client section to the right section of TekisasuBar.
+	// Add debug client section to the left section of TekisasuBar.
 	debug_target_hb = memnew(HBoxContainer);
 	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
-	tekisasu_bar_right->add_child(debug_target_hb);
+	tekisasu_bar_left->add_child(debug_target_hb);
 
 	Color debug_label_color = theme->get_color(SNAME("font_color"), EditorStringName(Editor));
 	debug_label_color.a *= 0.5;
@@ -9277,6 +9303,11 @@ EditorNode::EditorNode() {
 	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	debug_target_hb->add_child(debug_target_status);
+
+	// Add audio bus buttons to the right section of TekisasuBar.
+	audio_bus_buttons_hb = memnew(HBoxContainer);
+	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
+	tekisasu_bar_right->add_child(audio_bus_buttons_hb);
 
 	progress_hb = memnew(BackgroundProgress);
 
