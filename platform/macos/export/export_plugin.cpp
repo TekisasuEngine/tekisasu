@@ -33,8 +33,11 @@
 #include "logo_svg.gen.h"
 #include "run_icon_svg.gen.h"
 
+#include <functional>
+
 #include "core/io/image_loader.h"
 #include "core/io/plist.h"
+#include "core/io/zip_io.h"
 #include "core/string/translation_server.h"
 #include "drivers/png/png_driver_common.h"
 #include "editor/editor_node.h"
@@ -2727,11 +2730,108 @@ Error EditorExportPlatformMacOS::run(const Ref<EditorExportPreset> &p_preset, in
 	if (ep.step(TTR("Exporting project..."), 1)) {
 		return ERR_SKIP;
 	}
-	Error err = export_project(p_preset, true, basepath + ".zip", p_debug_flags);
+	// First, export the project to a .app bundle
+	String app_path = basepath + ".app";
+	Error err = export_project(p_preset, true, app_path, p_debug_flags);
 	if (err != OK) {
-		DirAccess::remove_file_or_error(basepath + ".zip");
+		OS::get_singleton()->move_to_trash(app_path);
 		return err;
 	}
+
+	// Create a ZIP containing the .app bundle
+	Ref<FileAccess> io_fa;
+	zlib_filefunc_def io = zipio_create_io(&io_fa);
+	zipFile zip = zipOpen2((basepath + ".zip").utf8().get_data(), APPEND_STATUS_CREATE, nullptr, &io);
+	if (!zip) {
+		add_message(EXPORT_MESSAGE_ERROR, TTR("Run"), TTR("Failed to create ZIP archive for remote deployment."));
+		OS::get_singleton()->move_to_trash(app_path);
+		return ERR_CANT_CREATE;
+	}
+
+	// Helper lambda to recursively add files from .app to ZIP
+	std::function<void(const String &, const String &)> zip_recursive;
+	zip_recursive = [&](const String &p_path, const String &p_base_path) {
+		Ref<DirAccess> dir = DirAccess::open(p_path);
+		if (dir.is_null()) {
+			return;
+		}
+		dir->list_dir_begin();
+		String cur = dir->get_next();
+		while (!cur.is_empty()) {
+			if (cur == "." || cur == "..") {
+				cur = dir->get_next();
+				continue;
+			}
+			String cs = p_path.path_join(cur);
+			if (dir->current_is_dir()) {
+				String path = cs.trim_prefix(p_base_path) + "/";
+				zipOpenNewFileInZip4(zip,
+						path.utf8().get_data(),
+						nullptr,
+						nullptr,
+						0,
+						nullptr,
+						0,
+						nullptr,
+						Z_DEFLATED,
+						Z_DEFAULT_COMPRESSION,
+						0,
+						-MAX_WBITS,
+						DEF_MEM_LEVEL,
+						Z_DEFAULT_STRATEGY,
+						nullptr,
+						0,
+						0x0314,
+						1 << 11);
+				zipCloseFileInZip(zip);
+				zip_recursive(cs, p_base_path);
+			} else {
+				Ref<FileAccess> f = FileAccess::open(cs, FileAccess::READ);
+				if (f.is_valid()) {
+					String path = cs.trim_prefix(p_base_path);
+					zipOpenNewFileInZip4(zip,
+							path.utf8().get_data(),
+							nullptr,
+							nullptr,
+							0,
+							nullptr,
+							0,
+							nullptr,
+							Z_DEFLATED,
+							Z_DEFAULT_COMPRESSION,
+							0,
+							-MAX_WBITS,
+							DEF_MEM_LEVEL,
+							Z_DEFAULT_STRATEGY,
+							nullptr,
+							0,
+							0x0314,
+							1 << 11);
+					const int buffer_size = 16384;
+					uint8_t buffer[buffer_size];
+					while (true) {
+						uint64_t got = f->get_buffer(buffer, buffer_size);
+						if (got == 0) {
+							break;
+						}
+						zipWriteInFileInZip(zip, buffer, got);
+					}
+					zipCloseFileInZip(zip);
+				}
+			}
+			cur = dir->get_next();
+		}
+		dir->list_dir_end();
+	};
+
+	// Zip the .app bundle (include it in the archive with its .app directory)
+	String base_path = app_path.get_base_dir() + "/";
+	zip_recursive(app_path, base_path);
+
+	zipClose(zip, nullptr);
+
+	// Clean up the temporary .app bundle
+	OS::get_singleton()->move_to_trash(app_path);
 
 	String cmd_args;
 	{
