@@ -335,7 +335,6 @@ private:
 	HashMap<int, Button *> audio_bus_buttons;
 	Button *audio_bus_master_label = nullptr;
 	MenuButton *audio_bus_buses_label = nullptr;
-	Label *audio_renderer_separator = nullptr;
 	HBoxContainer *debug_target_hb = nullptr;
 	TextureRect *debug_target_icon = nullptr;
 	Label *debug_target_label = nullptr;
