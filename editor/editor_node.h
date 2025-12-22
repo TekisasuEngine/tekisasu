@@ -354,6 +354,7 @@ private:
 	HBoxContainer *tekisasu_bar_right = nullptr;
 	Button *tekisasu_bar_toggle_button = nullptr;
 	bool tekisasu_bar_visible = true;
+	Ref<Tween> tekisasu_bar_tween;
 
 	// Spacers to center 2D / 3D / Script buttons.
 	HBoxContainer *left_spacer = nullptr;

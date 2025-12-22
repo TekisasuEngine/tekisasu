@@ -7946,9 +7946,43 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 	tekisasu_bar_visible = !tekisasu_bar_visible;
 	
-	// Toggle visibility of the TekisasuBar outer container.
+	// Animate the visibility of the TekisasuBar outer container.
 	if (tekisasu_bar_outer) {
-		tekisasu_bar_outer->set_visible(tekisasu_bar_visible);
+		// Cancel any existing tween.
+		if (tekisasu_bar_tween.is_valid()) {
+			tekisasu_bar_tween->kill();
+		}
+		
+		// Get the natural height of the TekisasuBar.
+		float target_height = tekisasu_bar_visible ? tekisasu_bar_outer->get_combined_minimum_size().y : 0;
+		float start_height = tekisasu_bar_outer->get_custom_minimum_size().y;
+		
+		// If this is the first time, set the initial height.
+		if (start_height == 0 && tekisasu_bar_visible) {
+			start_height = 0;
+			target_height = tekisasu_bar_outer->get_combined_minimum_size().y;
+		}
+		
+		// Create tween for smooth animation over 200ms.
+		tekisasu_bar_tween = create_tween();
+		tekisasu_bar_tween->set_ease(Tween::EASE_IN_OUT);
+		tekisasu_bar_tween->set_trans(Tween::TRANS_CUBIC);
+		
+		// Animate the custom minimum size height.
+		tekisasu_bar_tween->tween_method(
+			Callable(tekisasu_bar_outer, "set_custom_minimum_size"),
+			Vector2(0, start_height),
+			Vector2(0, target_height),
+			0.2
+		);
+		
+		// When hiding, set visibility to false after animation completes.
+		if (!tekisasu_bar_visible) {
+			tekisasu_bar_tween->tween_callback(Callable(tekisasu_bar_outer, "set_visible").bind(false));
+		} else {
+			// When showing, set visibility immediately.
+			tekisasu_bar_outer->set_visible(true);
+		}
 	}
 	
 	// Update the toggle button icon modulation.
@@ -7972,7 +8006,8 @@ void EditorNode::_update_tekisasu_bar_theme() {
 	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
 	outer_style->set_bg_color(background_color);
-	outer_style->set_content_margin_all(5 * EDSCALE);
+	// Reduced top margin (2px instead of 5px) to avoid extra spacing above title_bar.
+	outer_style->set_content_margin_individual(5 * EDSCALE, 2 * EDSCALE, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
 	// Update inner panel corner radius from theme.
@@ -8758,7 +8793,8 @@ EditorNode::EditorNode() {
 	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
 	outer_style->set_bg_color(background_color);
-	outer_style->set_content_margin_all(5 * EDSCALE); // Margin around the black bar
+	// Reduced top margin (2px instead of 5px) to avoid extra spacing above title_bar.
+	outer_style->set_content_margin_individual(5 * EDSCALE, 2 * EDSCALE, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
 	main_vbox->add_child(tekisasu_bar_outer);
