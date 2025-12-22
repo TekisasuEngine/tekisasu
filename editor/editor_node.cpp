@@ -8728,11 +8728,14 @@ EditorNode::EditorNode() {
 	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tekisasu_bar_panel->add_child(tekisasu_bar);
 	
-	// Set up the black background style.
+	// Set up the black background style with TekisasuBar-specific theming.
 	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
 	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
-	int corner_radius = theme->get_constant(SNAME("corner_radius"), EditorStringName(Editor));
-	tekisasu_bar_style->set_corner_radius_all(corner_radius);
+	tekisasu_bar_style->set_corner_radius_all(4);
+	// Internal padding: 5px * EDSCALE on all sides.
+	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
+	// External padding: 5px * EDSCALE on all sides.
+	tekisasu_bar_style->set_expand_margin_all(5 * EDSCALE);
 	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
 	
 	main_vbox->add_child(tekisasu_bar_panel);
