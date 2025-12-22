@@ -8734,7 +8734,7 @@ EditorNode::EditorNode() {
 	tekisasu_bar_style->set_corner_radius_all(4);
 	// Internal padding: 5px * EDSCALE on all sides.
 	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
-	// External padding: 5px * EDSCALE on all sides.
+	// Expand margin (extends beyond control bounds): 5px * EDSCALE on all sides.
 	tekisasu_bar_style->set_expand_margin_all(5 * EDSCALE);
 	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
 	
