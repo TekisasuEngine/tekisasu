@@ -7957,9 +7957,8 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 		float target_height = tekisasu_bar_visible ? tekisasu_bar_outer->get_combined_minimum_size().y : 0;
 		float start_height = tekisasu_bar_outer->get_custom_minimum_size().y;
 		
-		// If this is the first time, set the initial height.
+		// If this is the first time, set the target height.
 		if (start_height == 0 && tekisasu_bar_visible) {
-			start_height = 0;
 			target_height = tekisasu_bar_outer->get_combined_minimum_size().y;
 		}
 		
