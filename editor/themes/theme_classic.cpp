@@ -374,9 +374,9 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
 			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
 
-			// TekisasuBar - Inner bar with base_color and rounded corners.
+			// TekisasuBar - Inner bar with unselected hover tab background color and rounded corners.
 			Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
-			tekisasu_bar_style->set_bg_color(p_config.base_color);
+			tekisasu_bar_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.4));
 			tekisasu_bar_style->set_corner_radius_all(p_config.corner_radius);
 			tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
 			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBar", tekisasu_bar_style);
