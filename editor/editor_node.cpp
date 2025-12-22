@@ -7943,9 +7943,9 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 	tekisasu_bar_visible = !tekisasu_bar_visible;
 	
-	// Toggle visibility of the TekisasuBar.
-	if (tekisasu_bar_panel) {
-		tekisasu_bar_panel->set_visible(tekisasu_bar_visible);
+	// Toggle visibility of the TekisasuBar outer container.
+	if (tekisasu_bar_outer) {
+		tekisasu_bar_outer->set_visible(tekisasu_bar_visible);
 	}
 	
 	// Update the toggle button icon modulation.
@@ -8720,13 +8720,22 @@ EditorNode::EditorNode() {
 #endif
 
 	// Create TekisasuBar (secondary toolbar).
-	tekisasu_bar = memnew(HBoxContainer);
-	tekisasu_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	// First, create an outer PanelContainer with the title_bar background color.
+	tekisasu_bar_outer = memnew(PanelContainer);
+	tekisasu_bar_outer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	
-	// Create a PanelContainer for the black background with corner radius.
+	// Get the title_bar background color.
+	Color title_bar_bg_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor));
+	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
+	outer_style->set_bg_color(title_bar_bg_color);
+	outer_style->set_content_margin_all(5 * EDSCALE); // Margin around the black bar
+	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
+	
+	main_vbox->add_child(tekisasu_bar_outer);
+	
+	// Create the floating black bar PanelContainer.
 	tekisasu_bar_panel = memnew(PanelContainer);
 	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	tekisasu_bar_panel->add_child(tekisasu_bar);
 	
 	// Set up the black background style with TekisasuBar-specific theming.
 	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
@@ -8734,11 +8743,14 @@ EditorNode::EditorNode() {
 	tekisasu_bar_style->set_corner_radius_all(4);
 	// Internal padding: 5px * EDSCALE on all sides.
 	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
-	// Expand margin (extends beyond control bounds): 5px * EDSCALE on all sides.
-	tekisasu_bar_style->set_expand_margin_all(5 * EDSCALE);
 	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
 	
-	main_vbox->add_child(tekisasu_bar_panel);
+	tekisasu_bar_outer->add_child(tekisasu_bar_panel);
+	
+	// Create the inner HBoxContainer to hold the sections.
+	tekisasu_bar = memnew(HBoxContainer);
+	tekisasu_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+	tekisasu_bar_panel->add_child(tekisasu_bar);
 
 	// Create left, center, and right sections for TekisasuBar.
 	tekisasu_bar_left = memnew(HBoxContainer);

@@ -346,6 +346,7 @@ private:
 	HBoxContainer *right_menu_hb = nullptr;
 
 	// TekisasuBar (secondary toolbar below the main menu bar).
+	PanelContainer *tekisasu_bar_outer = nullptr;
 	PanelContainer *tekisasu_bar_panel = nullptr;
 	HBoxContainer *tekisasu_bar = nullptr;
 	HBoxContainer *tekisasu_bar_left = nullptr;
