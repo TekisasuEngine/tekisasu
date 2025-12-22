@@ -7962,7 +7962,7 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 			target_height = tekisasu_bar_outer->get_combined_minimum_size().y;
 		}
 		
-		// Create tween for smooth animation over 200ms.
+		// Create tween for smooth animation over 1000ms.
 		tekisasu_bar_tween = create_tween();
 		tekisasu_bar_tween->set_ease(Tween::EASE_IN_OUT);
 		tekisasu_bar_tween->set_trans(Tween::TRANS_CUBIC);
@@ -7972,7 +7972,7 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 			Callable(tekisasu_bar_outer, "set_custom_minimum_size"),
 			Vector2(0, start_height),
 			Vector2(0, target_height),
-			0.2
+			1.0
 		);
 		
 		// When hiding, set visibility to false after animation completes.
@@ -8005,13 +8005,14 @@ void EditorNode::_update_tekisasu_bar_theme() {
 	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
 	outer_style->set_bg_color(background_color);
-	// Reduced top margin (2px instead of 5px) to avoid extra spacing above title_bar.
-	outer_style->set_content_margin_individual(5 * EDSCALE, 2 * EDSCALE, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
+	// No top margin to align TekisasuBar with content below when hidden.
+	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
 	// Update inner panel corner radius from theme.
 	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
-	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
+	// Use slightly darkened background color instead of pure black.
+	tekisasu_bar_style->set_bg_color(background_color.darkened(0.1));
 	
 	// Get corner radius from the Panel stylebox to match theme settings.
 	Ref<StyleBoxFlat> panel_style = theme->get_stylebox(SceneStringName(panel), "Panel");
@@ -8792,8 +8793,8 @@ EditorNode::EditorNode() {
 	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
 	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
 	outer_style->set_bg_color(background_color);
-	// Reduced top margin (2px instead of 5px) to avoid extra spacing above title_bar.
-	outer_style->set_content_margin_individual(5 * EDSCALE, 2 * EDSCALE, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
+	// No top margin to align TekisasuBar with content below when hidden.
+	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left, top, right, bottom
 	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
 	
 	main_vbox->add_child(tekisasu_bar_outer);
@@ -8804,7 +8805,8 @@ EditorNode::EditorNode() {
 	
 	// Set up the black background style with TekisasuBar-specific theming.
 	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
-	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
+	// Use slightly darkened background color instead of pure black.
+	tekisasu_bar_style->set_bg_color(background_color.darkened(0.1));
 	
 	// Get corner radius from the Panel stylebox to match theme settings.
 	Ref<StyleBoxFlat> panel_style = theme->get_stylebox(SceneStringName(panel), "Panel");
