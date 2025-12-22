@@ -2727,7 +2727,7 @@ Error EditorExportPlatformMacOS::run(const Ref<EditorExportPreset> &p_preset, in
 	if (ep.step(TTR("Exporting project..."), 1)) {
 		return ERR_SKIP;
 	}
-	Error err = export_project(p_preset, true, basepath + ".zip", p_debug_flags);
+	Error err = export_zip(p_preset, true, basepath + ".zip", p_debug_flags);
 	if (err != OK) {
 		DirAccess::remove_file_or_error(basepath + ".zip");
 		return err;
