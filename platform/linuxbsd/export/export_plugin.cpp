@@ -35,6 +35,7 @@
 
 #include "core/config/project_settings.h"
 #include "core/io/dir_access.h"
+#include "core/io/zip_io.h"
 #include "editor/editor_node.h"
 #include "editor/editor_string_names.h"
 #include "editor/export/editor_export.h"
@@ -513,10 +514,94 @@ Error EditorExportPlatformLinuxBSD::run(const Ref<EditorExportPreset> &p_preset,
 	if (ep.step(TTR("Exporting project..."), 1)) {
 		return ERR_SKIP;
 	}
-	Error err = export_zip(p_preset, true, basepath + ".zip", p_debug_flags);
+	// First, export the project to an executable (no extension on Linux)
+	Error err = export_project(p_preset, true, basepath, p_debug_flags);
 	if (err != OK) {
-		DirAccess::remove_file_or_error(basepath + ".zip");
+		DirAccess::remove_file_or_error(basepath);
 		return err;
+	}
+
+	// Create a ZIP containing the executable and any supporting files
+	Ref<FileAccess> io_fa;
+	zlib_filefunc_def io = zipio_create_io(&io_fa);
+	zipFile zip = zipOpen2((basepath + ".zip").utf8().get_data(), APPEND_STATUS_CREATE, nullptr, &io);
+	if (!zip) {
+		add_message(EXPORT_MESSAGE_ERROR, TTR("Run"), TTR("Failed to create ZIP archive for remote deployment."));
+		DirAccess::remove_file_or_error(basepath);
+		return ERR_CANT_CREATE;
+	}
+
+	// Add the executable to the ZIP
+	{
+		Ref<FileAccess> fa = FileAccess::open(basepath, FileAccess::READ);
+		if (fa.is_null()) {
+			zipClose(zip, nullptr);
+			DirAccess::remove_file_or_error(basepath);
+			return ERR_CANT_OPEN;
+		}
+
+		zipOpenNewFileInZip(zip,
+				basepath.get_file().utf8().get_data(),
+				nullptr,
+				nullptr,
+				0,
+				nullptr,
+				0,
+				nullptr,
+				Z_DEFLATED,
+				Z_DEFAULT_COMPRESSION);
+
+		const int buffer_size = 16384;
+		uint8_t buffer[buffer_size];
+		while (true) {
+			uint64_t got = fa->get_buffer(buffer, buffer_size);
+			if (got == 0) {
+				break;
+			}
+			zipWriteInFileInZip(zip, buffer, got);
+		}
+
+		zipCloseFileInZip(zip);
+	}
+
+	// Add the .pck file if it exists (when not embedded)
+	if (!p_preset->get("binary_format/embed_pck")) {
+		String pck_path = basepath + ".pck";
+		if (FileAccess::exists(pck_path)) {
+			Ref<FileAccess> fa = FileAccess::open(pck_path, FileAccess::READ);
+			if (fa.is_valid()) {
+				zipOpenNewFileInZip(zip,
+						(basepath.get_file() + ".pck").utf8().get_data(),
+						nullptr,
+						nullptr,
+						0,
+						nullptr,
+						0,
+						nullptr,
+						Z_DEFLATED,
+						Z_DEFAULT_COMPRESSION);
+
+				const int buffer_size = 16384;
+				uint8_t buffer[buffer_size];
+				while (true) {
+					uint64_t got = fa->get_buffer(buffer, buffer_size);
+					if (got == 0) {
+						break;
+					}
+					zipWriteInFileInZip(zip, buffer, got);
+				}
+
+				zipCloseFileInZip(zip);
+			}
+		}
+	}
+
+	zipClose(zip, nullptr);
+
+	// Clean up the temporary executable and pck files
+	DirAccess::remove_file_or_error(basepath);
+	if (!p_preset->get("binary_format/embed_pck")) {
+		DirAccess::remove_file_or_error(basepath + ".pck");
 	}
 
 	String cmd_args;
