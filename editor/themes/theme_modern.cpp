@@ -415,6 +415,25 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		// PanelContainer.
 		p_theme->set_stylebox(SceneStringName(panel), "PanelContainer", p_config.base_empty_wide_style);
 
+		// TekisasuBar type variations.
+		{
+			// TekisasuBarOuter - Outer container with background color and margins.
+			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
+			tekisasu_bar_outer_style->set_bg_color(p_config.background_color);
+			// No top margin to align TekisasuBar with content below when hidden.
+			tekisasu_bar_outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE);
+			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
+			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
+
+			// TekisasuBar - Inner bar with base_color and rounded corners.
+			Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
+			tekisasu_bar_style->set_bg_color(p_config.base_color);
+			tekisasu_bar_style->set_corner_radius_all(p_config.corner_radius);
+			tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
+			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBar", tekisasu_bar_style);
+			p_theme->set_type_variation("TekisasuBar", "PanelContainer");
+		}
+
 		// TooltipPanel & TooltipLabel.
 		{
 			// TooltipPanel is also used for custom tooltips, while TooltipLabel

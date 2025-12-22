@@ -7946,42 +7946,9 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 	tekisasu_bar_visible = !tekisasu_bar_visible;
 	
-	// Animate the visibility of the TekisasuBar outer container.
+	// Toggle visibility of the TekisasuBar outer container.
 	if (tekisasu_bar_outer) {
-		// Cancel any existing tween.
-		if (tekisasu_bar_tween.is_valid()) {
-			tekisasu_bar_tween->kill();
-		}
-		
-		// Get the natural height of the TekisasuBar.
-		float target_height = tekisasu_bar_visible ? tekisasu_bar_outer->get_combined_minimum_size().y : 0;
-		float start_height = tekisasu_bar_outer->get_custom_minimum_size().y;
-		
-		// If this is the first time, set the target height.
-		if (start_height == 0 && tekisasu_bar_visible) {
-			target_height = tekisasu_bar_outer->get_combined_minimum_size().y;
-		}
-		
-		// Create tween for smooth animation over 1.0 seconds (1000ms).
-		tekisasu_bar_tween = create_tween();
-		tekisasu_bar_tween->set_ease(Tween::EASE_IN_OUT);
-		tekisasu_bar_tween->set_trans(Tween::TRANS_CUBIC);
-		
-		// Animate the custom minimum size height.
-		tekisasu_bar_tween->tween_method(
-			Callable(tekisasu_bar_outer, "set_custom_minimum_size"),
-			Vector2(0, start_height),
-			Vector2(0, target_height),
-			1.0
-		);
-		
-		// When hiding, set visibility to false after animation completes.
-		if (!tekisasu_bar_visible) {
-			tekisasu_bar_tween->tween_callback(Callable(tekisasu_bar_outer, "set_visible").bind(false));
-		} else {
-			// When showing, set visibility immediately.
-			tekisasu_bar_outer->set_visible(true);
-		}
+		tekisasu_bar_outer->set_visible(tekisasu_bar_visible);
 	}
 	
 	// Update the toggle button icon modulation.
@@ -7997,32 +7964,8 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 }
 
 void EditorNode::_update_tekisasu_bar_theme() {
-	if (!tekisasu_bar_outer || !tekisasu_bar_panel) {
-		return;
-	}
-	
-	// Update outer container background color to match window background.
-	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
-	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
-	outer_style->set_bg_color(background_color);
-	// No top margin to align TekisasuBar with content below when hidden.
-	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left=5px, top=0px, right=5px, bottom=5px
-	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
-	
-	// Update inner panel corner radius from theme.
-	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
-	// Use slightly darkened background color instead of pure black.
-	tekisasu_bar_style->set_bg_color(background_color.darkened(0.1));
-	
-	// Get corner radius from the Panel stylebox to match theme settings.
-	Ref<StyleBoxFlat> panel_style = theme->get_stylebox(SceneStringName(panel), "Panel");
-	int corner_radius = 4; // Default fallback
-	if (panel_style.is_valid()) {
-		corner_radius = panel_style->get_corner_radius(CORNER_TOP_LEFT);
-	}
-	tekisasu_bar_style->set_corner_radius_all(corner_radius);
-	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
-	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
+	// TekisasuBar styling is now handled by theme type variations.
+	// No manual updates needed here as the theme system handles it automatically.
 }
 
 static void _execute_thread(void *p_ud) {
@@ -8788,37 +8731,14 @@ EditorNode::EditorNode() {
 	// First, create an outer PanelContainer with the window background color.
 	tekisasu_bar_outer = memnew(PanelContainer);
 	tekisasu_bar_outer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	
-	// Get the window background color (same as main canvas background).
-	Color background_color = theme->get_color(SNAME("background"), EditorStringName(Editor));
-	Ref<StyleBoxFlat> outer_style = memnew(StyleBoxFlat);
-	outer_style->set_bg_color(background_color);
-	// No top margin to align TekisasuBar with content below when hidden.
-	outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE); // left=5px, top=0px, right=5px, bottom=5px
-	tekisasu_bar_outer->add_theme_style_override(SceneStringName(panel), outer_style);
+	tekisasu_bar_outer->set_theme_type_variation("TekisasuBarOuter");
 	
 	main_vbox->add_child(tekisasu_bar_outer);
 	
-	// Create the floating black bar PanelContainer.
+	// Create the inner bar PanelContainer.
 	tekisasu_bar_panel = memnew(PanelContainer);
 	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	
-	// Set up the black background style with TekisasuBar-specific theming.
-	Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
-	// Use slightly darkened background color instead of pure black.
-	tekisasu_bar_style->set_bg_color(background_color.darkened(0.1));
-	
-	// Get corner radius from the Panel stylebox to match theme settings.
-	Ref<StyleBoxFlat> panel_style = theme->get_stylebox(SceneStringName(panel), "Panel");
-	int corner_radius = 4; // Default fallback
-	if (panel_style.is_valid()) {
-		corner_radius = panel_style->get_corner_radius(CORNER_TOP_LEFT);
-	}
-	tekisasu_bar_style->set_corner_radius_all(corner_radius);
-	
-	// Internal padding: 5px * EDSCALE on all sides.
-	tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
-	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
+	tekisasu_bar_panel->set_theme_type_variation("TekisasuBar");
 	
 	tekisasu_bar_outer->add_child(tekisasu_bar_panel);
 	
