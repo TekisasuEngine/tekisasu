@@ -7944,8 +7944,8 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 	tekisasu_bar_visible = !tekisasu_bar_visible;
 	
 	// Toggle visibility of the TekisasuBar.
-	if (tekisasu_bar && tekisasu_bar->get_parent()) {
-		tekisasu_bar->get_parent()->set_visible(tekisasu_bar_visible);
+	if (tekisasu_bar_panel) {
+		tekisasu_bar_panel->set_visible(tekisasu_bar_visible);
 	}
 	
 	// Update the toggle button icon modulation.
@@ -8724,7 +8724,7 @@ EditorNode::EditorNode() {
 	tekisasu_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	
 	// Create a PanelContainer for the black background with corner radius.
-	PanelContainer *tekisasu_bar_panel = memnew(PanelContainer);
+	tekisasu_bar_panel = memnew(PanelContainer);
 	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tekisasu_bar_panel->add_child(tekisasu_bar);
 	
@@ -8733,7 +8733,7 @@ EditorNode::EditorNode() {
 	tekisasu_bar_style->set_bg_color(Color(0, 0, 0, 1));
 	int corner_radius = theme->get_constant(SNAME("corner_radius"), EditorStringName(Editor));
 	tekisasu_bar_style->set_corner_radius_all(corner_radius);
-	tekisasu_bar_panel->add_theme_stylebox_override(SceneStringName(panel), tekisasu_bar_style);
+	tekisasu_bar_panel->add_theme_style_override(SceneStringName(panel), tekisasu_bar_style);
 	
 	main_vbox->add_child(tekisasu_bar_panel);
 
