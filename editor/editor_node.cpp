@@ -687,7 +687,7 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		bottom_panel->_theme_changed();
 		distraction_free->set_button_icon(theme->get_icon(SNAME("DistractionFree"), EditorStringName(EditorIcons)));
 		update_distraction_free_button_theme();
-		
+
 		// Update TekisasuBar theme.
 		_update_tekisasu_bar_theme();
 
