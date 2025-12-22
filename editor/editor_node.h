@@ -719,7 +719,6 @@ private:
 	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
 	void _on_audio_mixer_button_pressed();
 	void _on_tekisasu_bar_toggle_pressed();
-	void _update_tekisasu_bar_theme();
 
 	void _resources_changed(const Vector<String> &p_resources);
 	void _scan_external_changes();

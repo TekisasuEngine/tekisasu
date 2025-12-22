@@ -688,9 +688,6 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		distraction_free->set_button_icon(theme->get_icon(SNAME("DistractionFree"), EditorStringName(EditorIcons)));
 		update_distraction_free_button_theme();
 
-		// Update TekisasuBar theme.
-		_update_tekisasu_bar_theme();
-
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_SEARCH), get_editor_theme_native_menu_icon(SNAME("HelpSearch"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_COPY_SYSTEM_INFO), get_editor_theme_native_menu_icon(SNAME("ActionCopy"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_ABOUT), get_editor_theme_native_menu_icon(SNAME("Tekisasu"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
@@ -7961,11 +7958,6 @@ void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 			tekisasu_bar_toggle_button->set_modulate(Color(0.6, 0.6, 0.6, 1));
 		}
 	}
-}
-
-void EditorNode::_update_tekisasu_bar_theme() {
-	// TekisasuBar styling is now handled by theme type variations.
-	// No manual updates needed here as the theme system handles it automatically.
 }
 
 static void _execute_thread(void *p_ud) {
