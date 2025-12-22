@@ -475,23 +475,30 @@ void ScriptEditorDebugger::_msg_scene_audio_peaks(uint64_t p_thread_id, const Ar
 	if (p_data.is_empty()) {
 		return;
 	}
-	const Array &payload = p_data; // payload is the array of per-bus dictionaries.
+	const Array &payload = p_data;
 	remote_bus_peaks.clear();
 	for (int i = 0; i < payload.size(); i++) {
-		Dictionary bus = payload[i];
-		if (!bus.has("index") || !bus.has("channels")) {
+		const Array &bus_arr = payload[i];
+		if (bus_arr.size() < 4) {
 			continue;
 		}
-		int bus_index = int(bus["index"]);
-		Array channels = bus["channels"];
+		int bus_index = int(bus_arr[0]);
+		PackedFloat32Array lefts = bus_arr[1];
+		PackedFloat32Array rights = bus_arr[2];
+		PackedByteArray actives = bus_arr[3];
+		
+		int channel_count = lefts.size();
+		if (rights.size() != channel_count || actives.size() != channel_count) {
+			continue;
+		}
+		
 		Vector<ChannelPeak> v;
-		v.resize(channels.size());
-		for (int c = 0; c < channels.size(); c++) {
-			Dictionary ch = channels[c];
+		v.resize(channel_count);
+		for (int c = 0; c < channel_count; c++) {
 			ChannelPeak cp;
-			cp.l_db = float(ch.get("l", -100.0));
-			cp.r_db = float(ch.get("r", -100.0));
-			cp.active = bool(ch.get("active", false));
+			cp.l_db = lefts[c];
+			cp.r_db = rights[c];
+			cp.active = actives[c] != 0;
 			v.write[c] = cp;
 		}
 		remote_bus_peaks[bus_index] = v;
