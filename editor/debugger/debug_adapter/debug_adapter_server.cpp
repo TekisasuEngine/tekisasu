@@ -40,6 +40,7 @@ DebugAdapterServer::DebugAdapterServer() {
 	// TODO: Move to editor_settings.cpp
 	_EDITOR_DEF("network/debug_adapter/remote_port", remote_port);
 	_EDITOR_DEF("network/debug_adapter/request_timeout", protocol._request_timeout);
+	// sync_breakpoints must default to true to enable automatic breakpoint synchronization
 	_EDITOR_DEF("network/debug_adapter/sync_breakpoints", protocol._sync_breakpoints);
 }
 
