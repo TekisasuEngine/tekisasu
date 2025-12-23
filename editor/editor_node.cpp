@@ -204,6 +204,65 @@
 
 #include <cstdlib>
 
+// Helper class for TekisasuBar gradient background
+class GradientPanel : public PanelContainer {
+	GDCLASS(GradientPanel, PanelContainer);
+
+	Color top_color;
+	Color bottom_color;
+	int border_width = 0;
+	Color border_color;
+
+protected:
+	void _notification(int p_what) {
+		switch (p_what) {
+			case NOTIFICATION_DRAW: {
+				// Draw gradient background using polygon
+				Size2 size = get_size();
+				Vector<Point2> points;
+				Vector<Color> colors;
+				
+				// Create a rectangle with gradient colors
+				points.push_back(Point2(0, 0));
+				points.push_back(Point2(size.width, 0));
+				points.push_back(Point2(size.width, size.height));
+				points.push_back(Point2(0, size.height));
+				
+				colors.push_back(top_color);
+				colors.push_back(top_color);
+				colors.push_back(bottom_color);
+				colors.push_back(bottom_color);
+				
+				draw_polygon(points, colors);
+				
+				// Draw border if needed
+				if (border_width > 0) {
+					draw_rect(Rect2(Point2(0, 0), size), border_color, false, border_width);
+				}
+			} break;
+		}
+	}
+
+public:
+	void set_gradient_colors(const Color &p_top, const Color &p_bottom) {
+		top_color = p_top;
+		bottom_color = p_bottom;
+		queue_redraw();
+	}
+	
+	void set_border(int p_width, const Color &p_color) {
+		border_width = p_width;
+		border_color = p_color;
+		queue_redraw();
+	}
+	
+	GradientPanel() {
+		top_color = Color(0.2, 0.2, 0.2);
+		bottom_color = Color(0.3, 0.3, 0.3);
+		border_color = Color(1, 1, 1, 0.2);
+	}
+};
+
 EditorNode *EditorNode::singleton = nullptr;
 
 static const String EDITOR_NODE_CONFIG_SECTION = "EditorNode";
@@ -678,6 +737,22 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		gui_base->add_theme_style_override(SceneStringName(panel), theme->get_stylebox(SNAME("Background"), EditorStringName(EditorStyles)));
 		main_vbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT, Control::PRESET_MODE_MINSIZE, theme->get_constant(SNAME("window_border_margin"), EditorStringName(Editor)));
 		main_vbox->add_theme_constant_override("separation", theme->get_constant(SNAME("top_bar_separation"), EditorStringName(Editor)));
+
+		// Update TekisasuBar gradient colors from theme
+		if (tekisasu_bar_outer) {
+			Color dark_color_1 = theme->get_color(SNAME("dark_color_1"), EditorStringName(Editor));
+			Color base_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor));
+			Color top_gradient = dark_color_1.lerp(base_color, 0.1);
+			Color bottom_gradient = dark_color_1.lerp(base_color, 0.3);
+			GradientPanel *gradient_panel = static_cast<GradientPanel *>(tekisasu_bar_outer);
+			gradient_panel->set_gradient_colors(top_gradient, bottom_gradient);
+			gradient_panel->set_border(1, Color(1, 1, 1, 0.2));
+			// Set padding: 2px left/right, 0 top/bottom
+			gradient_panel->add_theme_constant_override("margin_left", 2 * EDSCALE);
+			gradient_panel->add_theme_constant_override("margin_top", 0);
+			gradient_panel->add_theme_constant_override("margin_right", 2 * EDSCALE);
+			gradient_panel->add_theme_constant_override("margin_bottom", 0);
+		}
 
 		if (main_menu_button != nullptr) {
 			main_menu_button->set_button_icon(theme->get_icon(SNAME("TripleBar"), EditorStringName(EditorIcons)));
@@ -8720,10 +8795,10 @@ EditorNode::EditorNode() {
 #endif
 
 	// Create TekisasuBar (secondary toolbar).
-	// First, create an outer PanelContainer with the window background color.
-	tekisasu_bar_outer = memnew(PanelContainer);
+	// First, create an outer GradientPanel with vertical gradient background.
+	tekisasu_bar_outer = memnew(GradientPanel);
 	tekisasu_bar_outer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	tekisasu_bar_outer->set_theme_type_variation("TekisasuBarOuter");
+	// Note: Gradient colors will be set from theme in _update_theme()
 	
 	main_vbox->add_child(tekisasu_bar_outer);
 	

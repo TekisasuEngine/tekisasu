@@ -366,18 +366,8 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 
 		// TekisasuBar type variations.
 		{
-			// TekisasuBarOuter - Outer container with background, border, and margins.
-			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
-			// Background color (middle value between 0.1 and 0.3 lerp for gradient effect).
-			tekisasu_bar_outer_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.2));
-			tekisasu_bar_outer_style->set_corner_radius_all(p_config.corner_radius);
-			// 1px border with 0.2 opacity.
-			tekisasu_bar_outer_style->set_border_width_all(1);
-			tekisasu_bar_outer_style->set_border_color(Color(1, 1, 1, 0.2));
-			// No top margin to align TekisasuBar with content below when hidden.
-			tekisasu_bar_outer_style->set_content_margin_individual(2 * EDSCALE, 0, 2 * EDSCALE, 0);
-			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
-			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
+			// TekisasuBarOuter - Now uses GradientPanel with custom drawing, styled in _update_theme().
+			// No theme type variation needed as gradient is drawn programmatically.
 
 			// TekisasuBar - Inner bar with unselected hover tab background color and rounded corners.
 			Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
