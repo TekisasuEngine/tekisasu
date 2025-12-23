@@ -8701,6 +8701,7 @@ EditorNode::EditorNode() {
 	base_vbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT, Control::PRESET_MODE_MINSIZE, theme->get_constant(SNAME("window_border_margin"), EditorStringName(Editor)));
 
 	title_bar = memnew(EditorTitleBar);
+	title_bar->set_theme_type_variation("EditorTitleBar");
 	base_vbox->add_child(title_bar);
 
 	main_hbox = memnew(HBoxContainer);
@@ -8716,6 +8717,7 @@ EditorNode::EditorNode() {
 	gui_base->add_child(main_vbox);
 
 	title_bar = memnew(EditorTitleBar);
+	title_bar->set_theme_type_variation("EditorTitleBar");
 	main_vbox->add_child(title_bar);
 #endif
 
