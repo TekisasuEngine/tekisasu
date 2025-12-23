@@ -19,6 +19,12 @@
 				[b]Warning:[/b] When [param include_variables] is [code]true[/code], any captured variables can potentially (e.g. with GDScript backtraces) be their actual values, including any object references. This means that storing such a [ScriptBacktrace] will prevent those objects from being deallocated, so it's generally recommended not to do so.
 			</description>
 		</method>
+		<method name="get_teksec" qualifiers="const">
+			<return type="String" />
+			<description>
+				Returns Tekisasu security key string for an engine build used in save file encryption.
+			</description>
+		</method>
 		<method name="get_architecture_name" qualifiers="const">
 			<return type="String" />
 			<description>
