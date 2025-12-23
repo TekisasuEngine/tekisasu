@@ -421,7 +421,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
 			tekisasu_bar_outer_style->set_bg_color(p_config.surface_lowest_color);
 			// No top margin to align TekisasuBar with content below when hidden.
-			tekisasu_bar_outer_style->set_content_margin_individual(5 * EDSCALE, 0, 5 * EDSCALE, 5 * EDSCALE);
+			tekisasu_bar_outer_style->set_content_margin_individual(2 * EDSCALE, 0, 2 * EDSCALE, 2 * EDSCALE);
 			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
 			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
 
