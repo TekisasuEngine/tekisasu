@@ -193,7 +193,7 @@ void EditorLog::_load_state() {
 		E.value->set_active(config->get_value(section, "log_filter_" + itos(E.key), true));
 	}
 
-	collapse = config->get_value(section, "collapse", false);
+	collapse = config->get_value(section, "collapse", true);
 	collapse_button->set_pressed(collapse);
 	bool show_search = config->get_value(section, "show_search", true);
 	search_box->set_visible(show_search);
