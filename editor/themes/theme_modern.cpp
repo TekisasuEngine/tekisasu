@@ -791,7 +791,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		style_tab_focus->set_border_color(p_config.accent_color);
 
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_selected->duplicate();
-		style_tab_unselected->set_bg_color(p_config.surface_lowest_color);
+		style_tab_unselected->set_bg_color(Color(0, 0, 0, 0)); // Transparent to show tabbar_background
 		style_tab_unselected->set_border_width_all(0);
 
 		Ref<StyleBoxFlat> style_tab_hovered = style_tab_unselected->duplicate();

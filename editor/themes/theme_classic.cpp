@@ -844,7 +844,7 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_base->duplicate();
 		style_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
-		style_tab_unselected->set_bg_color(p_config.surface_lowest_color);
+		style_tab_unselected->set_bg_color(Color(0, 0, 0, 0)); // Transparent to show tabbar_background
 		// Add some spacing between unselected tabs to make them easier to distinguish from each other
 		style_tab_unselected->set_border_color(Color(0, 0, 0, 0));
 
