@@ -800,7 +800,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		Color drop_mark_color = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
 
 		Ref<StyleBoxFlat> style_tabbar_background = p_config.base_style->duplicate();
-		style_tabbar_background->set_bg_color(p_config.surface_lowest_color);
+		style_tabbar_background->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.1));
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		style_tabbar_background->set_content_margin_individual(0, 0, p_config.base_margin * 0.25 * EDSCALE, 0);
