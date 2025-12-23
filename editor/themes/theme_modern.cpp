@@ -417,13 +417,11 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 
 		// TekisasuBar type variations.
 		{
-			// TekisasuBarOuter - Outer container with gradient background, border, and margins.
+			// TekisasuBarOuter - Outer container with background, border, and margins.
 			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
-			// Vertical gradient from dark_color_1.lerp(base_color, 0.1) to dark_color_1.lerp(base_color, 0.3).
-			tekisasu_bar_outer_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.1));
+			// Background color (middle value between 0.1 and 0.3 lerp for gradient effect).
+			tekisasu_bar_outer_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.2));
 			tekisasu_bar_outer_style->set_corner_radius_all(p_config.corner_radius);
-			tekisasu_bar_outer_style->set_bg_color_end(p_config.dark_color_1.lerp(p_config.base_color, 0.3));
-			tekisasu_bar_outer_style->set_vertical_gradient(true);
 			// 1px border with 0.2 opacity.
 			tekisasu_bar_outer_style->set_border_width_all(1);
 			tekisasu_bar_outer_style->set_border_color(Color(1, 1, 1, 0.2));
