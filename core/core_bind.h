@@ -603,6 +603,7 @@ public:
 	Dictionary get_license_info() const;
 	String get_license_text() const;
 
+	String get_teksec() const;
 	String get_architecture_name() const;
 
 	bool is_in_physics_frame() const;

@@ -247,6 +247,10 @@ String Engine::get_license_text() const {
 	return String(TEKISASU_LICENSE_TEXT);
 }
 
+String Engine::get_teksec() const {
+	return String("tekisasu__change_me_for_production_release");
+}
+
 String Engine::get_architecture_name() const {
 #if defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(_M_X64)
 	return "x86_64";
