@@ -364,6 +364,27 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 		// PanelContainer.
 		p_theme->set_stylebox(SceneStringName(panel), "PanelContainer", p_config.panel_container_style);
 
+		// TekisasuBar type variations.
+		{
+			// TekisasuBarOuter - Outer container with background color and margins.
+			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
+			tekisasu_bar_outer_style->set_bg_color(p_config.surface_lowest_color);
+			// No top margin to align TekisasuBar with content below when hidden.
+			tekisasu_bar_outer_style->set_content_margin_individual(2 * EDSCALE, 0, 2 * EDSCALE, 0);
+			tekisasu_bar_outer_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.1));
+			tekisasu_bar_outer_style->set_corner_radius_all(p_config.corner_radius);
+			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
+			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
+
+			// TekisasuBar - Inner bar with unselected hover tab background color and rounded corners.
+			Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
+			tekisasu_bar_style->set_bg_color(Color(1, 1, 1, 0.0));
+			tekisasu_bar_style->set_corner_radius_all(p_config.corner_radius);
+			tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
+			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBar", tekisasu_bar_style);
+			p_theme->set_type_variation("TekisasuBar", "PanelContainer");
+		}
+
 		// TooltipPanel & TooltipLabel.
 		{
 			// TooltipPanel is also used for custom tooltips, while TooltipLabel
@@ -823,7 +844,7 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_base->duplicate();
 		style_tab_unselected->set_expand_margin(SIDE_BOTTOM, 0);
-		style_tab_unselected->set_bg_color(p_config.dark_color_1);
+		style_tab_unselected->set_bg_color(Color(0, 0, 0, 0)); // Transparent to show tabbar_background
 		// Add some spacing between unselected tabs to make them easier to distinguish from each other
 		style_tab_unselected->set_border_color(Color(0, 0, 0, 0));
 
@@ -834,7 +855,7 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 
 		Ref<StyleBoxFlat> style_tab_focus = p_config.button_style_focus->duplicate();
 
-		Ref<StyleBoxFlat> style_tabbar_background = EditorThemeManager::make_flat_stylebox(p_config.dark_color_1, 0, 0, 0, 0, p_config.corner_radius);
+		Ref<StyleBoxFlat> style_tabbar_background = EditorThemeManager::make_flat_stylebox(p_config.dark_color_1.lerp(p_config.base_color, 0.1), 0, 0, 0, 0, p_config.corner_radius);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		p_theme->set_stylebox("tabbar_background", "TabContainer", style_tabbar_background);

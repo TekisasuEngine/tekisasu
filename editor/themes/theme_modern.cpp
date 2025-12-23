@@ -415,6 +415,27 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		// PanelContainer.
 		p_theme->set_stylebox(SceneStringName(panel), "PanelContainer", p_config.base_empty_wide_style);
 
+		// TekisasuBar type variations.
+		{
+			// TekisasuBarOuter - Outer container with background color and margins.
+			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
+			tekisasu_bar_outer_style->set_bg_color(p_config.surface_lowest_color);
+			// No top margin to align TekisasuBar with content below when hidden.
+			tekisasu_bar_outer_style->set_content_margin_individual(2 * EDSCALE, 0, 2 * EDSCALE, 0);
+			tekisasu_bar_outer_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.1));
+			tekisasu_bar_outer_style->set_corner_radius_all(p_config.corner_radius);
+			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
+			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
+
+			// TekisasuBar - Inner bar with unselected hover tab background color and rounded corners.
+			Ref<StyleBoxFlat> tekisasu_bar_style = memnew(StyleBoxFlat);
+			tekisasu_bar_style->set_bg_color(Color(1, 1, 1, 0.0));
+			tekisasu_bar_style->set_corner_radius_all(p_config.corner_radius);
+			tekisasu_bar_style->set_content_margin_all(5 * EDSCALE);
+			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBar", tekisasu_bar_style);
+			p_theme->set_type_variation("TekisasuBar", "PanelContainer");
+		}
+
 		// TooltipPanel & TooltipLabel.
 		{
 			// TooltipPanel is also used for custom tooltips, while TooltipLabel
@@ -770,7 +791,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		style_tab_focus->set_border_color(p_config.accent_color);
 
 		Ref<StyleBoxFlat> style_tab_unselected = style_tab_selected->duplicate();
-		style_tab_unselected->set_bg_color(p_config.surface_lowest_color);
+		style_tab_unselected->set_bg_color(Color(0, 0, 0, 0)); // Transparent to show tabbar_background
 		style_tab_unselected->set_border_width_all(0);
 
 		Ref<StyleBoxFlat> style_tab_hovered = style_tab_unselected->duplicate();
@@ -779,7 +800,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		Color drop_mark_color = p_config.dark_color_2.lerp(p_config.accent_color, 0.75);
 
 		Ref<StyleBoxFlat> style_tabbar_background = p_config.base_style->duplicate();
-		style_tabbar_background->set_bg_color(p_config.surface_lowest_color);
+		style_tabbar_background->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.1));
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_LEFT, 0);
 		style_tabbar_background->set_corner_radius(CORNER_BOTTOM_RIGHT, 0);
 		style_tabbar_background->set_content_margin_individual(0, 0, p_config.base_margin * 0.25 * EDSCALE, 0);
