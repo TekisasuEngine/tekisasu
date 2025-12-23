@@ -383,6 +383,15 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 			p_theme->set_type_variation("TekisasuBar", "PanelContainer");
 		}
 
+		// EditorTitleBar - Top menubar with hover tab background color.
+		{
+			Ref<StyleBoxFlat> editor_title_bar_style = memnew(StyleBoxFlat);
+			editor_title_bar_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.4));
+			editor_title_bar_style->set_content_margin_all(5 * EDSCALE);
+			p_theme->set_stylebox(SceneStringName(panel), "EditorTitleBar", editor_title_bar_style);
+			p_theme->set_type_variation("EditorTitleBar", "PanelContainer");
+		}
+
 		// TooltipPanel & TooltipLabel.
 		{
 			// TooltipPanel is also used for custom tooltips, while TooltipLabel
