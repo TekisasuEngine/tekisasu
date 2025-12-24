@@ -639,9 +639,42 @@ void RemoteDebugger::debug(bool p_can_continue, bool p_is_error_breakpoint) {
 	}
 }
 
+void RemoteDebugger::_send_system_info() {
+	// Collect system information to send to the editor
+	Array system_info;
+	
+	// OS name
+	String os_name = OS::get_singleton()->get_name();
+	system_info.push_back(os_name);
+	
+	// OS version
+	String os_version = OS::get_singleton()->get_version();
+	system_info.push_back(os_version);
+	
+	// Rendering driver
+	String rendering_driver = OS::get_singleton()->get_current_rendering_driver_name();
+	system_info.push_back(rendering_driver);
+	
+	// Joypad count
+	int joypad_count = 0;
+	if (Input::get_singleton()) {
+		TypedArray<int> connected_joypads = Input::get_singleton()->get_connected_joypads();
+		joypad_count = connected_joypads.size();
+	}
+	system_info.push_back(joypad_count);
+	
+	send_message("debug:system_info", system_info);
+}
+
 void RemoteDebugger::poll_events(bool p_is_idle) {
 	if (peer.is_null()) {
 		return;
+	}
+
+	// Send system info on first connection
+	if (!system_info_sent && is_peer_connected()) {
+		_send_system_info();
+		system_info_sent = true;
 	}
 
 	flush_output();

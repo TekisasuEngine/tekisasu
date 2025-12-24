@@ -343,6 +343,17 @@ private:
 	bool debug_target_last_connected_state = false;
 	Color debug_target_connected_color;
 	Color debug_target_disconnected_color;
+	
+	// System info UI elements
+	Label *debug_system_info_separator = nullptr;
+	Label *debug_os_label = nullptr;
+	Label *debug_os_value = nullptr;
+	Label *debug_rendering_label = nullptr;
+	Label *debug_rendering_value = nullptr;
+	Label *debug_joypad_label = nullptr;
+	TextureRect *debug_joypad_icon = nullptr;
+	Label *debug_joypad_value = nullptr;
+	
 	HBoxContainer *right_menu_hb = nullptr;
 
 	// TekisasuBar (secondary toolbar below the main menu bar).
@@ -710,6 +721,7 @@ private:
 
 	void _update_update_spinner();
 	void _update_debug_target_status();
+	void _update_debug_system_info();
 	void _update_debug_status_colors();
 	void _apply_debug_status(bool p_connected, const String &p_status_text);
 	void _rebuild_bus_buttons();
@@ -789,6 +801,8 @@ public:
 	static EditorLog *get_log() { return singleton->log; }
 	static EditorData &get_editor_data() { return singleton->editor_data; }
 	static EditorFolding &get_editor_folding() { return singleton->editor_folding; }
+
+	void update_debug_system_info();
 
 	static EditorTitleBar *get_title_bar() { return singleton->title_bar; }
 	static VSplitContainer *get_top_split() { return singleton->top_split; }

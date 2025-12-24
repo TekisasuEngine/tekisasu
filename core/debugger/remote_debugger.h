@@ -74,6 +74,7 @@ private:
 	int last_reset = 0;
 	bool reload_all_scripts = false;
 	Array script_paths_to_reload;
+	bool system_info_sent = false;
 
 	// Make handlers and send_message thread safe.
 	Mutex mutex;
@@ -106,6 +107,7 @@ private:
 
 	Error _profiler_capture(const String &p_cmd, const Array &p_data, bool &r_captured);
 	Error _core_capture(const String &p_cmd, const Array &p_data, bool &r_captured);
+	void _send_system_info();
 
 	template <typename T>
 	void _bind_profiler(const String &p_name, T *p_prof);

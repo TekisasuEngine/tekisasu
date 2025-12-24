@@ -192,6 +192,12 @@ private:
 
 	EditorDebuggerNode::CameraOverride camera_override;
 
+	// System information from remote client
+	String remote_os_name;
+	String remote_os_version;
+	String remote_rendering_driver;
+	int remote_joypad_count = 0;
+
 	void _stack_dump_frame_selected();
 
 	void _file_selected(const String &p_file);
@@ -236,6 +242,7 @@ private:
 	void _msg_window_title(uint64_t p_thread_id, const Array &p_data);
 	void _msg_embed_suspend_toggle(uint64_t p_thread_id, const Array &p_data);
 	void _msg_embed_next_frame(uint64_t p_thread_id, const Array &p_data);
+	void _msg_debug_system_info(uint64_t p_thread_id, const Array &p_data);
 
 	void _parse_message(const String &p_msg, uint64_t p_thread_id, const Array &p_data);
 	void _set_reason_text(const String &p_reason, MessageType p_type);
@@ -343,6 +350,12 @@ public:
 	bool is_session_active() { return peer.is_valid() && peer->is_peer_connected(); }
 	String get_connected_host() const { return peer.is_valid() ? peer->get_connected_host() : String(); }
 	int get_remote_pid() const { return remote_pid; }
+
+	// System information getters
+	String get_remote_os_name() const { return remote_os_name; }
+	String get_remote_os_version() const { return remote_os_version; }
+	String get_remote_rendering_driver() const { return remote_rendering_driver; }
+	int get_remote_joypad_count() const { return remote_joypad_count; }
 
 	bool is_move_to_foreground() const;
 	void set_move_to_foreground(const bool &p_move_to_foreground);
