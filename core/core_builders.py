@@ -29,7 +29,7 @@ def version_info_builder(target, source, env):
 #define TEKISASU_VERSION_MODULE_CONFIG "{module_config}"
 #define TEKISASU_VERSION_WEBSITE "{website}"
 #define TEKISASU_VERSION_DOCS_BRANCH "{docs_branch}"
-#define TEKISASU_VERSION_DOCS_URL "https://docs.godotengine.org/en/" TEKISASU_VERSION_DOCS_BRANCH
+#define TEKISASU_VERSION_DOCS_URL "https://dev.tekisasu.com/docs/engine/" TEKISASU_VERSION_DOCS_BRANCH
 #define TEKISASU_VERSION_UPSTREAM_MAJOR {upstream_major}
 #define TEKISASU_VERSION_UPSTREAM_MINOR {upstream_minor}
 #define TEKISASU_VERSION_UPSTREAM_PATCH {upstream_patch}
