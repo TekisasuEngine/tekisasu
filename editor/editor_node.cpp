@@ -1270,24 +1270,24 @@ void EditorNode::_update_debug_system_info() {
 		String os_name = debug_target_debugger->get_remote_os_name();
 		String os_version = debug_target_debugger->get_remote_os_version();
 		if (!os_name.is_empty() && !os_version.is_empty()) {
-			debug_os_value->set_text(vformat("%s (%s)", os_name, os_version));
+			debug_os_value->set_text(vformat(" %s (%s)", os_name, os_version));
 		} else if (!os_name.is_empty()) {
-			debug_os_value->set_text(os_name);
+			debug_os_value->set_text(" " + os_name);
 		} else {
-			debug_os_value->set_text(TTRC("Unknown"));
+			debug_os_value->set_text(TTRC(" Unknown"));
 		}
 
 		// Update rendering driver info
 		String rendering_driver = debug_target_debugger->get_remote_rendering_driver();
 		if (!rendering_driver.is_empty()) {
-			debug_rendering_value->set_text(rendering_driver);
+			debug_rendering_value->set_text(" " + rendering_driver);
 		} else {
-			debug_rendering_value->set_text(TTRC("Unknown"));
+			debug_rendering_value->set_text(TTRC(" Unknown"));
 		}
 
 		// Update joypad info
 		int joypad_count = debug_target_debugger->get_remote_joypad_count();
-		debug_joypad_value->set_text(itos(joypad_count));
+		debug_joypad_value->set_text(" " + itos(joypad_count));
 		
 		// Update joypad icon color (green if >0, red if 0)
 		if (debug_joypad_icon) {
@@ -9340,7 +9340,7 @@ EditorNode::EditorNode() {
 
 	// OS info
 	debug_os_label = memnew(Label);
-	debug_os_label->set_text(TTRC("OS:"));
+	debug_os_label->set_text(TTRC(" OS:"));
 	debug_os_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
 	debug_os_label->set_visible(false);
 	debug_target_hb->add_child(debug_os_label);
@@ -9352,7 +9352,7 @@ EditorNode::EditorNode() {
 
 	// Rendering driver info
 	debug_rendering_label = memnew(Label);
-	debug_rendering_label->set_text(TTRC("Rendering Device Driver:"));
+	debug_rendering_label->set_text(TTRC(" Rendering Device Driver:"));
 	debug_rendering_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
 	debug_rendering_label->set_visible(false);
 	debug_target_hb->add_child(debug_rendering_label);
@@ -9364,7 +9364,7 @@ EditorNode::EditorNode() {
 
 	// Joypad info
 	debug_joypad_label = memnew(Label);
-	debug_joypad_label->set_text(TTRC("Joypad(s):"));
+	debug_joypad_label->set_text(TTRC(" Joypad(s):"));
 	debug_joypad_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
 	debug_joypad_label->set_visible(false);
 	debug_target_hb->add_child(debug_joypad_label);
