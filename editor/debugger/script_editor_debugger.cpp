@@ -1046,7 +1046,7 @@ void ScriptEditorDebugger::_msg_debug_joypad_count(uint64_t p_thread_id, const A
 	ERR_FAIL_COND(p_data.size() != 1);
 	remote_joypad_count = p_data[0];
 
-	// Notify EditorNode to update the joypad display
+	// Notify EditorNode to update the display
 	EditorNode::get_singleton()->update_debug_system_info();
 }
 

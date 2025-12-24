@@ -851,7 +851,8 @@ RemoteDebugger::~RemoteDebugger() {
 	remove_error_handler(&eh);
 
 	// Disconnect from joypad connection signal
-	if (Input::get_singleton() && Input::get_singleton()->is_connected("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed))) {
-		Input::get_singleton()->disconnect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
+	Input *input = Input::get_singleton();
+	if (input && input->is_connected("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed))) {
+		input->disconnect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
 	}
 }
