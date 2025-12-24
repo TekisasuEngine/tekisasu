@@ -666,6 +666,26 @@ void RemoteDebugger::_send_system_info() {
 	send_message("debug:system_info", system_info);
 }
 
+void RemoteDebugger::_send_joypad_count_update() {
+	// Send updated joypad count to the editor
+	int joypad_count = 0;
+	if (Input::get_singleton()) {
+		TypedArray<int> connected_joypads = Input::get_singleton()->get_connected_joypads();
+		joypad_count = connected_joypads.size();
+	}
+	
+	Array joypad_data;
+	joypad_data.push_back(joypad_count);
+	send_message("debug:joypad_count", joypad_data);
+}
+
+void RemoteDebugger::_on_joypad_connection_changed(int p_device, bool p_connected) {
+	// Send joypad count update when a joypad is connected or disconnected
+	if (is_peer_connected()) {
+		_send_joypad_count_update();
+	}
+}
+
 void RemoteDebugger::poll_events(bool p_is_idle) {
 	if (peer.is_null()) {
 		return;
@@ -817,10 +837,20 @@ RemoteDebugger::RemoteDebugger(Ref<RemoteDebuggerPeer> p_peer) {
 	eh.userdata = this;
 	add_error_handler(&eh);
 
+	// Connect to joypad connection signal for dynamic updates
+	if (Input::get_singleton()) {
+		Input::get_singleton()->connect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
+	}
+
 	messages.insert(Thread::get_main_id(), List<Message>());
 }
 
 RemoteDebugger::~RemoteDebugger() {
 	remove_print_handler(&phl);
 	remove_error_handler(&eh);
+	
+	// Disconnect from joypad connection signal
+	if (Input::get_singleton()) {
+		Input::get_singleton()->disconnect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
+	}
 }

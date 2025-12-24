@@ -243,6 +243,7 @@ private:
 	void _msg_embed_suspend_toggle(uint64_t p_thread_id, const Array &p_data);
 	void _msg_embed_next_frame(uint64_t p_thread_id, const Array &p_data);
 	void _msg_debug_system_info(uint64_t p_thread_id, const Array &p_data);
+	void _msg_debug_joypad_count(uint64_t p_thread_id, const Array &p_data);
 
 	void _parse_message(const String &p_msg, uint64_t p_thread_id, const Array &p_data);
 	void _set_reason_text(const String &p_reason, MessageType p_type);

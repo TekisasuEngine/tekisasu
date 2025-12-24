@@ -108,6 +108,8 @@ private:
 	Error _profiler_capture(const String &p_cmd, const Array &p_data, bool &r_captured);
 	Error _core_capture(const String &p_cmd, const Array &p_data, bool &r_captured);
 	void _send_system_info();
+	void _send_joypad_count_update();
+	void _on_joypad_connection_changed(int p_device, bool p_connected);
 
 	template <typename T>
 	void _bind_profiler(const String &p_name, T *p_prof);
