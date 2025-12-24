@@ -322,11 +322,11 @@ EditorThemeManager::ThemeConfiguration EditorThemeManager::_create_theme_config(
 
 			// Please use alphabetical order if you're adding a new color preset here.
 			if (config.preset == "Default") {
-				preset_accent_color = Color(0.41, 0.49, 0.86);
-				preset_base_color = Color(0.15, 0.15, 0.15);
+				preset_accent_color = Color(0.47, 0.55, 0.96);
+				preset_base_color = Color(0.17, 0.17, 0.20);
 			} else { // Default
-				preset_accent_color = Color(0.41, 0.49, 0.86);
-				preset_base_color = Color(0.15, 0.15, 0.15);
+				preset_accent_color = Color(0.47, 0.55, 0.96);
+				preset_base_color = Color(0.17, 0.17, 0.20);
 			}
 
 			config.accent_color = preset_accent_color;
