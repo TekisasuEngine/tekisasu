@@ -191,7 +191,7 @@ env.add_source_files(env.core_sources, gen_hash)
 encryption_key = os.environ.get("SCRIPT_AES256_ENCRYPTION_KEY")
 if encryption_key:
     print(
-        "\n*** IMPORTANT: Compiling Godot with custom `SCRIPT_AES256_ENCRYPTION_KEY` set as environment variable."
+        "\n*** IMPORTANT: Compiling Tekisasu with custom `SCRIPT_AES256_ENCRYPTION_KEY` set as environment variable."
         "\n*** Make sure to use templates compiled with this key when exporting a project with encryption.\n"
     )
 gen_encrypt = env.CommandNoCache(
