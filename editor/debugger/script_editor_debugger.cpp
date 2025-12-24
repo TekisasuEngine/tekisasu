@@ -1037,7 +1037,7 @@ void ScriptEditorDebugger::_msg_debug_system_info(uint64_t p_thread_id, const Ar
 	remote_os_version = p_data[1];
 	remote_rendering_driver = p_data[2];
 	remote_joypad_count = p_data[3];
-	
+
 	// Notify EditorNode to update the display
 	EditorNode::get_singleton()->update_debug_system_info();
 }
@@ -1045,7 +1045,7 @@ void ScriptEditorDebugger::_msg_debug_system_info(uint64_t p_thread_id, const Ar
 void ScriptEditorDebugger::_msg_debug_joypad_count(uint64_t p_thread_id, const Array &p_data) {
 	ERR_FAIL_COND(p_data.size() != 1);
 	remote_joypad_count = p_data[0];
-	
+
 	// Notify EditorNode to update the joypad display
 	EditorNode::get_singleton()->update_debug_system_info();
 }

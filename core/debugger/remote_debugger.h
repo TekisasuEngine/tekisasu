@@ -110,6 +110,7 @@ private:
 	void _send_system_info();
 	void _send_joypad_count_update();
 	void _on_joypad_connection_changed(int p_device, bool p_connected);
+	int _get_joypad_count() const;
 
 	template <typename T>
 	void _bind_profiler(const String &p_name, T *p_prof);
