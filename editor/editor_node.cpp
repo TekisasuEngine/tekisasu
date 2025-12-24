@@ -8365,9 +8365,10 @@ void EditorNode::_update_main_menu_type() {
 		title_bar->move_child(menu_btn_spacer, left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0);
 #endif
 		title_bar->add_child(main_menu_button);
+		// Position after the quick menu button (TitleBarLogo) if it exists.
+		// Otherwise, maintain the original positioning logic.
 		int target_index;
 		if (quick_menu_button) {
-			// Position after the quick menu button (TitleBarLogo).
 			target_index = quick_menu_button->get_index() + 1;
 		} else if (menu_btn_spacer) {
 			target_index = menu_btn_spacer->get_index() + 1;
@@ -8393,7 +8394,13 @@ void EditorNode::_update_main_menu_type() {
 
 		title_bar->add_child(main_menu_bar);
 		// Position after the quick menu button (TitleBarLogo) if it exists.
-		int target_index = quick_menu_button ? quick_menu_button->get_index() + 1 : (left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0);
+		// Otherwise, maintain the original positioning logic.
+		int target_index;
+		if (quick_menu_button) {
+			target_index = quick_menu_button->get_index() + 1;
+		} else {
+			target_index = left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0;
+		}
 		title_bar->move_child(main_menu_bar, target_index);
 	}
 
