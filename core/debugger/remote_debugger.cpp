@@ -639,9 +639,63 @@ void RemoteDebugger::debug(bool p_can_continue, bool p_is_error_breakpoint) {
 	}
 }
 
+int RemoteDebugger::_get_joypad_count() const {
+	int joypad_count = 0;
+	if (Input::get_singleton()) {
+		TypedArray<int> connected_joypads = Input::get_singleton()->get_connected_joypads();
+		joypad_count = connected_joypads.size();
+	}
+	return joypad_count;
+}
+
+void RemoteDebugger::_send_system_info() {
+	// Collect system information to send to the editor
+	Array system_info;
+
+	// OS name
+	String os_name = OS::get_singleton()->get_name();
+	system_info.push_back(os_name);
+
+	// OS version
+	String os_version = OS::get_singleton()->get_version();
+	system_info.push_back(os_version);
+
+	// Rendering driver
+	String rendering_driver = OS::get_singleton()->get_current_rendering_driver_name();
+	system_info.push_back(rendering_driver);
+
+	// Joypad count
+	system_info.push_back(_get_joypad_count());
+
+	send_message("debug:system_info", system_info);
+}
+
+void RemoteDebugger::_send_joypad_count_update() {
+	// Send updated joypad count to the editor
+	Array joypad_data;
+	joypad_data.push_back(_get_joypad_count());
+	send_message("debug:joypad_count", joypad_data);
+}
+
 void RemoteDebugger::poll_events(bool p_is_idle) {
 	if (peer.is_null()) {
 		return;
+	}
+
+	// Send system info on first connection
+	if (!system_info_sent && is_peer_connected()) {
+		_send_system_info();
+		system_info_sent = true;
+		last_joypad_count = _get_joypad_count();
+	}
+
+	// Check for joypad count changes during idle poll only
+	if (p_is_idle && is_peer_connected() && last_joypad_count != -1) {
+		int current_joypad_count = _get_joypad_count();
+		if (current_joypad_count != last_joypad_count) {
+			_send_joypad_count_update();
+			last_joypad_count = current_joypad_count;
+		}
 	}
 
 	flush_output();

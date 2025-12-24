@@ -1031,6 +1031,25 @@ void ScriptEditorDebugger::_msg_embed_next_frame(uint64_t p_thread_id, const Arr
 	emit_signal(SNAME("embed_shortcut_requested"), EMBED_NEXT_FRAME);
 }
 
+void ScriptEditorDebugger::_msg_debug_system_info(uint64_t p_thread_id, const Array &p_data) {
+	ERR_FAIL_COND(p_data.size() != 4);
+	remote_os_name = p_data[0];
+	remote_os_version = p_data[1];
+	remote_rendering_driver = p_data[2];
+	remote_joypad_count = p_data[3];
+
+	// Notify EditorNode to update the display
+	EditorNode::get_singleton()->update_debug_system_info();
+}
+
+void ScriptEditorDebugger::_msg_debug_joypad_count(uint64_t p_thread_id, const Array &p_data) {
+	ERR_FAIL_COND(p_data.size() != 1);
+	remote_joypad_count = p_data[0];
+
+	// Notify EditorNode to update the display
+	EditorNode::get_singleton()->update_debug_system_info();
+}
+
 void ScriptEditorDebugger::_parse_message(const String &p_msg, uint64_t p_thread_id, const Array &p_data) {
 	emit_signal(SNAME("debug_data"), p_msg, p_data);
 
@@ -1086,6 +1105,8 @@ void ScriptEditorDebugger::_init_parse_message_handlers() {
 	parse_message_handlers["window:title"] = &ScriptEditorDebugger::_msg_window_title;
 	parse_message_handlers["request_embed_suspend_toggle"] = &ScriptEditorDebugger::_msg_embed_suspend_toggle;
 	parse_message_handlers["request_embed_next_frame"] = &ScriptEditorDebugger::_msg_embed_next_frame;
+	parse_message_handlers["debug:system_info"] = &ScriptEditorDebugger::_msg_debug_system_info;
+	parse_message_handlers["debug:joypad_count"] = &ScriptEditorDebugger::_msg_debug_joypad_count;
 }
 
 void ScriptEditorDebugger::_set_reason_text(const String &p_reason, MessageType p_type) {
@@ -1382,6 +1403,12 @@ void ScriptEditorDebugger::stop() {
 	debugging_thread_id = Thread::UNASSIGNED_ID;
 	remote_pid = 0;
 	_clear_execution();
+
+	// Clear system info
+	remote_os_name = "";
+	remote_os_version = "";
+	remote_rendering_driver = "";
+	remote_joypad_count = 0;
 
 	inspector->clear_cache();
 

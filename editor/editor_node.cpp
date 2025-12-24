@@ -1158,6 +1158,11 @@ void EditorNode::_update_debug_status_colors() {
 		debug_target_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		debug_target_icon->set_modulate(debug_target_last_connected_state ? debug_target_connected_color : debug_target_disconnected_color);
 	}
+	
+	if (debug_joypad_icon) {
+		debug_joypad_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
+		// Will be updated with proper color in _update_debug_system_info
+	}
 }
 
 static String _debug_status_tooltip(const String &p_status_text) {
@@ -1202,12 +1207,15 @@ void EditorNode::_update_debug_target_status() {
 	if (debug_target_debugger == nullptr) {
 		if (debug_target_last_connected_state) {
 			_apply_debug_status(false, TTRC("No Connection"));
+			_update_debug_system_info();
 		}
 		return;
 	}
 
 	bool is_connected = debug_target_debugger->is_session_active();
 	if (is_connected == debug_target_last_connected_state) {
+		// Even if connection state hasn't changed, update system info in case it was just received
+		_update_debug_system_info();
 		return;
 	}
 
@@ -1221,6 +1229,76 @@ void EditorNode::_update_debug_target_status() {
 		status_text = TTRC("No Connection");
 	}
 	_apply_debug_status(is_connected, status_text);
+	_update_debug_system_info();
+}
+
+void EditorNode::_update_debug_system_info() {
+	if (!debug_target_debugger) {
+		return;
+	}
+
+	bool is_connected = debug_target_debugger->is_session_active();
+	
+	// Show or hide system info elements based on connection status
+	if (debug_system_info_separator) {
+		debug_system_info_separator->set_visible(is_connected);
+	}
+	if (debug_os_label) {
+		debug_os_label->set_visible(is_connected);
+	}
+	if (debug_os_value) {
+		debug_os_value->set_visible(is_connected);
+	}
+	if (debug_rendering_label) {
+		debug_rendering_label->set_visible(is_connected);
+	}
+	if (debug_rendering_value) {
+		debug_rendering_value->set_visible(is_connected);
+	}
+	if (debug_joypad_label) {
+		debug_joypad_label->set_visible(is_connected);
+	}
+	if (debug_joypad_icon) {
+		debug_joypad_icon->set_visible(is_connected);
+	}
+	if (debug_joypad_value) {
+		debug_joypad_value->set_visible(is_connected);
+	}
+
+	if (is_connected) {
+		// Update OS info
+		String os_name = debug_target_debugger->get_remote_os_name();
+		String os_version = debug_target_debugger->get_remote_os_version();
+		if (!os_name.is_empty() && !os_version.is_empty()) {
+			debug_os_value->set_text(vformat(" %s (%s)", os_name, os_version));
+		} else if (!os_name.is_empty()) {
+			debug_os_value->set_text(" " + os_name);
+		} else {
+			debug_os_value->set_text(TTRC(" Unknown"));
+		}
+
+		// Update rendering driver info
+		String rendering_driver = debug_target_debugger->get_remote_rendering_driver();
+		if (!rendering_driver.is_empty()) {
+			debug_rendering_value->set_text(" " + rendering_driver);
+		} else {
+			debug_rendering_value->set_text(TTRC(" Unknown"));
+		}
+
+		// Update joypad info
+		int joypad_count = debug_target_debugger->get_remote_joypad_count();
+		debug_joypad_value->set_text(" " + itos(joypad_count));
+		
+		// Update joypad icon color (green if >0, red if 0)
+		if (debug_joypad_icon) {
+			Color icon_color = joypad_count > 0 ? debug_target_connected_color : debug_target_disconnected_color;
+			debug_joypad_icon->set_modulate(icon_color);
+		}
+	}
+}
+
+void EditorNode::update_debug_system_info() {
+	_update_debug_system_info();
 }
 
 void EditorNode::_execute_upgrades() {
@@ -9252,6 +9330,57 @@ EditorNode::EditorNode() {
 	debug_target_status->set_tooltip_text(_debug_status_tooltip(TTRC("No Connection")));
 	debug_target_status->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	debug_target_hb->add_child(debug_target_status);
+
+	// Add system info separator and labels
+	debug_system_info_separator = memnew(Label);
+	debug_system_info_separator->set_text(" | ");
+	debug_system_info_separator->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_system_info_separator->set_visible(false);
+	debug_target_hb->add_child(debug_system_info_separator);
+
+	// OS info
+	debug_os_label = memnew(Label);
+	debug_os_label->set_text(TTRC(" OS:"));
+	debug_os_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_os_label->set_visible(false);
+	debug_target_hb->add_child(debug_os_label);
+
+	debug_os_value = memnew(Label);
+	debug_os_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
+	debug_os_value->set_visible(false);
+	debug_target_hb->add_child(debug_os_value);
+
+	// Rendering driver info
+	debug_rendering_label = memnew(Label);
+	debug_rendering_label->set_text(TTRC(" Rendering Device Driver:"));
+	debug_rendering_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_rendering_label->set_visible(false);
+	debug_target_hb->add_child(debug_rendering_label);
+
+	debug_rendering_value = memnew(Label);
+	debug_rendering_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
+	debug_rendering_value->set_visible(false);
+	debug_target_hb->add_child(debug_rendering_value);
+
+	// Joypad info
+	debug_joypad_label = memnew(Label);
+	debug_joypad_label->set_text(TTRC(" Joypad(s):"));
+	debug_joypad_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
+	debug_joypad_label->set_visible(false);
+	debug_target_hb->add_child(debug_joypad_label);
+
+	debug_joypad_icon = memnew(TextureRect);
+	debug_joypad_icon->set_expand_mode(TextureRect::EXPAND_FIT_HEIGHT);
+	debug_joypad_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
+	debug_joypad_icon->set_custom_minimum_size(Size2(14, 14));
+	debug_joypad_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	debug_joypad_icon->set_visible(false);
+	debug_target_hb->add_child(debug_joypad_icon);
+
+	debug_joypad_value = memnew(Label);
+	debug_joypad_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
+	debug_joypad_value->set_visible(false);
+	debug_target_hb->add_child(debug_joypad_value);
 
 	// Add audio bus buttons to the right section of TekisasuBar.
 	audio_bus_buttons_hb = memnew(HBoxContainer);
