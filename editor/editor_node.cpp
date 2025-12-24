@@ -8365,11 +8365,17 @@ void EditorNode::_update_main_menu_type() {
 		title_bar->move_child(menu_btn_spacer, left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0);
 #endif
 		title_bar->add_child(main_menu_button);
-		if (menu_btn_spacer == nullptr) {
-			title_bar->move_child(main_menu_button, left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0);
+		// Position after the quick menu button (TitleBarLogo) if it exists.
+		// Otherwise, maintain the original positioning logic.
+		int target_index;
+		if (quick_menu_button) {
+			target_index = quick_menu_button->get_index() + 1;
+		} else if (menu_btn_spacer) {
+			target_index = menu_btn_spacer->get_index() + 1;
 		} else {
-			title_bar->move_child(main_menu_button, menu_btn_spacer->get_index() + 1);
+			target_index = left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0;
 		}
+		title_bar->move_child(main_menu_button, target_index);
 	} else {
 		main_menu_bar = memnew(MenuBar);
 		main_menu_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
@@ -8387,7 +8393,15 @@ void EditorNode::_update_main_menu_type() {
 		}
 
 		title_bar->add_child(main_menu_bar);
-		title_bar->move_child(main_menu_bar, left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0);
+		// Position after the quick menu button (TitleBarLogo) if it exists.
+		// Otherwise, maintain the original positioning logic.
+		int target_index;
+		if (quick_menu_button) {
+			target_index = quick_menu_button->get_index() + 1;
+		} else {
+			target_index = left_menu_spacer ? left_menu_spacer->get_index() + 1 : 0;
+		}
+		title_bar->move_child(main_menu_bar, target_index);
 	}
 
 	// Show/hide project title.
