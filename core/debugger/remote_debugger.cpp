@@ -689,10 +689,10 @@ void RemoteDebugger::poll_events(bool p_is_idle) {
 		last_joypad_count = _get_joypad_count();
 	}
 
-	// Check for joypad count changes and send updates
-	if (is_peer_connected()) {
+	// Check for joypad count changes during idle poll only
+	if (p_is_idle && is_peer_connected() && last_joypad_count != -1) {
 		int current_joypad_count = _get_joypad_count();
-		if (last_joypad_count != -1 && current_joypad_count != last_joypad_count) {
+		if (current_joypad_count != last_joypad_count) {
 			_send_joypad_count_update();
 			last_joypad_count = current_joypad_count;
 		}
