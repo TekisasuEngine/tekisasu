@@ -839,7 +839,7 @@ RemoteDebugger::RemoteDebugger(Ref<RemoteDebuggerPeer> p_peer) {
 	if (Input::get_singleton()) {
 		Error err = Input::get_singleton()->connect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
 		if (err != OK) {
-			ERR_PRINT("Failed to connect to joy_connection_changed signal");
+			ERR_PRINT(vformat("Failed to connect to joy_connection_changed signal. Error code: %d", err));
 		}
 	}
 
@@ -851,7 +851,7 @@ RemoteDebugger::~RemoteDebugger() {
 	remove_error_handler(&eh);
 
 	// Disconnect from joypad connection signal
-	if (Input::get_singleton()) {
+	if (Input::get_singleton() && Input::get_singleton()->is_connected("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed))) {
 		Input::get_singleton()->disconnect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
 	}
 }
