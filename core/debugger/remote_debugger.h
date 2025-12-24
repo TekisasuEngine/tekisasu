@@ -75,6 +75,7 @@ private:
 	bool reload_all_scripts = false;
 	Array script_paths_to_reload;
 	bool system_info_sent = false;
+	int last_joypad_count = -1;
 
 	// Make handlers and send_message thread safe.
 	Mutex mutex;
@@ -109,7 +110,6 @@ private:
 	Error _core_capture(const String &p_cmd, const Array &p_data, bool &r_captured);
 	void _send_system_info();
 	void _send_joypad_count_update();
-	void _on_joypad_connection_changed(int p_device, bool p_connected);
 	int _get_joypad_count() const;
 
 	template <typename T>

@@ -677,13 +677,6 @@ void RemoteDebugger::_send_joypad_count_update() {
 	send_message("debug:joypad_count", joypad_data);
 }
 
-void RemoteDebugger::_on_joypad_connection_changed(int p_device, bool p_connected) {
-	// Send joypad count update when a joypad is connected or disconnected
-	if (is_peer_connected()) {
-		_send_joypad_count_update();
-	}
-}
-
 void RemoteDebugger::poll_events(bool p_is_idle) {
 	if (peer.is_null()) {
 		return;
@@ -693,6 +686,16 @@ void RemoteDebugger::poll_events(bool p_is_idle) {
 	if (!system_info_sent && is_peer_connected()) {
 		_send_system_info();
 		system_info_sent = true;
+		last_joypad_count = _get_joypad_count();
+	}
+
+	// Check for joypad count changes and send updates
+	if (is_peer_connected()) {
+		int current_joypad_count = _get_joypad_count();
+		if (last_joypad_count != -1 && current_joypad_count != last_joypad_count) {
+			_send_joypad_count_update();
+			last_joypad_count = current_joypad_count;
+		}
 	}
 
 	flush_output();
@@ -835,24 +838,10 @@ RemoteDebugger::RemoteDebugger(Ref<RemoteDebuggerPeer> p_peer) {
 	eh.userdata = this;
 	add_error_handler(&eh);
 
-	// Connect to joypad connection signal for dynamic updates
-	if (Input::get_singleton()) {
-		Error err = Input::get_singleton()->connect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
-		if (err != OK) {
-			ERR_PRINT(vformat("Failed to connect to joy_connection_changed signal. Error code: %d", err));
-		}
-	}
-
 	messages.insert(Thread::get_main_id(), List<Message>());
 }
 
 RemoteDebugger::~RemoteDebugger() {
 	remove_print_handler(&phl);
 	remove_error_handler(&eh);
-
-	// Disconnect from joypad connection signal
-	Input *input = Input::get_singleton();
-	if (input && input->is_connected("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed))) {
-		input->disconnect("joy_connection_changed", callable_mp(this, &RemoteDebugger::_on_joypad_connection_changed));
-	}
 }
