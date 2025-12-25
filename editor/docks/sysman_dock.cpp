@@ -29,6 +29,7 @@
 
 #include "sysman_dock.h"
 
+#include "core/input/shortcut.h"
 #include "editor/editor_string_names.h"
 #include "editor/themes/editor_scale.h"
 #include "scene/gui/box_container.h"
