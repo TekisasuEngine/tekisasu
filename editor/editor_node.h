@@ -105,6 +105,7 @@ class ProjectSettingsEditor;
 class SceneImportSettingsDialog;
 class ProjectUpgradeTool;
 class StyleBoxFlat;
+class SysmanDock;
 
 #ifdef ANDROID_ENABLED
 class TouchActionsPanel;
@@ -275,6 +276,7 @@ private:
 	EditorSelection *editor_selection = nullptr;
 	EditorSettingsDialog *editor_settings_dialog = nullptr;
 	HistoryDock *history_dock = nullptr;
+	SysmanDock *sysman_dock = nullptr;
 
 	ProjectExportDialog *project_export = nullptr;
 	ProjectSettingsEditor *project_settings_editor = nullptr;

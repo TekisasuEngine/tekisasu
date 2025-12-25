@@ -93,6 +93,7 @@
 #include "editor/docks/inspector_dock.h"
 #include "editor/docks/scene_tree_dock.h"
 #include "editor/docks/signals_dock.h"
+#include "editor/docks/sysman_dock.h"
 #include "editor/editor_data.h"
 #include "editor/editor_interface.h"
 #include "editor/editor_log.h"
@@ -9447,6 +9448,9 @@ EditorNode::EditorNode() {
 
 	history_dock = memnew(HistoryDock);
 	editor_dock_manager->add_dock(history_dock);
+
+	sysman_dock = memnew(SysmanDock);
+	editor_dock_manager->add_dock(sysman_dock);
 
 	// Add some offsets to make LEFT_R and RIGHT_L docks wider than minsize.
 	const int dock_hsize = 280;
