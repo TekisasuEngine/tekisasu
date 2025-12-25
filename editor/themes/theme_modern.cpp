@@ -827,12 +827,12 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 
 		p_theme->set_color("font_selected_color", "TabContainer", p_config.font_color);
 		p_theme->set_color("font_hovered_color", "TabContainer", p_config.font_hover_color);
-		p_theme->set_color("font_unselected_color", "TabContainer", p_config.font_secondary_color);
+		p_theme->set_color("font_unselected_color", "TabContainer", p_config.mono_color_font * Color(1, 1, 1, 0.8));
 		p_theme->set_color("font_disabled_color", "TabContainer", p_config.font_disabled_color * Color(1, 1, 1, 0.55));
 		p_theme->set_color("font_outline_color", "TabContainer", p_config.font_outline_color);
 		p_theme->set_color("font_selected_color", "TabBar", p_config.font_color);
 		p_theme->set_color("font_hovered_color", "TabBar", p_config.font_hover_color);
-		p_theme->set_color("font_unselected_color", "TabBar", p_config.font_secondary_color);
+		p_theme->set_color("font_unselected_color", "TabBar", p_config.mono_color_font * Color(1, 1, 1, 0.8));
 		p_theme->set_color("font_disabled_color", "TabBar", p_config.font_disabled_color * Color(1, 1, 1, 0.55));
 		p_theme->set_color("font_outline_color", "TabBar", p_config.font_outline_color);
 		p_theme->set_color("drop_mark_color", "TabContainer", drop_mark_color);
@@ -840,11 +840,11 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 
 		p_theme->set_color("icon_selected_color", "TabContainer", p_config.icon_normal_color);
 		p_theme->set_color("icon_hovered_color", "TabContainer", p_config.icon_hover_color);
-		p_theme->set_color("icon_unselected_color", "TabContainer", p_config.icon_secondary_color);
+		p_theme->set_color("icon_unselected_color", "TabContainer", Color(1, 1, 1, 0.8));
 		p_theme->set_color("icon_disabled_color", "TabContainer", p_config.icon_disabled_color * Color(1, 1, 1, 0.55));
 		p_theme->set_color("icon_selected_color", "TabBar", p_config.icon_normal_color);
 		p_theme->set_color("icon_hovered_color", "TabBar", p_config.icon_hover_color);
-		p_theme->set_color("icon_unselected_color", "TabBar", p_config.icon_secondary_color);
+		p_theme->set_color("icon_unselected_color", "TabBar", Color(1, 1, 1, 0.8));
 		p_theme->set_color("icon_disabled_color", "TabBar", p_config.icon_disabled_color * Color(1, 1, 1, 0.55));
 
 		p_theme->set_icon("menu", "TabContainer", p_theme->get_icon(SNAME("GuiTabMenu"), EditorStringName(EditorIcons)));
