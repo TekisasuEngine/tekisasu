@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-tekisasu-project">
+    <comment>Tekisasu Engine project</comment>
+    <sub-class-of type="text/plain"/>
+    <icon name="x-tekisasu-project"/>
+    <glob pattern="project.tekisasu"/>
+  </mime-type>
+
+  <mime-type type="application/x-tekisasu-resource">
+    <comment>Tekisasu Engine resource</comment>
+    <icon name="x-tekisasu-resource"/>
+    <glob pattern="*.res"/>
+    <glob pattern="*.tres"/>
+  </mime-type>
+
+  <mime-type type="application/x-tekisasu-scene">
+    <comment>Tekisasu Engine scene</comment>
+    <icon name="x-tekisasu-scene"/>
+    <glob pattern="*.scn"/>
+    <glob pattern="*.tscn"/>
+    <glob pattern="*.escn"/>
+  </mime-type>
+
+  <mime-type type="application/x-tekisasu-shader">
+    <comment>Tekisasu Engine shader</comment>
+    <sub-class-of type="text/plain"/>
+    <icon name="x-tekisasu-shader"/>
+    <glob pattern="*.gdshader"/>
+  </mime-type>
+
+  <mime-type type="application/x-tekisasu-script">
+    <comment>Tekisasu Engine script</comment>
+    <sub-class-of type="text/plain"/>
+    <icon name="x-gdscript"/>
+    <glob pattern="*.gd"/>
+  </mime-type>
+</mime-info>
