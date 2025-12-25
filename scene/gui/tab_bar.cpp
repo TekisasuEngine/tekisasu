@@ -704,7 +704,7 @@ void TabBar::_draw_tab(Ref<StyleBox> &p_tab_style, const Color &p_font_color, co
 			}
 		}
 
-		rb->draw(ci, Point2i(rb_rect.position.x + style->get_margin(SIDE_LEFT), rb_rect.position.y + style->get_margin(SIDE_TOP)));
+		rb->draw(ci, Point2i(rb_rect.position.x + style->get_margin(SIDE_LEFT), rb_rect.position.y + style->get_margin(SIDE_TOP)), p_font_color);
 
 		p_x = rtl ? rb_rect.position.x : rb_rect.position.x + rb_rect.size.width;
 	} else {
@@ -731,7 +731,7 @@ void TabBar::_draw_tab(Ref<StyleBox> &p_tab_style, const Color &p_font_color, co
 			}
 		}
 
-		cb->draw(ci, Point2i(cb_rect.position.x + style->get_margin(SIDE_LEFT), cb_rect.position.y + style->get_margin(SIDE_TOP)));
+		cb->draw(ci, Point2i(cb_rect.position.x + style->get_margin(SIDE_LEFT), cb_rect.position.y + style->get_margin(SIDE_TOP)), p_font_color);
 	} else {
 		tabs.write[p_index].cb_rect = Rect2();
 	}
