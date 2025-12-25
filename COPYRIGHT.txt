@@ -40,8 +40,10 @@ Upstream-Contact: Rémi Verschelde <contact@godotengine.org>
 Source: https://github.com/godotengine/godot
 
 Files: *
-Comment: Godot Engine
-Copyright: 2014-present, Godot Engine contributors
+Comment: Tekisasu Engine
+Copyright: 2021-present, Tekisasu
+ 2024-present, Blazium and Blazium contributors
+ 2014-present, Godot Engine contributors
  2007-2014, Juan Linietsky, Ariel Manzur
 License: Expat
 
@@ -49,9 +51,9 @@ Files: icon.png
  icon.svg
  logo.png
  logo.svg
-Comment: Godot Engine logo
-Copyright: 2017, Andrea Calabró
-License: CC-BY-4.0
+Comment: Tekisasu Engine logo
+Copyright: 2021, Tekisasu
+License: Proprietary
 
 Files: core/math/convex_hull.cpp
  core/math/convex_hull.h
@@ -60,6 +62,12 @@ Copyright: 2011, Ole Kniemeyer, MAXON, www.maxon.net
  2014-present, Godot Engine contributors
  2007-2014, Juan Linietsky, Ariel Manzur
 License: Expat and Zlib
+
+Files: misc/dist/linux/org.tekisasuengine.Tekisasu.appdata.xml
+Comment: Linux AppStream Metadata File
+Copyright: 2021-present Tekisasu
+ 2017-2022, Rémi Verschelde
+License: CC0-1.0
 
 Files: misc/dist/linux/org.godotengine.Godot.appdata.xml
 Comment: Linux AppStream Metadata File
