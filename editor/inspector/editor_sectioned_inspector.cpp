@@ -379,6 +379,8 @@ SectionedInspector::SectionedInspector() :
 	right_vb->add_child(inspector, true);
 	inspector->set_use_doc_hints(true);
 	inspector->set_theme_type_variation("TreeSecondary");
+	// Set secondary scrollbar theme for proper padding.
+	inspector->get_v_scroll_bar()->set_theme_type_variation("VScrollBarSecondary");
 
 	sections->connect("cell_selected", callable_mp(this, &SectionedInspector::_section_selected));
 }

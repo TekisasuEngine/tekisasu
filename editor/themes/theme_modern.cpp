@@ -1165,6 +1165,13 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		p_theme->set_constant("padding_left", "VScrollBar", p_config.base_margin * EDSCALE);
 		p_theme->set_constant("padding_right", "VScrollBar", p_config.base_margin * EDSCALE);
 
+		// VScrollBarSecondary (for secondary UI areas like Inspector and Settings).
+		p_theme->set_type_variation("VScrollBarSecondary", "VScrollBar");
+		// Increase left padding to provide space between scrollbar and content.
+		p_theme->set_constant("padding_left", "VScrollBarSecondary", p_config.base_margin * 2 * EDSCALE);
+		// Increase right padding to align scrollbar more flush with the right edge.
+		p_theme->set_constant("padding_right", "VScrollBarSecondary", p_config.base_margin * EDSCALE);
+
 		// Slider
 		const int background_margin = MAX(2, p_config.base_margin / 2);
 

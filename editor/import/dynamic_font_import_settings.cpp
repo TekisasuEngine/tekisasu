@@ -1066,6 +1066,7 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 	inspector_general->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	inspector_general->set_custom_minimum_size(Size2(300 * EDSCALE, 250 * EDSCALE));
 	inspector_general->set_theme_type_variation("ScrollContainerSecondary");
+	inspector_general->get_v_scroll_bar()->set_theme_type_variation("VScrollBarSecondary");
 	page1_hb->add_child(inspector_general);
 	inspector_general->connect("property_edited", callable_mp(this, &DynamicFontImportSettingsDialog::_main_prop_changed));
 
@@ -1123,6 +1124,7 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 	inspector_vars = memnew(EditorInspector);
 	inspector_vars->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	inspector_vars->set_theme_type_variation("ScrollContainerSecondary");
+	inspector_vars->get_v_scroll_bar()->set_theme_type_variation("VScrollBarSecondary");
 	page2_side_vb->add_child(inspector_vars);
 	inspector_vars->connect("property_edited", callable_mp(this, &DynamicFontImportSettingsDialog::_variation_changed));
 
@@ -1206,6 +1208,7 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 	inspector_text->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	inspector_text->set_custom_minimum_size(Size2(300 * EDSCALE, 250 * EDSCALE));
 	inspector_text->set_theme_type_variation("ScrollContainerSecondary");
+	inspector_text->get_v_scroll_bar()->set_theme_type_variation("VScrollBarSecondary");
 	page2_1_hb->add_child(inspector_text);
 	inspector_text->connect("property_edited", callable_mp(this, &DynamicFontImportSettingsDialog::_change_text_opts));
 

@@ -1205,6 +1205,13 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 		p_theme->set_icon("decrement_highlight", "VScrollBar", empty_icon);
 		p_theme->set_icon("decrement_pressed", "VScrollBar", empty_icon);
 
+		// VScrollBarSecondary (for secondary UI areas like Inspector and Settings).
+		p_theme->set_type_variation("VScrollBarSecondary", "VScrollBar");
+		// Increase left padding to provide space between scrollbar and content.
+		p_theme->set_constant("padding_left", "VScrollBarSecondary", p_config.base_margin * 2 * EDSCALE);
+		// Increase right padding to align scrollbar more flush with the right edge.
+		p_theme->set_constant("padding_right", "VScrollBarSecondary", p_config.base_margin * EDSCALE);
+
 		// Slider
 		const int background_margin = MAX(2, p_config.base_margin / 2);
 
