@@ -214,21 +214,26 @@ def get_key_with_priority(key_name, env_var_name):
     2. Environment variable
     3. version.py (lowest priority)
     
+    Empty strings are treated as "not present" since they are not valid keys.
+    
     Returns: (key_value, source_description)
     """
     # Check version.gen.py first (highest priority)
     if version_gen is not None:
         key_value = getattr(version_gen, key_name, None)
+        # Treat empty strings as not present (not a valid key)
         if key_value:
             return (key_value, "version.gen.py")
     
     # Check environment variable (middle priority)
     key_value = os.environ.get(env_var_name)
+    # Treat empty strings as not present (not a valid key)
     if key_value:
         return (key_value, f"environment variable {env_var_name}")
     
     # Check version.py (lowest priority)
     key_value = getattr(version_py, key_name, None)
+    # Treat empty strings as not present (not a valid key)
     if key_value:
         return (key_value, "version.py")
     
