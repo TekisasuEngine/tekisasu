@@ -153,6 +153,21 @@ def get_version_info(module_version_string="", silent=False):
             version = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(version)
             version_source = "version.gen.py"
+            
+            # Validate that version.gen.py has all required attributes
+            required_attrs = ['short_name', 'name', 'major', 'minor', 'patch', 'status', 'module_config', 'website', 'docs']
+            missing_attrs = [attr for attr in required_attrs if not hasattr(version, attr)]
+            if missing_attrs:
+                print_error(
+                    f"version.gen.py exists but is missing required attributes: {', '.join(missing_attrs)}\n"
+                    "version.gen.py must be a complete copy of version.py with all version metadata.\n"
+                    "If you only need to define encryption keys, use environment variables instead:\n"
+                    "  export SCRIPT_AES256_ENCRYPTION_KEY=\"...\"\n"
+                    "  export TEKISASU_XOR_KEY=\"...\"\n"
+                    "Or include all version metadata in version.gen.py."
+                )
+                import sys
+                sys.exit(255)
     
     # Fall back to version.py if version.gen.py doesn't exist
     if version is None:
