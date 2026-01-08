@@ -187,32 +187,31 @@ gen_hash = env.CommandNoCache(
 )
 env.add_source_files(env.core_sources, gen_hash)
 
-# Load version modules for key retrieval
-# Priority order: version.gen.py > environment variables > version.py
+# Load version.gen.py for key retrieval
+# Priority order: version.gen.py > environment variables
+# Note: version.py is NOT checked for security reasons (tracked by git)
 version_gen = None
-version_py = None
 
 # In SCons context, we can use Dir('#') to get repo root, but simpler to use os.getcwd()
 # since SCons runs from the repository root
 version_gen_path = os.path.join(os.getcwd(), 'version.gen.py')
 
-# Try to import version.gen.py first
+# Try to import version.gen.py
 if os.path.exists(version_gen_path):
     spec = importlib.util.spec_from_file_location("version_gen", version_gen_path)
     if spec and spec.loader:
         version_gen = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(version_gen)
 
-# Always import version.py as fallback
-import version as version_py
-
-# Helper function to get key with priority: version.gen.py > env var > version.py
+# Helper function to get key with priority: version.gen.py > env var
 def get_key_with_priority(key_name, env_var_name):
     """
     Get a key value following priority order:
     1. version.gen.py (highest priority)
     2. Environment variable
-    3. version.py (lowest priority)
+    
+    Note: version.py is intentionally NOT checked to prevent accidentally
+    committing secrets to the repository (version.py is tracked by git).
     
     Empty strings are treated as "not present" since they are not valid keys.
     
@@ -225,17 +224,11 @@ def get_key_with_priority(key_name, env_var_name):
         if key_value:
             return (key_value, "version.gen.py")
     
-    # Check environment variable (middle priority)
+    # Check environment variable
     key_value = os.environ.get(env_var_name)
     # Treat empty strings as not present (not a valid key)
     if key_value:
         return (key_value, f"environment variable {env_var_name}")
-    
-    # Check version.py (lowest priority)
-    key_value = getattr(version_py, key_name, None)
-    # Treat empty strings as not present (not a valid key)
-    if key_value:
-        return (key_value, "version.py")
     
     return (None, None)
 
