@@ -148,28 +148,35 @@ def get_version_info(module_version_string="", silent=False):
     # Try to import version.gen.py first
     version_gen_path = base_folder / 'version.gen.py'
     if version_gen_path.exists():
-        spec = importlib.util.spec_from_file_location("version_gen", str(version_gen_path))
-        if spec and spec.loader:
-            version = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(version)
-            version_source = "version.gen.py"
-            
-            # Validate that version.gen.py has all required attributes
-            required_attrs = ['short_name', 'name', 'major', 'minor', 'patch', 'status', 'module_config', 'website', 'docs']
-            missing_attrs = [attr for attr in required_attrs if not hasattr(version, attr)]
-            if missing_attrs:
-                print_error(
-                    f"version.gen.py exists but is missing required attributes: {', '.join(missing_attrs)}\n"
-                    "version.gen.py must be a complete copy of version.py with all version metadata.\n"
-                    "If you only need to define encryption keys, use environment variables instead:\n"
-                    "  export SCRIPT_AES256_ENCRYPTION_KEY=\"...\"\n"
-                    "  export TEKISASU_XOR_KEY=\"...\"\n"
-                    "Or include all version metadata in version.gen.py."
-                )
-                import sys
-                sys.exit(255)
+        try:
+            spec = importlib.util.spec_from_file_location("version_gen", str(version_gen_path))
+            if spec and spec.loader:
+                version_candidate = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(version_candidate)
+                
+                # Validate that version.gen.py has all required attributes
+                required_attrs = ['short_name', 'name', 'major', 'minor', 'patch', 'status', 'module_config', 'website', 'docs']
+                missing_attrs = [attr for attr in required_attrs if not hasattr(version_candidate, attr)]
+                if missing_attrs:
+                    print_error(
+                        f"version.gen.py exists but is missing required attributes: {', '.join(missing_attrs)}\n"
+                        "version.gen.py must be a complete copy of version.py with all version metadata.\n"
+                        "If you only need to define encryption keys, use environment variables instead:\n"
+                        "  export SCRIPT_AES256_ENCRYPTION_KEY=\"...\"\n"
+                        "  export TEKISASU_XOR_KEY=\"...\"\n"
+                        "Or include all version metadata in version.gen.py."
+                    )
+                    import sys
+                    sys.exit(255)
+                
+                # Only set version after successful validation
+                version = version_candidate
+                version_source = "version.gen.py"
+        except Exception as e:
+            print_error(f"Failed to load version.gen.py: {e}\nFalling back to version.py")
+            version = None
     
-    # Fall back to version.py if version.gen.py doesn't exist
+    # Fall back to version.py if version.gen.py doesn't exist or failed to load
     if version is None:
         import version
         version_source = "version.py"
