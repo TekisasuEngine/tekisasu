@@ -197,8 +197,9 @@ version_gen = None
 version_gen_path = os.path.join(os.getcwd(), 'version.gen.py')
 
 # Try to import version.gen.py
+# Note: Use unique module name to avoid conflicts with methods.py loading
 if os.path.exists(version_gen_path):
-    spec = importlib.util.spec_from_file_location("version_gen", version_gen_path)
+    spec = importlib.util.spec_from_file_location("version_gen_keys", version_gen_path)
     if spec and spec.loader:
         version_gen = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(version_gen)
