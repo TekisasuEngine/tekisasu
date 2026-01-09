@@ -199,10 +199,20 @@ version_gen_path = os.path.join(os.getcwd(), 'version.gen.py')
 # Try to import version.gen.py
 # Note: Use unique module name to avoid conflicts with methods.py loading
 if os.path.exists(version_gen_path):
+    print(f"\n*** DEBUG: Found version.gen.py at {version_gen_path}")
     spec = importlib.util.spec_from_file_location("version_gen_keys", version_gen_path)
     if spec and spec.loader:
         version_gen = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(version_gen)
+        print(f"*** DEBUG: Successfully loaded version.gen.py for keys")
+        # Debug: Check what attributes are available
+        if hasattr(version_gen, 'script_aes256_encryption_key'):
+            print(f"*** DEBUG: Found script_aes256_encryption_key in version.gen.py")
+        if hasattr(version_gen, 'tekisasu_xor_key'):
+            print(f"*** DEBUG: Found tekisasu_xor_key in version.gen.py")
+else:
+    print(f"\n*** DEBUG: version.gen.py not found at {version_gen_path}")
+    print(f"*** DEBUG: Will use environment variables for encryption keys")
 
 # Helper function to get key with priority: version.gen.py > env var
 def get_key_with_priority(key_name, env_var_name):
@@ -218,19 +228,28 @@ def get_key_with_priority(key_name, env_var_name):
     
     Returns: (key_value, source_description)
     """
+    print(f"*** DEBUG: Looking for key '{key_name}'...")
+    
     # Check version.gen.py first (highest priority)
     if version_gen is not None:
         key_value = getattr(version_gen, key_name, None)
+        print(f"*** DEBUG:   version.gen.py has key: {key_value is not None}, value: {repr(key_value)[:50] if key_value else 'None'}")
         # Treat empty strings as not present (not a valid key)
         if key_value:
+            print(f"*** DEBUG:   -> Using key from version.gen.py")
             return (key_value, "version.gen.py")
+    else:
+        print(f"*** DEBUG:   version_gen is None (file not loaded)")
     
     # Check environment variable
     key_value = os.environ.get(env_var_name)
+    print(f"*** DEBUG:   environment variable {env_var_name}: {repr(key_value)[:50] if key_value else 'None'}")
     # Treat empty strings as not present (not a valid key)
     if key_value:
+        print(f"*** DEBUG:   -> Using key from environment variable")
         return (key_value, f"environment variable {env_var_name}")
     
+    print(f"*** DEBUG:   -> No key found, returning None")
     return (None, None)
 
 # Generate AES256 script encryption key
