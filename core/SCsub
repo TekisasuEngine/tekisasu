@@ -199,32 +199,10 @@ version_gen_path = os.path.join(os.getcwd(), 'version.gen.py')
 # Try to import version.gen.py
 # Note: Use unique module name to avoid conflicts with methods.py loading
 if os.path.exists(version_gen_path):
-    print(f"\n[ENCRYPTION_KEY_DEBUG] Found version.gen.py at {version_gen_path}")
     spec = importlib.util.spec_from_file_location("version_gen_keys", version_gen_path)
     if spec and spec.loader:
         version_gen = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(version_gen)
-        print(f"[ENCRYPTION_KEY_DEBUG] Successfully loaded version.gen.py for keys")
-        # Debug: Check what attributes are available (check both lowercase and uppercase)
-        has_aes_lower = hasattr(version_gen, 'script_aes256_encryption_key')
-        has_aes_upper = hasattr(version_gen, 'SCRIPT_AES256_ENCRYPTION_KEY')
-        has_xor_lower = hasattr(version_gen, 'tekisasu_xor_key')
-        has_xor_upper = hasattr(version_gen, 'TEKISASU_XOR_KEY')
-        
-        if has_aes_lower:
-            print(f"[ENCRYPTION_KEY_DEBUG] Found script_aes256_encryption_key (lowercase) in version.gen.py")
-        if has_aes_upper:
-            print(f"[ENCRYPTION_KEY_DEBUG] Found SCRIPT_AES256_ENCRYPTION_KEY (uppercase) in version.gen.py")
-        if has_xor_lower:
-            print(f"[ENCRYPTION_KEY_DEBUG] Found tekisasu_xor_key (lowercase) in version.gen.py")
-        if has_xor_upper:
-            print(f"[ENCRYPTION_KEY_DEBUG] Found TEKISASU_XOR_KEY (uppercase) in version.gen.py")
-        
-        if not (has_aes_lower or has_aes_upper or has_xor_lower or has_xor_upper):
-            print(f"[ENCRYPTION_KEY_DEBUG] No encryption keys found in version.gen.py (checked both cases)")
-else:
-    print(f"\n[ENCRYPTION_KEY_DEBUG] version.gen.py not found at {version_gen_path}")
-    print(f"[ENCRYPTION_KEY_DEBUG] Will use environment variables for encryption keys")
 
 # Helper function to get key with priority: version.gen.py > env var
 def get_key_with_priority(key_name, env_var_name):
@@ -240,8 +218,6 @@ def get_key_with_priority(key_name, env_var_name):
     
     Returns: (key_value, source_description)
     """
-    print(f"[ENCRYPTION_KEY_DEBUG] Looking for key '{key_name}' (also checking uppercase variant)...")
-    
     # Check version.gen.py first (highest priority)
     if version_gen is not None:
         # Try lowercase first (original format)
@@ -249,29 +225,17 @@ def get_key_with_priority(key_name, env_var_name):
         # If not found, try uppercase (alternative format)
         if key_value is None:
             key_value = getattr(version_gen, key_name.upper(), None)
-            if key_value is not None:
-                print(f"[ENCRYPTION_KEY_DEBUG]   version.gen.py has key (uppercase): True, value: {repr(key_value)[:50]}")
-            else:
-                print(f"[ENCRYPTION_KEY_DEBUG]   version.gen.py has key: False, value: None (checked both lowercase and uppercase)")
-        else:
-            print(f"[ENCRYPTION_KEY_DEBUG]   version.gen.py has key (lowercase): True, value: {repr(key_value)[:50]}")
         
         # Treat empty strings as not present (not a valid key)
         if key_value:
-            print(f"[ENCRYPTION_KEY_DEBUG]   -> Using key from version.gen.py")
             return (key_value, "version.gen.py")
-    else:
-        print(f"[ENCRYPTION_KEY_DEBUG]   version_gen is None (file not loaded)")
     
     # Check environment variable
     key_value = os.environ.get(env_var_name)
-    print(f"[ENCRYPTION_KEY_DEBUG]   environment variable {env_var_name}: {repr(key_value)[:50] if key_value else 'None'}")
     # Treat empty strings as not present (not a valid key)
     if key_value:
-        print(f"[ENCRYPTION_KEY_DEBUG]   -> Using key from environment variable")
         return (key_value, f"environment variable {env_var_name}")
     
-    print(f"[ENCRYPTION_KEY_DEBUG]   -> No key found, returning None")
     return (None, None)
 
 # Generate AES256 script encryption key
