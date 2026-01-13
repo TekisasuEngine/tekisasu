@@ -57,6 +57,7 @@ class ScriptEditorDebugger;
 class RichTextLabel;
 class SubViewport;
 class TextureProgressBar;
+class TextureRect;
 class Timer;
 class Translation;
 class Tree;
