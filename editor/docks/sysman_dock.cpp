@@ -62,7 +62,7 @@ void SysmanDock::_notification(int p_notification) {
 SysmanDock::SysmanDock() {
 	set_name(TTRC("Sysman"));
 	set_icon_name("Tekisasu");
-	set_default_slot(DockConstants::DOCK_SLOT_LEFT_BR);
+	set_default_slot(EditorDock::DOCK_SLOT_LEFT_BR);
 
 	// Create main container aligned to top-left
 	main_container = memnew(VBoxContainer);
