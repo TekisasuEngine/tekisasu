@@ -7737,13 +7737,20 @@ void EditorNode::_update_renderer_color() {
 	String current_renderer = String(GLOBAL_GET("rendering/renderer/rendering_method")).to_lower();
 	Color renderer_color;
 
-	const Color renderer_normal_color = theme->get_color(rendering_method + "_color", EditorStringName(Editor));
-	const Color mono_color = theme->get_color(SNAME("mono_color"), EditorStringName(Editor));
+	if (current_renderer != OS::get_singleton()->get_current_rendering_method().to_lower()) {
+		renderer_color = theme->get_color(SNAME("overridden_color"), EditorStringName(Editor));
+	} else {
+		String rendering_method = renderer->get_selected_metadata();
+		if (rendering_method == "forward_plus") {
+			renderer_color = theme->get_color(SNAME("forward_plus_color"), EditorStringName(Editor));
+		} else if (rendering_method == "mobile") {
+			renderer_color = theme->get_color(SNAME("mobile_color"), EditorStringName(Editor));
+		} else if (rendering_method == "gl_compatibility") {
+			renderer_color = theme->get_color(SNAME("gl_compatibility_color"), EditorStringName(Editor));
+		}
+	}
 
-	renderer->add_theme_color_override(SceneStringName(font_color), renderer_normal_color);
-	renderer->add_theme_color_override("font_hover_color", renderer_normal_color.lerp(mono_color, 0.3));
-	renderer->add_theme_color_override("font_pressed_color", renderer_normal_color.lerp(mono_color, 0.4));
-	renderer->add_theme_color_override("font_hover_pressed_color", renderer_normal_color.lerp(mono_color, 0.5));
+	renderer->add_theme_color_override(SceneStringName(font_color), renderer_color);
 }
 
 void EditorNode::_renderer_selected(int p_index) {
