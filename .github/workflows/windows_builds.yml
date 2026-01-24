@@ -31,7 +31,7 @@ jobs:
               windows_subsystem=console
               vsproj=yes
               vsproj_gen_only=no
-            bin: ./bin/godot.windows.editor.x86_64.exe
+            bin: ./bin/tekisasu.windows.editor.x86_64.exe
             compiler: msvc
 
           - name: Editor w/ clang-cl (target=editor, use_llvm=yes)
@@ -40,13 +40,13 @@ jobs:
             scons-flags: >-
               windows_subsystem=console
               use_llvm=yes
-            bin: ./bin/godot.windows.editor.x86_64.llvm.exe
+            bin: ./bin/tekisasu.windows.editor.x86_64.llvm.exe
             compiler: clang
 
           - name: Template (target=template_release)
             cache-name: windows-template
             target: template_release
-            bin: ./bin/godot.windows.template_release.x86_64.console.exe
+            bin: ./bin/tekisasu.windows.template_release.x86_64.console.exe
             compiler: msvc
 
           - name: Template w/ GCC (target=template_release, use_mingw=yes)
@@ -54,7 +54,7 @@ jobs:
             # MinGW takes MUCH longer to compile; save time by only targeting Template.
             target: template_release
             scons-flags: use_mingw=yes
-            bin: ./bin/godot.windows.template_release.x86_64.console.exe
+            bin: ./bin/tekisasu.windows.template_release.x86_64.console.exe
             compiler: gcc
 
     steps:
@@ -63,14 +63,14 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Restore Godot build cache
-        uses: ./.github/actions/godot-cache-restore
+      - name: Restore Tekisasu Engine build cache
+        uses: ./.github/actions/tekisasu-cache-restore
         with:
           cache-name: ${{ matrix.cache-name }}
         continue-on-error: true
 
       - name: Setup Python and SCons
-        uses: ./.github/actions/godot-deps
+        uses: ./.github/actions/tekisasu-deps
 
       - name: Download Direct3D 12 SDK components
         shell: sh
@@ -87,9 +87,9 @@ jobs:
       - name: Download pre-built ANGLE static libraries
         uses: dsaltares/fetch-gh-release-asset@1.1.2
         with:
-          repo: godotengine/godot-angle-static
+          repo: TekisasuEngine/tekisasu-angle-static
           version: tags/chromium/6601.2
-          file: godot-angle-static-x86_64-${{ matrix.compiler == 'gcc' && 'gcc' || 'msvc' }}-release.zip
+          file: tekisasu-angle-static-x86_64-${{ matrix.compiler == 'gcc' && 'gcc' || 'msvc' }}-release.zip
           target: angle/angle.zip
 
       - name: Extract pre-built ANGLE static libraries
@@ -107,14 +107,14 @@ jobs:
         run: unzip -o accesskit-c-0.18.0/accesskit_c.zip
 
       - name: Compilation
-        uses: ./.github/actions/godot-build
+        uses: ./.github/actions/tekisasu-build
         with:
           scons-flags: ${{ env.SCONS_FLAGS }} ${{ matrix.scons-flags }} d3d12=${{ steps.d3d12-sdk.outputs.D3D12_ENABLED }}
           platform: windows
           target: ${{ matrix.target }}
 
-      - name: Save Godot build cache
-        uses: ./.github/actions/godot-cache-save
+      - name: Save Tekisasu Engine build cache
+        uses: ./.github/actions/tekisasu-cache-save
         with:
           cache-name: ${{ matrix.cache-name }}
         continue-on-error: true
