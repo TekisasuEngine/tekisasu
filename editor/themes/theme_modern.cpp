@@ -1083,7 +1083,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		{
 			Ref<StyleBoxFlat> style_popup_menu = p_config.base_style->duplicate();
 			style_popup_menu->set_bg_color(p_config.surface_popup_color);
-			style_popup_menu->set_content_margin_all(p_config.popup_margin);
+			style_popup_menu->set_content_margin_all(p_config.popup_margin - 2 * EDSCALE);
 			style_popup_menu->set_corner_radius_all(0);
 			if (p_config.draw_extra_borders) {
 				style_popup_menu->set_border_width_all(Math::round(EDSCALE));
@@ -1093,6 +1093,9 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 
 			Ref<StyleBoxFlat> style_popup_hover = p_config.flat_button_hover->duplicate();
 			style_popup_hover->set_bg_color(_get_base_color(p_config, -0.5, 0.75));
+			// Add 3px to top padding and 2px to bottom padding for menu items.
+			style_popup_hover->set_content_margin(SIDE_TOP, style_popup_hover->get_content_margin(SIDE_TOP) + 3 * EDSCALE);
+			style_popup_hover->set_content_margin(SIDE_BOTTOM, style_popup_hover->get_content_margin(SIDE_BOTTOM) + 2 * EDSCALE);
 
 			p_theme->set_stylebox(SceneStringName(hover), "PopupMenu", style_popup_hover);
 
