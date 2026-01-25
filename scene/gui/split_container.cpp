@@ -246,46 +246,46 @@ void SplitContainerDragger::_notification(int p_what) {
 			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
 				// Draw the grabber stretched across the full clickable area using dynamic drawing.
 				const float scale = sc->theme_cache.base_scale;
-				const float white_line_width = 2 * scale;
-				const float border_width = 4 * scale;
-				const float total_width = white_line_width + 2 * border_width;
+				const float center_line_width = 2 * scale;
+				const float border_width = 6 * scale;
+				const float total_width = center_line_width + 2 * border_width;
 				
 				Rect2 grabber_rect = split_bar_rect;
 				if (sc->vertical) {
 					grabber_rect.position.x += sc->drag_area_margin_begin;
 					grabber_rect.size.x -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
-					// For vertical containers, draw a white 2px rectangle with a 4px black border.
+					// For vertical containers, draw a light gray 2px rectangle with a 6px black border.
 					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
 						Rect2 rect = grabber_rect;
-						rect.size.y = white_line_width;
-						rect.position.y += (grabber_rect.size.y - white_line_width) / 2; // Center vertically
+						rect.size.y = center_line_width;
+						rect.position.y += (grabber_rect.size.y - center_line_width) / 2; // Center vertically
 						
-						// Draw black border (10px tall: 4px top border + 2px white + 4px bottom border)
+						// Draw black border (14px tall: 6px top border + 2px center + 6px bottom border)
 						Rect2 border_rect = rect;
 						border_rect.position.y -= border_width;
 						border_rect.size.y = total_width;
 						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
 						
-						// Draw white center line on top
-						draw_rect(rect, Color(1, 1, 1, 1)); // White rectangle
+						// Draw light gray center line on top (#CFCFCF)
+						draw_rect(rect, Color(0.812, 0.812, 0.812, 1)); // Light gray rectangle
 					}
 				} else {
 					grabber_rect.position.y += sc->drag_area_margin_begin;
 					grabber_rect.size.y -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
-					// For horizontal containers, draw a white 2px rectangle with a 4px black border.
+					// For horizontal containers, draw a light gray 2px rectangle with a 6px black border.
 					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
 						Rect2 rect = grabber_rect;
-						rect.size.x = white_line_width;
-						rect.position.x += (grabber_rect.size.x - white_line_width) / 2; // Center horizontally
+						rect.size.x = center_line_width;
+						rect.position.x += (grabber_rect.size.x - center_line_width) / 2; // Center horizontally
 						
-						// Draw black border (10px wide: 4px left border + 2px white + 4px right border)
+						// Draw black border (14px wide: 6px left border + 2px center + 6px right border)
 						Rect2 border_rect = rect;
 						border_rect.position.x -= border_width;
 						border_rect.size.x = total_width;
 						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
 						
-						// Draw white center line on top
-						draw_rect(rect, Color(1, 1, 1, 1)); // White rectangle
+						// Draw light gray center line on top (#CFCFCF)
+						draw_rect(rect, Color(0.812, 0.812, 0.812, 1)); // Light gray rectangle
 					}
 				}
 			}
