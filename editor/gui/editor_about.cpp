@@ -375,10 +375,17 @@ EditorAbout::EditorAbout() {
 
 		// Horizontal separator after Compiler and Core
 		HSeparator *sep1 = memnew(HSeparator);
+		sep1->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(sep1);
-		build_info_grid->add_child(memnew(Control)); // Empty cell
-		build_info_grid->add_child(memnew(Control)); // Empty cell
-		build_info_grid->add_child(memnew(Control)); // Empty cell
+		HSeparator *sep1_col2 = memnew(HSeparator);
+		sep1_col2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(sep1_col2);
+		HSeparator *sep1_col3 = memnew(HSeparator);
+		sep1_col3->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(sep1_col3);
+		HSeparator *sep1_col4 = memnew(HSeparator);
+		sep1_col4->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(sep1_col4);
 
 		// Row 3: XOR Encode/Decode and AES256 Encryption
 		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
@@ -408,24 +415,27 @@ EditorAbout::EditorAbout() {
 
 		// Horizontal separator after XOR Encode/Decode and AES256 Encryption
 		HSeparator *sep2 = memnew(HSeparator);
+		sep2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(sep2);
-		build_info_grid->add_child(memnew(Control)); // Empty cell
-		build_info_grid->add_child(memnew(Control)); // Empty cell
-		build_info_grid->add_child(memnew(Control)); // Empty cell
+		HSeparator *sep2_col2 = memnew(HSeparator);
+		sep2_col2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(sep2_col2);
+		HSeparator *sep2_col3 = memnew(HSeparator);
+		sep2_col3->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(sep2_col3);
+		HSeparator *sep2_col4 = memnew(HSeparator);
+		sep2_col4->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(sep2_col4);
 
-		// Windows build information label (centered)
-		Control *empty_cell1 = memnew(Control);
-		build_info_grid->add_child(empty_cell1);
-
+		// Windows build information label (centered across all columns)
 		Label *windows_info_label = memnew(Label(TTRC("Windows build information:")));
 		windows_info_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 		windows_info_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		build_info_grid->add_child(windows_info_label);
-
-		Control *empty_cell2 = memnew(Control);
-		build_info_grid->add_child(empty_cell2);
-		Control *empty_cell3 = memnew(Control);
-		build_info_grid->add_child(empty_cell3);
+		// Fill remaining columns with empty labels to maintain grid structure
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
 
 		// Row 4: Direct3D12 Support and Agility SDK Support
 		_build_d3d12_label = memnew(Label(TTRC("Direct3D12 Support:")));
