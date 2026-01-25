@@ -245,6 +245,11 @@ void SplitContainerDragger::_notification(int p_what) {
 			draw_style_box(sc->theme_cache.split_bar_background, split_bar_rect);
 			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
 				// Draw the grabber stretched across the full clickable area using dynamic drawing.
+				const float scale = sc->theme_cache.base_scale;
+				const float white_line_width = 2 * scale;
+				const float border_width = 4 * scale;
+				const float total_width = white_line_width + 2 * border_width;
+				
 				Rect2 grabber_rect = split_bar_rect;
 				if (sc->vertical) {
 					grabber_rect.position.x += sc->drag_area_margin_begin;
@@ -252,13 +257,13 @@ void SplitContainerDragger::_notification(int p_what) {
 					// For vertical containers, draw a white 2px rectangle with a 4px black border.
 					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
 						Rect2 rect = grabber_rect;
-						rect.size.y = 2; // 2px height for white line
-						rect.position.y += (grabber_rect.size.y - 2) / 2; // Center vertically
+						rect.size.y = white_line_width;
+						rect.position.y += (grabber_rect.size.y - white_line_width) / 2; // Center vertically
 						
 						// Draw black border (10px tall: 4px top border + 2px white + 4px bottom border)
 						Rect2 border_rect = rect;
-						border_rect.position.y -= 4; // Expand upward by 4px
-						border_rect.size.y = 10; // Total height including borders
+						border_rect.position.y -= border_width;
+						border_rect.size.y = total_width;
 						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
 						
 						// Draw white center line on top
@@ -270,13 +275,13 @@ void SplitContainerDragger::_notification(int p_what) {
 					// For horizontal containers, draw a white 2px rectangle with a 4px black border.
 					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
 						Rect2 rect = grabber_rect;
-						rect.size.x = 2; // 2px width for white line
-						rect.position.x += (grabber_rect.size.x - 2) / 2; // Center horizontally
+						rect.size.x = white_line_width;
+						rect.position.x += (grabber_rect.size.x - white_line_width) / 2; // Center horizontally
 						
 						// Draw black border (10px wide: 4px left border + 2px white + 4px right border)
 						Rect2 border_rect = rect;
-						border_rect.position.x -= 4; // Expand leftward by 4px
-						border_rect.size.x = 10; // Total width including borders
+						border_rect.position.x -= border_width;
+						border_rect.size.x = total_width;
 						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
 						
 						// Draw white center line on top
@@ -849,6 +854,12 @@ Size2 SplitContainer::get_minimum_size() const {
 	}
 
 	return minimum;
+}
+
+void SplitContainer::_update_theme_item_cache() {
+	Container::_update_theme_item_cache();
+
+	theme_cache.base_scale = get_theme_default_base_scale();
 }
 
 void SplitContainer::_validate_property(PropertyInfo &p_property) const {
