@@ -1752,7 +1752,7 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		p_theme->set_stylebox("hover_pressed_mirrored", "MainScreenButton", p_config.base_empty_wide_style);
 
 		// Main screen buttons.
-		const Color mb_font_color = p_config.font_color * Color(1, 1, 1, 0.95);
+		const Color mb_font_color = p_config.font_color * Color(1, 1, 1, 0.8);
 		const Color mb_font_hover_color = p_config.font_hover_color * Color(1, 1, 1, 0.95);
 
 		p_theme->set_color(SceneStringName(font_color), "MainScreenButton", mb_font_color);
@@ -1760,7 +1760,7 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		p_theme->set_color("font_pressed_color", "MainScreenButton", Color(1, 1, 1));
 		p_theme->set_color("font_hover_pressed_color", "MainScreenButton", Color(1, 1, 1));
 
-		const Color mb_icon_normal_color = p_config.icon_normal_color * Color(1, 1, 1, 0.95);
+		const Color mb_icon_normal_color = p_config.icon_normal_color * Color(1, 1, 1, 0.8);
 		const Color mb_icon_hover_color = p_config.icon_hover_color * Color(1, 1, 1, 0.95);
 
 		p_theme->set_color("icon_normal_color", "MainScreenButton", mb_icon_normal_color);
