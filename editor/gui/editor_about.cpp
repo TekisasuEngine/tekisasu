@@ -373,20 +373,6 @@ EditorAbout::EditorAbout() {
 		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
 		build_info_grid->add_child(core_value);
 
-		// Horizontal separator after Compiler and Core
-		HSeparator *sep1 = memnew(HSeparator);
-		sep1->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep1);
-		HSeparator *sep1_col2 = memnew(HSeparator);
-		sep1_col2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep1_col2);
-		HSeparator *sep1_col3 = memnew(HSeparator);
-		sep1_col3->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep1_col3);
-		HSeparator *sep1_col4 = memnew(HSeparator);
-		sep1_col4->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep1_col4);
-
 		// Row 3: XOR Encode/Decode and AES256 Encryption
 		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
 		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -413,19 +399,11 @@ EditorAbout::EditorAbout() {
 		aes256_value->set_text(has_aes256 ? "Yes" : "No");
 		build_info_grid->add_child(aes256_value);
 
-		// Horizontal separator after XOR Encode/Decode and AES256 Encryption
-		HSeparator *sep2 = memnew(HSeparator);
-		sep2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep2);
-		HSeparator *sep2_col2 = memnew(HSeparator);
-		sep2_col2->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep2_col2);
-		HSeparator *sep2_col3 = memnew(HSeparator);
-		sep2_col3->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep2_col3);
-		HSeparator *sep2_col4 = memnew(HSeparator);
-		sep2_col4->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-		build_info_grid->add_child(sep2_col4);
+		// Empty row for spacing before Windows build information
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
 
 		// Windows build information label (centered across all columns)
 		Label *windows_info_label = memnew(Label(TTRC("Windows build information:")));
