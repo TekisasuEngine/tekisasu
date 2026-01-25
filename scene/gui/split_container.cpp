@@ -244,18 +244,25 @@ void SplitContainerDragger::_notification(int p_what) {
 			SplitContainer *sc = Object::cast_to<SplitContainer>(get_parent());
 			draw_style_box(sc->theme_cache.split_bar_background, split_bar_rect);
 			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
-				Ref<Texture2D> tex = sc->_get_grabber_icon();
 				// Draw the grabber stretched across the full clickable area.
 				Rect2 grabber_rect = split_bar_rect;
 				if (sc->vertical) {
 					grabber_rect.position.x += sc->drag_area_margin_begin;
 					grabber_rect.size.x -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
+					// For vertical containers, draw a white 2px rectangle instead of stretching the texture.
+					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
+						Rect2 rect = grabber_rect;
+						rect.size.y = 2; // 2px height
+						rect.position.y += (grabber_rect.size.y - 2) / 2; // Center vertically
+						draw_rect(rect, Color(1, 1, 1, 1)); // White rectangle
+					}
 				} else {
+					Ref<Texture2D> tex = sc->_get_grabber_icon();
 					grabber_rect.position.y += sc->drag_area_margin_begin;
 					grabber_rect.size.y -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
-				}
-				if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) { // Draw the grabber only if it fits.
-					draw_texture_rect(tex, grabber_rect, false);
+					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) { // Draw the grabber only if it fits.
+						draw_texture_rect(tex, grabber_rect, false);
+					}
 				}
 			}
 			if (sc->show_drag_area && Engine::get_singleton()->is_editor_hint()) {
