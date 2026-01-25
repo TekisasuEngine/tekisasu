@@ -249,11 +249,19 @@ void SplitContainerDragger::_notification(int p_what) {
 				if (sc->vertical) {
 					grabber_rect.position.x += sc->drag_area_margin_begin;
 					grabber_rect.size.x -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
-					// For vertical containers, draw a white 2px rectangle instead of stretching the texture.
+					// For vertical containers, draw a white 2px rectangle with a 2px black border.
 					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
 						Rect2 rect = grabber_rect;
 						rect.size.y = 2; // 2px height
 						rect.position.y += (grabber_rect.size.y - 2) / 2; // Center vertically
+						
+						// Draw black border (6px tall: 2px top border + 2px white + 2px bottom border)
+						Rect2 border_rect = rect;
+						border_rect.position.y -= 2; // Expand upward by 2px
+						border_rect.size.y = 6; // Total height including borders
+						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
+						
+						// Draw white center line on top
 						draw_rect(rect, Color(1, 1, 1, 1)); // White rectangle
 					}
 				} else {
