@@ -4585,7 +4585,7 @@ void ScriptEditorPlugin::_window_visibility_changed(bool p_visible) {
 void ScriptEditorPlugin::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_TRANSLATION_CHANGED: {
-			window_wrapper->set_window_title(vformat(TTR("%s - Tekisasu Engine"), TTR("Script Editor")));
+			window_wrapper->set_window_title(vformat(TTR("%s - %s"), TTR("Script Editor"), TEKISASU_VERSION_NAME));
 		} break;
 		case NOTIFICATION_ENTER_TREE: {
 			connect("main_screen_changed", callable_mp(this, &ScriptEditorPlugin::_save_last_editor));
