@@ -1755,7 +1755,6 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		// Main screen buttons.
 		const Color mb_font_color = p_config.font_color * Color(1, 1, 1, 0.95);
 		const Color mb_font_hover_color = p_config.font_hover_color * Color(1, 1, 1, 0.95);
-		const Color mb_font_hover_pressed_color = p_config.accent_color.lerp(p_config.mono_color, 0.2);
 
 		p_theme->set_color(SceneStringName(font_color), "MainScreenButton", mb_font_color);
 		p_theme->set_color("font_hover_color", "MainScreenButton", mb_font_hover_color);
