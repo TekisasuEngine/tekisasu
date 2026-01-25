@@ -1725,7 +1725,8 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		filemenu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
 		filemenu_transparent_style->set_border_width_all(0);
 
-		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.button_style_hover->duplicate();
+		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.base_style->duplicate();
+		filemenu_main_screen_button_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.1));
 		for (int i = 0; i < 4; i++) {
 			filemenu_transparent_style->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
 			filemenu_main_screen_button_hover->set_content_margin((Side)i, p_config.button_style_hover->get_content_margin((Side)i));
