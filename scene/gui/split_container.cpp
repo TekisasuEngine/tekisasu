@@ -245,9 +245,17 @@ void SplitContainerDragger::_notification(int p_what) {
 			draw_style_box(sc->theme_cache.split_bar_background, split_bar_rect);
 			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
 				Ref<Texture2D> tex = sc->_get_grabber_icon();
-				float available_size = sc->vertical ? (sc->get_size().x - tex->get_size().x) : (sc->get_size().y - tex->get_size().y);
-				if (available_size - sc->drag_area_margin_begin - sc->drag_area_margin_end > 0) { // Draw the grabber only if it fits.
-					draw_texture(tex, (split_bar_rect.get_position() + (split_bar_rect.get_size() - tex->get_size()) * 0.5));
+				// Draw the grabber stretched across the full clickable area.
+				Rect2 grabber_rect = split_bar_rect;
+				if (sc->vertical) {
+					grabber_rect.position.x += sc->drag_area_margin_begin;
+					grabber_rect.size.x -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
+				} else {
+					grabber_rect.position.y += sc->drag_area_margin_begin;
+					grabber_rect.size.y -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
+				}
+				if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) { // Draw the grabber only if it fits.
+					draw_texture_rect(tex, grabber_rect, false);
 				}
 			}
 			if (sc->show_drag_area && Engine::get_singleton()->is_editor_hint()) {
