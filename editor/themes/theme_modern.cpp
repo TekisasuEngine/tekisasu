@@ -803,10 +803,6 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		Ref<StyleBoxFlat> style_tab_selected = p_config.base_style->duplicate();
 		style_tab_selected->set_content_margin_individual(p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 2.1 * EDSCALE, p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 2.1 * EDSCALE);
 		style_tab_selected->set_corner_radius_individual(p_config.corner_radius * EDSCALE, p_config.corner_radius * EDSCALE, 0, 0);
-		// Add a highlight line at the top of the selected tab.
-		style_tab_selected->set_border_width(SIDE_TOP, Math::round(2 * EDSCALE));
-		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.85);
-		style_tab_selected->set_border_color(tab_highlight);
 
 		Ref<StyleBoxFlat> style_tab_focus = style_tab_selected->duplicate();
 		style_tab_focus->set_bg_color(p_config.base_color);
@@ -1083,7 +1079,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		{
 			Ref<StyleBoxFlat> style_popup_menu = p_config.base_style->duplicate();
 			style_popup_menu->set_bg_color(p_config.surface_popup_color);
-			style_popup_menu->set_content_margin_all(p_config.popup_margin);
+			style_popup_menu->set_content_margin_all(MAX(0, p_config.popup_margin - 2 * EDSCALE));
 			style_popup_menu->set_corner_radius_all(0);
 			if (p_config.draw_extra_borders) {
 				style_popup_menu->set_border_width_all(Math::round(EDSCALE));
@@ -1093,6 +1089,9 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 
 			Ref<StyleBoxFlat> style_popup_hover = p_config.flat_button_hover->duplicate();
 			style_popup_hover->set_bg_color(_get_base_color(p_config, -0.5, 0.75));
+			// Set top and bottom padding to 10px for menu items.
+			style_popup_hover->set_content_margin(SIDE_TOP, 10 * EDSCALE);
+			style_popup_hover->set_content_margin(SIDE_BOTTOM, 10 * EDSCALE);
 
 			p_theme->set_stylebox(SceneStringName(hover), "PopupMenu", style_popup_hover);
 
@@ -1725,7 +1724,8 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		filemenu_transparent_style->set_bg_color(Color(1, 1, 1, 0));
 		filemenu_transparent_style->set_border_width_all(0);
 
-		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.button_style_hover->duplicate();
+		Ref<StyleBoxFlat> filemenu_main_screen_button_hover = p_config.base_style->duplicate();
+		filemenu_main_screen_button_hover->set_bg_color(p_config.mono_color * Color(1, 1, 1, 0.1));
 		for (int i = 0; i < 4; i++) {
 			filemenu_transparent_style->set_content_margin((Side)i, p_config.button_style->get_content_margin((Side)i));
 			filemenu_main_screen_button_hover->set_content_margin((Side)i, p_config.button_style_hover->get_content_margin((Side)i));
@@ -1752,16 +1752,15 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		p_theme->set_stylebox("hover_pressed_mirrored", "MainScreenButton", p_config.base_empty_wide_style);
 
 		// Main screen buttons.
-		const Color mb_font_color = p_config.font_color * Color(1, 1, 1, 0.95);
+		const Color mb_font_color = p_config.font_color * Color(1, 1, 1, 0.8);
 		const Color mb_font_hover_color = p_config.font_hover_color * Color(1, 1, 1, 0.95);
-		const Color mb_font_hover_pressed_color = p_config.accent_color.lerp(p_config.mono_color, 0.2);
 
 		p_theme->set_color(SceneStringName(font_color), "MainScreenButton", mb_font_color);
 		p_theme->set_color("font_hover_color", "MainScreenButton", mb_font_hover_color);
-		p_theme->set_color("font_pressed_color", "MainScreenButton", p_config.accent_color);
-		p_theme->set_color("font_hover_pressed_color", "MainScreenButton", mb_font_hover_pressed_color);
+		p_theme->set_color("font_pressed_color", "MainScreenButton", Color(1, 1, 1));
+		p_theme->set_color("font_hover_pressed_color", "MainScreenButton", Color(1, 1, 1));
 
-		const Color mb_icon_normal_color = p_config.icon_normal_color * Color(1, 1, 1, 0.95);
+		const Color mb_icon_normal_color = p_config.icon_normal_color * Color(1, 1, 1, 0.8);
 		const Color mb_icon_hover_color = p_config.icon_hover_color * Color(1, 1, 1, 0.95);
 
 		p_theme->set_color("icon_normal_color", "MainScreenButton", mb_icon_normal_color);
