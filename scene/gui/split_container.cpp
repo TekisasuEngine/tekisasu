@@ -244,32 +244,43 @@ void SplitContainerDragger::_notification(int p_what) {
 			SplitContainer *sc = Object::cast_to<SplitContainer>(get_parent());
 			draw_style_box(sc->theme_cache.split_bar_background, split_bar_rect);
 			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
-				// Draw the grabber stretched across the full clickable area.
+				// Draw the grabber stretched across the full clickable area using dynamic drawing.
 				Rect2 grabber_rect = split_bar_rect;
 				if (sc->vertical) {
 					grabber_rect.position.x += sc->drag_area_margin_begin;
 					grabber_rect.size.x -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
-					// For vertical containers, draw a white 2px rectangle with a 2px black border.
+					// For vertical containers, draw a white 2px rectangle with a 4px black border.
 					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
 						Rect2 rect = grabber_rect;
-						rect.size.y = 2; // 2px height
+						rect.size.y = 2; // 2px height for white line
 						rect.position.y += (grabber_rect.size.y - 2) / 2; // Center vertically
 						
-						// Draw black border (6px tall: 2px top border + 2px white + 2px bottom border)
+						// Draw black border (10px tall: 4px top border + 2px white + 4px bottom border)
 						Rect2 border_rect = rect;
-						border_rect.position.y -= 2; // Expand upward by 2px
-						border_rect.size.y = 6; // Total height including borders
+						border_rect.position.y -= 4; // Expand upward by 4px
+						border_rect.size.y = 10; // Total height including borders
 						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
 						
 						// Draw white center line on top
 						draw_rect(rect, Color(1, 1, 1, 1)); // White rectangle
 					}
 				} else {
-					Ref<Texture2D> tex = sc->_get_grabber_icon();
 					grabber_rect.position.y += sc->drag_area_margin_begin;
 					grabber_rect.size.y -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
-					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) { // Draw the grabber only if it fits.
-						draw_texture_rect(tex, grabber_rect, false);
+					// For horizontal containers, draw a white 2px rectangle with a 4px black border.
+					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
+						Rect2 rect = grabber_rect;
+						rect.size.x = 2; // 2px width for white line
+						rect.position.x += (grabber_rect.size.x - 2) / 2; // Center horizontally
+						
+						// Draw black border (10px wide: 4px left border + 2px white + 4px right border)
+						Rect2 border_rect = rect;
+						border_rect.position.x -= 4; // Expand leftward by 4px
+						border_rect.size.x = 10; // Total width including borders
+						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
+						
+						// Draw white center line on top
+						draw_rect(rect, Color(1, 1, 1, 1)); // White rectangle
 					}
 				}
 			}
