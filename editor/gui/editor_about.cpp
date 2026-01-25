@@ -323,10 +323,10 @@ EditorAbout::EditorAbout() {
 		if (TEKISASU_VERSION_TIMESTAMP > 0) {
 			Time *time = Time::get_singleton();
 			Dictionary date_dict = time->get_datetime_dict_from_unix_time(TEKISASU_VERSION_TIMESTAMP);
-			build_date_str = vformat("%02d/%02d/%04d", 
-				int(date_dict["month"]), 
-				int(date_dict["day"]), 
-				int(date_dict["year"]));
+			build_date_str = vformat("%02d/%02d/%04d",
+					int(date_dict["month"]),
+					int(date_dict["day"]),
+					int(date_dict["year"]));
 		} else {
 			build_date_str = "N/A";
 		}
@@ -334,7 +334,7 @@ EditorAbout::EditorAbout() {
 		build_date_value->set_text(build_date_str);
 		build_info_grid->add_child(build_date_value);
 
-		// Row 2: Compiler and AES256 Encryption
+		// Row 2: Compiler and Core
 		_build_compiler_label = memnew(Label(TTRC("Compiler:")));
 		_build_compiler_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_compiler_label);
@@ -343,27 +343,52 @@ EditorAbout::EditorAbout() {
 #if defined(_MSC_VER)
 		compiler_name = "MSVC";
 #elif defined(__clang__)
-	#if defined(__MINGW32__)
+#if defined(__MINGW32__)
 		compiler_name = "MinGW-LLVM";
-	#else
+#else
 		compiler_name = "Clang";
-	#endif
+#endif
 #elif defined(__GNUC__)
-	#if defined(__MINGW32__)
-		#if defined(__MINGW64__)
+#if defined(__MINGW32__)
+#if defined(__MINGW64__)
 		compiler_name = "MinGW-w64";
-		#else
+#else
 		compiler_name = "MinGW";
-		#endif
-	#else
+#endif
+#else
 		compiler_name = "GCC";
-	#endif
+#endif
 #else
 		compiler_name = "Unknown";
 #endif
 		Label *compiler_value = memnew(Label);
 		compiler_value->set_text(compiler_name);
 		build_info_grid->add_child(compiler_value);
+
+		_build_core_label = memnew(Label(TTRC("Core:")));
+		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_core_label);
+
+		Label *core_value = memnew(Label);
+		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
+		build_info_grid->add_child(core_value);
+
+		// Horizontal separator after Compiler and Core
+		HSeparator *sep1 = memnew(HSeparator);
+		build_info_grid->add_child(sep1);
+		build_info_grid->add_child(memnew(Control)); // Empty cell
+		build_info_grid->add_child(memnew(Control)); // Empty cell
+		build_info_grid->add_child(memnew(Control)); // Empty cell
+
+		// Row 3: XOR Encode/Decode and AES256 Encryption
+		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
+		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_xor_label);
+
+		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
+		Label *xor_value = memnew(Label);
+		xor_value->set_text(has_xor_key ? "Yes" : "No");
+		build_info_grid->add_child(xor_value);
 
 		_build_aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
 		_build_aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -381,23 +406,26 @@ EditorAbout::EditorAbout() {
 		aes256_value->set_text(has_aes256 ? "Yes" : "No");
 		build_info_grid->add_child(aes256_value);
 
-		// Row 3: XOR Encode/Decode and Core
-		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
-		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		build_info_grid->add_child(_build_xor_label);
+		// Horizontal separator after XOR Encode/Decode and AES256 Encryption
+		HSeparator *sep2 = memnew(HSeparator);
+		build_info_grid->add_child(sep2);
+		build_info_grid->add_child(memnew(Control)); // Empty cell
+		build_info_grid->add_child(memnew(Control)); // Empty cell
+		build_info_grid->add_child(memnew(Control)); // Empty cell
 
-		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
-		Label *xor_value = memnew(Label);
-		xor_value->set_text(has_xor_key ? "Yes" : "No");
-		build_info_grid->add_child(xor_value);
+		// Windows build information label (centered)
+		Control *empty_cell1 = memnew(Control);
+		build_info_grid->add_child(empty_cell1);
 
-		_build_core_label = memnew(Label(TTRC("Core:")));
-		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		build_info_grid->add_child(_build_core_label);
+		Label *windows_info_label = memnew(Label(TTRC("Windows build information:")));
+		windows_info_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
+		windows_info_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(windows_info_label);
 
-		Label *core_value = memnew(Label);
-		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
-		build_info_grid->add_child(core_value);
+		Control *empty_cell2 = memnew(Control);
+		build_info_grid->add_child(empty_cell2);
+		Control *empty_cell3 = memnew(Control);
+		build_info_grid->add_child(empty_cell3);
 
 		// Row 4: Direct3D12 Support and Agility SDK Support
 		_build_d3d12_label = memnew(Label(TTRC("Direct3D12 Support:")));
