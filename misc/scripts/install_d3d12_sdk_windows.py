@@ -22,18 +22,18 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-# Base Godot dependencies path
+# Base Tekisasu engine dependencies path
 # If cross-compiling (no LOCALAPPDATA), we install in `bin`
 deps_folder = os.getenv("LOCALAPPDATA")
 if deps_folder:
-    deps_folder = os.path.join(deps_folder, "Godot", "build_deps")
+    deps_folder = os.path.join(deps_folder, "Tekisasu", "build_deps")
 else:
     deps_folder = os.path.join("bin", "build_deps")
 
 # Mesa NIR
 # Sync with `drivers/d3d12/SCsub` when updating Mesa.
-# Check for latest version: https://github.com/godotengine/godot-nir-static/releases/latest
-mesa_version = "25.3.1-1"
+# Check for latest version: https://github.com/TekisasuEngine/tekisasu-nir-static/releases/latest
+mesa_version = "25.3.1-1.1"
 # WinPixEventRuntime
 # Check for latest version: https://www.nuget.org/api/v2/package/WinPixEventRuntime (check downloaded filename)
 pix_version = "1.0.240308001"
@@ -56,14 +56,11 @@ color_print(f"{Ansi.BOLD}[1/3] Mesa NIR")
 for arch in [
     "arm64-llvm",
     "arm64-msvc",
-    "x86_32-gcc",
-    "x86_32-llvm",
-    "x86_32-msvc",
     "x86_64-gcc",
     "x86_64-llvm",
     "x86_64-msvc",
 ]:
-    mesa_filename = "godot-nir-static-" + arch + "-release.zip"
+    mesa_filename = "tekisasu-nir-static-" + arch + "-release.zip"
     mesa_archive = os.path.join(deps_folder, mesa_filename)
     mesa_folder = os.path.join(deps_folder, "mesa-" + arch)
 
@@ -71,7 +68,7 @@ for arch in [
         os.remove(mesa_archive)
     print(f"Downloading Mesa NIR {mesa_filename} ...")
     urllib.request.urlretrieve(
-        f"https://github.com/godotengine/godot-nir-static/releases/download/{mesa_version}/{mesa_filename}",
+        f"https://github.com/TekisasuEngine/tekisasu-nir-static/releases/download/{mesa_version}/{mesa_filename}",
         mesa_archive,
     )
     if os.path.exists(mesa_folder):
@@ -144,4 +141,4 @@ print(f"DirectX 12 Agility SDK {agility_sdk_version} installed successfully.\n")
 
 # Complete message
 color_print(f'{Ansi.GREEN}All Direct3D 12 SDK components were installed to "{deps_folder}" successfully!')
-color_print(f'{Ansi.GREEN}You can now build Godot with Direct3D 12 support enabled by running "scons d3d12=yes".')
+color_print(f'{Ansi.GREEN}You can now build Tekisasu Engine with Direct3D 12 support enabled by running "scons d3d12=yes".')
