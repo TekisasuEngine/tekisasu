@@ -7751,6 +7751,7 @@ void EditorNode::_update_renderer_color() {
 	}
 
 	renderer->add_theme_color_override(SceneStringName(font_color), renderer_color);
+	renderer->add_theme_color_override(SNAME("icon_normal_color"), renderer_color);
 }
 
 void EditorNode::_renderer_selected(int p_index) {
