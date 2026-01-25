@@ -243,11 +243,50 @@ void SplitContainerDragger::_notification(int p_what) {
 		case NOTIFICATION_DRAW: {
 			SplitContainer *sc = Object::cast_to<SplitContainer>(get_parent());
 			draw_style_box(sc->theme_cache.split_bar_background, split_bar_rect);
-			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || mouse_inside || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
-				Ref<Texture2D> tex = sc->_get_grabber_icon();
-				float available_size = sc->vertical ? (sc->get_size().x - tex->get_size().x) : (sc->get_size().y - tex->get_size().y);
-				if (available_size - sc->drag_area_margin_begin - sc->drag_area_margin_end > 0) { // Draw the grabber only if it fits.
-					draw_texture(tex, (split_bar_rect.get_position() + (split_bar_rect.get_size() - tex->get_size()) * 0.5));
+			if (sc->dragger_visibility == SplitContainer::DRAGGER_VISIBLE && (dragging || !sc->theme_cache.autohide) && !sc->touch_dragger_enabled) {
+				// Draw the grabber stretched across the full clickable area using dynamic drawing.
+				const float scale = sc->theme_cache.base_scale;
+				const float center_line_width = 2 * scale;
+				const float border_width = 6 * scale;
+				const float total_width = center_line_width + 2 * border_width;
+				
+				Rect2 grabber_rect = split_bar_rect;
+				if (sc->vertical) {
+					grabber_rect.position.x += sc->drag_area_margin_begin;
+					grabber_rect.size.x -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
+					// For vertical containers, draw a light gray 2px rectangle with a 6px black border.
+					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
+						Rect2 rect = grabber_rect;
+						rect.size.y = center_line_width;
+						rect.position.y += (grabber_rect.size.y - center_line_width) / 2; // Center vertically
+						
+						// Draw black border (14px tall: 6px top border + 2px center + 6px bottom border)
+						Rect2 border_rect = rect;
+						border_rect.position.y -= border_width;
+						border_rect.size.y = total_width;
+						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
+						
+						// Draw light gray center line on top (#CFCFCF)
+						draw_rect(rect, Color(0.812, 0.812, 0.812, 1)); // Light gray rectangle
+					}
+				} else {
+					grabber_rect.position.y += sc->drag_area_margin_begin;
+					grabber_rect.size.y -= sc->drag_area_margin_begin + sc->drag_area_margin_end;
+					// For horizontal containers, draw a light gray 2px rectangle with a 6px black border.
+					if (grabber_rect.size.x > 0 && grabber_rect.size.y > 0) {
+						Rect2 rect = grabber_rect;
+						rect.size.x = center_line_width;
+						rect.position.x += (grabber_rect.size.x - center_line_width) / 2; // Center horizontally
+						
+						// Draw black border (14px wide: 6px left border + 2px center + 6px right border)
+						Rect2 border_rect = rect;
+						border_rect.position.x -= border_width;
+						border_rect.size.x = total_width;
+						draw_rect(border_rect, Color(0, 0, 0, 1)); // Black border
+						
+						// Draw light gray center line on top (#CFCFCF)
+						draw_rect(rect, Color(0.812, 0.812, 0.812, 1)); // Light gray rectangle
+					}
 				}
 			}
 			if (sc->show_drag_area && Engine::get_singleton()->is_editor_hint()) {
@@ -815,6 +854,12 @@ Size2 SplitContainer::get_minimum_size() const {
 	}
 
 	return minimum;
+}
+
+void SplitContainer::_update_theme_item_cache() {
+	Container::_update_theme_item_cache();
+
+	theme_cache.base_scale = get_theme_default_base_scale();
 }
 
 void SplitContainer::_validate_property(PropertyInfo &p_property) const {
