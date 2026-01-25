@@ -1083,7 +1083,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		{
 			Ref<StyleBoxFlat> style_popup_menu = p_config.base_style->duplicate();
 			style_popup_menu->set_bg_color(p_config.surface_popup_color);
-			style_popup_menu->set_content_margin_all(Math::max(0, p_config.popup_margin - 2 * EDSCALE));
+			style_popup_menu->set_content_margin_all(MAX(0, p_config.popup_margin - 2 * EDSCALE));
 			style_popup_menu->set_corner_radius_all(0);
 			if (p_config.draw_extra_borders) {
 				style_popup_menu->set_border_width_all(Math::round(EDSCALE));
