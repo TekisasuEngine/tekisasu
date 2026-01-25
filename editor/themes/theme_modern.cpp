@@ -805,7 +805,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 		style_tab_selected->set_corner_radius_individual(p_config.corner_radius * EDSCALE, p_config.corner_radius * EDSCALE, 0, 0);
 		// Add a highlight line at the top of the selected tab.
 		style_tab_selected->set_border_width(SIDE_TOP, Math::round(2 * EDSCALE));
-		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.85);
+		Color tab_highlight = p_config.dark_color_2.lerp(p_config.accent_color, 0.5);
 		style_tab_selected->set_border_color(tab_highlight);
 
 		Ref<StyleBoxFlat> style_tab_focus = style_tab_selected->duplicate();
