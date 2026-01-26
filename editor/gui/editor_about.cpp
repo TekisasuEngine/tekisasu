@@ -113,6 +113,7 @@ void EditorAbout::_notification(int p_what) {
 			if (_build_core_label) {
 				_build_core_label->add_theme_font_override("font", bold_font);
 			}
+#ifdef WINDOWS_ENABLED
 			if (_build_d3d12_label) {
 				_build_d3d12_label->add_theme_font_override("font", bold_font);
 			}
@@ -125,6 +126,7 @@ void EditorAbout::_notification(int p_what) {
 			if (_build_angle_label) {
 				_build_angle_label->add_theme_font_override("font", bold_font);
 			}
+#endif // WINDOWS_ENABLED
 
 			for (ItemList *il : name_lists) {
 				for (int i = 0; i < il->get_item_count(); i++) {
@@ -401,6 +403,7 @@ EditorAbout::EditorAbout() {
 		aes256_value->set_text(has_aes256 ? "Yes" : "No");
 		build_info_grid->add_child(aes256_value);
 
+#ifdef WINDOWS_ENABLED
 		// Empty row for spacing before Windows build information
 		build_info_grid->add_child(memnew(Label));
 		build_info_grid->add_child(memnew(Label));
@@ -470,6 +473,7 @@ EditorAbout::EditorAbout() {
 		Label *angle_value = memnew(Label);
 		angle_value->set_text(angle_support);
 		build_info_grid->add_child(angle_value);
+#endif // WINDOWS_ENABLED
 	}
 
 	{
