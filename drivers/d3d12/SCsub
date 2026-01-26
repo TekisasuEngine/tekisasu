@@ -20,12 +20,14 @@ env_d3d12_rdd = env.Clone()
 # Agility SDK.
 if env["agility_sdk_path"] != "" and os.path.exists(env["agility_sdk_path"]):
     env_d3d12_rdd.Append(CPPDEFINES=["AGILITY_SDK_ENABLED"])
+    env.Append(CPPDEFINES=["AGILITY_SDK_ENABLED"])  # Used in editor about dialog.
     if env["agility_sdk_multiarch"]:
         env_d3d12_rdd.Append(CPPDEFINES=["AGILITY_SDK_MULTIARCH_ENABLED"])
 
 # PIX.
 if env["use_pix"]:
     env_d3d12_rdd.Append(CPPDEFINES=["PIX_ENABLED"])
+    env.Append(CPPDEFINES=["PIX_ENABLED"])  # Used in editor about dialog.
     env_d3d12_rdd.Append(CPPPATH=[env["pix_path"] + "/Include"])
 
 # Direct composition.

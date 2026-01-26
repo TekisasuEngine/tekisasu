@@ -17,6 +17,11 @@ def disabled_class_builder(target, source, env):
 # Generate version info
 def version_info_builder(target, source, env):
     with methods.generated_wrapper(str(target[0])) as file:
+        version_data = source[0].read()
+        # Determine the build suffix - omit if build is "custom_build" or empty
+        build_value = version_data.get("build", "")
+        build_suffix = "" if (not build_value or build_value == "custom_build") else f".{build_value}"
+        
         file.write(
             """\
 #define TEKISASU_VERSION_SHORT_NAME "{short_name}"
@@ -26,6 +31,7 @@ def version_info_builder(target, source, env):
 #define TEKISASU_VERSION_PATCH {patch}
 #define TEKISASU_VERSION_STATUS "{status}"
 #define TEKISASU_VERSION_BUILD "{build}"
+#define TEKISASU_VERSION_BUILD_SUFFIX "{build_suffix}"
 #define TEKISASU_VERSION_MODULE_CONFIG "{module_config}"
 #define TEKISASU_VERSION_WEBSITE "{website}"
 #define TEKISASU_VERSION_DOCS_BRANCH "{docs_branch}"
@@ -34,7 +40,7 @@ def version_info_builder(target, source, env):
 #define TEKISASU_VERSION_UPSTREAM_MINOR {upstream_minor}
 #define TEKISASU_VERSION_UPSTREAM_PATCH {upstream_patch}
 #define TEKISASU_VERSION_UPSTREAM_STATUS "{upstream_status}"
-""".format(**source[0].read())
+""".format(build_suffix=build_suffix, **version_data)
         )
 
 

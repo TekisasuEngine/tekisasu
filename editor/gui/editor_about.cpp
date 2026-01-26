@@ -58,6 +58,8 @@ void EditorAbout::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_TRANSLATION_CHANGED: {
 			_about_text_label->set_text(
+					String(U"© 2021-present ") + TTR("Tekisasu") + ".\n" +
+					String(U"© 2024-present ") + TTR("Blazium Engine contributors") + ".\n" +
 					String(U"© 2014-present ") + TTR("Godot Engine contributors") + ".\n" +
 					String(U"© 2007-2014 Juan Linietsky, Ariel Manzur.\n"));
 
@@ -111,6 +113,7 @@ void EditorAbout::_notification(int p_what) {
 			if (_build_core_label) {
 				_build_core_label->add_theme_font_override("font", bold_font);
 			}
+#ifdef WINDOWS_ENABLED
 			if (_build_d3d12_label) {
 				_build_d3d12_label->add_theme_font_override("font", bold_font);
 			}
@@ -123,6 +126,7 @@ void EditorAbout::_notification(int p_what) {
 			if (_build_angle_label) {
 				_build_angle_label->add_theme_font_override("font", bold_font);
 			}
+#endif // WINDOWS_ENABLED
 
 			for (ItemList *il : name_lists) {
 				for (int i = 0; i < il->get_item_count(); i++) {
@@ -323,10 +327,10 @@ EditorAbout::EditorAbout() {
 		if (TEKISASU_VERSION_TIMESTAMP > 0) {
 			Time *time = Time::get_singleton();
 			Dictionary date_dict = time->get_datetime_dict_from_unix_time(TEKISASU_VERSION_TIMESTAMP);
-			build_date_str = vformat("%02d/%02d/%04d", 
-				int(date_dict["month"]), 
-				int(date_dict["day"]), 
-				int(date_dict["year"]));
+			build_date_str = vformat("%02d/%02d/%04d",
+					int(date_dict["month"]),
+					int(date_dict["day"]),
+					int(date_dict["year"]));
 		} else {
 			build_date_str = "N/A";
 		}
@@ -334,7 +338,7 @@ EditorAbout::EditorAbout() {
 		build_date_value->set_text(build_date_str);
 		build_info_grid->add_child(build_date_value);
 
-		// Row 2: Compiler and AES256 Encryption
+		// Row 2: Compiler and Core
 		_build_compiler_label = memnew(Label(TTRC("Compiler:")));
 		_build_compiler_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_compiler_label);
@@ -343,27 +347,45 @@ EditorAbout::EditorAbout() {
 #if defined(_MSC_VER)
 		compiler_name = "MSVC";
 #elif defined(__clang__)
-	#if defined(__MINGW32__)
+#if defined(__MINGW32__)
 		compiler_name = "MinGW-LLVM";
-	#else
+#else
 		compiler_name = "Clang";
-	#endif
+#endif
 #elif defined(__GNUC__)
-	#if defined(__MINGW32__)
-		#if defined(__MINGW64__)
+#if defined(__MINGW32__)
+#if defined(__MINGW64__)
 		compiler_name = "MinGW-w64";
-		#else
+#else
 		compiler_name = "MinGW";
-		#endif
-	#else
+#endif
+#else
 		compiler_name = "GCC";
-	#endif
+#endif
 #else
 		compiler_name = "Unknown";
 #endif
 		Label *compiler_value = memnew(Label);
 		compiler_value->set_text(compiler_name);
 		build_info_grid->add_child(compiler_value);
+
+		_build_core_label = memnew(Label(TTRC("Core:")));
+		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_core_label);
+
+		Label *core_value = memnew(Label);
+		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
+		build_info_grid->add_child(core_value);
+
+		// Row 3: XOR Encode/Decode and AES256 Encryption
+		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
+		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
+		build_info_grid->add_child(_build_xor_label);
+
+		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
+		Label *xor_value = memnew(Label);
+		xor_value->set_text(has_xor_key ? "Yes" : "No");
+		build_info_grid->add_child(xor_value);
 
 		_build_aes256_label = memnew(Label(TTRC("AES256 Encryption:")));
 		_build_aes256_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -381,23 +403,22 @@ EditorAbout::EditorAbout() {
 		aes256_value->set_text(has_aes256 ? "Yes" : "No");
 		build_info_grid->add_child(aes256_value);
 
-		// Row 3: XOR Encode/Decode and Core
-		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
-		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		build_info_grid->add_child(_build_xor_label);
+#ifdef WINDOWS_ENABLED
+		// Empty row for spacing before Windows build information
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
 
-		bool has_xor_key = TEKISASU_XOR_KEY_SIZE > 0;
-		Label *xor_value = memnew(Label);
-		xor_value->set_text(has_xor_key ? "Yes" : "No");
-		build_info_grid->add_child(xor_value);
-
-		_build_core_label = memnew(Label(TTRC("Core:")));
-		_build_core_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
-		build_info_grid->add_child(_build_core_label);
-
-		Label *core_value = memnew(Label);
-		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
-		build_info_grid->add_child(core_value);
+		// Windows build information label (centered across all columns)
+		Label *windows_info_label = memnew(Label(TTRC("Windows build information:")));
+		windows_info_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
+		windows_info_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(windows_info_label);
+		// Fill remaining columns with empty labels to maintain grid structure
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
 
 		// Row 4: Direct3D12 Support and Agility SDK Support
 		_build_d3d12_label = memnew(Label(TTRC("Direct3D12 Support:")));
@@ -452,6 +473,7 @@ EditorAbout::EditorAbout() {
 		Label *angle_value = memnew(Label);
 		angle_value->set_text(angle_support);
 		build_info_grid->add_child(angle_value);
+#endif // WINDOWS_ENABLED
 	}
 
 	{
