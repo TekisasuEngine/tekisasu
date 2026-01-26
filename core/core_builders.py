@@ -18,9 +18,9 @@ def disabled_class_builder(target, source, env):
 def version_info_builder(target, source, env):
     with methods.generated_wrapper(str(target[0])) as file:
         version_data = source[0].read()
-        # Determine the build suffix - omit if build is "custom_build"
+        # Determine the build suffix - omit if build is "custom_build" or empty
         build_value = version_data.get("build", "")
-        build_suffix = "" if build_value == "custom_build" else f".{build_value}"
+        build_suffix = "" if (not build_value or build_value == "custom_build") else f".{build_value}"
         
         file.write(
             """\
@@ -40,7 +40,7 @@ def version_info_builder(target, source, env):
 #define TEKISASU_VERSION_UPSTREAM_MINOR {upstream_minor}
 #define TEKISASU_VERSION_UPSTREAM_PATCH {upstream_patch}
 #define TEKISASU_VERSION_UPSTREAM_STATUS "{upstream_status}"
-""".format(**version_data, build_suffix=build_suffix)
+""".format(build_suffix=build_suffix, **version_data)
         )
 
 
