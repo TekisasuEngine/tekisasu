@@ -72,9 +72,9 @@
 #endif
 
 // Similar to TEKISASU_VERSION_FULL_CONFIG, but also includes the (potentially custom) TEKISASU_VERSION_BUILD
-// description (e.g. official, custom_build, etc.).
-// Example: "3.1.4.stable.mono.double.official"
-#define TEKISASU_VERSION_FULL_BUILD TEKISASU_VERSION_FULL_CONFIG "." TEKISASU_VERSION_BUILD
+// description (e.g. official, custom_build, etc.), unless the build is "custom_build" in which case it's omitted.
+// Example: "3.1.4.stable.mono.double.official" or "3.1.4.stable.mono.double" (if custom_build)
+#define TEKISASU_VERSION_FULL_BUILD TEKISASU_VERSION_FULL_CONFIG TEKISASU_VERSION_BUILD_SUFFIX
 
 // Same as above, but prepended with Tekisasu's name and a cosmetic "v" for "version".
 // Example: "Tekisasu v3.1.4.stable.official.mono.double"
