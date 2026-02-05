@@ -6914,7 +6914,8 @@ bool DisplayServerWindows::is_dark_mode_supported() const {
 }
 
 bool DisplayServerWindows::is_dark_mode() const {
-	return ux_theme_available && ShouldAppsUseDarkMode();
+	// Always return true to force dark mode for entire application
+	return ux_theme_available;
 }
 
 Color DisplayServerWindows::get_accent_color() const {
@@ -6931,7 +6932,8 @@ Color DisplayServerWindows::get_base_color() const {
 		return Color(0, 0, 0, 0);
 	}
 
-	int argb = GetImmersiveColorFromColorSetEx((UINT)GetImmersiveUserColorSetPreference(false, false), GetImmersiveColorTypeFromName(ShouldAppsUseDarkMode() ? L"ImmersiveDarkChromeMediumLow" : L"ImmersiveLightChromeMediumLow"), false, 0);
+	// Always use dark chrome color to match forced dark mode
+	int argb = GetImmersiveColorFromColorSetEx((UINT)GetImmersiveUserColorSetPreference(false, false), GetImmersiveColorTypeFromName(L"ImmersiveDarkChromeMediumLow"), false, 0);
 	return Color((argb & 0xFF) / 255.f, ((argb & 0xFF00) >> 8) / 255.f, ((argb & 0xFF0000) >> 16) / 255.f, ((argb & 0xFF000000) >> 24) / 255.f);
 }
 
@@ -7063,9 +7065,9 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 				}
 				RefreshImmersiveColorPolicyStatePtr RefreshImmersiveColorPolicyState = (RefreshImmersiveColorPolicyStatePtr)(void *)GetProcAddress(ux_theme_lib, MAKEINTRESOURCEA(104));
 				if (ShouldAppsUseDarkMode) {
-					// Always enable dark mode support for titlebar
+					// Force dark mode for entire application including native controls
 					if (SetPreferredAppMode) {
-						SetPreferredAppMode(APPMODE_ALLOWDARK);
+						SetPreferredAppMode(APPMODE_FORCEDARK);
 					} else if (AllowDarkModeForApp) {
 						AllowDarkModeForApp(true);
 					}
