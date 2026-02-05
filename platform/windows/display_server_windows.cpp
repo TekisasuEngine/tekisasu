@@ -99,8 +99,8 @@
 #define DWMWA_SYSTEMBACKDROP_TYPE 38
 #endif
 
-#ifndef DWMSBT_DISABLE
-#define DWMSBT_DISABLE 1
+#ifndef DWMSBT_NONE
+#define DWMSBT_NONE 1
 #endif
 
 #define WM_INDICATOR_CALLBACK_MESSAGE (WM_USER + 1)
@@ -4819,7 +4819,7 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 			}
 			// Disable Mica backdrop effect on Windows 11+
 			{
-				DWORD value = DWMSBT_DISABLE;
+				DWORD value = DWMSBT_NONE;
 				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 			}
 		} break;
@@ -4925,7 +4925,7 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 				}
 				// Disable Mica backdrop effect on Windows 11+
 				{
-					DWORD value = DWMSBT_DISABLE;
+					DWORD value = DWMSBT_NONE;
 					::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 				}
 			}
@@ -4945,7 +4945,7 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 			}
 			// Disable Mica backdrop effect on Windows 11+
 			{
-				DWORD value = DWMSBT_DISABLE;
+				DWORD value = DWMSBT_NONE;
 				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 			}
 		} break;
@@ -6569,7 +6569,7 @@ Error DisplayServerWindows::_create_window(WindowID p_window_id, WindowMode p_mo
 
 		// Disable Mica backdrop effect on Windows 11+
 		{
-			DWORD value = DWMSBT_DISABLE;
+			DWORD value = DWMSBT_NONE;
 			::DwmSetWindowAttribute(wd.hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 		}
 
