@@ -4804,7 +4804,7 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_WINDOW_CORNER_PREFERENCE, &value, sizeof(value));
 			}
 			if (is_dark_mode_supported() && dark_title_available) {
-				BOOL value = is_dark_mode();
+				BOOL value = TRUE; // Always use dark mode for titlebar
 
 				::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 				SendMessageW(windows[window_id].hWnd, WM_PAINT, 0, 0);
@@ -4907,7 +4907,7 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		case WM_SYSCOLORCHANGE: {
 			if (lParam && CompareStringOrdinal(reinterpret_cast<LPCWCH>(lParam), -1, L"ImmersiveColorSet", -1, true) == CSTR_EQUAL) {
 				if (is_dark_mode_supported() && dark_title_available) {
-					BOOL value = is_dark_mode();
+					BOOL value = TRUE; // Always use dark mode for titlebar
 					::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 				}
 			}
@@ -4922,7 +4922,7 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		} break;
 		case WM_THEMECHANGED: {
 			if (is_dark_mode_supported() && dark_title_available) {
-				BOOL value = is_dark_mode();
+				BOOL value = TRUE; // Always use dark mode for titlebar
 				::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 			}
 		} break;
@@ -6540,7 +6540,7 @@ Error DisplayServerWindows::_create_window(WindowID p_window_id, WindowMode p_mo
 		}
 
 		if (is_dark_mode_supported() && dark_title_available) {
-			BOOL value = is_dark_mode();
+			BOOL value = TRUE; // Always use dark mode for titlebar
 			::DwmSetWindowAttribute(wd.hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 		}
 
@@ -7063,11 +7063,11 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 				}
 				RefreshImmersiveColorPolicyStatePtr RefreshImmersiveColorPolicyState = (RefreshImmersiveColorPolicyStatePtr)(void *)GetProcAddress(ux_theme_lib, MAKEINTRESOURCEA(104));
 				if (ShouldAppsUseDarkMode) {
-					bool dark_mode = ShouldAppsUseDarkMode();
+					// Always enable dark mode support for titlebar
 					if (SetPreferredAppMode) {
-						SetPreferredAppMode(dark_mode ? APPMODE_ALLOWDARK : APPMODE_DEFAULT);
+						SetPreferredAppMode(APPMODE_ALLOWDARK);
 					} else if (AllowDarkModeForApp) {
-						AllowDarkModeForApp(dark_mode);
+						AllowDarkModeForApp(true);
 					}
 					if (RefreshImmersiveColorPolicyState) {
 						RefreshImmersiveColorPolicyState();
