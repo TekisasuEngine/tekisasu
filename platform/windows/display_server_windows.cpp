@@ -95,6 +95,14 @@
 #define DWMWCP_DONOTROUND 1
 #endif
 
+#ifndef DWMWA_SYSTEMBACKDROP_TYPE
+#define DWMWA_SYSTEMBACKDROP_TYPE 38
+#endif
+
+#ifndef DWMSBT_DISABLE
+#define DWMSBT_DISABLE 1
+#endif
+
 #define WM_INDICATOR_CALLBACK_MESSAGE (WM_USER + 1)
 
 static String format_error_message(DWORD id) {
@@ -4809,6 +4817,11 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 				::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 				SendMessageW(windows[window_id].hWnd, WM_PAINT, 0, 0);
 			}
+			// Disable Mica backdrop effect on Windows 11+
+			{
+				DWORD value = DWMSBT_DISABLE;
+				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
+			}
 		} break;
 		case WM_NCHITTEST: {
 			if (windows[window_id].mpass) {
@@ -4910,6 +4923,11 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 					BOOL value = TRUE; // Always use dark mode for titlebar
 					::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 				}
+				// Disable Mica backdrop effect on Windows 11+
+				{
+					DWORD value = DWMSBT_DISABLE;
+					::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
+				}
 			}
 			if (system_theme_changed.is_valid()) {
 				Variant ret;
@@ -4924,6 +4942,11 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 			if (is_dark_mode_supported() && dark_title_available) {
 				BOOL value = TRUE; // Always use dark mode for titlebar
 				::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+			}
+			// Disable Mica backdrop effect on Windows 11+
+			{
+				DWORD value = DWMSBT_DISABLE;
+				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 			}
 		} break;
 		case WM_SYSCOMMAND: // Intercept system commands.
@@ -6542,6 +6565,12 @@ Error DisplayServerWindows::_create_window(WindowID p_window_id, WindowMode p_mo
 		if (is_dark_mode_supported() && dark_title_available) {
 			BOOL value = TRUE; // Always use dark mode for titlebar
 			::DwmSetWindowAttribute(wd.hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+		}
+
+		// Disable Mica backdrop effect on Windows 11+
+		{
+			DWORD value = DWMSBT_DISABLE;
+			::DwmSetWindowAttribute(wd.hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 		}
 
 		RegisterTouchWindow(wd.hWnd, 0);
