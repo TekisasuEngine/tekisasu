@@ -22,13 +22,8 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-# Base Tekisasu engine dependencies path
-# If cross-compiling (no LOCALAPPDATA), we install in `bin`
-deps_folder = os.getenv("LOCALAPPDATA")
-if deps_folder:
-    deps_folder = os.path.join(deps_folder, "Tekisasu", "build_deps")
-else:
-    deps_folder = os.path.join("bin", "build_deps")
+# Define dependencies folder
+deps_folder = os.path.join("bin", "build_deps")
 
 # Mesa NIR
 # Sync with `drivers/d3d12/SCsub` when updating Mesa.
