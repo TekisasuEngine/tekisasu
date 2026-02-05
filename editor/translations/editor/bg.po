@@ -3841,7 +3841,7 @@ msgstr "Име на Проекта"
 msgid "Project Path"
 msgstr "Път на Проекта"
 
-msgid "This project was last edited in a different Godot version: "
+msgid "This project was last edited in a different engine version: "
 msgstr "Проектът е последно модифициран в друга версия на Godot: "
 
 msgid "Toggle Favorite"
