@@ -95,6 +95,14 @@
 #define DWMWCP_DONOTROUND 1
 #endif
 
+#ifndef DWMWA_SYSTEMBACKDROP_TYPE
+#define DWMWA_SYSTEMBACKDROP_TYPE 38
+#endif
+
+#ifndef DWMSBT_NONE
+#define DWMSBT_NONE 1
+#endif
+
 #define WM_INDICATOR_CALLBACK_MESSAGE (WM_USER + 1)
 
 static String format_error_message(DWORD id) {
@@ -4804,10 +4812,15 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_WINDOW_CORNER_PREFERENCE, &value, sizeof(value));
 			}
 			if (is_dark_mode_supported() && dark_title_available) {
-				BOOL value = is_dark_mode();
+				BOOL value = TRUE; // Always use dark mode for titlebar
 
 				::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 				SendMessageW(windows[window_id].hWnd, WM_PAINT, 0, 0);
+			}
+			// Disable Mica backdrop effect on Windows 11+
+			{
+				DWORD value = DWMSBT_NONE;
+				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 			}
 		} break;
 		case WM_NCHITTEST: {
@@ -4907,8 +4920,13 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		case WM_SYSCOLORCHANGE: {
 			if (lParam && CompareStringOrdinal(reinterpret_cast<LPCWCH>(lParam), -1, L"ImmersiveColorSet", -1, true) == CSTR_EQUAL) {
 				if (is_dark_mode_supported() && dark_title_available) {
-					BOOL value = is_dark_mode();
+					BOOL value = TRUE; // Always use dark mode for titlebar
 					::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+				}
+				// Disable Mica backdrop effect on Windows 11+
+				{
+					DWORD value = DWMSBT_NONE;
+					::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 				}
 			}
 			if (system_theme_changed.is_valid()) {
@@ -4922,8 +4940,13 @@ LRESULT DisplayServerWindows::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		} break;
 		case WM_THEMECHANGED: {
 			if (is_dark_mode_supported() && dark_title_available) {
-				BOOL value = is_dark_mode();
+				BOOL value = TRUE; // Always use dark mode for titlebar
 				::DwmSetWindowAttribute(windows[window_id].hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+			}
+			// Disable Mica backdrop effect on Windows 11+
+			{
+				DWORD value = DWMSBT_NONE;
+				::DwmSetWindowAttribute(windows[window_id].hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 			}
 		} break;
 		case WM_SYSCOMMAND: // Intercept system commands.
@@ -6540,8 +6563,14 @@ Error DisplayServerWindows::_create_window(WindowID p_window_id, WindowMode p_mo
 		}
 
 		if (is_dark_mode_supported() && dark_title_available) {
-			BOOL value = is_dark_mode();
+			BOOL value = TRUE; // Always use dark mode for titlebar
 			::DwmSetWindowAttribute(wd.hWnd, use_legacy_dark_mode_before_20H1 ? DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 : DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+		}
+
+		// Disable Mica backdrop effect on Windows 11+
+		{
+			DWORD value = DWMSBT_NONE;
+			::DwmSetWindowAttribute(wd.hWnd, DWMWA_SYSTEMBACKDROP_TYPE, &value, sizeof(value));
 		}
 
 		RegisterTouchWindow(wd.hWnd, 0);
@@ -6914,7 +6943,8 @@ bool DisplayServerWindows::is_dark_mode_supported() const {
 }
 
 bool DisplayServerWindows::is_dark_mode() const {
-	return ux_theme_available && ShouldAppsUseDarkMode();
+	// Always return true to force dark mode for entire application
+	return ux_theme_available;
 }
 
 Color DisplayServerWindows::get_accent_color() const {
@@ -6931,7 +6961,8 @@ Color DisplayServerWindows::get_base_color() const {
 		return Color(0, 0, 0, 0);
 	}
 
-	int argb = GetImmersiveColorFromColorSetEx((UINT)GetImmersiveUserColorSetPreference(false, false), GetImmersiveColorTypeFromName(ShouldAppsUseDarkMode() ? L"ImmersiveDarkChromeMediumLow" : L"ImmersiveLightChromeMediumLow"), false, 0);
+	// Always use dark chrome color to match forced dark mode
+	int argb = GetImmersiveColorFromColorSetEx((UINT)GetImmersiveUserColorSetPreference(false, false), GetImmersiveColorTypeFromName(L"ImmersiveDarkChromeMediumLow"), false, 0);
 	return Color((argb & 0xFF) / 255.f, ((argb & 0xFF00) >> 8) / 255.f, ((argb & 0xFF0000) >> 16) / 255.f, ((argb & 0xFF000000) >> 24) / 255.f);
 }
 
@@ -7063,11 +7094,11 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 				}
 				RefreshImmersiveColorPolicyStatePtr RefreshImmersiveColorPolicyState = (RefreshImmersiveColorPolicyStatePtr)(void *)GetProcAddress(ux_theme_lib, MAKEINTRESOURCEA(104));
 				if (ShouldAppsUseDarkMode) {
-					bool dark_mode = ShouldAppsUseDarkMode();
+					// Force dark mode for entire application including native controls
 					if (SetPreferredAppMode) {
-						SetPreferredAppMode(dark_mode ? APPMODE_ALLOWDARK : APPMODE_DEFAULT);
+						SetPreferredAppMode(APPMODE_FORCEDARK);
 					} else if (AllowDarkModeForApp) {
-						AllowDarkModeForApp(dark_mode);
+						AllowDarkModeForApp(true);
 					}
 					if (RefreshImmersiveColorPolicyState) {
 						RefreshImmersiveColorPolicyState();
