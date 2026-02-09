@@ -7963,7 +7963,7 @@ void EditorNode::_rebuild_bus_buttons() {
 				audio_bus_buses_label = memnew(MenuButton);
 				audio_bus_buses_label->set_flat(true);
 				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
-				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9);
+				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9 * EDSCALE);
 				audio_bus_buses_label->set_text(TTR("|"));
 				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
@@ -9290,8 +9290,6 @@ EditorNode::EditorNode() {
 	main_editor_button_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	main_editor_button_hb->set_name("EditorMainScreenButtons");
 	editor_main_screen->set_button_container(main_editor_button_hb);
-	title_bar->add_child(main_editor_button_hb);
-	title_bar->set_center_control(main_editor_button_hb);
 
 	const double separator_modulated = 0.1;
 	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).lightened(separator_modulated);
@@ -9306,6 +9304,15 @@ EditorNode::EditorNode() {
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(right_menu_hb);
+
+	// Add 2D/3D/Script/Game buttons to the right menu
+	right_menu_hb->add_child(main_editor_button_hb);
+
+	Label *main_editor_separator = memnew(Label);
+	main_editor_separator->set_text("|");
+	main_editor_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	main_editor_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	right_menu_hb->add_child(main_editor_separator);
 
 	// Move runbar to the right, before the TekisasuBar toggle button.
 	project_run_bar = memnew(EditorRunBar);
