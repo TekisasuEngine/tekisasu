@@ -7976,7 +7976,7 @@ void EditorNode::_rebuild_bus_buttons() {
 		// Scale button font size with editor scale
 		int button_font_size = theme->get_font_size(SNAME("main_size"), EditorStringName(EditorFonts));
 		bus_button->add_theme_font_size_override(SceneStringName(font_size), button_font_size);
-		
+
 		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
 		bus_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
 		audio_bus_buttons_hb->add_child(bus_button);
@@ -9574,8 +9574,9 @@ EditorNode::EditorNode() {
 		default_layout->set_value(docks_section, "dock_hsplit_" + itos(i + 1), hsplits[i]);
 	}
 	// Set vsplit values: 0 for 50/50 split, positive for offset from top, negative for offset from bottom
-	// For outer right vsplit (vsplit 4), set to -30% to make bottom dock (Sysman) take 30% of space
-	int vsplits[] = { 0, 0, 0, -200 }; // -200 pixels from bottom for Sysman
+	// For outer right vsplit (vsplit 4), set offset to make bottom dock (Sysman) take ~30% of space
+	const int sysman_dock_height_offset = -200; // Pixels from bottom for Sysman dock
+	int vsplits[] = { 0, 0, 0, sysman_dock_height_offset };
 	for (int i = 0; i < editor_dock_manager->get_vsplit_count(); i++) {
 		default_layout->set_value(docks_section, "dock_split_" + itos(i + 1), vsplits[i]);
 	}
