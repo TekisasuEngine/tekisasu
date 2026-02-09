@@ -7816,7 +7816,7 @@ msgstr "專案名稱"
 msgid "Project Path"
 msgstr "專案路徑"
 
-msgid "This project was last edited in a different Godot version: "
+msgid "This project was last edited in a different engine version: "
 msgstr "此專案上次在其他 Godot 版本編輯： "
 
 msgid "This project uses features unsupported by the current build:"
@@ -8021,11 +8021,11 @@ msgstr ""
 "\n"
 
 msgid ""
-"Warning: This project was last edited in Godot %s. Opening will change it to "
-"Godot %s.\n"
+"Warning: This project was last edited in engine %s. Opening will change it to "
+"engine %s.\n"
 "\n"
 msgstr ""
-"警告：此專案最近於 Godot %s 編輯。開啟後將更新為 Godot %s。\n"
+"警告：此專案最近於 engine %s 編輯。開啟後將更新為 engine %s。\n"
 "\n"
 
 msgid ""

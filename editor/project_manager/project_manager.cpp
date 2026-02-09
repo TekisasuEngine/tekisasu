@@ -677,7 +677,7 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 				ask_update_backup->show();
 				migration_guide_button->show();
 				version_convert_feature = feature;
-				warning_message += vformat(TTR("Warning: This project was last edited in Godot %s. Opening will change it to Godot %s.\n\n"), Variant(feature), Variant(TEKISASU_VERSION_BRANCH));
+				warning_message += vformat(TTR("Warning: This project was last edited in engine %s. Opening will change it to engine %s.\n\n"), Variant(feature), Variant(TEKISASU_VERSION_BRANCH));
 				unsupported_features.remove_at(i);
 				i--;
 			}

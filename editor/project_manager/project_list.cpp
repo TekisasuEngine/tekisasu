@@ -273,7 +273,7 @@ void ProjectListItemControl::set_unsupported_features(PackedStringArray p_featur
 				}
 				if (TEKISASU_VERSION_MAJOR != project_version_major || TEKISASU_VERSION_MINOR <= project_version_minor) {
 					// Don't show a warning if the project was last edited in a previous minor version.
-					tooltip_text += TTR("This project was last edited in a different Godot version: ") + p_features[i] + "\n";
+					tooltip_text += TTR("This project was last edited in a different engine version: ") + p_features[i] + "\n";
 				}
 				p_features.remove_at(i);
 				i--;

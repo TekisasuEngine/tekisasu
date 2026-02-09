@@ -3717,7 +3717,7 @@ msgstr "Nomo de la projekto"
 msgid "Project Path"
 msgstr "Dosierindiko de la projekto"
 
-msgid "This project was last edited in a different Godot version: "
+msgid "This project was last edited in a different engine version: "
 msgstr ""
 "Oni redaktis ĉi tiun projekton je la lasta fojo per alia versio de Godot: "
 

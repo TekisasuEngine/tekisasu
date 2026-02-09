@@ -8025,7 +8025,7 @@ msgstr "プロジェクト名"
 msgid "Project Path"
 msgstr "プロジェクトパス"
 
-msgid "This project was last edited in a different Godot version: "
+msgid "This project was last edited in a different engine version: "
 msgstr "このプロジェクトはGodotの別バージョンで最終変更されました: "
 
 msgid "This project uses features unsupported by the current build:"
@@ -8243,11 +8243,11 @@ msgstr ""
 "\n"
 
 msgid ""
-"Warning: This project was last edited in Godot %s. Opening will change it to "
-"Godot %s.\n"
+"Warning: This project was last edited in engine %s. Opening will change it to "
+"engine %s.\n"
 "\n"
 msgstr ""
-"警告: このプロジェクトは Godot %s で最後に編集されました。開くと、Godot %s に"
+"警告: このプロジェクトは engine %s で最後に編集されました。開くと、engine %s に"
 "変更されます。\n"
 "\n"
 
