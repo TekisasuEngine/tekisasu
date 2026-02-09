@@ -7973,6 +7973,10 @@ void EditorNode::_rebuild_bus_buttons() {
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
 		}
 
+		// Scale button font size with editor scale
+		int button_font_size = theme->get_font_size(SNAME("main_size"), EditorStringName(EditorFonts));
+		bus_button->add_theme_font_size_override(SceneStringName(font_size), button_font_size);
+		
 		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
 		bus_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
 		audio_bus_buttons_hb->add_child(bus_button);
@@ -9305,16 +9309,7 @@ EditorNode::EditorNode() {
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(right_menu_hb);
 
-	// Add 2D/3D/Script/Game buttons to the right menu
-	right_menu_hb->add_child(main_editor_button_hb);
-
-	Label *main_editor_separator = memnew(Label);
-	main_editor_separator->set_text("|");
-	main_editor_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	main_editor_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	right_menu_hb->add_child(main_editor_separator);
-
-	// Move runbar to the right, before the TekisasuBar toggle button.
+	// Move runbar to the right first
 	project_run_bar = memnew(EditorRunBar);
 	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	right_menu_hb->add_child(project_run_bar);
@@ -9326,6 +9321,15 @@ EditorNode::EditorNode() {
 	runbar_right_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_right_separator->add_theme_color_override(SNAME("font_color"), separator_color);
 	right_menu_hb->add_child(runbar_right_separator);
+
+	// Add 2D/3D/Script/Game buttons to the right menu
+	right_menu_hb->add_child(main_editor_button_hb);
+
+	Label *main_editor_separator = memnew(Label);
+	main_editor_separator->set_text("|");
+	main_editor_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	main_editor_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	right_menu_hb->add_child(main_editor_separator);
 
 	// TekisasuBar toggle button.
 	tekisasu_bar_toggle_button = memnew(Button);
@@ -9551,16 +9555,29 @@ EditorNode::EditorNode() {
 	const String docks_section = "docks";
 	default_layout.instantiate();
 	// Dock numbers are based on DockSlot enum value + 1.
+	// dock_1 = outer left top (FileSystem)
+	// dock_2 = outer left bottom (empty for now)
+	// dock_3 = inner left top (Scene, Import)
+	// dock_4 = inner left bottom (empty - FileSystem moved to dock_1)
+	// dock_5 = inner right top (Inspector, History)
+	// dock_6 = inner right bottom (empty for now)
+	// dock_7 = outer right top (Signals, Groups)
+	// dock_8 = outer right bottom (Sysman)
+	default_layout->set_value(docks_section, "dock_1", "FileSystem");
 	default_layout->set_value(docks_section, "dock_3", "Scene,Import");
-	default_layout->set_value(docks_section, "dock_4", "FileSystem,History");
-	default_layout->set_value(docks_section, "dock_5", "Inspector,Signals,Groups");
+	default_layout->set_value(docks_section, "dock_5", "Inspector,History");
+	default_layout->set_value(docks_section, "dock_7", "Signals,Groups");
+	default_layout->set_value(docks_section, "dock_8", "Sysman");
 
-	int hsplits[] = { 0, dock_hsize, -dock_hsize, 0 };
+	int hsplits[] = { dock_hsize, dock_hsize, -dock_hsize, -dock_hsize };
 	for (int i = 0; i < (int)std_size(hsplits); i++) {
 		default_layout->set_value(docks_section, "dock_hsplit_" + itos(i + 1), hsplits[i]);
 	}
+	// Set vsplit values: 0 for 50/50 split, positive for offset from top, negative for offset from bottom
+	// For outer right vsplit (vsplit 4), set to -30% to make bottom dock (Sysman) take 30% of space
+	int vsplits[] = { 0, 0, 0, -200 }; // -200 pixels from bottom for Sysman
 	for (int i = 0; i < editor_dock_manager->get_vsplit_count(); i++) {
-		default_layout->set_value(docks_section, "dock_split_" + itos(i + 1), 0);
+		default_layout->set_value(docks_section, "dock_split_" + itos(i + 1), vsplits[i]);
 	}
 
 	{
