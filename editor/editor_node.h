@@ -356,8 +356,15 @@ private:
 	Label *debug_joypad_label = nullptr;
 	TextureRect *debug_joypad_icon = nullptr;
 	Label *debug_joypad_value = nullptr;
+	Label *debug_remote_mem_label = nullptr;
+	Label *debug_remote_mem_value = nullptr;
 	
 	HBoxContainer *right_menu_hb = nullptr;
+	
+	// Memory utilization UI elements
+	Label *mem_util_label = nullptr;
+	Label *mem_util_value = nullptr;
+	double mem_util_update_timer = 0.0;
 
 	// TekisasuBar (secondary toolbar below the main menu bar).
 	PanelContainer *tekisasu_bar_outer = nullptr;
@@ -727,6 +734,7 @@ private:
 	void _update_debug_system_info();
 	void _update_debug_status_colors();
 	void _apply_debug_status(bool p_connected, const String &p_status_text);
+	void _update_memory_util();
 	void _rebuild_bus_buttons();
 	Ref<StyleBoxFlat> _create_bg_stylebox(const Color &p_color);
 	void _update_bus_button_colors();

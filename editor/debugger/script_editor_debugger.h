@@ -197,6 +197,7 @@ private:
 	String remote_os_version;
 	String remote_rendering_driver;
 	int remote_joypad_count = 0;
+	uint64_t remote_memory_usage = 0;
 
 	void _stack_dump_frame_selected();
 
@@ -357,6 +358,7 @@ public:
 	String get_remote_os_version() const { return remote_os_version; }
 	String get_remote_rendering_driver() const { return remote_rendering_driver; }
 	int get_remote_joypad_count() const { return remote_joypad_count; }
+	uint64_t get_remote_memory_usage() const { return remote_memory_usage; }
 
 	bool is_move_to_foreground() const;
 	void set_move_to_foreground(const bool &p_move_to_foreground);
