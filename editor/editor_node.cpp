@@ -9624,16 +9624,16 @@ EditorNode::EditorNode() {
 	const String docks_section = "docks";
 	default_layout.instantiate();
 	// Dock numbers are based on DockSlot enum value + 1.
-	// dock_1 = outer left top (FileSystem)
-	// dock_2 = outer left bottom (empty for now)
-	// dock_3 = inner left top (Scene, Import)
-	// dock_4 = inner left bottom (empty - FileSystem moved to dock_1)
-	// dock_5 = inner right top (Inspector, History)
-	// dock_6 = inner right bottom (empty for now)
-	// dock_7 = outer right top (Signals, Groups)
-	// dock_8 = outer right bottom (Sysman)
-	default_layout->set_value(docks_section, "dock_1", "FileSystem");
+	// dock_1 = outer left top (LEFT_UL) - empty
+	// dock_2 = outer left bottom (LEFT_BL) - empty
+	// dock_3 = inner left top (LEFT_UR) - Scene, Import
+	// dock_4 = inner left bottom (LEFT_BR) - FileSystem
+	// dock_5 = inner right top (RIGHT_UL) - Inspector, History
+	// dock_6 = inner right bottom (RIGHT_BL) - empty
+	// dock_7 = outer right top (RIGHT_UR) - Signals, Groups
+	// dock_8 = outer right bottom (RIGHT_BR) - Sysman
 	default_layout->set_value(docks_section, "dock_3", "Scene,Import");
+	default_layout->set_value(docks_section, "dock_4", "FileSystem");
 	default_layout->set_value(docks_section, "dock_5", "Inspector,History");
 	default_layout->set_value(docks_section, "dock_7", "Signals,Groups");
 	default_layout->set_value(docks_section, "dock_8", "Sysman");
