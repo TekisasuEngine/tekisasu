@@ -452,7 +452,10 @@ def configure_msvc(env: "SConsEnvironment"):
         LIBS += ["version"]  # Mesa dependency.
 
         # PIX
-        if env["arch"] not in ["x86_64", "arm64"] or env["pix_path"] == "" or not os.path.exists(env["pix_path"]):
+        # Auto-enable PIX if a valid path is provided (matching ANGLE pattern)
+        if env["arch"] in ["x86_64", "arm64"] and env["pix_path"] != "" and os.path.exists(env["pix_path"]):
+            env["use_pix"] = True
+        else:
             env["use_pix"] = False
 
         if env["use_pix"]:
@@ -841,7 +844,10 @@ def configure_mingw(env: "SConsEnvironment"):
         env.Append(LIBS=["dxgi", "dxguid"])
 
         # PIX
-        if env["arch"] not in ["x86_64", "arm64"] or env["pix_path"] == "" or not os.path.exists(env["pix_path"]):
+        # Auto-enable PIX if a valid path is provided (matching ANGLE pattern)
+        if env["arch"] in ["x86_64", "arm64"] and env["pix_path"] != "" and os.path.exists(env["pix_path"]):
+            env["use_pix"] = True
+        else:
             env["use_pix"] = False
 
         if env["use_pix"]:
