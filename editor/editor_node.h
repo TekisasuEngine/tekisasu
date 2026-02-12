@@ -364,6 +364,7 @@ private:
 	// Memory utilization UI elements
 	Label *mem_util_label = nullptr;
 	Label *mem_util_value = nullptr;
+	double mem_util_update_timer = 0.0;
 
 	// TekisasuBar (secondary toolbar below the main menu bar).
 	PanelContainer *tekisasu_bar_outer = nullptr;

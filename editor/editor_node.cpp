@@ -1315,6 +1315,14 @@ void EditorNode::update_debug_system_info() {
 }
 
 void EditorNode::_update_memory_util() {
+	// Throttle updates to once per second for performance
+	const double UPDATE_INTERVAL = 1.0;
+	mem_util_update_timer += get_process_delta_time();
+	if (mem_util_update_timer < UPDATE_INTERVAL) {
+		return;
+	}
+	mem_util_update_timer = 0.0;
+
 	// Update local editor memory utilization
 	if (mem_util_value) {
 		uint64_t mem_bytes = OS::get_singleton()->get_static_memory_usage();
