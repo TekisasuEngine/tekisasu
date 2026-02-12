@@ -652,6 +652,11 @@ void ScriptEditorDebugger::_msg_performance_profile_frame(uint64_t p_thread_id, 
 		frame_data.write[i] = p_data[i];
 	}
 	performance_profiler->add_profile_frame(frame_data);
+	
+	// Extract and store remote memory usage for display
+	if (p_data.size() > Performance::MEMORY_STATIC) {
+		remote_memory_usage = static_cast<uint64_t>(p_data[Performance::MEMORY_STATIC]);
+	}
 }
 
 void ScriptEditorDebugger::_msg_visual_hardware_info(uint64_t p_thread_id, const Array &p_data) {

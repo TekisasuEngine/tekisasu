@@ -1346,18 +1346,13 @@ void EditorNode::_update_memory_util() {
 	}
 
 	if (is_connected && debug_remote_mem_value) {
-		// Get remote memory from performance profiler
-		EditorPerformanceProfiler *perf_profiler = debug_target_debugger->performance_profiler;
-		if (perf_profiler) {
-			List<float> *mem_data = perf_profiler->get_monitor_data("Memory/Static");
-			if (mem_data && !mem_data->is_empty()) {
-				// Get the most recent value
-				float mem_bytes = mem_data->back()->get();
-				double mem_mb = mem_bytes / (1024.0 * 1024.0);
-				debug_remote_mem_value->set_text(" " + String::num(mem_mb, 1) + " MB");
-			} else {
-				debug_remote_mem_value->set_text(TTRC(" N/A"));
-			}
+		// Get remote memory from debugger
+		uint64_t mem_bytes = debug_target_debugger->get_remote_memory_usage();
+		if (mem_bytes > 0) {
+			double mem_mb = mem_bytes / (1024.0 * 1024.0);
+			debug_remote_mem_value->set_text(" " + String::num(mem_mb, 1) + " MB");
+		} else {
+			debug_remote_mem_value->set_text(TTRC(" N/A"));
 		}
 	}
 }
