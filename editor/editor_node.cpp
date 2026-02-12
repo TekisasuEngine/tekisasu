@@ -8094,7 +8094,7 @@ void EditorNode::_update_bus_button_colors() {
 			button->add_theme_color_override("icon_pressed_color", color);
 			button->add_theme_color_override("icon_hover_color", color);
 			button->add_theme_color_override("icon_focus_color", color);
-			button->add_theme_font_size_override(SceneStringName(font_size), 11 * EDSCALE);
+			button->add_theme_font_size_override(SceneStringName(font_size), theme->get_font_size(SNAME("main_size"), EditorStringName(EditorFonts)) - 1 * EDSCALE);
 			button->add_theme_color_override("font_outline_color", bg_color);
 			button->add_theme_style_override("normal", _create_bg_stylebox(bg_color));
 			button->add_theme_style_override("hover", _create_bg_stylebox(bg_color * 1.1));
