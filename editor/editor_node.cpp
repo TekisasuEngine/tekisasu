@@ -711,6 +711,10 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 	editor_dock_manager->update_tab_styles();
 	editor_dock_manager->update_docks_menu();
 	editor_dock_manager->set_tab_icon_max_width(theme->get_constant(SNAME("class_icon_size"), EditorStringName(Editor)));
+
+	// Update audio bus buttons to ensure text scales properly.
+	_rebuild_bus_buttons();
+
 #ifdef ANDROID_ENABLED
 	DisplayServer::get_singleton()->window_set_color(theme->get_color(SNAME("background"), EditorStringName(Editor)));
 #endif
