@@ -7963,7 +7963,7 @@ void EditorNode::_rebuild_bus_buttons() {
 				audio_bus_buses_label = memnew(MenuButton);
 				audio_bus_buses_label->set_flat(true);
 				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
-				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9);
+				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9 * EDSCALE);
 				audio_bus_buses_label->set_text(TTR("|"));
 				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
@@ -7972,6 +7972,10 @@ void EditorNode::_rebuild_bus_buttons() {
 			}
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
 		}
+
+		// Scale button font size with editor scale
+		int button_font_size = theme->get_font_size(SNAME("main_size"), EditorStringName(EditorFonts));
+		bus_button->add_theme_font_size_override(SceneStringName(font_size), button_font_size);
 
 		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
 		bus_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
@@ -9290,8 +9294,6 @@ EditorNode::EditorNode() {
 	main_editor_button_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	main_editor_button_hb->set_name("EditorMainScreenButtons");
 	editor_main_screen->set_button_container(main_editor_button_hb);
-	title_bar->add_child(main_editor_button_hb);
-	title_bar->set_center_control(main_editor_button_hb);
 
 	const double separator_modulated = 0.1;
 	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).lightened(separator_modulated);
@@ -9307,7 +9309,7 @@ EditorNode::EditorNode() {
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(right_menu_hb);
 
-	// Move runbar to the right, before the TekisasuBar toggle button.
+	// Move runbar to the right first
 	project_run_bar = memnew(EditorRunBar);
 	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	right_menu_hb->add_child(project_run_bar);
@@ -9319,6 +9321,15 @@ EditorNode::EditorNode() {
 	runbar_right_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	runbar_right_separator->add_theme_color_override(SNAME("font_color"), separator_color);
 	right_menu_hb->add_child(runbar_right_separator);
+
+	// Add 2D/3D/Script/Game buttons to the right menu
+	right_menu_hb->add_child(main_editor_button_hb);
+
+	Label *main_editor_separator = memnew(Label);
+	main_editor_separator->set_text("|");
+	main_editor_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	main_editor_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	right_menu_hb->add_child(main_editor_separator);
 
 	// TekisasuBar toggle button.
 	tekisasu_bar_toggle_button = memnew(Button);
@@ -9533,9 +9544,10 @@ EditorNode::EditorNode() {
 	sysman_dock = memnew(SysmanDock);
 	editor_dock_manager->add_dock(sysman_dock);
 
-	// Add some offsets to make LEFT_R and RIGHT_L docks wider than minsize.
-	const int dock_hsize = 280;
-	// By default there is only 3 visible, so set 2 split offsets for them.
+	// Calculate dock widths as percentage of typical viewport width for better scaling.
+	// Base calculation: ~25% of 1152px reference width = 288px at 100% display scale.
+	// This scales automatically with EDSCALE for different display scaling (125%, 150%, 200%, etc.)
+	const int dock_hsize = 288; // ~25% of typical viewport width
 	const int dock_hsize_scaled = dock_hsize * EDSCALE;
 	main_hsplit->set_split_offsets({ dock_hsize_scaled, -dock_hsize_scaled });
 
@@ -9544,16 +9556,33 @@ EditorNode::EditorNode() {
 	const String docks_section = "docks";
 	default_layout.instantiate();
 	// Dock numbers are based on DockSlot enum value + 1.
+	// dock_1 = outer left top (FileSystem)
+	// dock_2 = outer left bottom (empty for now)
+	// dock_3 = inner left top (Scene, Import)
+	// dock_4 = inner left bottom (empty - FileSystem moved to dock_1)
+	// dock_5 = inner right top (Inspector, History)
+	// dock_6 = inner right bottom (empty for now)
+	// dock_7 = outer right top (Signals, Groups)
+	// dock_8 = outer right bottom (Sysman)
+	default_layout->set_value(docks_section, "dock_1", "FileSystem");
 	default_layout->set_value(docks_section, "dock_3", "Scene,Import");
-	default_layout->set_value(docks_section, "dock_4", "FileSystem,History");
-	default_layout->set_value(docks_section, "dock_5", "Inspector,Signals,Groups");
+	default_layout->set_value(docks_section, "dock_5", "Inspector,History");
+	default_layout->set_value(docks_section, "dock_7", "Signals,Groups");
+	default_layout->set_value(docks_section, "dock_8", "Sysman");
 
-	int hsplits[] = { 0, dock_hsize, -dock_hsize, 0 };
+	int hsplits[] = { dock_hsize, dock_hsize, -dock_hsize, -dock_hsize };
 	for (int i = 0; i < (int)std_size(hsplits); i++) {
 		default_layout->set_value(docks_section, "dock_hsplit_" + itos(i + 1), hsplits[i]);
 	}
+	// Set vsplit values: 0 for 50/50 split, positive offset pushes dragger down from default position.
+	// For outer right vsplit (vsplit 4), set positive offset to make bottom dock (Sysman) take ~30% of vertical space.
+	// Calculation: To get 70/30 split, dragger should be at 70% from top.
+	// Default is 50%, so offset = 20% of typical height. 20% of 648px reference height = 130px at 100% scale.
+	// This scales automatically with EDSCALE for different display scaling settings.
+	const int sysman_dock_height_offset = 130; // ~20% offset from default (50%) position
+	int vsplits[] = { 0, 0, 0, sysman_dock_height_offset };
 	for (int i = 0; i < editor_dock_manager->get_vsplit_count(); i++) {
-		default_layout->set_value(docks_section, "dock_split_" + itos(i + 1), 0);
+		default_layout->set_value(docks_section, "dock_split_" + itos(i + 1), vsplits[i]);
 	}
 
 	{
