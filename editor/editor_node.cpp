@@ -9624,20 +9624,27 @@ EditorNode::EditorNode() {
 	const String docks_section = "docks";
 	default_layout.instantiate();
 	// Dock numbers are based on DockSlot enum value + 1.
-	// dock_1 = outer left top (FileSystem)
-	// dock_2 = outer left bottom (empty for now)
-	// dock_3 = inner left top (Scene, Import)
-	// dock_4 = inner left bottom (empty - FileSystem moved to dock_1)
-	// dock_5 = inner right top (Inspector, History)
-	// dock_6 = inner right bottom (empty for now)
-	// dock_7 = outer right top (Signals, Groups)
-	// dock_8 = outer right bottom (Sysman)
-	default_layout->set_value(docks_section, "dock_1", "FileSystem");
+	// dock_1 = outer left top (LEFT_UL) - empty
+	// dock_2 = outer left bottom (LEFT_BL) - empty
+	// dock_3 = inner left top (LEFT_UR) - Scene, Import
+	// dock_4 = inner left bottom (LEFT_BR) - FileSystem
+	// dock_5 = inner right top (RIGHT_UL) - Inspector, History
+	// dock_6 = inner right bottom (RIGHT_BL) - empty
+	// dock_7 = outer right top (RIGHT_UR) - Signals, Groups
+	// dock_8 = outer right bottom (RIGHT_BR) - Sysman
 	default_layout->set_value(docks_section, "dock_3", "Scene,Import");
+	default_layout->set_value(docks_section, "dock_4", "FileSystem");
 	default_layout->set_value(docks_section, "dock_5", "Inspector,History");
 	default_layout->set_value(docks_section, "dock_7", "Signals,Groups");
 	default_layout->set_value(docks_section, "dock_8", "Sysman");
 
+	// Configure horizontal splits (column widths).
+	// All four dock columns use the same width (dock_hsize = 288px at 100% scale):
+	// - dock_hsplit_1 (hsplits[0]): left outer column (LEFT_UL, LEFT_BL)
+	// - dock_hsplit_2 (hsplits[1]): left inner column (LEFT_UR, LEFT_BR) - Scene, Import, FileSystem
+	// - dock_hsplit_3 (hsplits[2]): right inner column (RIGHT_UL, RIGHT_BL) - Inspector, History
+	// - dock_hsplit_4 (hsplits[3]): right outer column (RIGHT_UR, RIGHT_BR) - Signals, Groups, Sysman
+	// Negative values indicate right-aligned columns (standard Godot convention).
 	int hsplits[] = { dock_hsize, dock_hsize, -dock_hsize, -dock_hsize };
 	for (int i = 0; i < (int)std_size(hsplits); i++) {
 		default_layout->set_value(docks_section, "dock_hsplit_" + itos(i + 1), hsplits[i]);
