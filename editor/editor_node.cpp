@@ -9640,10 +9640,10 @@ EditorNode::EditorNode() {
 
 	// Configure horizontal splits (column widths).
 	// All four dock columns use the same width (dock_hsize = 288px at 100% scale):
-	// - hsplit_1: left outer column (LEFT_UL, LEFT_BL)
-	// - hsplit_2: left inner column (LEFT_UR, LEFT_BR) - Scene, Import, FileSystem
-	// - hsplit_3: right inner column (RIGHT_UL, RIGHT_BL) - Inspector, History
-	// - hsplit_4: right outer column (RIGHT_UR, RIGHT_BR) - Signals, Groups, Sysman
+	// - dock_hsplit_1 (hsplits[0]): left outer column (LEFT_UL, LEFT_BL)
+	// - dock_hsplit_2 (hsplits[1]): left inner column (LEFT_UR, LEFT_BR) - Scene, Import, FileSystem
+	// - dock_hsplit_3 (hsplits[2]): right inner column (RIGHT_UL, RIGHT_BL) - Inspector, History
+	// - dock_hsplit_4 (hsplits[3]): right outer column (RIGHT_UR, RIGHT_BR) - Signals, Groups, Sysman
 	// Negative values indicate right-aligned columns (standard Godot convention).
 	int hsplits[] = { dock_hsize, dock_hsize, -dock_hsize, -dock_hsize };
 	for (int i = 0; i < (int)std_size(hsplits); i++) {
