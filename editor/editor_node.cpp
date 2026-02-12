@@ -9544,9 +9544,10 @@ EditorNode::EditorNode() {
 	sysman_dock = memnew(SysmanDock);
 	editor_dock_manager->add_dock(sysman_dock);
 
-	// Add some offsets to make LEFT_R and RIGHT_L docks wider than minsize.
-	const int dock_hsize = 280;
-	// By default there is only 3 visible, so set 2 split offsets for them.
+	// Calculate dock widths as percentage of typical viewport width for better scaling.
+	// Base calculation: ~25% of 1152px reference width = 288px at 100% display scale.
+	// This scales automatically with EDSCALE for different display scaling (125%, 150%, 200%, etc.)
+	const int dock_hsize = 288; // ~25% of typical viewport width
 	const int dock_hsize_scaled = dock_hsize * EDSCALE;
 	main_hsplit->set_split_offsets({ dock_hsize_scaled, -dock_hsize_scaled });
 
@@ -9573,9 +9574,12 @@ EditorNode::EditorNode() {
 	for (int i = 0; i < (int)std_size(hsplits); i++) {
 		default_layout->set_value(docks_section, "dock_hsplit_" + itos(i + 1), hsplits[i]);
 	}
-	// Set vsplit values: 0 for 50/50 split, positive for offset from top, negative for offset from bottom
-	// For outer right vsplit (vsplit 4), set offset to make bottom dock (Sysman) take ~30% of space
-	const int sysman_dock_height_offset = -200; // Pixels from bottom for Sysman dock
+	// Set vsplit values: 0 for 50/50 split, positive offset pushes dragger down from default position.
+	// For outer right vsplit (vsplit 4), set positive offset to make bottom dock (Sysman) take ~30% of vertical space.
+	// Calculation: To get 70/30 split, dragger should be at 70% from top.
+	// Default is 50%, so offset = 20% of typical height. 20% of 648px reference height = 130px at 100% scale.
+	// This scales automatically with EDSCALE for different display scaling settings.
+	const int sysman_dock_height_offset = 130; // ~20% offset from default (50%) position
 	int vsplits[] = { 0, 0, 0, sysman_dock_height_offset };
 	for (int i = 0; i < editor_dock_manager->get_vsplit_count(); i++) {
 		default_layout->set_value(docks_section, "dock_split_" + itos(i + 1), vsplits[i]);
