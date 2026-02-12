@@ -456,6 +456,7 @@ def configure_msvc(env: "SConsEnvironment"):
             env["use_pix"] = False
 
         if env["use_pix"]:
+            env.AppendUnique(CPPDEFINES=["PIX_ENABLED"])
             arch_subdir = "arm64" if env["arch"] == "arm64" else "x64"
 
             env.Append(LIBPATH=[env["pix_path"] + "/bin/" + arch_subdir])
@@ -844,6 +845,7 @@ def configure_mingw(env: "SConsEnvironment"):
             env["use_pix"] = False
 
         if env["use_pix"]:
+            env.AppendUnique(CPPDEFINES=["PIX_ENABLED"])
             arch_subdir = "arm64" if env["arch"] == "arm64" else "x64"
 
             env.Append(LIBPATH=[env["pix_path"] + "/bin/" + arch_subdir])
