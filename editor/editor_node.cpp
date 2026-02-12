@@ -712,9 +712,6 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 	editor_dock_manager->update_docks_menu();
 	editor_dock_manager->set_tab_icon_max_width(theme->get_constant(SNAME("class_icon_size"), EditorStringName(Editor)));
 
-	// Update audio bus buttons to ensure text scales properly.
-	_rebuild_bus_buttons();
-
 #ifdef ANDROID_ENABLED
 	DisplayServer::get_singleton()->window_set_color(theme->get_color(SNAME("background"), EditorStringName(Editor)));
 #endif
@@ -8011,7 +8008,7 @@ void EditorNode::_rebuild_bus_buttons() {
 				audio_bus_buses_label = memnew(MenuButton);
 				audio_bus_buses_label->set_flat(true);
 				audio_bus_buses_label->set_theme_type_variation("FlatMenuButton");
-				audio_bus_buses_label->add_theme_font_size_override(SceneStringName(font_size), 9 * EDSCALE);
+				// Don't override font size - let it inherit from theme default which scales with EDSCALE
 				audio_bus_buses_label->set_text(TTR("|"));
 				audio_bus_buses_label->set_disabled(true);
 				audio_bus_buses_label->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
@@ -8021,9 +8018,7 @@ void EditorNode::_rebuild_bus_buttons() {
 			bus_button->set_text(AudioServer::get_singleton()->get_bus_name(i));
 		}
 
-		// Scale button font size with editor scale
-		int button_font_size = theme->get_font_size(SNAME("main_size"), EditorStringName(EditorFonts));
-		bus_button->add_theme_font_size_override(SceneStringName(font_size), button_font_size);
+		// Don't override font size - let buttons inherit from theme default which scales with EDSCALE
 
 		bus_button->set_tooltip_text(TTR("Toggle mute for bus: ") + AudioServer::get_singleton()->get_bus_name(i));
 		bus_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_bus_button_pressed).bind(i));
