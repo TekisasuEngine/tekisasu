@@ -31,6 +31,8 @@
 #pragma once
 
 #include "core/object/script_language.h"
+#include "core/os/mutex.h"
+#include "core/os/thread.h"
 #include "core/templates/safe_refcount.h"
 #include "editor/editor_data.h"
 #include "editor/plugins/editor_plugin.h"
@@ -365,6 +367,13 @@ private:
 	Label *mem_util_label = nullptr;
 	Label *mem_util_value = nullptr;
 	double mem_util_update_timer = 0.0;
+	
+	// Memory measurement thread
+	Thread memory_sampling_thread;
+	Mutex memory_mutex;
+	SafeFlag memory_thread_exit;
+	SafeNumeric<uint64_t> cached_local_memory = 0;
+	SafeNumeric<uint64_t> cached_remote_memory = 0;
 
 	// TekisasuBar (secondary toolbar below the main menu bar).
 	PanelContainer *tekisasu_bar_outer = nullptr;
@@ -735,6 +744,10 @@ private:
 	void _update_debug_status_colors();
 	void _apply_debug_status(bool p_connected, const String &p_status_text);
 	void _update_memory_util();
+	
+	static void _memory_sampling_thread_func(void *p_userdata);
+	void _memory_sampling_thread();
+	
 	void _rebuild_bus_buttons();
 	Ref<StyleBoxFlat> _create_bg_stylebox(const Color &p_color);
 	void _update_bus_button_colors();

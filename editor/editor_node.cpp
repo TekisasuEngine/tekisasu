@@ -1315,6 +1315,32 @@ void EditorNode::update_debug_system_info() {
 	_update_debug_system_info();
 }
 
+void EditorNode::_memory_sampling_thread_func(void *p_userdata) {
+	EditorNode *en = static_cast<EditorNode *>(p_userdata);
+	en->_memory_sampling_thread();
+}
+
+void EditorNode::_memory_sampling_thread() {
+	// This function runs on a separate thread to avoid blocking the main thread
+	// with potentially slow memory measurement calls
+	while (!memory_thread_exit.is_set()) {
+		// Sample local editor memory usage
+		uint64_t local_mem = OS::get_singleton()->get_static_memory_usage();
+		cached_local_memory.set(local_mem);
+		
+		// Sample remote memory usage if debugger is active
+		if (debug_target_debugger && debug_target_debugger->is_session_active()) {
+			uint64_t remote_mem = debug_target_debugger->get_remote_memory_usage();
+			cached_remote_memory.set(remote_mem);
+		} else {
+			cached_remote_memory.set(0);
+		}
+		
+		// Sleep for 1 second before next sample
+		OS::get_singleton()->delay_usec(1000000); // 1 second in microseconds
+	}
+}
+
 void EditorNode::_update_memory_util() {
 	// Throttle updates to once per second for performance
 	const double UPDATE_INTERVAL = 1.0;
@@ -1324,9 +1350,9 @@ void EditorNode::_update_memory_util() {
 	}
 	mem_util_update_timer = 0.0;
 
-	// Update local editor memory utilization
+	// Update local editor memory utilization from cached value
 	if (mem_util_value) {
-		uint64_t mem_bytes = OS::get_singleton()->get_static_memory_usage();
+		uint64_t mem_bytes = cached_local_memory.get();
 		double mem_mb = mem_bytes / (1024.0 * 1024.0);
 		mem_util_value->set_text(String::num(mem_mb, 1) + " MB");
 	}
@@ -1347,8 +1373,8 @@ void EditorNode::_update_memory_util() {
 	}
 
 	if (is_connected && debug_remote_mem_value) {
-		// Get remote memory from debugger
-		uint64_t mem_bytes = debug_target_debugger->get_remote_memory_usage();
+		// Get remote memory from cached value
+		uint64_t mem_bytes = cached_remote_memory.get();
 		if (mem_bytes > 0) {
 			double mem_mb = mem_bytes / (1024.0 * 1024.0);
 			debug_remote_mem_value->set_text(" " + String::num(mem_mb, 1) + " MB");
@@ -9958,6 +9984,9 @@ EditorNode::EditorNode() {
 
 	set_process(true);
 
+	// Start memory sampling thread to avoid blocking the main thread
+	memory_sampling_thread.start(_memory_sampling_thread_func, this);
+
 	open_imported = memnew(ConfirmationDialog);
 	open_imported->set_ok_button_text(TTR("Open Anyway"));
 	new_inherited_button = open_imported->add_button(TTR("New Inherited"), !DisplayServer::get_singleton()->get_swap_cancel_ok(), "inherit");
@@ -10060,6 +10089,10 @@ EditorNode::EditorNode() {
 }
 
 EditorNode::~EditorNode() {
+	// Stop the memory sampling thread
+	memory_thread_exit.set();
+	memory_sampling_thread.wait_to_finish();
+	
 	EditorInspector::cleanup_plugins();
 	EditorTranslationParser::get_singleton()->clean_parsers();
 	ResourceImporterScene::clean_up_importer_plugins();
