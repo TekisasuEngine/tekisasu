@@ -838,8 +838,6 @@ void EditorNode::_notification(int p_what) {
 				scene_tabs->update_scene_tabs();
 			}
 
-			_update_debug_target_status();
-
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
 			uint64_t tick = OS::get_singleton()->get_ticks_msec();
@@ -9097,6 +9095,12 @@ EditorNode::EditorNode() {
 	mem_util_update_timer->set_autostart(true);
 	mem_util_update_timer->connect("timeout", callable_mp(this, &EditorNode::_update_memory_util));
 	add_child(mem_util_update_timer);
+
+	debug_status_update_timer = memnew(Timer);
+	debug_status_update_timer->set_wait_time(0.5);
+	debug_status_update_timer->set_autostart(true);
+	debug_status_update_timer->connect("timeout", callable_mp(this, &EditorNode::_update_debug_target_status));
+	add_child(debug_status_update_timer);
 
 	top_split = memnew(VSplitContainer);
 	center_split->add_child(top_split);

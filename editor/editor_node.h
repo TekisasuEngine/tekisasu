@@ -347,6 +347,7 @@ private:
 	bool debug_target_last_connected_state = false;
 	Color debug_target_connected_color;
 	Color debug_target_disconnected_color;
+	Timer *debug_status_update_timer = nullptr;
 	
 	// System info UI elements
 	Label *debug_system_info_separator = nullptr;
