@@ -31,7 +31,6 @@
 #pragma once
 
 #include "core/object/script_language.h"
-#include "core/os/mutex.h"
 #include "core/os/thread.h"
 #include "core/templates/safe_refcount.h"
 #include "editor/editor_data.h"
@@ -370,7 +369,6 @@ private:
 	
 	// Memory measurement thread
 	Thread memory_sampling_thread;
-	Mutex memory_mutex;
 	SafeFlag memory_thread_exit;
 	SafeNumeric<uint64_t> cached_local_memory = 0;
 	SafeNumeric<uint64_t> cached_remote_memory = 0;
