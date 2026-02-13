@@ -839,7 +839,6 @@ void EditorNode::_notification(int p_what) {
 			}
 
 			_update_debug_target_status();
-			_update_memory_util();
 
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
@@ -1342,14 +1341,6 @@ void EditorNode::_memory_sampling_thread() {
 }
 
 void EditorNode::_update_memory_util() {
-	// Throttle updates to once per second for performance
-	const double UPDATE_INTERVAL = 1.0;
-	mem_util_update_timer += get_process_delta_time();
-	if (mem_util_update_timer < UPDATE_INTERVAL) {
-		return;
-	}
-	mem_util_update_timer = 0.0;
-
 	// Update local editor memory utilization from cached value
 	if (mem_util_value) {
 		uint64_t mem_bytes = cached_local_memory.get();
@@ -9100,6 +9091,12 @@ EditorNode::EditorNode() {
 	scan_changes_timer->set_autostart(EDITOR_GET("interface/editor/import_resources_when_unfocused"));
 	scan_changes_timer->connect("timeout", callable_mp(EditorFileSystem::get_singleton(), &EditorFileSystem::scan_changes));
 	add_child(scan_changes_timer);
+
+	mem_util_update_timer = memnew(Timer);
+	mem_util_update_timer->set_wait_time(1.0);
+	mem_util_update_timer->set_autostart(true);
+	mem_util_update_timer->connect("timeout", callable_mp(this, &EditorNode::_update_memory_util));
+	add_child(mem_util_update_timer);
 
 	top_split = memnew(VSplitContainer);
 	center_split->add_child(top_split);

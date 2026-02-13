@@ -365,7 +365,7 @@ private:
 	// Memory utilization UI elements
 	Label *mem_util_label = nullptr;
 	Label *mem_util_value = nullptr;
-	double mem_util_update_timer = 0.0;
+	Timer *mem_util_update_timer = nullptr;
 	
 	// Memory measurement thread
 	Thread memory_sampling_thread;
