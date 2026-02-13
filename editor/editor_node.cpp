@@ -839,7 +839,6 @@ void EditorNode::_notification(int p_what) {
 			}
 
 			_update_debug_target_status();
-			_update_memory_util();
 
 			// Update the animation frame of the update spinner.
 			uint64_t frame = Engine::get_singleton()->get_frames_drawn();
@@ -1315,48 +1314,6 @@ void EditorNode::update_debug_system_info() {
 	_update_debug_system_info();
 }
 
-void EditorNode::_update_memory_util() {
-	// Throttle updates to once per second for performance
-	const double UPDATE_INTERVAL = 1.0;
-	mem_util_update_timer += get_process_delta_time();
-	if (mem_util_update_timer < UPDATE_INTERVAL) {
-		return;
-	}
-	mem_util_update_timer = 0.0;
-
-	// Update local editor memory utilization
-	if (mem_util_value) {
-		uint64_t mem_bytes = OS::get_singleton()->get_static_memory_usage();
-		double mem_mb = mem_bytes / (1024.0 * 1024.0);
-		mem_util_value->set_text(String::num(mem_mb, 1) + " MB");
-	}
-
-	// Update remote memory utilization (only if connected)
-	if (!debug_target_debugger) {
-		return;
-	}
-
-	bool is_connected = debug_target_debugger->is_session_active();
-	
-	// Show/hide remote memory labels based on connection status
-	if (debug_remote_mem_label) {
-		debug_remote_mem_label->set_visible(is_connected);
-	}
-	if (debug_remote_mem_value) {
-		debug_remote_mem_value->set_visible(is_connected);
-	}
-
-	if (is_connected && debug_remote_mem_value) {
-		// Get remote memory from debugger
-		uint64_t mem_bytes = debug_target_debugger->get_remote_memory_usage();
-		if (mem_bytes > 0) {
-			double mem_mb = mem_bytes / (1024.0 * 1024.0);
-			debug_remote_mem_value->set_text(" " + String::num(mem_mb, 1) + " MB");
-		} else {
-			debug_remote_mem_value->set_text(TTRC(" N/A"));
-		}
-	}
-}
 
 void EditorNode::_execute_upgrades() {
 	if (run_project_upgrade_tool) {
@@ -8970,17 +8927,6 @@ EditorNode::EditorNode() {
 	tekisasu_bar_center->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	tekisasu_bar->add_child(tekisasu_bar_center);
 
-	// Add memory utilization to center
-	mem_util_label = memnew(Label);
-	mem_util_label->set_text(TTRC("Mem Util:"));
-	Color mem_label_color = Color(0.7, 0.7, 0.7, 1.0);
-	mem_util_label->add_theme_color_override(SNAME("font_color"), mem_label_color);
-	tekisasu_bar_center->add_child(mem_util_label);
-
-	mem_util_value = memnew(Label);
-	mem_util_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
-	tekisasu_bar_center->add_child(mem_util_value);
-
 	tekisasu_bar_right = memnew(HBoxContainer);
 	tekisasu_bar_right->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tekisasu_bar_right->set_alignment(BoxContainer::ALIGNMENT_END);
@@ -9543,18 +9489,6 @@ EditorNode::EditorNode() {
 	debug_joypad_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
 	debug_joypad_value->set_visible(false);
 	debug_target_hb->add_child(debug_joypad_value);
-
-	// Remote memory utilization (next to Joypad section)
-	debug_remote_mem_label = memnew(Label);
-	debug_remote_mem_label->set_text(TTRC(" Remote Mem Util:"));
-	debug_remote_mem_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
-	debug_remote_mem_label->set_visible(false);
-	debug_target_hb->add_child(debug_remote_mem_label);
-
-	debug_remote_mem_value = memnew(Label);
-	debug_remote_mem_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
-	debug_remote_mem_value->set_visible(false);
-	debug_target_hb->add_child(debug_remote_mem_value);
 
 	// Add audio bus buttons to the right section of TekisasuBar.
 	audio_bus_buttons_hb = memnew(HBoxContainer);
