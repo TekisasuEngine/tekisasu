@@ -1252,30 +1252,30 @@ void EditorNode::_update_debug_system_info() {
 
 	bool is_connected = debug_target_debugger->is_session_active();
 	
-	// Show or hide system info elements based on connection status
+	// Always show system info elements
 	if (debug_system_info_separator) {
-		debug_system_info_separator->set_visible(is_connected);
+		debug_system_info_separator->set_visible(true);
 	}
 	if (debug_os_label) {
-		debug_os_label->set_visible(is_connected);
+		debug_os_label->set_visible(true);
 	}
 	if (debug_os_value) {
-		debug_os_value->set_visible(is_connected);
+		debug_os_value->set_visible(true);
 	}
 	if (debug_rendering_label) {
-		debug_rendering_label->set_visible(is_connected);
+		debug_rendering_label->set_visible(true);
 	}
 	if (debug_rendering_value) {
-		debug_rendering_value->set_visible(is_connected);
+		debug_rendering_value->set_visible(true);
 	}
 	if (debug_joypad_label) {
-		debug_joypad_label->set_visible(is_connected);
+		debug_joypad_label->set_visible(true);
 	}
 	if (debug_joypad_icon) {
-		debug_joypad_icon->set_visible(is_connected);
+		debug_joypad_icon->set_visible(true);
 	}
 	if (debug_joypad_value) {
-		debug_joypad_value->set_visible(is_connected);
+		debug_joypad_value->set_visible(true);
 	}
 
 	if (is_connected) {
@@ -1306,6 +1306,16 @@ void EditorNode::_update_debug_system_info() {
 		if (debug_joypad_icon) {
 			Color icon_color = joypad_count > 0 ? debug_target_connected_color : debug_target_disconnected_color;
 			debug_joypad_icon->set_modulate(icon_color);
+		}
+	} else {
+		// When not connected, show "--" for all fields
+		debug_os_value->set_text(" --");
+		debug_rendering_value->set_text(" --");
+		debug_joypad_value->set_text(" --");
+		
+		// Set joypad icon color to disconnected
+		if (debug_joypad_icon) {
+			debug_joypad_icon->set_modulate(debug_target_disconnected_color);
 		}
 	}
 }
@@ -9443,38 +9453,34 @@ EditorNode::EditorNode() {
 	debug_system_info_separator = memnew(Label);
 	debug_system_info_separator->set_text(" | ");
 	debug_system_info_separator->add_theme_color_override(SNAME("font_color"), debug_label_color);
-	debug_system_info_separator->set_visible(false);
 	debug_target_hb->add_child(debug_system_info_separator);
 
 	// OS info
 	debug_os_label = memnew(Label);
 	debug_os_label->set_text(TTRC(" OS:"));
 	debug_os_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
-	debug_os_label->set_visible(false);
 	debug_target_hb->add_child(debug_os_label);
 
 	debug_os_value = memnew(Label);
+	debug_os_value->set_text(" --");
 	debug_os_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
-	debug_os_value->set_visible(false);
 	debug_target_hb->add_child(debug_os_value);
 
 	// Rendering driver info
 	debug_rendering_label = memnew(Label);
 	debug_rendering_label->set_text(TTRC(" Rendering Device Driver:"));
 	debug_rendering_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
-	debug_rendering_label->set_visible(false);
 	debug_target_hb->add_child(debug_rendering_label);
 
 	debug_rendering_value = memnew(Label);
+	debug_rendering_value->set_text(" --");
 	debug_rendering_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
-	debug_rendering_value->set_visible(false);
 	debug_target_hb->add_child(debug_rendering_value);
 
 	// Joypad info
 	debug_joypad_label = memnew(Label);
 	debug_joypad_label->set_text(TTRC(" Joypad(s):"));
 	debug_joypad_label->add_theme_color_override(SNAME("font_color"), debug_label_color);
-	debug_joypad_label->set_visible(false);
 	debug_target_hb->add_child(debug_joypad_label);
 
 	debug_joypad_icon = memnew(TextureRect);
@@ -9482,12 +9488,11 @@ EditorNode::EditorNode() {
 	debug_joypad_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	debug_joypad_icon->set_custom_minimum_size(Size2(14, 14));
 	debug_joypad_icon->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	debug_joypad_icon->set_visible(false);
 	debug_target_hb->add_child(debug_joypad_icon);
 
 	debug_joypad_value = memnew(Label);
+	debug_joypad_value->set_text(" --");
 	debug_joypad_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
-	debug_joypad_value->set_visible(false);
 	debug_target_hb->add_child(debug_joypad_value);
 
 	// Add audio bus buttons to the right section of TekisasuBar.
