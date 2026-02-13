@@ -1308,7 +1308,7 @@ void EditorNode::_update_debug_system_info() {
 			debug_joypad_icon->set_modulate(icon_color);
 		}
 	} else {
-		// When not connected, show "--" for all fields
+		// When not connected, show "--" for OS and rendering fields
 		if (debug_os_value) {
 			debug_os_value->set_text(" --");
 		}
@@ -1316,7 +1316,7 @@ void EditorNode::_update_debug_system_info() {
 			debug_rendering_value->set_text(" --");
 		}
 		if (debug_joypad_value) {
-			debug_joypad_value->set_text(" --");
+			debug_joypad_value->set_text("");
 		}
 
 		// Set joypad icon color to disconnected
@@ -9496,7 +9496,7 @@ EditorNode::EditorNode() {
 	debug_target_hb->add_child(debug_joypad_icon);
 
 	debug_joypad_value = memnew(Label);
-	debug_joypad_value->set_text(" --");
+	debug_joypad_value->set_text("");
 	debug_joypad_value->add_theme_color_override(SNAME("font_color"), Color(1, 1, 1, 0.95));
 	debug_target_hb->add_child(debug_joypad_value);
 
