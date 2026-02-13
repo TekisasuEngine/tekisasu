@@ -370,8 +370,8 @@ private:
 	// Memory measurement thread
 	Thread memory_sampling_thread;
 	SafeFlag memory_thread_exit;
-	SafeNumeric<uint64_t> cached_local_memory = 0;
-	SafeNumeric<uint64_t> cached_remote_memory = 0;
+	SafeNumeric<uint64_t> cached_local_memory{ 0 };
+	SafeNumeric<uint64_t> cached_remote_memory{ 0 };
 
 	// TekisasuBar (secondary toolbar below the main menu bar).
 	PanelContainer *tekisasu_bar_outer = nullptr;
