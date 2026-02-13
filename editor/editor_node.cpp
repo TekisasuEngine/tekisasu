@@ -1171,7 +1171,7 @@ void EditorNode::_update_debug_status_colors() {
 		debug_target_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		debug_target_icon->set_modulate(debug_target_last_connected_state ? debug_target_connected_color : debug_target_disconnected_color);
 	}
-	
+
 	if (debug_joypad_icon) {
 		debug_joypad_icon->set_texture(theme->get_icon(SNAME("GuiSliderGrabber"), EditorStringName(EditorIcons)));
 		// Will be updated with proper color in _update_debug_system_info
@@ -1251,7 +1251,7 @@ void EditorNode::_update_debug_system_info() {
 	}
 
 	bool is_connected = debug_target_debugger->is_session_active();
-	
+
 	// Always show system info elements
 	if (debug_system_info_separator) {
 		debug_system_info_separator->set_visible(true);
@@ -1301,7 +1301,7 @@ void EditorNode::_update_debug_system_info() {
 		// Update joypad info
 		int joypad_count = debug_target_debugger->get_remote_joypad_count();
 		debug_joypad_value->set_text(" " + itos(joypad_count));
-		
+
 		// Update joypad icon color (green if >0, red if 0)
 		if (debug_joypad_icon) {
 			Color icon_color = joypad_count > 0 ? debug_target_connected_color : debug_target_disconnected_color;
@@ -1309,10 +1309,16 @@ void EditorNode::_update_debug_system_info() {
 		}
 	} else {
 		// When not connected, show "--" for all fields
-		debug_os_value->set_text(" --");
-		debug_rendering_value->set_text(" --");
-		debug_joypad_value->set_text(" --");
-		
+		if (debug_os_value) {
+			debug_os_value->set_text(" --");
+		}
+		if (debug_rendering_value) {
+			debug_rendering_value->set_text(" --");
+		}
+		if (debug_joypad_value) {
+			debug_joypad_value->set_text(" --");
+		}
+
 		// Set joypad icon color to disconnected
 		if (debug_joypad_icon) {
 			debug_joypad_icon->set_modulate(debug_target_disconnected_color);
@@ -1323,7 +1329,6 @@ void EditorNode::_update_debug_system_info() {
 void EditorNode::update_debug_system_info() {
 	_update_debug_system_info();
 }
-
 
 void EditorNode::_execute_upgrades() {
 	if (run_project_upgrade_tool) {
@@ -8116,12 +8121,12 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 
 void EditorNode::_on_tekisasu_bar_toggle_pressed() {
 	tekisasu_bar_visible = !tekisasu_bar_visible;
-	
+
 	// Toggle visibility of the TekisasuBar outer container.
 	if (tekisasu_bar_outer) {
 		tekisasu_bar_outer->set_visible(tekisasu_bar_visible);
 	}
-	
+
 	// Update the toggle button icon modulation.
 	if (tekisasu_bar_toggle_button) {
 		if (tekisasu_bar_visible) {
@@ -8912,16 +8917,16 @@ EditorNode::EditorNode() {
 	tekisasu_bar_outer = memnew(PanelContainer);
 	tekisasu_bar_outer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tekisasu_bar_outer->set_theme_type_variation("TekisasuBarOuter");
-	
+
 	main_vbox->add_child(tekisasu_bar_outer);
-	
+
 	// Create the inner bar PanelContainer.
 	tekisasu_bar_panel = memnew(PanelContainer);
 	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tekisasu_bar_panel->set_theme_type_variation("TekisasuBar");
-	
+
 	tekisasu_bar_outer->add_child(tekisasu_bar_panel);
-	
+
 	// Create the inner HBoxContainer to hold the sections.
 	tekisasu_bar = memnew(HBoxContainer);
 	tekisasu_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
