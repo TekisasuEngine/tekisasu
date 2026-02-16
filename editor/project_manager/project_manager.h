@@ -163,7 +163,6 @@ class ProjectManager : public Control {
 	Button *manage_tags_btn = nullptr;
 	Button *erase_btn = nullptr;
 	Button *erase_missing_btn = nullptr;
-	Button *donate_btn = nullptr;
 
 	HBoxContainer *open_btn_container = nullptr;
 	PopupMenu *open_options_popup = nullptr;
@@ -204,7 +203,6 @@ class ProjectManager : public Control {
 	void _update_project_buttons();
 	void _open_options_popup();
 	void _open_recovery_mode_ask(bool manual = false);
-	void _open_donate_page();
 
 	void _on_project_created(const String &dir, bool edit);
 	void _on_project_duplicated(const String &p_original_path, const String &p_duplicate_path, bool p_edit);
@@ -248,7 +246,6 @@ class ProjectManager : public Control {
 	Label *ask_update_label = nullptr;
 	CheckBox *ask_update_backup = nullptr;
 	Button *full_convert_button = nullptr;
-	Button *migration_guide_button = nullptr;
 
 	String version_convert_feature;
 	bool open_in_recovery_mode = false;
@@ -258,7 +255,6 @@ class ProjectManager : public Control {
 	void _minor_project_migrate();
 #endif
 	void _full_convert_button_pressed();
-	void _migration_guide_button_pressed();
 	void _perform_full_project_conversion();
 
 	// Input and I/O.

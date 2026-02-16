@@ -270,7 +270,6 @@ void ProjectManager::_update_theme(bool p_skip_creation) {
 			erase_btn->set_button_icon(get_editor_theme_icon("Remove"));
 			erase_missing_btn->set_button_icon(get_editor_theme_icon("Clear"));
 			create_tag_btn->set_button_icon(get_editor_theme_icon("Add"));
-			donate_btn->set_button_icon(get_editor_theme_icon("Heart"));
 
 			tag_error->add_theme_color_override(SceneStringName(font_color), get_theme_color("error_color", EditorStringName(Editor)));
 			tag_edit_error->add_theme_color_override(SceneStringName(font_color), get_theme_color("error_color", EditorStringName(Editor)));
@@ -291,9 +290,6 @@ void ProjectManager::_update_theme(bool p_skip_creation) {
 			open_options_popup->set_item_icon(0, get_editor_theme_icon("Notification"));
 			open_options_popup->set_item_icon(1, get_editor_theme_icon("NodeWarning"));
 		}
-
-		// Dialogs
-		migration_guide_button->set_button_icon(get_editor_theme_icon("ExternalLink"));
 
 		// Asset library popup.
 		if (asset_library && EDITOR_GET("interface/theme/style") == "Classic") {
@@ -627,7 +623,6 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 	ask_update_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT); // Reset in case of previous center align.
 	ask_update_backup->set_pressed(false);
 	full_convert_button->hide();
-	migration_guide_button->hide();
 	ask_update_backup->hide();
 
 	ask_update_settings->get_ok_button()->set_text("OK");
@@ -649,7 +644,6 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 			ask_update_settings->get_ok_button()->set_text(TTRC("Convert project.tekisasu"));
 		}
 		ask_update_backup->show();
-		migration_guide_button->show();
 		ask_update_settings->popup_centered(popup_min_size);
 		ask_update_settings->get_cancel_button()->grab_focus(); // To prevent accidents.
 		return;
@@ -675,7 +669,6 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 				i--;
 			} else if (ProjectList::project_feature_looks_like_version(feature)) {
 				ask_update_backup->show();
-				migration_guide_button->show();
 				version_convert_feature = feature;
 				warning_message += vformat(TTR("Warning: This project was last edited in engine %s. Opening will change it to engine %s.\n\n"), Variant(feature), Variant(TEKISASU_VERSION_BRANCH));
 				unsupported_features.remove_at(i);
@@ -1172,11 +1165,6 @@ void ProjectManager::_full_convert_button_pressed() {
 	ask_full_convert_dialog->get_cancel_button()->grab_focus();
 }
 
-void ProjectManager::_migration_guide_button_pressed() {
-	const String url = vformat("%s/tutorials/migrating/index.html", TEKISASU_VERSION_DOCS_URL);
-	OS::get_singleton()->shell_open(url);
-}
-
 void ProjectManager::_perform_full_project_conversion() {
 	Vector<ProjectList::Item> selected_list = project_list->get_selected_projects();
 	if (selected_list.is_empty()) {
@@ -1308,10 +1296,6 @@ void ProjectManager::_titlebar_resized() {
 	if (title_bar) {
 		title_bar->set_custom_minimum_size(Size2(0, margin.z - title_bar->get_global_position().y));
 	}
-}
-
-void ProjectManager::_open_donate_page() {
-	OS::get_singleton()->shell_open("https://fund.godotengine.org/?ref=project_manager");
 }
 
 // Object methods.
@@ -1712,11 +1696,6 @@ ProjectManager::ProjectManager() {
 			erase_missing_btn->set_text(TTRC("Remove Missing"));
 			erase_missing_btn->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_erase_missing_projects));
 			sidebar_buttons_containter->add_child(erase_missing_btn);
-
-			donate_btn = memnew(Button);
-			donate_btn->set_text(TTRC("Donate"));
-			donate_btn->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_open_donate_page));
-			project_list_sidebar->add_child(donate_btn);
 		}
 	}
 
@@ -1829,8 +1808,6 @@ ProjectManager::ProjectManager() {
 		}
 		full_convert_button = ask_update_settings->add_button(TTRC("Convert Full Project"), ed_swap_cancel_ok != 2);
 		full_convert_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_full_convert_button_pressed));
-		migration_guide_button = ask_update_settings->add_button(TTRC("See Migration Guide"), ed_swap_cancel_ok != 2);
-		migration_guide_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_migration_guide_button_pressed));
 
 		ask_full_convert_dialog = memnew(ConfirmationDialog);
 		ask_full_convert_dialog->set_autowrap(true);
