@@ -113,9 +113,6 @@ void EditorAbout::_notification(int p_what) {
 			if (_build_core_label) {
 				_build_core_label->add_theme_font_override("font", bold_font);
 			}
-			if (_build_runtime_export_label) {
-				_build_runtime_export_label->add_theme_font_override("font", bold_font);
-			}
 #ifdef WINDOWS_ENABLED
 			if (_build_d3d12_label) {
 				_build_d3d12_label->add_theme_font_override("font", bold_font);
