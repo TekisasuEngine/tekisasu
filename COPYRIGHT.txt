@@ -42,7 +42,6 @@ Source: https://github.com/godotengine/godot
 Files: *
 Comment: Tekisasu Engine
 Copyright: 2021-present, Tekisasu
- 2024-present, Blazium and Blazium contributors
  2014-present, Godot Engine contributors
  2007-2014, Juan Linietsky, Ariel Manzur
 License: Expat
