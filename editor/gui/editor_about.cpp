@@ -377,7 +377,23 @@ EditorAbout::EditorAbout() {
 		core_value->set_text(TEKISASU_VERSION_UPSTREAM_NUMBER);
 		build_info_grid->add_child(core_value);
 
-		// Row 3: XOR Encode/Decode and AES256 Encryption
+		// Empty row for spacing before Runtime export features
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+
+		// Runtime export features label (centered across all columns)
+		_build_runtime_export_label = memnew(Label(TTRC("Runtime export features:")));
+		_build_runtime_export_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
+		_build_runtime_export_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
+		build_info_grid->add_child(_build_runtime_export_label);
+		// Fill remaining columns with empty labels to maintain grid structure
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+		build_info_grid->add_child(memnew(Label));
+
+		// XOR Encode/Decode and AES256 Encryption
 		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
 		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_xor_label);
