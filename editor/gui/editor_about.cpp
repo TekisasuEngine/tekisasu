@@ -396,7 +396,7 @@ EditorAbout::EditorAbout() {
 		build_info_grid->add_child(memnew(Label));
 		build_info_grid->add_child(memnew(Label));
 
-		// Row 3: XOR Encode/Decode and AES256 Encryption
+		// XOR Encode/Decode and AES256 Encryption
 		_build_xor_label = memnew(Label(TTRC("XOR Encode/Decode:")));
 		_build_xor_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 		build_info_grid->add_child(_build_xor_label);
