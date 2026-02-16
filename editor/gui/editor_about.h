@@ -75,6 +75,7 @@ private:
 	Label *_build_aes256_label = nullptr;
 	Label *_build_xor_label = nullptr;
 	Label *_build_core_label = nullptr;
+	Label *_build_runtime_export_label = nullptr;
 #ifdef WINDOWS_ENABLED
 	Label *_build_d3d12_label = nullptr;
 	Label *_build_agility_sdk_label = nullptr;
