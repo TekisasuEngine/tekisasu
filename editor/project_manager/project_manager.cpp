@@ -292,9 +292,6 @@ void ProjectManager::_update_theme(bool p_skip_creation) {
 			open_options_popup->set_item_icon(1, get_editor_theme_icon("NodeWarning"));
 		}
 
-		// Dialogs
-		migration_guide_button->set_button_icon(get_editor_theme_icon("ExternalLink"));
-
 		// Asset library popup.
 		if (asset_library && EDITOR_GET("interface/theme/style") == "Classic") {
 			// Removes extra border margins.
@@ -627,7 +624,6 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 	ask_update_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_LEFT); // Reset in case of previous center align.
 	ask_update_backup->set_pressed(false);
 	full_convert_button->hide();
-	migration_guide_button->hide();
 	ask_update_backup->hide();
 
 	ask_update_settings->get_ok_button()->set_text("OK");
@@ -649,7 +645,6 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 			ask_update_settings->get_ok_button()->set_text(TTRC("Convert project.tekisasu"));
 		}
 		ask_update_backup->show();
-		migration_guide_button->show();
 		ask_update_settings->popup_centered(popup_min_size);
 		ask_update_settings->get_cancel_button()->grab_focus(); // To prevent accidents.
 		return;
@@ -675,7 +670,6 @@ void ProjectManager::_open_selected_projects_check_warnings() {
 				i--;
 			} else if (ProjectList::project_feature_looks_like_version(feature)) {
 				ask_update_backup->show();
-				migration_guide_button->show();
 				version_convert_feature = feature;
 				warning_message += vformat(TTR("Warning: This project was last edited in engine %s. Opening will change it to engine %s.\n\n"), Variant(feature), Variant(TEKISASU_VERSION_BRANCH));
 				unsupported_features.remove_at(i);
@@ -1170,11 +1164,6 @@ void ProjectManager::_full_convert_button_pressed() {
 
 	ask_full_convert_dialog->popup_centered(Size2i(600.0 * EDSCALE, 0));
 	ask_full_convert_dialog->get_cancel_button()->grab_focus();
-}
-
-void ProjectManager::_migration_guide_button_pressed() {
-	const String url = vformat("%s/tutorials/migrating/index.html", TEKISASU_VERSION_DOCS_URL);
-	OS::get_singleton()->shell_open(url);
 }
 
 void ProjectManager::_perform_full_project_conversion() {
@@ -1829,8 +1818,6 @@ ProjectManager::ProjectManager() {
 		}
 		full_convert_button = ask_update_settings->add_button(TTRC("Convert Full Project"), ed_swap_cancel_ok != 2);
 		full_convert_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_full_convert_button_pressed));
-		migration_guide_button = ask_update_settings->add_button(TTRC("See Migration Guide"), ed_swap_cancel_ok != 2);
-		migration_guide_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_migration_guide_button_pressed));
 
 		ask_full_convert_dialog = memnew(ConfirmationDialog);
 		ask_full_convert_dialog->set_autowrap(true);
