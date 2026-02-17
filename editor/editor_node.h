@@ -366,8 +366,6 @@ private:
 	HBoxContainer *tekisasu_bar_left = nullptr;
 	HBoxContainer *tekisasu_bar_center = nullptr;
 	HBoxContainer *tekisasu_bar_right = nullptr;
-	Button *tekisasu_bar_toggle_button = nullptr;
-	bool tekisasu_bar_visible = true;
 
 	// Spacers to center 2D / 3D / Script buttons.
 	HBoxContainer *left_spacer = nullptr;
@@ -733,7 +731,7 @@ private:
 	void _on_bus_button_pressed(int p_bus_index);
 	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
 	void _on_audio_mixer_button_pressed();
-	void _on_tekisasu_bar_toggle_pressed();
+
 
 	void _resources_changed(const Vector<String> &p_resources);
 	void _scan_external_changes();

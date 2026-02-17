@@ -8119,25 +8119,6 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 	}
 }
 
-void EditorNode::_on_tekisasu_bar_toggle_pressed() {
-	tekisasu_bar_visible = !tekisasu_bar_visible;
-
-	// Toggle visibility of the TekisasuBar outer container.
-	if (tekisasu_bar_outer) {
-		tekisasu_bar_outer->set_visible(tekisasu_bar_visible);
-	}
-
-	// Update the toggle button icon modulation.
-	if (tekisasu_bar_toggle_button) {
-		if (tekisasu_bar_visible) {
-			// Normal color when visible.
-			tekisasu_bar_toggle_button->set_modulate(Color(1, 1, 1, 1));
-		} else {
-			// Desaturated color when hidden.
-			tekisasu_bar_toggle_button->set_modulate(Color(0.6, 0.6, 0.6, 1));
-		}
-	}
-}
 
 static void _execute_thread(void *p_ud) {
 	EditorNode::ExecuteThreadArgs *eta = (EditorNode::ExecuteThreadArgs *)p_ud;
@@ -8918,8 +8899,6 @@ EditorNode::EditorNode() {
 	tekisasu_bar_outer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tekisasu_bar_outer->set_theme_type_variation("TekisasuBarOuter");
 
-	main_vbox->add_child(tekisasu_bar_outer);
-
 	// Create the inner bar PanelContainer.
 	tekisasu_bar_panel = memnew(PanelContainer);
 	tekisasu_bar_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -9347,22 +9326,6 @@ EditorNode::EditorNode() {
 	main_editor_separator->add_theme_color_override(SNAME("font_color"), separator_color);
 	right_menu_hb->add_child(main_editor_separator);
 
-	// TekisasuBar toggle button.
-	tekisasu_bar_toggle_button = memnew(Button);
-	tekisasu_bar_toggle_button->set_flat(true);
-	tekisasu_bar_toggle_button->set_button_icon(theme->get_icon(SNAME("SphereShape3D"), EditorStringName(EditorIcons)));
-	tekisasu_bar_toggle_button->set_tooltip_text(TTRC("Toggle TekisasuBar"));
-	tekisasu_bar_toggle_button->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
-	tekisasu_bar_toggle_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_tekisasu_bar_toggle_pressed));
-	right_menu_hb->add_child(tekisasu_bar_toggle_button);
-
-	// Separator after toggle button.
-	Label *toggle_separator = memnew(Label);
-	toggle_separator->set_text("|");
-	toggle_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	toggle_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	right_menu_hb->add_child(toggle_separator);
-
 	renderer = memnew(OptionButton);
 	renderer->set_clip_text(true);
 	renderer->set_visible(true);
@@ -9618,6 +9581,9 @@ EditorNode::EditorNode() {
 	bottom_panel->set_theme_type_variation("BottomPanel");
 	center_split->add_child(bottom_panel);
 	center_split->set_dragger_visibility(SplitContainer::DRAGGER_HIDDEN);
+
+	// Add TekisasuBar at the very bottom of the window (after bottom_panel).
+	center_split->add_child(tekisasu_bar_outer);
 
 	log = memnew(EditorLog);
 	editor_dock_manager->add_dock(log);
