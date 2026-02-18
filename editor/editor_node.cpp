@@ -115,6 +115,7 @@
 #include "editor/gui/editor_quick_open_dialog.h"
 #include "editor/gui/editor_title_bar.h"
 #include "editor/gui/editor_toaster.h"
+#include "editor/gui/editor_version_button.h"
 #include "editor/gui/progress_dialog.h"
 #include "editor/gui/window_wrapper.h"
 #include "editor/import/3d/editor_import_collada.h"
@@ -9467,6 +9468,17 @@ EditorNode::EditorNode() {
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	tekisasu_bar_right->add_child(audio_bus_buttons_hb);
+
+	// Add separator between audio bus buttons and version button.
+	VSeparator *version_separator = memnew(VSeparator);
+	tekisasu_bar_right->add_child(version_separator);
+
+	// Add version button to the right section of TekisasuBar.
+	EditorVersionButton *version_btn = memnew(EditorVersionButton(EditorVersionButton::FORMAT_BASIC));
+	// Fade out the version label to be less prominent, but still readable.
+	version_btn->set_self_modulate(Color(1, 1, 1, 0.65));
+	version_btn->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
+	tekisasu_bar_right->add_child(version_btn);
 
 	progress_hb = memnew(BackgroundProgress);
 
