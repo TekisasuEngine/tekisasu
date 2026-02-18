@@ -9582,8 +9582,9 @@ EditorNode::EditorNode() {
 	center_split->add_child(bottom_panel);
 	center_split->set_dragger_visibility(SplitContainer::DRAGGER_HIDDEN);
 
-	// Add TekisasuBar at the very bottom of the window (after bottom_panel).
-	center_split->add_child(tekisasu_bar_outer);
+	// Add TekisasuBar at the very bottom of the window, spanning the entire width.
+	// Add it to main_vbox (after main_hsplit) so it spans from left docks to right docks.
+	main_vbox->add_child(tekisasu_bar_outer);
 
 	log = memnew(EditorLog);
 	editor_dock_manager->add_dock(log);
