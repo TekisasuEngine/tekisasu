@@ -366,12 +366,11 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 
 		// TekisasuBar type variations.
 		{
-			// TekisasuBarOuter - Outer container with background color and margins.
+			// TekisasuBarOuter - Outer container without background color (transparent).
 			Ref<StyleBoxFlat> tekisasu_bar_outer_style = memnew(StyleBoxFlat);
-			tekisasu_bar_outer_style->set_bg_color(p_config.surface_lowest_color);
+			tekisasu_bar_outer_style->set_bg_color(Color(0, 0, 0, 0)); // Transparent background
 			// No top margin to align TekisasuBar with content below when hidden.
 			tekisasu_bar_outer_style->set_content_margin_individual(2 * EDSCALE, 0, 2 * EDSCALE, 0);
-			tekisasu_bar_outer_style->set_bg_color(p_config.dark_color_1.lerp(p_config.base_color, 0.1));
 			tekisasu_bar_outer_style->set_corner_radius_all(p_config.corner_radius);
 			p_theme->set_stylebox(SceneStringName(panel), "TekisasuBarOuter", tekisasu_bar_outer_style);
 			p_theme->set_type_variation("TekisasuBarOuter", "PanelContainer");
