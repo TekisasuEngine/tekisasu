@@ -338,6 +338,7 @@ private:
 	HashMap<int, Button *> audio_bus_buttons;
 	Button *audio_bus_master_label = nullptr;
 	MenuButton *audio_bus_buses_label = nullptr;
+	Button *project_path_button = nullptr;
 	HBoxContainer *debug_target_hb = nullptr;
 	TextureRect *debug_target_icon = nullptr;
 	Label *debug_target_label = nullptr;
@@ -731,6 +732,7 @@ private:
 	void _on_bus_button_pressed(int p_bus_index);
 	void _on_bus_renamed(int p_bus_index, const StringName &p_old_name, const StringName &p_new_name);
 	void _on_audio_mixer_button_pressed();
+	void _on_project_path_button_pressed();
 
 
 	void _resources_changed(const Vector<String> &p_resources);
