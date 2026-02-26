@@ -338,6 +338,7 @@ private:
 	HashMap<int, Button *> audio_bus_buttons;
 	Button *audio_bus_master_label = nullptr;
 	MenuButton *audio_bus_buses_label = nullptr;
+	Button *project_path_btn = nullptr;
 	HBoxContainer *debug_target_hb = nullptr;
 	TextureRect *debug_target_icon = nullptr;
 	Label *debug_target_label = nullptr;
@@ -725,6 +726,7 @@ private:
 	void _update_debug_system_info();
 	void _update_debug_status_colors();
 	void _apply_debug_status(bool p_connected, const String &p_status_text);
+	void _project_path_btn_pressed();
 	void _rebuild_bus_buttons();
 	Ref<StyleBoxFlat> _create_bg_stylebox(const Color &p_color);
 	void _update_bus_button_colors();

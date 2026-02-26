@@ -1184,6 +1184,11 @@ static String _debug_status_tooltip(const String &p_status_text) {
 	return vformat(TTRC("Debug client status: %s"), p_status_text);
 }
 
+void EditorNode::_project_path_btn_pressed() {
+	String project_dir = ProjectSettings::get_singleton()->get_resource_path();
+	OS::get_singleton()->shell_show_in_file_manager(project_dir, true);
+}
+
 void EditorNode::_apply_debug_status(bool p_connected, const String &p_status_text) {
 	debug_target_last_connected_state = p_connected;
 	if (!debug_target_status) {
@@ -9391,6 +9396,32 @@ EditorNode::EditorNode() {
 		renderer->set_item_metadata(-1, current_renderer_os);
 	}
 	_update_renderer_color();
+
+	// Add project path button to the left section of TekisasuBar (before Debug Client).
+	{
+		String project_dir = ProjectSettings::get_singleton()->get_resource_path();
+		String display_path = project_dir;
+#ifdef WINDOWS_ENABLED
+		display_path = display_path.replace("/", "\\");
+		if (!display_path.ends_with("\\")) {
+			display_path += "\\";
+		}
+#else
+		if (!display_path.ends_with("/")) {
+			display_path += "/";
+		}
+#endif
+		project_path_btn = memnew(Button);
+		project_path_btn->set_text(display_path);
+		project_path_btn->set_flat(true);
+		project_path_btn->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
+		project_path_btn->set_tooltip_text(TTR("Click to open project folder in file manager."));
+		project_path_btn->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_project_path_btn_pressed));
+		tekisasu_bar_left->add_child(project_path_btn);
+
+		VSeparator *project_path_separator = memnew(VSeparator);
+		tekisasu_bar_left->add_child(project_path_separator);
+	}
 
 	// Add debug client section to the left section of TekisasuBar.
 	debug_target_hb = memnew(HBoxContainer);
