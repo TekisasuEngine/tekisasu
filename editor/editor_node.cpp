@@ -8121,6 +8121,11 @@ void EditorNode::_on_audio_mixer_button_pressed() {
 	}
 }
 
+void EditorNode::_on_project_path_button_pressed() {
+	String project_path = ProjectSettings::get_singleton()->get_resource_path();
+	OS::get_singleton()->shell_show_in_file_manager(project_path, true);
+}
+
 
 static void _execute_thread(void *p_ud) {
 	EditorNode::ExecuteThreadArgs *eta = (EditorNode::ExecuteThreadArgs *)p_ud;
@@ -9391,6 +9396,37 @@ EditorNode::EditorNode() {
 		renderer->set_item_metadata(-1, current_renderer_os);
 	}
 	_update_renderer_color();
+
+	// Add project path button to the left section of TekisasuBar (to the left of Debug Client).
+	{
+		// get_resource_path() returns a forward-slash path on all platforms.
+		String project_path = ProjectSettings::get_singleton()->get_resource_path();
+		// Normalize any stray backslashes and ensure a trailing forward slash.
+		project_path = project_path.replace("\\", "/");
+		if (!project_path.ends_with("/")) {
+			project_path += "/";
+		}
+#ifdef WINDOWS_ENABLED
+		// On Windows, display the path with backslashes.
+		project_path = project_path.replace("/", "\\");
+#endif
+		project_path_button = memnew(Button);
+		project_path_button->set_flat(true);
+		project_path_button->set_theme_type_variation("FlatMenuButton");
+		project_path_button->set_text(project_path);
+		project_path_button->set_tooltip_text(TTR("Open project folder in file manager"));
+		project_path_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_on_project_path_button_pressed));
+		tekisasu_bar_left->add_child(project_path_button);
+	}
+
+	// Add separator between project path button and the debug client section.
+	{
+		Label *project_path_separator = memnew(Label);
+		project_path_separator->set_text("|");
+		project_path_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+		project_path_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+		tekisasu_bar_left->add_child(project_path_separator);
+	}
 
 	// Add debug client section to the left section of TekisasuBar.
 	debug_target_hb = memnew(HBoxContainer);
