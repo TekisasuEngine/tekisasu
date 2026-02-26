@@ -9419,6 +9419,15 @@ EditorNode::EditorNode() {
 		tekisasu_bar_left->add_child(project_path_button);
 	}
 
+	// Add separator between project path button and the debug client section.
+	{
+		Label *project_path_separator = memnew(Label);
+		project_path_separator->set_text("|");
+		project_path_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+		project_path_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+		tekisasu_bar_left->add_child(project_path_separator);
+	}
+
 	// Add debug client section to the left section of TekisasuBar.
 	debug_target_hb = memnew(HBoxContainer);
 	debug_target_hb->set_mouse_filter(Control::MOUSE_FILTER_PASS);
