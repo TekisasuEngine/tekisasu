@@ -9276,7 +9276,7 @@ EditorNode::EditorNode() {
 		title_bar->move_child(quick_menu_button, 0);
 	}
 
-	// Spacer to center 2D / 3D / Script buttons.
+	// Left spacer: together with right_spacer it keeps the center group (2D/3D/Script/Game + runbar) horizontally centered.
 	left_spacer = memnew(HBoxContainer);
 	left_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	left_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -9301,7 +9301,27 @@ EditorNode::EditorNode() {
 	const Color separator_color = theme->get_color(SNAME("base_color"), EditorStringName(Editor)).lightened(separator_modulated);
 	_update_debug_status_colors();
 
-	// Spacer to center 2D / 3D / Script buttons.
+	// Centered container holding the 2D/3D/Script/Game buttons and runbar.
+	HBoxContainer *center_menu_hb = memnew(HBoxContainer);
+	center_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+	title_bar->add_child(center_menu_hb);
+
+	// Add 2D/3D/Script/Game buttons first, then the runbar.
+	center_menu_hb->add_child(main_editor_button_hb);
+
+	Label *runbar_separator = memnew(Label);
+	runbar_separator->set_text("|");
+	runbar_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	runbar_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	center_menu_hb->add_child(runbar_separator);
+
+	project_run_bar = memnew(EditorRunBar);
+	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
+	center_menu_hb->add_child(project_run_bar);
+	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
+	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	// Spacer to balance the left_spacer and keep the center group horizontally centered.
 	right_spacer = memnew(Control);
 	right_spacer->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	right_spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -9310,28 +9330,6 @@ EditorNode::EditorNode() {
 	right_menu_hb = memnew(HBoxContainer);
 	right_menu_hb->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	title_bar->add_child(right_menu_hb);
-
-	// Move runbar to the right first
-	project_run_bar = memnew(EditorRunBar);
-	project_run_bar->set_mouse_filter(Control::MOUSE_FILTER_STOP);
-	right_menu_hb->add_child(project_run_bar);
-	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
-	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
-
-	Label *runbar_right_separator = memnew(Label);
-	runbar_right_separator->set_text("|");
-	runbar_right_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	runbar_right_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	right_menu_hb->add_child(runbar_right_separator);
-
-	// Add 2D/3D/Script/Game buttons to the right menu
-	right_menu_hb->add_child(main_editor_button_hb);
-
-	Label *main_editor_separator = memnew(Label);
-	main_editor_separator->set_text("|");
-	main_editor_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
-	main_editor_separator->add_theme_color_override(SNAME("font_color"), separator_color);
-	right_menu_hb->add_child(main_editor_separator);
 
 	renderer = memnew(OptionButton);
 	renderer->set_clip_text(true);
