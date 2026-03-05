@@ -1795,6 +1795,7 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		p_theme->set_color("icon_hover_pressed_color", "RunBarButtonMovieMakerEnabled", Color(0, 0, 0, 0.84));
 
 		// Search Help button (pill-shaped dark grey button).
+		// A corner radius of 100 ensures fully-rounded pill shape regardless of button height.
 		const int search_help_pill_radius = 100;
 		const Color search_help_bg = p_config.dark_color_3;
 		const Color search_help_bg_hover = search_help_bg.lightened(0.15);
