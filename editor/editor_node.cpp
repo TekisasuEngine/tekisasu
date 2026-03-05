@@ -5544,6 +5544,10 @@ void EditorNode::_project_run_stopped() {
 	}
 }
 
+void EditorNode::_emit_search_help() {
+	emit_signal(SNAME("request_help_search"), "");
+}
+
 void EditorNode::notify_all_debug_sessions_exited() {
 	project_run_bar->stop_playing();
 }
@@ -9317,6 +9321,19 @@ EditorNode::EditorNode() {
 	center_menu_hb->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	Label *search_help_separator = memnew(Label);
+	search_help_separator->set_text("|");
+	search_help_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	search_help_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	center_menu_hb->add_child(search_help_separator);
+
+	search_help_button = memnew(Button);
+	search_help_button->set_text(TTRC("Search Help"));
+	search_help_button->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
+	search_help_button->set_theme_type_variation("SearchHelpButton");
+	search_help_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_emit_search_help));
+	center_menu_hb->add_child(search_help_button);
 
 	// Spacer to balance the left_spacer and keep the center group horizontally centered.
 	right_spacer = memnew(Control);
