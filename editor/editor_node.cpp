@@ -9341,6 +9341,18 @@ EditorNode::EditorNode() {
 
 	right_menu_hb->add_child(renderer);
 
+	Label *version_separator = memnew(Label);
+	version_separator->set_text("|");
+	version_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	version_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	right_menu_hb->add_child(version_separator);
+
+	EditorVersionButton *version_btn = memnew(EditorVersionButton(EditorVersionButton::FORMAT_BASIC));
+	// Fade out the version label to be less prominent, but still readable.
+	version_btn->set_self_modulate(Color(1, 1, 1, 0.65));
+	version_btn->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
+	right_menu_hb->add_child(version_btn);
+
 	if (can_expand) {
 		// Add spacer to avoid other controls under the window minimize/maximize/close buttons (right side).
 		right_menu_spacer = memnew(Control);
@@ -9501,17 +9513,6 @@ EditorNode::EditorNode() {
 	audio_bus_buttons_hb = memnew(HBoxContainer);
 	audio_bus_buttons_hb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	tekisasu_bar_right->add_child(audio_bus_buttons_hb);
-
-	// Add separator between audio bus buttons and version button.
-	VSeparator *version_separator = memnew(VSeparator);
-	tekisasu_bar_right->add_child(version_separator);
-
-	// Add version button to the right section of TekisasuBar.
-	EditorVersionButton *version_btn = memnew(EditorVersionButton(EditorVersionButton::FORMAT_BASIC));
-	// Fade out the version label to be less prominent, but still readable.
-	version_btn->set_self_modulate(Color(1, 1, 1, 0.65));
-	version_btn->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
-	tekisasu_bar_right->add_child(version_btn);
 
 	progress_hb = memnew(BackgroundProgress);
 
