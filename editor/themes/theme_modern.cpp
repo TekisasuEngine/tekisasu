@@ -800,7 +800,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 	// TabBar & TabContainer.
 	{
 		Ref<StyleBoxFlat> style_tab_selected = p_config.base_style->duplicate();
-		style_tab_selected->set_content_margin_individual(p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 3.1 * EDSCALE, p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 3.1 * EDSCALE);
+		style_tab_selected->set_content_margin_individual(p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 4.1 * EDSCALE, p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 4.1 * EDSCALE);
 		style_tab_selected->set_corner_radius_individual(p_config.corner_radius * EDSCALE, p_config.corner_radius * EDSCALE, 0, 0);
 
 		Ref<StyleBoxFlat> style_tab_focus = style_tab_selected->duplicate();
@@ -1807,7 +1807,7 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		style_bottom_panel_tabbar->set_content_margin(SIDE_TOP, 0);
 
 		Ref<StyleBoxEmpty> style_bottom_tab = p_config.base_empty_style->duplicate();
-		style_bottom_tab->set_content_margin_individual(p_config.base_margin * 2 * EDSCALE, p_config.base_margin * 2.2 * EDSCALE, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * 2.2 * EDSCALE);
+		style_bottom_tab->set_content_margin_individual(p_config.base_margin * 2 * EDSCALE, p_config.base_margin * 3.2 * EDSCALE, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * 3.2 * EDSCALE);
 
 		Ref<StyleBoxFlat> bottom_panel_button_pressed = p_config.flat_button_pressed->duplicate();
 		bottom_panel_button_pressed->set_content_margin_individual(p_config.base_margin * 2 * EDSCALE, p_config.base_margin * 1.2 * EDSCALE, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * 1.2 * EDSCALE);
@@ -2141,7 +2141,7 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 			p_theme->set_type_variation("PanelContainerTabbarInner", "PanelContainer");
 
 			Ref<StyleBoxFlat> style_tab_selected_inner = p_theme->get_stylebox(SNAME("tab_selected"), SNAME("TabContainer"))->duplicate();
-			style_tab_selected_inner->set_content_margin_individual(p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 2.5 * EDSCALE, p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 2.5 * EDSCALE);
+			style_tab_selected_inner->set_content_margin_individual(p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 3.5 * EDSCALE, p_config.base_margin * 4 * EDSCALE, p_config.base_margin * 3.5 * EDSCALE);
 			style_tab_selected_inner->set_corner_radius_all(p_config.corner_radius * EDSCALE);
 			p_theme->set_stylebox("tab_selected", "TabContainerInner", style_tab_selected_inner);
 			p_theme->set_stylebox("tab_selected", "TabBarInner", style_tab_selected_inner);
