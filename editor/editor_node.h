@@ -334,6 +334,7 @@ private:
 	MenuButton *quick_menu_button = nullptr;
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
+	Button *search_help_button = nullptr;
 	HBoxContainer *audio_bus_buttons_hb = nullptr;
 	HashMap<int, Button *> audio_bus_buttons;
 	Button *audio_bus_master_label = nullptr;
@@ -648,6 +649,7 @@ private:
 
 	void _project_run_started();
 	void _project_run_stopped();
+	void _emit_search_help();
 
 	void _update_prev_closed_scenes(const String &p_scene_path, bool p_add_scene);
 

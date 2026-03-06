@@ -5544,6 +5544,10 @@ void EditorNode::_project_run_stopped() {
 	}
 }
 
+void EditorNode::_emit_search_help() {
+	emit_signal(SNAME("request_help_search"), "");
+}
+
 void EditorNode::notify_all_debug_sessions_exited() {
 	project_run_bar->stop_playing();
 }
@@ -9338,6 +9342,20 @@ EditorNode::EditorNode() {
 	renderer->set_tooltip_auto_translate_mode(AUTO_TRANSLATE_MODE_ALWAYS);
 	renderer->set_tooltip_text(TTRC("Choose a renderer.\n\nNotes:\n- On mobile platforms, the Mobile renderer is used if Forward+ is selected here.\n- On the web platform, the Compatibility renderer is always used."));
 	renderer->set_accessibility_name(TTRC("Renderer"));
+
+	search_help_button = memnew(Button);
+	search_help_button->set_text(TTRC("Search Help"));
+	search_help_button->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
+	search_help_button->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
+	search_help_button->set_theme_type_variation("SearchHelpButton");
+	search_help_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_emit_search_help));
+	right_menu_hb->add_child(search_help_button);
+
+	Label *search_help_separator = memnew(Label);
+	search_help_separator->set_text("|");
+	search_help_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	search_help_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	right_menu_hb->add_child(search_help_separator);
 
 	right_menu_hb->add_child(renderer);
 

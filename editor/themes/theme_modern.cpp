@@ -1794,6 +1794,32 @@ void ThemeModern::populate_editor_styles(const Ref<EditorTheme> &p_theme, Editor
 		p_theme->set_color("icon_hover_color", "RunBarButtonMovieMakerEnabled", Color(0, 0, 0, 0.9));
 		p_theme->set_color("icon_hover_pressed_color", "RunBarButtonMovieMakerEnabled", Color(0, 0, 0, 0.84));
 
+		// Search Help button (pill-shaped dark grey button).
+		// A corner radius of 100 ensures fully-rounded pill shape regardless of button height.
+		const int search_help_pill_radius = 100;
+		const Color search_help_bg = p_config.dark_color_3;
+		const Color search_help_bg_hover = search_help_bg.lightened(0.15);
+		const Color search_help_bg_pressed = search_help_bg.darkened(0.1);
+		// Use a fixed 8px left/right padding for the text, and base_margin for top/bottom.
+		const float search_help_h_margin = 8 * EDSCALE;
+
+		Ref<StyleBoxFlat> search_help_normal = EditorThemeManager::make_flat_stylebox(search_help_bg, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_pill_radius);
+		Ref<StyleBoxFlat> search_help_hover = EditorThemeManager::make_flat_stylebox(search_help_bg_hover, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_pill_radius);
+		Ref<StyleBoxFlat> search_help_pressed = EditorThemeManager::make_flat_stylebox(search_help_bg_pressed, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_pill_radius);
+
+		p_theme->set_type_variation("SearchHelpButton", "Button");
+		p_theme->set_stylebox(CoreStringName(normal), "SearchHelpButton", search_help_normal);
+		p_theme->set_stylebox(SceneStringName(hover), "SearchHelpButton", search_help_hover);
+		p_theme->set_stylebox(SceneStringName(pressed), "SearchHelpButton", search_help_pressed);
+		p_theme->set_stylebox("hover_pressed", "SearchHelpButton", search_help_pressed);
+		p_theme->set_stylebox("disabled", "SearchHelpButton", search_help_normal);
+		p_theme->set_stylebox("focus", "SearchHelpButton", p_config.focus_style);
+		p_theme->set_color("font_color", "SearchHelpButton", p_config.font_dark_background_color);
+		p_theme->set_color("font_hover_color", "SearchHelpButton", p_config.font_dark_background_hover_color);
+		p_theme->set_color("font_pressed_color", "SearchHelpButton", p_config.font_dark_background_pressed_color);
+		p_theme->set_color("font_hover_pressed_color", "SearchHelpButton", p_config.font_dark_background_hover_pressed_color);
+		p_theme->set_color("font_focus_color", "SearchHelpButton", p_config.font_dark_background_hover_color);
+
 		// Bottom panel.
 		Ref<StyleBoxFlat> style_bottom_panel = p_config.content_panel_style->duplicate();
 		style_bottom_panel->set_border_width(SIDE_BOTTOM, 0);
