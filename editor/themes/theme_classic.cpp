@@ -1727,10 +1727,12 @@ void ThemeClassic::populate_editor_styles(const Ref<EditorTheme> &p_theme, Edito
 		const Color search_help_bg = p_config.dark_color_3;
 		const Color search_help_bg_hover = search_help_bg.lightened(0.15);
 		const Color search_help_bg_pressed = search_help_bg.darkened(0.1);
+		// Use a fixed 8px left/right padding for the text, and base_margin for top/bottom.
+		const float search_help_h_margin = 8 * EDSCALE;
 
-		Ref<StyleBoxFlat> search_help_normal = EditorThemeManager::make_flat_stylebox(search_help_bg, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * EDSCALE, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * EDSCALE, search_help_pill_radius);
-		Ref<StyleBoxFlat> search_help_hover = EditorThemeManager::make_flat_stylebox(search_help_bg_hover, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * EDSCALE, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * EDSCALE, search_help_pill_radius);
-		Ref<StyleBoxFlat> search_help_pressed = EditorThemeManager::make_flat_stylebox(search_help_bg_pressed, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * EDSCALE, p_config.base_margin * 2 * EDSCALE, p_config.base_margin * EDSCALE, search_help_pill_radius);
+		Ref<StyleBoxFlat> search_help_normal = EditorThemeManager::make_flat_stylebox(search_help_bg, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_pill_radius);
+		Ref<StyleBoxFlat> search_help_hover = EditorThemeManager::make_flat_stylebox(search_help_bg_hover, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_pill_radius);
+		Ref<StyleBoxFlat> search_help_pressed = EditorThemeManager::make_flat_stylebox(search_help_bg_pressed, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_h_margin, p_config.base_margin * EDSCALE, search_help_pill_radius);
 
 		p_theme->set_type_variation("SearchHelpButton", "Button");
 		p_theme->set_stylebox(CoreStringName(normal), "SearchHelpButton", search_help_normal);
