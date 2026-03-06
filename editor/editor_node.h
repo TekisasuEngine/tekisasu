@@ -334,6 +334,8 @@ private:
 	MenuButton *quick_menu_button = nullptr;
 	EditorTitleBar *title_bar = nullptr;
 	EditorRunBar *project_run_bar = nullptr;
+	PanelContainer *search_help_panel = nullptr;
+	Button *search_help_button = nullptr;
 	HBoxContainer *audio_bus_buttons_hb = nullptr;
 	HashMap<int, Button *> audio_bus_buttons;
 	Button *audio_bus_master_label = nullptr;

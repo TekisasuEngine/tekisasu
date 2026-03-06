@@ -703,6 +703,11 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_COPY_SYSTEM_INFO), get_editor_theme_native_menu_icon(SNAME("ActionCopy"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
 		help_menu->set_item_icon(help_menu->get_item_index(HELP_ABOUT), get_editor_theme_native_menu_icon(SNAME("Tekisasu"), menu_type == MENU_TYPE_GLOBAL, dark_mode));
 
+		if (search_help_button != nullptr) {
+			search_help_panel->add_theme_style_override(SceneStringName(panel), theme->get_stylebox(SNAME("LaunchPadNormal"), EditorStringName(EditorStyles)));
+			search_help_button->set_button_icon(theme->get_icon(SNAME("HelpSearch"), EditorStringName(EditorIcons)));
+		}
+
 		_update_renderer_color();
 	}
 
@@ -9317,6 +9322,23 @@ EditorNode::EditorNode() {
 	center_menu_hb->add_child(project_run_bar);
 	project_run_bar->connect("play_pressed", callable_mp(this, &EditorNode::_project_run_started));
 	project_run_bar->connect("stop_pressed", callable_mp(this, &EditorNode::_project_run_stopped));
+
+	Label *search_help_separator = memnew(Label);
+	search_help_separator->set_text("|");
+	search_help_separator->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
+	search_help_separator->add_theme_color_override(SNAME("font_color"), separator_color);
+	center_menu_hb->add_child(search_help_separator);
+
+	search_help_panel = memnew(PanelContainer);
+	center_menu_hb->add_child(search_help_panel);
+
+	search_help_button = memnew(Button);
+	search_help_panel->add_child(search_help_button);
+	search_help_button->set_theme_type_variation("RunBarButton");
+	search_help_button->set_focus_mode(Control::FOCUS_ACCESSIBILITY);
+	search_help_button->set_text(TTRC("Search Help"));
+	search_help_button->set_shortcut(ED_GET_SHORTCUT("editor/editor_help"));
+	search_help_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNode::_menu_option).bind(HELP_SEARCH));
 
 	// Spacer to balance the left_spacer and keep the center group horizontally centered.
 	right_spacer = memnew(Control);
